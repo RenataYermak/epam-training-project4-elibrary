@@ -11,3 +11,7 @@
 /build/
 /out/
 .gradle
+gradlew.bat
+gradlew
+build.gradle
+gradle/wrapper
