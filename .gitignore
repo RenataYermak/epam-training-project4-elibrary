@@ -1,0 +1,13 @@
+# Project exclude paths
+.project
+.classpath
+.settings
+/.idea
+/build/*
+*.iml
+/classes
+/bin/
+*.log
+/build/
+/out/
+.gradle

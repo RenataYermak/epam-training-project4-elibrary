@@ -1,0 +1,108 @@
+h2 {
+    margin-top: 0; /* Убираем отступ сверху */
+}
+
+.actionButton {
+    width: 114px;
+    margin: 0 5px 0 0;
+    float: left;
+}
+
+.orderButton {
+    margin-top: 5px;
+}
+
+.content-main {
+    width: 100%;
+    height: 50px;
+}
+
+.content-table-main {
+    margin-left: 25px;
+}
+
+.content-table {
+    text-align: right;
+}
+
+.content-msg {
+    float: right;
+}
+
+.cnt-msg-success {
+    color: #60a860;
+}
+
+.cnt-msg-error {
+    color: #ea6153;
+}
+
+.reserveButton {
+    width: max-content;
+}
+
+.rejectButton {
+    width: max-content;
+    color: white;
+    background-color: #ea6153;
+}
+
+.content-submit-btn-main {
+    width: 307px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+.content-submit-btn-deactivate {
+    width: 307px;
+    height: 25px;
+    margin-top: -18px;
+}
+
+.content-submit-btn {
+    float: right;
+    margin-left: 5px;
+}
+
+.content-sub-btn-s-style {
+    width: 107px;
+    background-color: #60a860;
+    color: white;
+}
+
+.content-sub-btn-d-style {
+    width: 170px;
+    background-color: #ea6153b3;
+    color: white;
+}
+
+.content-title {
+    height: max-content;
+    width: 30%;
+    display: inline-block;
+    float: left;
+    padding-top: 13px;
+    padding-left: 10px;
+    color: #575757;
+}
+
+.content-body p {
+    margin-left: 13px;
+}
+
+.content-search {
+    height: max-content;
+    width: max-content;
+    display: inline-block;
+    float: right;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+p.info-style {
+    margin-left: 15px;
+}
+
+span.info-style-srh {
+    color: #60a860;
+}

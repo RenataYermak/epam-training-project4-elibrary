@@ -1,0 +1,63 @@
+body {
+    height: 100%;
+    font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
+    margin: 0; /* Отступы на странице */
+}
+
+#header { /* Верхний блок */
+    background: #0080c0; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    height: 50px;
+}
+
+#sidebar { /* Левая колонка */
+    float: left; /* Обтекание справа */
+    border: 1px solid rgba(51, 51, 51, 0.4); /* Параметры рамки вокруг */
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.09);
+    width: 20%; /* Ширина колонки */
+    padding: 5px; /* Поля вокруг текста */
+    margin: 10px 10px 20px 100px; /* Значения отступов */
+}
+
+#content { /* Правая колонка */
+    margin: 10px 100px 20px 28%; /* Значения отступов */
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px solid rgba(51, 51, 51, 0.4); /* Параметры рамки вокруг */
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.09);
+}
+
+#footer { /* Нижний блок */
+    background: #333; /* Цвет фона */
+    padding: 5px; /* Поля вокруг текста */
+    color: #fff; /* Цвет текста */
+    clear: left; /* Отменяем действие float */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: max-content;
+    height: 10px
+}
+
+hr {
+    border: none; /* Убираем границу */
+    background-color: rgba(51, 51, 51, 0.4); /* Цвет линии */
+
+    height: 1px; /* Толщина линии */
+}
+
+a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+    color: black;
+
+}
+a:hover {
+    border-bottom: 1px solid black;
+}
+
+
+
+
+
+

@@ -1,0 +1,11 @@
+li {
+    list-style-type: none;
+    font-size: medium;
+    margin-bottom: 10px;
+    padding-left: 24px; /* Смещаем текст вправо */
+
+}
+ul {
+    margin-left: 0;
+    padding-left: 0;
+}

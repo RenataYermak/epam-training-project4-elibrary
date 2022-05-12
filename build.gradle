@@ -1,0 +1,47 @@
+plugins {
+    id 'war'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenCentral()
+}
+
+dependencies {
+    /**
+     *     JUnit
+     */
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2' //TODO check testRuntimeOnly and testImplementation
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.2.0'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+
+    /**
+     * MySQl connectorJ
+     */
+    /*compileOnly 'mysql:mysql-connector-java:8.0.25'*/
+    implementation 'mysql:mysql-connector-java:8.0.25'
+
+
+    /**
+     * Servlet API
+     */
+    //TODO check compileOnly  implementation
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
+
+    /**
+     * Log4j
+     */
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+}
+
+test {
+    useJUnitPlatform()
+}
