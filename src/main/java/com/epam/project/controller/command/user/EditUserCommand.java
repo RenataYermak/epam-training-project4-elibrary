@@ -33,6 +33,7 @@ public class EditUserCommand implements Command {
                 String pass = request.getParameter(RequestParam.USER_PASSWORD);
                 String firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
                 String secondName = request.getParameter(RequestParam.USER_SECONDNAME);
+                String email = request.getParameter(RequestParam.USER_EMAIL);
                 String role = request.getParameter(RequestParam.USER_ROLE);
                 User user = userService.findUser(id);
                 if (user != null) {
@@ -45,6 +46,7 @@ public class EditUserCommand implements Command {
                     user.setPassword(pass);
                     user.setFirstName(firstName);
                     user.setSecondName(secondName);
+                    user.setEmail(email);
                     userService.update(user);
                     if (getAuthUser(session).getId().equals(user.getId())) {
                         session.removeAttribute(SessionAttribute.AUTHORIZED_USER);

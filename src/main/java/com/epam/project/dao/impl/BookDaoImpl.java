@@ -22,10 +22,10 @@ public class BookDaoImpl implements BookDao {
         public static final String SELECT_ALL_BOOKS = "select * from book";
         public static final String SELECT_BOOK_BY_ID = "select * from book where book_id=?";
         public static final String INSERT_BOOK =
-                "insert into book (title, author, category, `date`, description, overall_rating, number) " +
+                "insert into book (title, author, category, `date`, description, number) " +
                         "values(?, ?, ?, ?, ?, ?, ?);";
         public static final String UPDATE_BOOK =
-                "update book set title=?, author=?, category=?, `date`=?, description=?, overall_rating=?, number=? " +
+                "update book set title=?, author=?, category=?, `date`=?, description=?,  number=? " +
                         "where book_id=?";
         public static final String DELETE_BOOK = "delete from book where book_id=?";
         public static final String BOOK_SEARCH =
@@ -134,7 +134,7 @@ public class BookDaoImpl implements BookDao {
         PreparedStatement ps = getPrepareStatement(Query.UPDATE_BOOK);
         try {
             constructPrepareStatement(ps, entity);
-            ps.setLong(8, entity.getId());
+            ps.setLong(7, entity.getId());
             ps.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
@@ -166,20 +166,16 @@ public class BookDaoImpl implements BookDao {
         book.setAuthor(resultSet.getString(ColumnName.AUTHOR));
         book.setPublishYear(resultSet.getInt(ColumnName.PUBLISH_YEAR));
         book.setDescription(resultSet.getString(ColumnName.DESCRIPTION));
-        book.setOverallRating(returnResultSetDoubleValue(resultSet, ColumnName.OVERALL_RATING));
         book.setNumber(returnResultSetIntValue(resultSet, ColumnName.NUMBER));
-        book.setCategory(Category.valueOf(
-                resultSet.getString(ColumnName.CATEGORY)
-                        .toUpperCase()));
+        book.setCategory(Category.valueOf(resultSet.getString(ColumnName.CATEGORY).toUpperCase()));
     }
 
-    private void constructPrepareStatement(PreparedStatement ps, Book book) throws SQLException {
-        ps.setString(1, book.getTitle());
-        ps.setString(2, book.getAuthor());
-        ps.setString(3, book.getCategory().toString());
-        ps.setInt(4, book.getPublishYear());
-        ps.setString(5, book.getDescription());
-        setDoubleOrNull(ps, 6, book.getOverallRating());
-        setIntOrNull(ps, 7, book.getNumber());
+    private void constructPrepareStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
+        preparedStatement.setString(1, book.getTitle());
+        preparedStatement.setString(2, book.getAuthor());
+        preparedStatement.setString(3, book.getCategory().toString());
+        preparedStatement.setInt(4, book.getPublishYear());
+        preparedStatement.setString(5, book.getDescription());
+        setIntOrNull(preparedStatement, 6, book.getNumber());
     }
 }

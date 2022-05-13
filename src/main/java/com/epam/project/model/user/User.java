@@ -9,6 +9,7 @@ public class User {
     private String password;
     public String firstName;
     public String secondName;
+    public String email;
     private Role role;
     private Status status;
     private Timestamp activationDate;
@@ -40,6 +41,14 @@ public class User {
 
     public void setSecondName(String secondName) {
         this.secondName = secondName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setLogin(String login) {
@@ -91,17 +100,15 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id.equals(user.id) && login.equals(user.login) &&
-                firstName.equals(user.firstName) && secondName.equals(user.secondName) &&
-                password.equals(user.password) && role == user.role &&
-                status == user.status && activationDate.equals(user.activationDate) &&
-                Objects.equals(deactivationDate, user.deactivationDate);
+        return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password) &&
+                Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) &&
+                Objects.equals(email, user.email) && role == user.role && status == user.status &&
+                Objects.equals(activationDate, user.activationDate) && Objects.equals(deactivationDate, user.deactivationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, firstName, secondName, password,
-                role, status, activationDate, deactivationDate);
+        return Objects.hash(id, login, password, firstName, secondName, email, role, status, activationDate, deactivationDate);
     }
 
     @Override
@@ -112,6 +119,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", secondName='" + secondName + '\'' +
+                ", email='" + email + '\'' +
                 ", role=" + role +
                 ", status=" + status +
                 ", activationDate=" + activationDate +

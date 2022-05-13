@@ -30,23 +30,25 @@ public class AddBookCommand implements Command {
     @Override
     public ResponseContext execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAdmin(session)) {
+        if (isAdmin(session) && isAuthorized(session)) {
             try {
                 String title = request.getParameter(RequestParam.BOOK_TITLE);
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);
                 String category = request.getParameter(RequestParam.BOOK_CATEGORY);
-                String publishYear = request.getParameter(RequestParam.BOOK_PUBLISH_YEAR);
                 String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
-                String overallRating = request.getParameter(RequestParam.BOOK_OVERALL_RATING);
-                String number = request.getParameter(RequestParam.BOOK_NUMBER);
+//                int publishYear = Integer.parseInt(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
+//                int number = Integer.parseInt(request.getParameter(RequestParam.BOOK_NUMBER));
+                String publishYear = request.getParameter(RequestParam.BOOK_PUBLISH_YEAR);
+                String number = (request.getParameter(RequestParam.BOOK_NUMBER));
                 Book book = new Book();
                 book.setTitle(title);
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
-                book.setPublishYear(Integer.valueOf(publishYear));
+//                book.setPublishYear(publishYear);
+//                book.setNumber(number);
+                book.setPublishYear(Integer.parseInt(publishYear));
+                book.setNumber(Integer.parseInt(number));
                 book.setDescription(description);
-                book.setOverallRating(Double.valueOf(overallRating));
-                book.setNumber(Integer.valueOf(number));
                 book = bookService.create(book);
                 if (book.getId() != null) {
                     LOGGER.log(Level.INFO, "book was created successfully");

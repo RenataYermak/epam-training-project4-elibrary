@@ -6,6 +6,7 @@ import com.epam.project.service.exception.ServiceException;
 import java.util.List;
 
 public interface UserService {
+    boolean isEmailExist(String email) throws ServiceException;
     User findUser(Long id) throws ServiceException;
     User findUser(String login, String pass) throws ServiceException;
     List<User> findAll() throws ServiceException;

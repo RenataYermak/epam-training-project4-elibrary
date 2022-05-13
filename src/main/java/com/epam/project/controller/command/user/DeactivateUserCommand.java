@@ -1,6 +1,7 @@
 package com.epam.project.controller.command.user;
 
 import com.epam.project.controller.PagePath;
+import com.epam.project.controller.RequestAttribute;
 import com.epam.project.controller.RequestParam;
 import com.epam.project.controller.ResponseContext;
 import com.epam.project.controller.command.Command;
@@ -30,7 +31,6 @@ public class DeactivateUserCommand implements Command {
             try {
                 Long id = Long.parseLong(request.getParameter(RequestParam.USER_ID));
                 userService.deactivate(id);
-
                 //TODO
                 //session.invalidate();
             } catch (ServiceException e) {

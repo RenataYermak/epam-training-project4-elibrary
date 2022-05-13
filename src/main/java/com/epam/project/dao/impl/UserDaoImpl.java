@@ -28,9 +28,9 @@ public class UserDaoImpl implements UserDao {
         public static final String SELECT_ALL_DEACTIVATED_USERS =
                 "select * from user where `status`='DEACTIVATED'";
         public static final String INSERT_USER =
-                "insert into user(login, `password`, firstname, secondname, role) values(?, ?, ?, ?, ?);";
+                "insert into user(login, `password`, firstname, secondname, email, role) values(?, ?, ?, ?, ?, ?);";
         public static final String UPDATE_USER =
-                "update user set login=?, password=?, firstname=?, secondname=?, role=? where user_id=?";
+                "update user set login=?, password=?, firstname=?, secondname=?, email=?, role=? where user_id=?";
         public static final String DEACTIVATE_USER =
                 "update user set `status`='DEACTIVATED', deactivation_date=? where user_id=?";
         public static final String DELETE_USER = "delete from user where user_id=?";
@@ -38,6 +38,8 @@ public class UserDaoImpl implements UserDao {
                 "select * from user where login like CONCAT('%',?,'%') or firstname like CONCAT('%',?,'%') " +
                         "or secondname like CONCAT('%',?,'%')";
         public static final String UPDATE_PASSWORD = "update user set password=? where user_id=?";
+        private static final String SQL_IS_EMAIL_EXIST =
+                "SELECT id FROM user WHERE email = ? LIMIT 1";
     }
 
     private static class ColumnName {
@@ -46,17 +48,30 @@ public class UserDaoImpl implements UserDao {
         public static final String PASSWORD = "password";
         public static final String FIRSTNAME = "firstname";
         public static final String SECONDNAME = "secondname";
+        public static final String EMAIL = "email";
         public static final String ROLE = "role";
         public static final String STATUS = "status";
         public static final String ACTIVATION_DATE = "activation_date";
         public static final String DEACTIVATION_DATE = "deactivation_date";
+    }
+    @Override
+    public boolean isEmailExist(String email) throws DaoException {
+        try (PreparedStatement statement = getPrepareStatement(Query.SQL_IS_EMAIL_EXIST)) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next();
+            }
+        } catch (SQLException e) {
+            LOGGER.error("failed to check if user with {} email exists", email, e);
+            throw new DaoException("failed to check if user with " + email + " exists", e);
+        }
     }
 
     @Override
     public User find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
         User user = null;
-        PreparedStatement preparedStatement= getPrepareStatement(Query.SELECT_USER_BY_ID);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_ID);
         try {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -77,7 +92,7 @@ public class UserDaoImpl implements UserDao {
     public User find(String login, String pass) throws DaoException {
         LOGGER.log(Level.INFO, "method find by login and pass");
         User user = null;
-        PreparedStatement preparedStatement= getPrepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS);
         try {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, pass);
@@ -99,7 +114,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findUsersByQuery(String searchQuery) throws DaoException {
         LOGGER.log(Level.INFO, "method findUsersByQuery");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement= getPrepareStatement(Query.USER_SEARCH);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.USER_SEARCH);
         try {
             preparedStatement.setString(1, searchQuery);
             preparedStatement.setString(2, searchQuery);
@@ -123,7 +138,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() throws DaoException {
         LOGGER.log(Level.INFO, "method findAll");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement= getPrepareStatement(Query.SELECT_ALL_USERS);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_USERS);
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -144,7 +159,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findActivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findActivatedUsers");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement= getPrepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -165,7 +180,7 @@ public class UserDaoImpl implements UserDao {
     public List<User> findDeactivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findDeactivatedUsers");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement= getPrepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
         try {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -185,7 +200,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        PreparedStatement preparedStatement= getPrepareStatement(Query.INSERT_USER);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.INSERT_USER);
         try {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.executeUpdate();
@@ -208,10 +223,10 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User update(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method update");
-        PreparedStatement preparedStatement= getPrepareStatement(Query.UPDATE_USER);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_USER);
         try {
             constructPreparedStatement(preparedStatement, user);
-            preparedStatement.setLong(6, user.getId());
+            preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
@@ -225,7 +240,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deactivate(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method deactivate");
-        PreparedStatement preparedStatement= getPrepareStatement(Query.DEACTIVATE_USER);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.DEACTIVATE_USER);
         try {
             preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             preparedStatement.setLong(2, id);
@@ -241,7 +256,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        PreparedStatement preparedStatement= getPrepareStatement(Query.DELETE_USER);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.DELETE_USER);
         try {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -256,7 +271,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void updatePassword(Long id, String pass) throws DaoException {
         LOGGER.log(Level.INFO, "method updatePassword");
-        PreparedStatement preparedStatement= getPrepareStatement(Query.UPDATE_PASSWORD);
+        PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_PASSWORD);
         try {
             preparedStatement.setString(1, pass);
             preparedStatement.setLong(2, id);
@@ -275,6 +290,7 @@ public class UserDaoImpl implements UserDao {
         user.setPassword(resultSet.getString(ColumnName.PASSWORD));
         user.setFirstName(resultSet.getString(ColumnName.FIRSTNAME));
         user.setSecondName(resultSet.getString(ColumnName.SECONDNAME));
+        user.setEmail(resultSet.getString(ColumnName.EMAIL));
         user.setActivationDate(resultSet.getTimestamp(ColumnName.ACTIVATION_DATE));
         user.setDeactivationDate(resultSet.getTimestamp(ColumnName.DEACTIVATION_DATE));
         user.setRole(Role.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase()));
@@ -286,7 +302,8 @@ public class UserDaoImpl implements UserDao {
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getFirstName());
         preparedStatement.setString(4, user.getSecondName());
-        preparedStatement.setString(5, user.getRole().toString());
+        preparedStatement.setString(5, user.getEmail());
+        preparedStatement.setString(6, user.getRole().toString());
     }
 }
 

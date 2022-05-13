@@ -46,6 +46,7 @@
                 <th class="cell"><fmt:message key="users.table.label.login"/></th>
                 <th class="cell"><fmt:message key="users.table.label.first_name"/></th>
                 <th class="cell"><fmt:message key="users.table.label.second_name"/></th>
+                <th class="cell"><fmt:message key="users.table.label.email"/></th>
                 <th class="cell"><fmt:message key="users.table.label.role"/></th>
                 <th class="cell"><fmt:message key="users.table.label.status"/></th>
                 <th class="cell"><fmt:message key="users.table.label.activation_date"/></th>
@@ -57,6 +58,7 @@
                     <td class="cell">${user.login}</td>
                     <td class="cell">${user.firstName}</td>
                     <td class="cell">${user.secondName}</td>
+                    <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
                     <td class="cell">${user.status.name}</td>
                     <td class="cell">${user.activationDate}</td>

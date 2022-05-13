@@ -6,6 +6,7 @@ import com.epam.project.model.user.User;
 import java.util.List;
 
 public interface UserDao extends EntityDao<User, Long> {
+    boolean isEmailExist(String email) throws DaoException;
     User find(String login, String pass) throws DaoException;
     List<User> findUsersByQuery(String searchQuery) throws DaoException;
     List<User> findActivatedUsers() throws DaoException;

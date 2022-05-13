@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <html lang="en">
 <head>
@@ -44,35 +44,54 @@
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.login"/></td>
                     <td><input type="text" name="login" required pattern="[\w\d-]{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.login"/>')"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.login"/>')"
                                onchange="this.setAttribute('value', this.value);
-                               this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.login"/>' : '');"
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.login"/>' : '');"
                                value="${user.login}"
                                readonly onfocus="this.removeAttribute('readonly')"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.first_name"/></td>
                     <td><input type="text" name="firstName" required pattern="^[\wА-яЁё\s-]{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.firstname"/>')"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);
-                               this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.firstname"/>' : '');"
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.firstname"/>' : '');"
                                value="${user.firstName}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.second_name"/></td>
                     <td><input type="text" name="secondName" required pattern="^[\wА-яЁё\s-]{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.secondname"/>')"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.secondname"/>')"
                                onchange="this.setAttribute('value', this.value);
-                               this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.secondname"/>' : '');"
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.secondname"/>' : '');"
                                value="${user.secondName}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.password"/></td>
                     <td><input type="password" name="password" required pattern="^[\w-]{8,16}$"
-                               oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.password"/>')"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.password"/>')"
                                onchange="this.setAttribute('value', this.value);
-                               this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.password"/>' : '');"
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.password"/>' : '');"
                                value="${user.password}"></td>
+                </tr>
+                <tr>
+                    <td class="content-table"><fmt:message key="register.label.email"/></td>
+                    <td><input type="text" name="email" required
+                               pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.email"/>')"
+                               onchange="this.setAttribute('value', this.value);
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.email"/>' : '');"
+                               value="${user.email}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.role"/></td>

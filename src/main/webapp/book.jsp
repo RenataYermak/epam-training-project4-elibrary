@@ -18,11 +18,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/script.js"></script></head>
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
+</head>
 <body>
 <%@ include file="/header.jsp" %>
 <%@ include file="/sidebar.jsp" %>
-<%--table edit book--%>
 <div id="content">
     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
         <div class="content-main">
@@ -72,6 +72,16 @@
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.firstname"/>' : '');"
                                value="${book.publishYear}"></td>
+                </tr>
+                <tr>
+                    <td class="content-table"><fmt:message key="book.label.description"/></td>
+                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.password"/>')"
+                               onchange="this.setAttribute('value', this.value);
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.password"/>' : '');"
+                               value="${book.description}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>

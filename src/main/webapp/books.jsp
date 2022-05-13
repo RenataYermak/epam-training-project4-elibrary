@@ -21,17 +21,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
-
-<%--    <script>--%>
-<%--        function preventBack() {--%>
-<%--            window.history.forward();--%>
-<%--        }--%>
-
-<%--        setTimeout("preventBack()", 0);--%>
-<%--        window.onunload = function() {--%>
-<%--            null--%>
-<%--        };--%>
-<%--    </script>--%>
 </head>
 <body>
 <%@ include file="/header.jsp" %>
@@ -69,7 +58,6 @@
                 <th class="cell"><fmt:message key="table.label.author"/></th>
                 <th class="cell"><fmt:message key="table.label.category"/></th>
                 <th class="cell"><fmt:message key="table.label.publish_year"/></th>
-                <th class="cell"><fmt:message key="table.label.rating"/></th>
                 <th class="cell"><fmt:message key="table.label.number"/></th>
                 <th class="cell"><fmt:message key="table.label.action"/></th>
             </tr>
@@ -79,7 +67,6 @@
                     <td class="cell">${book.author}</td>
                     <td class="cell">${book.category.name}</td>
                     <td class="cell">${book.publishYear}</td>
-                    <td class="cell">${book.overallRating}</td>
                     <td class="cell">${book.number}</td>
                     <td class="cell" style="width: 100px">
                         <c:if test="${sessionScope.authUser.role == 'ADMIN'}">

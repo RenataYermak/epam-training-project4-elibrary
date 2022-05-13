@@ -22,7 +22,7 @@ public class  HttpSessionListenerImpl implements HttpSessionListener {
         HttpSessionListener.super.sessionCreated(se);
         HttpSession session = se.getSession();
         session.setAttribute(SessionAttribute.LOCALE, DEFAULT_LOCALE);
-        session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.BOOKS);
+        //session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.BOOKS);
     }
 
     @Override

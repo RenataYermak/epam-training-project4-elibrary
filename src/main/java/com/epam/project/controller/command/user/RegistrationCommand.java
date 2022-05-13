@@ -37,11 +37,13 @@ public class RegistrationCommand implements Command {
                 String role = request.getParameter(RequestParam.USER_ROLE);
                 String firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
                 String secondName = request.getParameter(RequestParam.USER_SECONDNAME);
+                String email = request.getParameter(RequestParam.USER_EMAIL);
                 User user = new User();
                 user.setLogin(login);
                 user.setPassword(pass);
                 user.setFirstName(firstName);
                 user.setSecondName(secondName);
+                user.setEmail(email);
                 user.setRole(Role.valueOf(role.toUpperCase()));
                 user = userService.create(user);
                 if (user.getId() != null) {

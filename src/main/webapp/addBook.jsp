@@ -60,7 +60,7 @@
                         <select name="category">
                             <option value="sci_fi"><fmt:message key="book.category.sci_fi"/></option>
                             <option value="detective"><fmt:message key="book.category.detective"/></option>
-                            <option value="novel"><fmt:message key="book.category.novel"/></option>
+                            <option value="novel" selected="selected"><fmt:message key="book.category.novel"/></option>
                         </select>
                     </td>
                 </tr>
@@ -73,6 +73,16 @@
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.firstname"/>' : '');"
                                value="${book.publishYear}"></td>
+                </tr>
+                <tr>
+                    <td class="content-table"><fmt:message key="book.label.description"/></td>
+                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.user.registration.password"/>')"
+                               onchange="this.setAttribute('value', this.value);
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.user.registration.password"/>' : '');"
+                               value="${book.description}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
@@ -93,7 +103,7 @@
             </c:if>
             <div class="content-submit-btn-main">
                 <input hidden name="bookId" value="${book.id}">
-                <button class="content-submit-btn" type="submit" name="command" value="find_user"><fmt:message
+                <button class="content-submit-btn" type="submit" name="command" value="find_book"><fmt:message
                         key="book.button.cancel"/></button>
                 <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
                         value="add_book">

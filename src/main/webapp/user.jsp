@@ -76,10 +76,18 @@
             <tr>
                 <td class="content-table"><fmt:message key="user.label.password"/></td>
                 <td><input type="password" name="password" required pattern="^[\w-]{8,16}$"
-                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.password"/>')"
+                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.email"/>')"
                            onchange="this.setAttribute('value', this.value);
                            this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.password"/>' : '');"
                            value="${user.password}"></td>
+            </tr>
+            <tr>
+                <td class="content-table"><fmt:message key="user.label.email"/></td>
+                <td><input type="text" name="email" required pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
+                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.email"/>')"
+                           onchange="this.setAttribute('value', this.value);
+                                   this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.email"/>' : '');"
+                           value="${user.email}"></td>
             </tr>
             <c:if test="${authUser.role == 'ADMIN' && authUser.login != 'admin'}">
                 <tr>

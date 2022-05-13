@@ -25,6 +25,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean isEmailExist(String email) throws ServiceException {
+
+        boolean result;
+        try {
+            result = userDao.isEmailExist(email);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "failed to check if user with {} exists", e);
+            throw new ServiceException("Exception when find email : {}", e);
+        }
+        return result;
+    }
+
+    @Override
     public User findUser(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
 

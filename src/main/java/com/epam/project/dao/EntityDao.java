@@ -84,13 +84,13 @@ public interface EntityDao<E, K> {
         }
     }
 
-    default void setDoubleOrNull(PreparedStatement preparedStatement, int parameterIndex, Double value) throws SQLException {
-        if (value == null) {
-            preparedStatement.setNull(parameterIndex, Types.DOUBLE);
-        } else {
-            preparedStatement.setDouble(parameterIndex, value);
-        }
-    }
+//    default void setDoubleOrNull(PreparedStatement preparedStatement, int parameterIndex, Double value) throws SQLException {
+//        if (value == null) {
+//            preparedStatement.setNull(parameterIndex, Types.DOUBLE);
+//        } else {
+//            preparedStatement.setDouble(parameterIndex, value);
+//        }
+//    }
 
     default Double returnResultSetDoubleValue(ResultSet rs, String columnName) throws SQLException {
         return rs.getObject(columnName) != null ? rs.getDouble(columnName) : null;

@@ -17,7 +17,6 @@ public final class RequestParam {
     public static final String BOOK_CATEGORY = "bookCategory";
     public static final String BOOK_DESCRIPTION = "bookDescription";
     public static final String BOOK_NUMBER = "number";
-    public static final String BOOK_OVERALL_RATING = "overallRating";
 
 
     /**
@@ -28,6 +27,7 @@ public final class RequestParam {
     public static final String USER_PASSWORD = "password";
     public static final String USER_FIRSTNAME = "firstName";
     public static final String USER_SECONDNAME = "secondName";
+    public static final String USER_EMAIL = "email";
     public static final String USER_ROLE = "userRole";
     public static final String USER_REPEAT_PASSWORD = "repeatPassword";
 

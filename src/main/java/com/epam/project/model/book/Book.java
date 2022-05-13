@@ -7,10 +7,9 @@ public class Book {
     private String title;
     private String author;
     private Category category;
-    private Integer publishYear;
+    private int publishYear;
     private String description;
-    private Double overallRating;
-    private Integer number;
+    private int number;
 
     public Long getId() {
         return id;
@@ -44,11 +43,11 @@ public class Book {
         this.category = category;
     }
 
-    public Integer getPublishYear() {
+    public int getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(Integer publishYear) {
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 
@@ -60,19 +59,11 @@ public class Book {
         this.description = description;
     }
 
-    public Double getOverallRating() {
-        return overallRating;
-    }
-
-    public void setOverallRating(Double overallRating) {
-        this.overallRating = overallRating;
-    }
-
-    public Integer getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
@@ -81,15 +72,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id.equals(book.id) && title.equals(book.title) &&
-                author.equals(book.author) && category == book.category &&
-                publishYear.equals(book.publishYear) && Objects.equals(description, book.description)
-                && Objects.equals(overallRating, book.overallRating) && number.equals(book.number);
+        return publishYear == book.publishYear && number == book.number && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && category == book.category && Objects.equals(description, book.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, category,publishYear, description, overallRating, number);
+        return Objects.hash(id, title, author, category, publishYear, description, number);
     }
 
     @Override
@@ -101,7 +89,6 @@ public class Book {
                 ", category=" + category +
                 ", publishYear=" + publishYear +
                 ", description='" + description + '\'' +
-                ", overallRating=" + overallRating +
                 ", number=" + number +
                 '}';
     }
