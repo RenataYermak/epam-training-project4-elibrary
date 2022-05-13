@@ -6,7 +6,7 @@
 <fmt:setBundle basename="locale"/>
 <html lang="en">
 <head>
-    <title>Books</title>
+    <title>Books Orders</title>
     <!-- Styles -->
     <link rel="stylesheet" href="css/header-style.css">
     <link rel="stylesheet" href="css/sidebar-style.css">
@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
 <%@ include file="/header.jsp" %>
