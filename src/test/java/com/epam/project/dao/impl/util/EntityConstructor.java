@@ -1,11 +1,9 @@
 package com.epam.project.dao.impl.util;
 
-import com.epam.project.model.book.Book;
-import com.epam.project.model.book.Category;
-import com.epam.project.model.user.Role;
-import com.epam.project.model.user.User;
-
-import java.sql.Date;
+import com.epam.yermak.project.model.book.Book;
+import com.epam.yermak.project.model.book.Category;
+import com.epam.yermak.project.model.user.Role;
+import com.epam.yermak.project.model.user.User;
 
 public final class EntityConstructor {
     public static User constructTestUser() {

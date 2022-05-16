@@ -1,15 +1,18 @@
 package com.epam.project.dao.impl;
 
-import com.epam.project.dao.BookDao;
-import com.epam.project.dao.BookOrderDao;
-import com.epam.project.dao.UserDao;
-import com.epam.project.dao.exception.DaoException;
-import com.epam.project.model.book.Book;
-import com.epam.project.model.order.BookOrder;
-import com.epam.project.model.order.Issue;
-import com.epam.project.model.order.Order;
-import com.epam.project.model.order.Status;
-import com.epam.project.model.user.User;
+import com.epam.yermak.project.dao.BookDao;
+import com.epam.yermak.project.dao.BookOrderDao;
+import com.epam.yermak.project.dao.UserDao;
+import com.epam.yermak.project.dao.exception.DaoException;
+import com.epam.yermak.project.dao.impl.BookDaoImpl;
+import com.epam.yermak.project.dao.impl.BookOrderDaoImpl;
+import com.epam.yermak.project.dao.impl.UserDaoImpl;
+import com.epam.yermak.project.model.book.Book;
+import com.epam.yermak.project.model.order.BookOrder;
+import com.epam.yermak.project.model.order.Issue;
+import com.epam.yermak.project.model.order.Order;
+import com.epam.yermak.project.model.order.Status;
+import com.epam.yermak.project.model.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

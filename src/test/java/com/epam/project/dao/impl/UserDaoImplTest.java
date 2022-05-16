@@ -1,9 +1,10 @@
 package com.epam.project.dao.impl;
 
-import com.epam.project.dao.UserDao;
-import com.epam.project.dao.exception.DaoException;
-import com.epam.project.model.user.Status;
-import com.epam.project.model.user.User;
+import com.epam.yermak.project.dao.UserDao;
+import com.epam.yermak.project.dao.exception.DaoException;
+import com.epam.yermak.project.dao.impl.UserDaoImpl;
+import com.epam.yermak.project.model.user.Status;
+import com.epam.yermak.project.model.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

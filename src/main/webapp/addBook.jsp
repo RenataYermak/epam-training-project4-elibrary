@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="locale"/>
 <html lang="en">
@@ -117,5 +118,6 @@
     </c:if>
 </div>
 <%@ include file="/footer.jsp" %>
+<crt:copyright/>
 </body>
 </html>

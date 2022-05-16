@@ -29,9 +29,9 @@ body {
 }
 
 #footer { /* Нижний блок */
-    background: #333; /* Цвет фона */
+    background:red; /* Цвет фона */
     padding: 5px; /* Поля вокруг текста */
-    color: #fff; /* Цвет текста */
+    color: #333; /* Цвет текста */
     clear: left; /* Отменяем действие float */
     position: absolute;
     left: 0;

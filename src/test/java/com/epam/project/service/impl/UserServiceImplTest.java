@@ -1,8 +1,9 @@
 package com.epam.project.service.impl;
 
-import com.epam.project.model.user.User;
-import com.epam.project.service.UserService;
-import com.epam.project.service.exception.ServiceException;
+import com.epam.yermak.project.model.user.User;
+import com.epam.yermak.project.service.UserService;
+import com.epam.yermak.project.service.exception.ServiceException;
+import com.epam.yermak.project.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

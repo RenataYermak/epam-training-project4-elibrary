@@ -1,8 +1,9 @@
 package com.epam.project.dao.impl;
 
-import com.epam.project.dao.exception.DaoException;
-import com.epam.project.model.book.Book;
-import com.epam.project.dao.BookDao;
+import com.epam.yermak.project.dao.exception.DaoException;
+import com.epam.yermak.project.dao.impl.BookDaoImpl;
+import com.epam.yermak.project.model.book.Book;
+import com.epam.yermak.project.dao.BookDao;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

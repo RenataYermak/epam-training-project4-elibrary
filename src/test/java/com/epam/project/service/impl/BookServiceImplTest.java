@@ -1,9 +1,10 @@
 package com.epam.project.service.impl;
 
-import com.epam.project.model.book.Book;
-import com.epam.project.model.book.Category;
-import com.epam.project.service.BookService;
-import com.epam.project.service.exception.ServiceException;
+import com.epam.yermak.project.model.book.Book;
+import com.epam.yermak.project.model.book.Category;
+import com.epam.yermak.project.service.BookService;
+import com.epam.yermak.project.service.exception.ServiceException;
+import com.epam.yermak.project.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

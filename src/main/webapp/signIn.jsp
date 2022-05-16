@@ -51,10 +51,12 @@
                 </label>
                 <br/>
                 <label>
-                    <input style="margin-bottom: 5px" type="password" name="password" placeholder="password">
+                    <input style="margin-bottom: 10px" type="password" id="pwd"  name="password" placeholder="password ">
+                    <br/>
+                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()"> <fmt:message key="sign_in.button.show_password"/>
                 </label>
                 <br/>
-                <button type="submit" name="command" value="sign_in"><fmt:message
+                <button  type="submit" name="command" value="sign_in"><fmt:message
                         key="sign_in.button.sign_in"/></button>
                 <p style="color: #ea6153">${errorMessageSignIn}</p>
             </div>
