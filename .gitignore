@@ -16,3 +16,4 @@ gradlew
 build.gradle
 gradle/wrapper
 settings.gradle
+/lib/
