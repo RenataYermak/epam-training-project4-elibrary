@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 public class SignOutCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
+
     @Override
     public ResponseContext execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");

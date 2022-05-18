@@ -1,8 +1,7 @@
-package com.epam.project.dao.impl;
+package com.epam.yermak.project.dao.impl;
 
 import com.epam.yermak.project.dao.UserDao;
 import com.epam.yermak.project.dao.exception.DaoException;
-import com.epam.yermak.project.dao.impl.UserDaoImpl;
 import com.epam.yermak.project.model.user.Status;
 import com.epam.yermak.project.model.user.User;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.epam.project.dao.impl.util.EntityConstructor.constructTestUser;
+import static com.epam.yermak.project.dao.impl.util.EntityConstructor.constructTestUser;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;

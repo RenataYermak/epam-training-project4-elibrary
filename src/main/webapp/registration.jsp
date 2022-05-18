@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.password"/></td>
-                    <td><input type="password" name="password" required pattern="^[\w-]{8,49}$"
+                    <td><input type="password" name="password" required pattern="(?=.*[\\d])(?=.*[\\p{Ll}])(?=.*[\\p{Lu}])(?=\\S+$).{8,49}";
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.password"/>')"
                                onchange="this.setAttribute('value', this.value);

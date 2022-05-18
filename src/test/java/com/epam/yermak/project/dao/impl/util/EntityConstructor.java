@@ -1,4 +1,4 @@
-package com.epam.project.dao.impl.util;
+package com.epam.yermak.project.dao.impl.util;
 
 import com.epam.yermak.project.model.book.Book;
 import com.epam.yermak.project.model.book.Category;

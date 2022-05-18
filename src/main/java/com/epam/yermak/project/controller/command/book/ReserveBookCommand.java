@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
-
 public class ReserveBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 

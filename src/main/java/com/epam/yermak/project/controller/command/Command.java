@@ -15,6 +15,7 @@ public interface Command {
     static Command of(String name) {
         return CommandHelper.getInstance().getCommand(name);
     }
+
     default boolean isAuthorized(HttpSession session) {
         return session.getAttribute(SessionAttribute.AUTHORIZED_USER) != null;
     }

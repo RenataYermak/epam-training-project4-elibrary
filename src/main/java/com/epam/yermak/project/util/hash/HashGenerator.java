@@ -12,14 +12,15 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
+
 /**
  * Class that is responsible for generating password hash
  * using PBKDF2-HMAC-SHA1 hash algorithm.
  *
  * @author RenataYermak
  */
-public class HashGeneratorUtil {
-    private static final Logger LOGGER = LogManager.getLogger(HashGeneratorUtil.class);
+public class HashGenerator {
+    private static final Logger LOGGER = LogManager.getLogger(HashGenerator.class);
 
     private static final int ENCRYPTION_ITERATIONS = 1024;
     private static final int KEY_LENGTH = 128;
@@ -35,7 +36,7 @@ public class HashGeneratorUtil {
     private final Base64.Decoder decoder;
     private SecretKeyFactory secretKeyFactory;
 
-    public HashGeneratorUtil() {
+    public HashGenerator() {
         secureRandom = new SecureRandom();
         encoder = Base64.getEncoder();
         decoder = Base64.getDecoder();

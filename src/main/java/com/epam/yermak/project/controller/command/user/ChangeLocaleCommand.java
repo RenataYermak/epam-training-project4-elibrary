@@ -1,6 +1,5 @@
 package com.epam.yermak.project.controller.command.user;
 
-
 import com.epam.yermak.project.controller.PagePath;
 import com.epam.yermak.project.controller.RequestAttribute;
 import com.epam.yermak.project.controller.ResponseContext;
@@ -11,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 public class ChangeLocaleCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();

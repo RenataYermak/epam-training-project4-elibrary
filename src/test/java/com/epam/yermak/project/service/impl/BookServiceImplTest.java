@@ -1,4 +1,4 @@
-package com.epam.project.service.impl;
+package com.epam.yermak.project.service.impl;
 
 import com.epam.yermak.project.model.book.Book;
 import com.epam.yermak.project.model.book.Category;

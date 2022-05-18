@@ -7,7 +7,7 @@ import com.epam.yermak.project.dao.UserDao;
 import com.epam.yermak.project.service.UserService;
 import com.epam.yermak.project.service.exception.ServiceException;
 import com.epam.yermak.project.util.exception.UtilException;
-import com.epam.yermak.project.util.hash.HashGeneratorUtil;
+import com.epam.yermak.project.util.hash.HashGenerator;
 import com.epam.yermak.project.validator.Validator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -20,12 +20,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final Validator validator;
-    private final HashGeneratorUtil hashGeneratorUtil;
+    private final HashGenerator hashGeneratorUtil;
 
     public UserServiceImpl() {
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
-        hashGeneratorUtil = new HashGeneratorUtil();
+        hashGeneratorUtil = new HashGenerator();
     }
 
     @Override

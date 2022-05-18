@@ -1,7 +1,6 @@
-package com.epam.project.dao.impl;
+package com.epam.yermak.project.dao.impl;
 
 import com.epam.yermak.project.dao.exception.DaoException;
-import com.epam.yermak.project.dao.impl.BookDaoImpl;
 import com.epam.yermak.project.model.book.Book;
 import com.epam.yermak.project.dao.BookDao;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.epam.project.dao.impl.util.EntityConstructor.constructTestBook;
+import static com.epam.yermak.project.dao.impl.util.EntityConstructor.constructTestBook;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.nullValue;

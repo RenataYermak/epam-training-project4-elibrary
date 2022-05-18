@@ -1,6 +1,5 @@
 package com.epam.yermak.project.dao;
 
-
 import com.epam.yermak.project.dao.config.ConnectionPool;
 import com.epam.yermak.project.dao.exception.DaoException;
 import com.epam.yermak.project.dao.config.exception.ConnectionPoolException;
@@ -17,9 +16,13 @@ public interface EntityDao<E, K> {
     Connection connection = ConnectionPool.getInstance().getConnection();
 
     E find(K id) throws DaoException;
+
     List<E> findAll() throws DaoException;
+
     E create(E entity) throws DaoException;
+
     E update(E entity) throws DaoException;
+
     void delete(K id) throws DaoException;
 
     default PreparedStatement getPrepareStatement(String sql) {

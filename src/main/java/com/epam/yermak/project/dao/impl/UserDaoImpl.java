@@ -7,7 +7,7 @@ import com.epam.yermak.project.model.user.Role;
 import com.epam.yermak.project.model.user.Status;
 import com.epam.yermak.project.model.user.User;
 import com.epam.yermak.project.util.exception.UtilException;
-import com.epam.yermak.project.util.hash.HashGeneratorUtil;
+import com.epam.yermak.project.util.hash.HashGenerator;
 import org.apache.logging.log4j.Level;
 
 
@@ -284,7 +284,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException, UtilException {
-        HashGeneratorUtil hashGenerator = new HashGeneratorUtil();
+        HashGenerator hashGenerator = new HashGenerator();
         preparedStatement.setString(1, user.getLogin());
         preparedStatement.setString(2, hashGenerator.generateHash(user.getPassword()));
         preparedStatement.setString(3, user.getFirstName());

@@ -1,10 +1,12 @@
 package com.epam.yermak.project.model.order;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 public class BookOrder implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private Long id;
     private Long bookId;

@@ -1,12 +1,9 @@
-package com.epam.project.dao.impl;
+package com.epam.yermak.project.dao.impl;
 
 import com.epam.yermak.project.dao.BookDao;
 import com.epam.yermak.project.dao.BookOrderDao;
 import com.epam.yermak.project.dao.UserDao;
 import com.epam.yermak.project.dao.exception.DaoException;
-import com.epam.yermak.project.dao.impl.BookDaoImpl;
-import com.epam.yermak.project.dao.impl.BookOrderDaoImpl;
-import com.epam.yermak.project.dao.impl.UserDaoImpl;
 import com.epam.yermak.project.model.book.Book;
 import com.epam.yermak.project.model.order.BookOrder;
 import com.epam.yermak.project.model.order.Issue;
@@ -23,8 +20,8 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
 
-import static com.epam.project.dao.impl.util.EntityConstructor.constructTestBook;
-import static com.epam.project.dao.impl.util.EntityConstructor.constructTestUser;
+import static com.epam.yermak.project.dao.impl.util.EntityConstructor.constructTestBook;
+import static com.epam.yermak.project.dao.impl.util.EntityConstructor.constructTestUser;
 
 class BookOrderDaoImplTest {
 

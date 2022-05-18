@@ -15,13 +15,13 @@ public class LocaleFilter implements Filter {
         Filter.super.init(filterConfig);
     }
 
-        @Override
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request= (HttpServletRequest) servletRequest;
-        if( request.getSession().getAttribute(RequestAttribute.LOCALE_NAME) == null){
-            request.getSession().setAttribute(RequestAttribute.LOCALE_NAME,RequestAttribute.DEFAULT_LANG);
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        if (request.getSession().getAttribute(RequestAttribute.LOCALE_NAME) == null) {
+            request.getSession().setAttribute(RequestAttribute.LOCALE_NAME, RequestAttribute.DEFAULT_LANG);
         }
-        filterChain.doFilter(servletRequest,servletResponse);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

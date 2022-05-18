@@ -42,10 +42,11 @@ class ConnectionFactory {
             throw new RuntimeException("driver was not found");
         }
     }
+
     private ConnectionFactory() {
     }
 
-//    static ProxyConnection createConnection() throws SQLException {
+    //    static ProxyConnection createConnection() throws SQLException {
 //        return new ProxyConnection(DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD));
 //    }
     static Connection createConnection() throws SQLException {

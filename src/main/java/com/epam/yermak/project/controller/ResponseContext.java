@@ -5,6 +5,7 @@ public class ResponseContext {
         FORWARD,
         REDIRECT
     }
+
     private final String pagePath;
     private final ResponseContextType responseContextType;
 

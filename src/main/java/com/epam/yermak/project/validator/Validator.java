@@ -4,8 +4,8 @@ import com.epam.yermak.project.model.user.User;
 
 public class Validator {
     private static final String NAME_REGEX = "^[\\p{L}]{2,25}$";
-    private static final String PASSWORD_REGEX = "^[\\w-]{8,49}$";
-    private static final String EMAIL_REGEX ="^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
+    private static final String PASSWORD_REGEX = "(?=.*[\\d])(?=.*[\\p{Ll}])(?=.*[\\p{Lu}])(?=\\S+$).{8,49}";
+    private static final String EMAIL_REGEX = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
     private static final String LOGIN_REGEX = "^[\\w\\d-]{2,25}$";
     private static final String BOOK_SEARCH_REGEX = "^[\\p{L}\\d-.]{2,25}$";
 
@@ -23,7 +23,7 @@ public class Validator {
     public boolean isUserValid(User user) {
 
         return isLoginValid(user.getLogin()) && isPasswordValid(user.getPassword()) &&
-                isNameValid(user.getFirstName()) && isNameValid(user.getSecondName())&& isEmailValid(user.getEmail());
+                isNameValid(user.getFirstName()) && isNameValid(user.getSecondName()) && isEmailValid(user.getEmail());
 
     }
 
@@ -42,6 +42,7 @@ public class Validator {
     public boolean isSearchValid(String searchQuery) {
         return searchQuery != null && searchQuery.matches(BOOK_SEARCH_REGEX);
     }
+
     public boolean isEmailValid(String email) {
         return email != null && email.matches(EMAIL_REGEX);
     }

@@ -40,7 +40,7 @@ public class SignInCommand implements Command {
                 session.setAttribute(SessionAttribute.AUTHORIZED_USER, user);
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
-               session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS);
+                session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS);
                 return new ResponseContext(PagePath.BOOKS, ResponseContext.ResponseContextType.FORWARD);
             }
             LOGGER.log(Level.INFO, "failed to login, bad credentials");

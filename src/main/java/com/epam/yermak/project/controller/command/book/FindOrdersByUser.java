@@ -38,7 +38,7 @@ public class FindOrdersByUser implements Command {
                 List<Order> orders = bookService.findOrdersByUserIdAndStatus(userId, orderStatus);
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Ordered Books");
-                } else if(orderStatus.equals(Status.RESERVED)) {
+                } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Reserved Books");
                 }
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getValue());

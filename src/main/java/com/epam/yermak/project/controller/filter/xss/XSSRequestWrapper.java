@@ -1,6 +1,5 @@
 package com.epam.yermak.project.controller.filter.xss;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 

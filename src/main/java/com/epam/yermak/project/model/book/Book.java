@@ -1,9 +1,11 @@
 package com.epam.yermak.project.model.book;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class Book implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private Long id;
     private String title;
@@ -37,9 +39,13 @@ public class Book implements Serializable {
         this.author = author;
     }
 
-    public Category getCategory() {return category;}
+    public Category getCategory() {
+        return category;
+    }
 
-    public void setCategory(Category category) {this.category = category;}
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public int getPublishYear() {
         return publishYear;

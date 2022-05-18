@@ -25,6 +25,7 @@ public class UserSearchCommand implements Command {
     public UserSearchCommand() {
         this.userService = new UserServiceImpl();
     }
+
     @Override
     public ResponseContext execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");

@@ -23,6 +23,7 @@ public class Controller extends HttpServlet {
             throws ServletException, IOException {
         executeRequest(req, resp);
     }
+
     private void executeRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String commandName = req.getParameter(RequestParam.COMMAND);

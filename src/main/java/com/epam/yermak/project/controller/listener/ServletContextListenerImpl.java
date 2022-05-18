@@ -1,6 +1,5 @@
 package com.epam.yermak.project.controller.listener;
 
-
 import com.epam.yermak.project.dao.config.ConnectionPool;
 
 import javax.servlet.ServletContextEvent;

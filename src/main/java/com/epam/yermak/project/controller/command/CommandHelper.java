@@ -42,7 +42,7 @@ public class CommandHelper {
         return instance;
     }
 
-    public  Command getCommand(String commandName) {
+    public Command getCommand(String commandName) {
         CommandName commandType;
         try {
             commandType = CommandName.valueOf(commandName.toUpperCase());

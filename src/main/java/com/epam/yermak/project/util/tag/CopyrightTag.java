@@ -25,8 +25,9 @@ public class CopyrightTag extends TagSupport {
         }
         return SKIP_BODY;
     }
+
     @Override
-    public int doEndTag()  {
+    public int doEndTag() {
         return EVAL_PAGE;
     }
 

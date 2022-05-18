@@ -40,5 +40,6 @@ public final class RequestAttribute {
     public static final String CURRENT_PAGE = "current_page";
 
 
-    private RequestAttribute() {}
+    private RequestAttribute() {
+    }
 }
