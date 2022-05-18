@@ -78,10 +78,6 @@
                                 <button class="actionButton" type="submit" name="command" value="find_book">
                                     <fmt:message key="table.button.edit"/>
                                 </button>
-                                <button class="actionButton orderButton" type="submit" name="command"
-                                        value="order_book">
-                                    <fmt:message key="table.button.order"/>
-                                </button>
                             </form>
                         </c:if>
                         <c:if test="${sessionScope.authUser.role != 'ADMIN'}">

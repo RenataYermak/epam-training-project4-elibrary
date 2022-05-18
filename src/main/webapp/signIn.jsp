@@ -53,7 +53,7 @@
                 <label>
                     <input style="margin-bottom: 10px" type="password" id="pwd"  name="password" placeholder="password ">
                     <br/>
-                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()"> <fmt:message key="sign_in.button.show_password"/>
+                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()" ><fmt:message key="sign_in.button.show_password"/>
                 </label>
                 <br/>
                 <button  type="submit" name="command" value="sign_in"><fmt:message

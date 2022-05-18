@@ -1,9 +1,11 @@
 package com.epam.yermak.project.model.user;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String login;
     private String password;
@@ -113,17 +115,17 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", secondName='" + secondName + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", status=" + status +
-                ", activationDate=" + activationDate +
-                ", deactivationDate=" + deactivationDate +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getClass());
+        builder.append(" id = ").append(id);
+        builder.append(" login = ").append(login);
+        builder.append(", password = ").append(password);
+        builder.append(", firstName = ").append(firstName);
+        builder.append(", secondName = ").append(secondName);
+        builder.append(", email = ").append(email);
+        builder.append(", status = ").append(status);
+        builder.append(", activationDate = ").append(activationDate);
+        builder.append(", deactivationDate = ").append(deactivationDate);
+        return builder.toString();
     }
 }

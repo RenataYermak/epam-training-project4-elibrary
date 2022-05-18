@@ -11,11 +11,11 @@ public final class RequestParam {
      * Book params
      */
     public static final String BOOK_ID = "bookId";
-    public static final String BOOK_AUTHOR = "bookAuthor";
-    public static final String BOOK_TITLE = "bookTitle";
+    public static final String BOOK_AUTHOR = "author";
+    public static final String BOOK_TITLE = "title";
     public static final String BOOK_PUBLISH_YEAR = "publishYear";
-    public static final String BOOK_CATEGORY = "bookCategory";
-    public static final String BOOK_DESCRIPTION = "bookDescription";
+    public static final String BOOK_CATEGORY = "category";
+    public static final String BOOK_DESCRIPTION = "description";
     public static final String BOOK_NUMBER = "number";
 
 

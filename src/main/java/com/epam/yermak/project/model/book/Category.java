@@ -1,7 +1,7 @@
 package com.epam.yermak.project.model.book;
 
 public enum Category {
-    SCI_FI("sci-fi"),
+    SCI_FI("sci_fi"),
     DETECTIVE("detective"),
     NOVEL("novel");
 

@@ -1,67 +1,122 @@
 package com.epam.yermak.project.dao.config;
 
-import com.epam.yermak.project.dao.exception.DataSourceException;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.epam.yermak.project.dao.config.exception.ConnectionPoolException;
 import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.util.Enumeration;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class ConnectionPool extends DataSource {
-    private static final Logger LOGGER = LogManager.getLogger();
-    private static final ConnectionPool INSTANCE = new ConnectionPool();
 
-    private final BlockingQueue<Connection> free;
-    private final BlockingQueue<Connection> busy;
+public class ConnectionPool {
+    private static final Logger logger = LogManager.getLogger();
+    private static final AtomicBoolean isPoolCreated = new AtomicBoolean(false);
+    private static final Lock locker = new ReentrantLock(true);
+    private static final int POOL_SIZE = 5;
+    private static ConnectionPool instance;
+    private final BlockingDeque<Connection> freeConnections;
+    private final BlockingDeque<Connection> usedConnections;
+
 
     private ConnectionPool() {
-        LOGGER.log(Level.INFO, "create connection pool");
-        ResourceBundle resourceBundle = ResourceBundle.getBundle(DB_PROPERTY_FILE_NAME);
-        int numOfConnections = Integer.parseInt(resourceBundle.getString(DB_PROPERTY_CONNECTIONS_NUMB));
-        free = new LinkedBlockingQueue<>(numOfConnections);
-        busy = new LinkedBlockingQueue<>();
-        try {
-            for (int i = 0; i < numOfConnections; i++) {
-                try {
-                    free.put(openConnection());
-                } catch (SQLException | DataSourceException e) {
-                    LOGGER.log(Level.ERROR, "exception in open connection: ", e);
-                }
+        freeConnections = new LinkedBlockingDeque<>(POOL_SIZE);
+        usedConnections = new LinkedBlockingDeque<>(POOL_SIZE);
+        for (int i = 0; i < POOL_SIZE; i++) {
+            try {
+               Connection connection = ConnectionFactory.createConnection();
+                freeConnections.add( connection);
+            } catch (SQLException e) {
+                logger.error("exception in open connection: ", e);
             }
-        } catch (InterruptedException e) {
-            LOGGER.log(Level.ERROR, "interrupted exception: ", e);
+        }
+        if (freeConnections.isEmpty()) {
+            logger.fatal("the connection pool is empty, no connections created");
+            throw new RuntimeException("the connection pool is empty, no connections were created");
         }
     }
 
-    public static ConnectionPool getConnectionPool() {
-        return INSTANCE;
+    /**
+     * Get instance of the connection pool.
+     *
+     * @return the connection pool instance
+     */
+    public static ConnectionPool getInstance() {
+        if (!isPoolCreated.get()) {
+            try {
+                locker.lock();
+                if (instance == null) {
+                    instance = new ConnectionPool();
+                    isPoolCreated.set(true);
+                }
+            } finally {
+                locker.unlock();
+            }
+        }
+        return instance;
     }
 
+    /**
+     * Takes a free connection from the ConnectionPool
+     *
+     * @return a connection
+     */
     public Connection getConnection() {
-        LOGGER.log(Level.INFO, "get connection from pool");
-        Connection connection = null;
+       Connection connection = null;
         try {
-            connection = free.take();
-            busy.add(connection);
+            connection = freeConnections.take();
+            usedConnections.offer(connection);
         } catch (InterruptedException e) {
-            LOGGER.log(Level.ERROR, "exception in get connection from pool: ", e);
+            logger.error("fexception in get connection from pool:", e);
+            Thread.currentThread().interrupt();
         }
         return connection;
     }
 
-    public void returnConnection(Connection connection) {
-        LOGGER.log(Level.INFO, "return connection to pool");
-        try {
-            if (busy.remove(connection)) {
-                free.put(connection);
+    /**
+     * Releases a connection
+     *
+     * @param connection used connection
+     * @throws ConnectionPoolException if receives the wrong instance of the connection
+     */
+    public void releaseConnection(Connection connection) throws ConnectionPoolException {
+
+//        if (!(connection instanceof ProxyConnection)) {
+//            logger.error("wrong instance");
+//            throw new ConnectionPoolException("wrong instance");
+//        }
+            usedConnections.remove(connection);
+            freeConnections.offer(connection);
+
+    }
+
+    /**
+     * Destroys the connection pool
+     */
+    public void destroy() {
+        for (int i = 0; i < POOL_SIZE; i++) {
+            try {
+                freeConnections.take().close();;
+            } catch (SQLException e) {
+                logger.error("failed to destroy pool", e);
+            } catch (InterruptedException e) {
+                logger.error("failed to destroy pool", e);
+                Thread.currentThread().interrupt();
             }
-        } catch (InterruptedException e) {
-            LOGGER.log(Level.ERROR, "exception in return connection to pool: ", e);
+        }
+        try {
+            Enumeration<Driver> drivers = DriverManager.getDrivers();
+            while (drivers.hasMoreElements()) {
+                DriverManager.deregisterDriver(drivers.nextElement());
+            }
+        } catch (SQLException exception) {
+            logger.error("Drivers were not de-registered");
         }
     }
 }
-

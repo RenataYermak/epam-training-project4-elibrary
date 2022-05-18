@@ -29,15 +29,15 @@ body {
 }
 
 #footer { /* Нижний блок */
-    background:red; /* Цвет фона */
-    padding: 5px; /* Поля вокруг текста */
-    color: #333; /* Цвет текста */
+    background:#575757; /* Цвет фона */
+    padding: 6px; /* Поля вокруг текста */
+    color: #f6f6f6; /* Цвет текста */
     clear: left; /* Отменяем действие float */
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
-    width: max-content;
-    height: 10px
+    width: 100%;
+    height: 15px
 }
 
 hr {

@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.first_name"/></td>
-                    <td><input type="text" name="firstName" required pattern="^[\wА-яЁё\s-]{2,25}$"
+                    <td><input type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.second_name"/></td>
-                    <td><input type="text" name="secondName" required pattern="^[\wА-яЁё\s-]{2,25}$"
+                    <td><input type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.secondname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.password"/></td>
-                    <td><input type="password" name="password" required pattern="^[\w-]{8,16}$"
+                    <td><input type="password" name="password" required pattern="^[\w-]{8,49}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.password"/>')"
                                onchange="this.setAttribute('value', this.value);

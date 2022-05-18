@@ -10,8 +10,8 @@ public class BookStatisticDaoImpl implements BookStatisticDao {
 
     private static class Query {
         public static final String RATE_BOOK_AND_UPDATE_OVERALL_RATING =
-                "insert into book_statistic(book_id, user_id, `read`, rating, review) values (?, ?, 'YES', ?, ?); " +
-                "update book set overall_rating=(select AVG(rating) from book_statistic where book_id=?) where book_id=?";
+                "INSERT INTO book_statistics(book_id, user_id, `read`, rating, review) VALUES (?, ?, 'YES', ?, ?); " +
+                "UPDATE SET overall_rating=(select AVG(rating) FROM book_statistic WHERE book_id=?) WHERE book_id=?";
     }
 
     private static class ColumnName {

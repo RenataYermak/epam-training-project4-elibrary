@@ -46,14 +46,10 @@ public class EditBookCommand implements Command {
                     book.setAuthor(author);
 //                    book.setPublishYear(publishYear);
 //                    book.setNumber(number);
-                    book.setPublishYear(Integer.parseInt(publishYear));
+                    book.setPublishYear(Integer.parseInt((publishYear)));
                     book.setNumber(Integer.parseInt(number));
                     book.setDescription(description);
                     bookService.update(book);
-                    if (getAuthUser(session).getId().equals(book.getId())) {
-                        session.removeAttribute(SessionAttribute.AUTHORIZED_USER);
-                        session.setAttribute(SessionAttribute.AUTHORIZED_USER, book);
-                    }
                     request.setAttribute(RequestAttribute.BOOK, book);
                     request.setAttribute(
                             RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book updated successfully");

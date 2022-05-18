@@ -1,9 +1,11 @@
 package com.epam.yermak.project.model.order;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Order {
+public class Order implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Long bookId;
     private Long userId;
@@ -148,19 +150,20 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", bookId=" + bookId +
-                ", userId=" + userId +
-                ", issue=" + issue +
-                ", status=" + status +
-                ", userFirstName='" + userFirstName + '\'' +
-                ", userSecondName='" + userSecondName + '\'' +
-                ", bookTitle='" + bookTitle + '\'' +
-                ", orderedDate=" + orderedDate +
-                ", reservedDate=" + reservedDate +
-                ", reservedDate=" + returnedDate +
-                ", rejectedDate=" + rejectedDate +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getClass());
+        builder.append(" id = ").append(id);
+        builder.append(" bookId = ").append(bookId);
+        builder.append(" userId = ").append(userId);
+        builder.append(" issue = ").append(issue);
+        builder.append(" status = ").append(status);
+        builder.append(" userFirstName = ").append(userFirstName);
+        builder.append(" userSecondName = ").append(userSecondName);
+        builder.append(" bookTitle = ").append(bookTitle);
+        builder.append(" orderedDate = ").append(orderedDate);
+        builder.append(" reservedDate = ").append(reservedDate);
+        builder.append(" reservedDate = ").append(reservedDate);
+        builder.append(" rejectedDate = ").append(rejectedDate);
+        return builder.toString();
     }
 }

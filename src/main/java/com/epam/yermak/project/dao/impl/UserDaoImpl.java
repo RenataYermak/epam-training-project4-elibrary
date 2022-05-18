@@ -6,32 +6,33 @@ import com.epam.yermak.project.dao.exception.DaoException;
 import com.epam.yermak.project.model.user.Role;
 import com.epam.yermak.project.model.user.Status;
 import com.epam.yermak.project.model.user.User;
+import com.epam.yermak.project.util.exception.UtilException;
+import com.epam.yermak.project.util.hash.HashGeneratorUtil;
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoImpl implements UserDao {
-    private static final Logger LOGGER = LogManager.getLogger();
 
     private static class Query {
-        public static final String SELECT_USER_BY_ID = "SELECT * FROM user WHERE user_id=?";
-        public static final String SELECT_USER_BY_LOGIN_AND_PASS = "SELECT * FROM user WHERE login=? and password=? and `status`='ACTIVATED'";
-        public static final String SELECT_ALL_USERS = "select * from user";
-        public static final String SELECT_ALL_ACTIVATED_USERS = "select * from user where `status`='ACTIVATED'";
-        public static final String SELECT_ALL_DEACTIVATED_USERS = "select * from user where `status`='DEACTIVATED'";
-        public static final String INSERT_USER = "insert into user(login, `password`, firstname, secondname,email, role) values(?, ?, ?, ?, ?,?);";
-        public static final String UPDATE_USER = "update user set login=?, password=?, firstname=?, secondname=?, email=?, role=? where user_id=?";
-        public static final String DEACTIVATE_USER = "update user set `status`='DEACTIVATED', deactivation_date=? where user_id=?";
-        public static final String DELETE_USER = "delete from user where user_id=?";
-        public static final String USER_SEARCH = "select * from user where login like CONCAT('%',?,'%') or firstname like CONCAT('%',?,'%') " +
-                        "or secondname like CONCAT('%',?,'%')";
-        public static final String UPDATE_PASSWORD = "update user set password=? where user_id=?";
+        public static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE user_id=?";
+        public static final String SELECT_USER_BY_LOGIN = "SELECT * FROM users WHERE login=?";
+        public static final String SELECT_USER_BY_LOGIN_AND_PASS = "SELECT * FROM users WHERE login=? and password=? AND `status`='ACTIVATED'";
+        public static final String SELECT_ALL_USERS = "SELECT * FROM users";
+        public static final String SELECT_ALL_ACTIVATED_USERS = "SELECT * FROM users WHERE `status`='ACTIVATED'";
+        public static final String SELECT_ALL_DEACTIVATED_USERS = "SELECT * FROM users WHERE `status`='DEACTIVATED'";
+        public static final String INSERT_USER = "INSERT INTO users(login, password, firstname, secondname, email, role) VALUES(?, ?, ?, ?, ?,?)";
+        public static final String UPDATE_USER = "UPDATE users SET login=?, password=?, firstname=?, secondname=?, email=?, role=? WHERE user_id=?";
+        public static final String DEACTIVATE_USER = "UPDATE users SET `status`='DEACTIVATED', deactivation_date=? WHERE user_id=?";
+        public static final String DELETE_USER = "DELETE FROM users WHERE user_id=?";
+        public static final String USER_SEARCH = "SELECT * FROM users WHERE login LIKE CONCAT('%',?,'%') or firstname LIKE CONCAT('%',?,'%') " +
+                "OR secondname LIKE CONCAT('%',?,'%')";
+        public static final String UPDATE_PASSWORD = "UPDATE users SET password=? WHERE user_id=?";
         private static final String SQL_IS_EMAIL_EXIST =
-                "SELECT user_id FROM user WHERE email = ? LIMIT 1";
+                "SELECT user_id FROM users WHERE email = ? LIMIT 1";
     }
 
     private static class ColumnName {
@@ -46,6 +47,7 @@ public class UserDaoImpl implements UserDao {
         public static final String ACTIVATION_DATE = "activation_date";
         public static final String DEACTIVATION_DATE = "deactivation_date";
     }
+
 
     @Override
     public boolean isEmailExist(String email) throws DaoException {
@@ -64,65 +66,78 @@ public class UserDaoImpl implements UserDao {
     public User find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
         User user = null;
-        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_ID);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_ID)) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                constructUser(user, resultSet);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    constructUser(user, resultSet);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
             throw new DaoException("Exception when find user by id: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return user;
     }
-
+    @Override
+    public User findByLogin(String login) throws DaoException {
+        LOGGER.log(Level.INFO, "method find by id");
+        User user = null;
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN)) {
+            preparedStatement.setString(1, login);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    constructUser(user, resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
+            throw new DaoException("Exception when find user by id: {}", e);
+        }
+        return user;
+    }
     @Override
     public User find(String login, String pass) throws DaoException {
         LOGGER.log(Level.INFO, "method find by login and pass");
         User user = null;
-        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, pass);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                user = new User();
-                constructUser(user, resultSet);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    user = new User();
+                    constructUser(user, resultSet);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find by login and pass: ", e);
             throw new DaoException("Exception when find user by login and pass: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return user;
     }
+
 
     @Override
     public List<User> findUsersByQuery(String searchQuery) throws DaoException {
         LOGGER.log(Level.INFO, "method findUsersByQuery");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement = getPrepareStatement(Query.USER_SEARCH);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.USER_SEARCH)) {
             preparedStatement.setString(1, searchQuery);
             preparedStatement.setString(2, searchQuery);
             preparedStatement.setString(3, searchQuery);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                User user = new User();
-                constructUser(user, resultSet);
-                users.add(user);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    User user = new User();
+                    constructUser(user, resultSet);
+                    users.add(user);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findUsersByQuery: ", e);
             throw new DaoException("Exception when findUsersByQuery: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return users;
     }
@@ -131,9 +146,8 @@ public class UserDaoImpl implements UserDao {
     public List<User> findAll() throws DaoException {
         LOGGER.log(Level.INFO, "method findAll");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_USERS);
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_USERS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 User user = new User();
                 constructUser(user, resultSet);
@@ -142,8 +156,6 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
             throw new DaoException("Exception when findAll users: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return users;
     }
@@ -152,9 +164,8 @@ public class UserDaoImpl implements UserDao {
     public List<User> findActivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findActivatedUsers");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 User user = new User();
                 constructUser(user, resultSet);
@@ -163,8 +174,6 @@ public class UserDaoImpl implements UserDao {
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findActivatedUsers: ", e);
             throw new DaoException("Exception when findActivatedUsers users: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return users;
     }
@@ -173,19 +182,17 @@ public class UserDaoImpl implements UserDao {
     public List<User> findDeactivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findDeactivatedUsers");
         List<User> users = new ArrayList<>();
-        PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
-        try {
-            ResultSet resultSet = preparedStatement.executeQuery();
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
                 User user = new User();
                 constructUser(user, resultSet);
                 users.add(user);
             }
+
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findDeactivatedUsers: ", e);
             throw new DaoException("Exception when findDeactivatedUsers users: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return users;
     }
@@ -193,22 +200,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        PreparedStatement preparedStatement = getPrepareStatement(Query.INSERT_USER);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.INSERT_USER)) {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.executeUpdate();
-            ResultSet resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                user.setId(resultSet.getLong(1));
-                User createdUser = find(user.getId());
-                user.setStatus(createdUser.getStatus());
-                user.setActivationDate(createdUser.getActivationDate());
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    user.setId(resultSet.getLong(1));
+                    User createdUser = find(user.getId());
+                    user.setStatus(createdUser.getStatus());
+                    user.setActivationDate(createdUser.getActivationDate());
+                }
             }
-        } catch (SQLException e) {
+        } catch (SQLException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new DaoException("Exception when create user: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return user;
     }
@@ -216,16 +221,13 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User update(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method update");
-        PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_USER);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_USER)) {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException |UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new DaoException("Exception when update user: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
         return user;
     }
@@ -233,47 +235,38 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deactivate(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method deactivate");
-        PreparedStatement preparedStatement = getPrepareStatement(Query.DEACTIVATE_USER);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.DEACTIVATE_USER)) {
             preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method deactivate: ", e);
             throw new DaoException("Exception when deactivate user: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
     }
 
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        PreparedStatement preparedStatement = getPrepareStatement(Query.DELETE_USER);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.DELETE_USER);) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method delete: ", e);
             throw new DaoException("Exception when delete user: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
     }
 
     @Override
     public void updatePassword(Long id, String pass) throws DaoException {
         LOGGER.log(Level.INFO, "method updatePassword");
-        PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_PASSWORD);
-        try {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_PASSWORD)) {
             preparedStatement.setString(1, pass);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
             throw new DaoException("Exception when update user password: {}", e);
-        } finally {
-            closePrepareStatement(preparedStatement);
         }
     }
 
@@ -290,15 +283,15 @@ public class UserDaoImpl implements UserDao {
         user.setStatus(Status.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
     }
 
-    private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
+    private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException, UtilException {
+        HashGeneratorUtil hashGenerator = new HashGeneratorUtil();
         preparedStatement.setString(1, user.getLogin());
-        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(2, hashGenerator.generateHash(user.getPassword()));
         preparedStatement.setString(3, user.getFirstName());
         preparedStatement.setString(4, user.getSecondName());
         preparedStatement.setString(5, user.getEmail());
         preparedStatement.setString(6, user.getRole().toString());
     }
 }
-
 
 

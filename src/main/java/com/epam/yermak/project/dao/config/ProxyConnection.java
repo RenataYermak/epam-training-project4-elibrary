@@ -1,5 +1,6 @@
-//package com.epam.project.dao.config;
+//package com.epam.yermak.project.dao.config;
 //
+//import com.epam.yermak.project.dao.config.exception.ConnectionPoolException;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 //
@@ -17,8 +18,12 @@
 //    }
 //
 //    @Override
-//    public void close()  {
-//            ConnectionPool.getConnectionPool().returnConnection(this);
+//    public void close() throws SQLException {
+//        try {
+//            ConnectionPool.getInstance().releaseConnection(this);
+//        } catch (ConnectionPoolException e) {
+//            LOGGER.error("failed to close the connection", e);
+//        }
 //    }
 //
 //    void reallyClose() throws SQLException {

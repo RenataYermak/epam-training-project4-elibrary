@@ -6,6 +6,8 @@ import com.epam.yermak.project.model.user.User;
 import com.epam.yermak.project.dao.UserDao;
 import com.epam.yermak.project.service.UserService;
 import com.epam.yermak.project.service.exception.ServiceException;
+import com.epam.yermak.project.util.exception.UtilException;
+import com.epam.yermak.project.util.hash.HashGeneratorUtil;
 import com.epam.yermak.project.validator.Validator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -18,10 +20,12 @@ public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final Validator validator;
+    private final HashGeneratorUtil hashGeneratorUtil;
 
     public UserServiceImpl() {
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
+        hashGeneratorUtil = new HashGeneratorUtil();
     }
 
     @Override
@@ -50,20 +54,36 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByLogin(String login) throws ServiceException {
+        LOGGER.log(Level.INFO, "method find user by id");
+        try {
+            return userDao.findByLogin(login);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
+            throw new ServiceException("Exception when find user by id: {}", e);
+        }
+    }
+
+    @Override
     public User findUser(String login, String pass) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by login and pass");
         if (!validator.isLoginValid(login) || !validator.isPasswordValid(pass)) {
             throw new ServiceException("Input data is invalid");
         }
         try {
-            return userDao.find(login, pass);
-        } catch (DaoException e) {
+            User user = userDao.findByLogin(login);
+            if (hashGeneratorUtil.validatePassword(pass, user.getPassword())) {
+                return user;
+            } else {
+                throw new ServiceException("Password is invalid ");
+            }
+        } catch (DaoException|UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by login and pass: ", e);
             throw new ServiceException("Exception when find user by login and pass: {}", e);
         }
     }
 
-    @Override
+        @Override
     public List<User> findAll() throws ServiceException {
         LOGGER.log(Level.INFO, "method findAll");
         try {

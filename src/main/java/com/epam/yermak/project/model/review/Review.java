@@ -1,9 +1,11 @@
 package com.epam.yermak.project.model.review;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Review {
+public class Review implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Long bookId;
     private Long userId;

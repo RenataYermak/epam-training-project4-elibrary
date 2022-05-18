@@ -60,34 +60,44 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.first_name"/></td>
-                <td><input type="text" name="firstName"required pattern="^[\wА-яЁё\s-]{2,25}$"
-                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.firstname"/>')"
+                <td><input type="text" name="firstName"required pattern="^[\p{L}]{2,25}$"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.firstname"/>')"
                            onchange="this.setAttribute('value', this.value);
-                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.firstname"/>' : '');"
+                           this.setCustomValidity(this.validity.patternMismatch ?
+                                   '<fmt:message key="validation.user.registration.firstname"/>' : '');"
                            value="${user.firstName}"></td>
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.second_name"/></td>
-                <td><input type="text" name="secondName" required pattern="^[\wА-яЁё\s-]{2,25}$"
-                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.secondname"/>')"
+                <td><input type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.secondname"/>')"
                            onchange="this.setAttribute('value', this.value);
-                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.secondname"/>' : '');"
+                           this.setCustomValidity(this.validity.patternMismatch ?
+                                   '<fmt:message key="validation.user.registration.secondname"/>' : '');"
                            value="${user.secondName}"></td>
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.password"/></td>
-                <td><input type="password" name="password" required pattern="^[\w-]{8,16}$"
-                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.email"/>')"
+                <td><input type="password" name="password" required pattern="^[\w-]{8,49}$"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.email"/>')"
                            onchange="this.setAttribute('value', this.value);
-                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.password"/>' : '');"
-                           value="${user.password}"></td>
+                           this.setCustomValidity(this.validity.patternMismatch ?
+                                   '<fmt:message key="validation.user.registration.password"/>' : '');"
+                           value="${user.password}">
+                    <br/>
+                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()" ><fmt:message key="sign_in.button.show_password"/></td>
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.email"/></td>
                 <td><input type="text" name="email" required pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
-                           oninvalid="this.setCustomValidity('<fmt:message key="validation.user.registration.email"/>')"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.email"/>')"
                            onchange="this.setAttribute('value', this.value);
-                                   this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message key="validation.user.registration.email"/>' : '');"
+                                   this.setCustomValidity(this.validity.patternMismatch ?
+                                   '<fmt:message key="validation.user.registration.email"/>' : '');"
                            value="${user.email}"></td>
             </tr>
             <c:if test="${authUser.role == 'ADMIN' && authUser.login != 'admin'}">

@@ -1,8 +1,10 @@
 package com.epam.yermak.project.model.statistic;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class BookStatistic {
+public class BookStatistic implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Long bookId;
     private Long userId;
@@ -66,12 +68,13 @@ public class BookStatistic {
 
     @Override
     public String toString() {
-        return "BookStatistic{" +
-                "id=" + id +
-                ", bookId=" + bookId +
-                ", userId=" + userId +
-                ", read=" + read +
-                ", rating=" + rating +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getClass());
+        builder.append(" id = ").append(id);
+        builder.append(", bookId = ").append(bookId);
+        builder.append(", userId = ").append(userId);
+        builder.append(", read = ").append(read);
+        builder.append(", rating = ").append(rating);
+        return builder.toString();
     }
 }

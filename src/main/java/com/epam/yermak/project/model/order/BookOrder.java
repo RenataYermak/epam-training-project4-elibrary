@@ -1,9 +1,11 @@
 package com.epam.yermak.project.model.order;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class BookOrder {
+public class BookOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private Long bookId;
     private Long userId;
@@ -107,16 +109,17 @@ public class BookOrder {
 
     @Override
     public String toString() {
-        return "BookOrder{" +
-                "id=" + id +
-                ", bookId=" + bookId +
-                ", userId=" + userId +
-                ", status=" + status +
-                ", issue=" + issue +
-                ", orderedDate=" + orderedDate +
-                ", reservedDate=" + reservedDate +
-                ", returnedDate=" + returnedDate +
-                ", rejectedDate=" + rejectedDate +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getClass());
+        builder.append(" id = ").append(id);
+        builder.append(" bookId = ").append(bookId);
+        builder.append(" userId = ").append(userId);
+        builder.append(" issue = ").append(issue);
+        builder.append(" status = ").append(status);
+        builder.append(" orderedDate = ").append(orderedDate);
+        builder.append(" reservedDate = ").append(reservedDate);
+        builder.append(" reservedDate = ").append(reservedDate);
+        builder.append(" rejectedDate = ").append(rejectedDate);
+        return builder.toString();
     }
 }

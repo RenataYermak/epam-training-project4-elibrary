@@ -19,17 +19,17 @@ public class BookDaoImpl implements BookDao {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static class Query {
-        public static final String SELECT_ALL_BOOKS = "select * from book";
-        public static final String SELECT_BOOK_BY_ID = "select * from book where book_id=?";
+        public static final String SELECT_ALL_BOOKS = "SELECT * FROM books";
+        public static final String SELECT_BOOK_BY_ID = "SELECT * FROM books WHERE book_id=?";
         public static final String INSERT_BOOK =
-                "insert into book (title, author, category, `date`, description, number) " +
-                        "values(?, ?, ?, ?, ?, ?, ?);";
+                "INSERT INTO books (title, author, category, publish_year, description, number) " +
+                        "VALUES(?, ?, ?, ?, ?, ?, ?);";
         public static final String UPDATE_BOOK =
-                "update book set title=?, author=?, category=?, `date`=?, description=?,  number=? " +
-                        "where book_id=?";
-        public static final String DELETE_BOOK = "delete from book where book_id=?";
+                "UPDATE books SET title=?, author=?, category=?, publish_year=?, description=?,  number=? " +
+                        "WHERE book_id=?";
+        public static final String DELETE_BOOK = "DELETE FROM books WHERE book_id=?";
         public static final String BOOK_SEARCH =
-                "select * from book where title like CONCAT('%',?,'%') or author like CONCAT('%',?,'%')";
+                "SELECT * FROM books WHERE title LIKE CONCAT('%',?,'%') or author LIKE CONCAT('%',?,'%')";
     }
 
     private static class ColumnName {
@@ -39,7 +39,7 @@ public class BookDaoImpl implements BookDao {
         public static final String CATEGORY = "category";
         public static final String PUBLISH_YEAR = "publish_year";
         public static final String DESCRIPTION = "description";
-        public static final String OVERALL_RATING = "overall_rating";
+       // public static final String OVERALL_RATING = "overall_rating";
         public static final String NUMBER = "number";
     }
 
@@ -47,19 +47,17 @@ public class BookDaoImpl implements BookDao {
     public Book find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
         Book book = null;
-        PreparedStatement ps = getPrepareStatement(Query.SELECT_BOOK_BY_ID);
-        try {
-            ps.setLong(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                book = new Book();
-                constructBook(book, rs);
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_BOOK_BY_ID)) {
+            preparedStatement.setLong(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    book = new Book();
+                    constructBook(book, resultSet);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find: ", e);
             throw new DaoException("Exception when find book: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
         return book;
     }
@@ -68,19 +66,16 @@ public class BookDaoImpl implements BookDao {
     public List<Book> findAll() throws DaoException {
         LOGGER.log(Level.INFO, "method findAll");
         List<Book> books = new ArrayList<>();
-        PreparedStatement ps = getPrepareStatement(Query.SELECT_ALL_BOOKS);
-        try {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_BOOKS);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
                 Book book = new Book();
-                constructBook(book, rs);
+                constructBook(book, resultSet);
                 books.add(book);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
             throw new DaoException("Exception when findAll books: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
         return books;
     }
@@ -89,58 +84,51 @@ public class BookDaoImpl implements BookDao {
     public List<Book> findBooksByQuery(String searchQuery) throws DaoException {
         LOGGER.log(Level.INFO, "method findBooksByQuery");
         List<Book> books = new ArrayList<>();
-        PreparedStatement ps = getPrepareStatement(Query.BOOK_SEARCH);
-        try {
-            ps.setString(1, searchQuery);
-            ps.setString(2, searchQuery);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Book book = new Book();
-                constructBook(book, rs);
-                books.add(book);
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.BOOK_SEARCH)) {
+            preparedStatement.setString(1, searchQuery);
+            preparedStatement.setString(2, searchQuery);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Book book = new Book();
+                    constructBook(book, resultSet);
+                    books.add(book);
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByQuery: ", e);
             throw new DaoException("Exception when findBooksByQuery: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
         return books;
     }
 
     @Override
-    public Book create(Book entity) throws DaoException {
+    public Book create(Book book) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        PreparedStatement ps = getPrepareStatement(Query.INSERT_BOOK);
-        try {
-            constructPrepareStatement(ps, entity);
-            ps.executeUpdate();
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                entity.setId(rs.getLong(1));
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.INSERT_BOOK)) {
+            constructPrepareStatement(preparedStatement, book);
+            preparedStatement.executeUpdate();
+            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    book.setId(resultSet.getLong(1));
+                }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new DaoException("Exception when create book: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
-        return entity;
+        return book;
     }
 
     @Override
     public Book update(Book entity) throws DaoException {
         LOGGER.log(Level.INFO, "method update");
-        PreparedStatement ps = getPrepareStatement(Query.UPDATE_BOOK);
-        try {
-            constructPrepareStatement(ps, entity);
-            ps.setLong(7, entity.getId());
-            ps.executeUpdate();
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_BOOK)) {
+            constructPrepareStatement(preparedStatement, entity);
+            preparedStatement.setLong(7, entity.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new DaoException("Exception when update book: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
         return entity;
     }
@@ -148,15 +136,12 @@ public class BookDaoImpl implements BookDao {
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        PreparedStatement ps = getPrepareStatement(Query.DELETE_BOOK);
-        try {
-            ps.setLong(1, id);
-            ps.executeUpdate();
+        try (PreparedStatement preparedStatement = getPrepareStatement(Query.DELETE_BOOK)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method delete: ", e);
             throw new DaoException("Exception when delete book: {}", e);
-        } finally {
-            closePrepareStatement(ps);
         }
     }
 

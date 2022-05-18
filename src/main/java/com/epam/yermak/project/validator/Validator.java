@@ -3,8 +3,8 @@ package com.epam.yermak.project.validator;
 import com.epam.yermak.project.model.user.User;
 
 public class Validator {
-    private static final String NAME_REGEX = "^[\\p{L}-]{2,25}$";
-    private static final String PASSWORD_REGEX = "^[\\w-]{8,16}$";
+    private static final String NAME_REGEX = "^[\\p{L}]{2,25}$";
+    private static final String PASSWORD_REGEX = "^[\\w-]{8,49}$";
     private static final String EMAIL_REGEX ="^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
     private static final String LOGIN_REGEX = "^[\\w\\d-]{2,25}$";
     private static final String BOOK_SEARCH_REGEX = "^[\\p{L}\\d-.]{2,25}$";

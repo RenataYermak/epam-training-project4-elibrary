@@ -1,8 +1,10 @@
 package com.epam.yermak.project.model.book;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Book {
+public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String title;
     private String author;
@@ -35,13 +37,9 @@ public class Book {
         this.author = author;
     }
 
-    public Category getCategory() {
-        return category;
-    }
+    public Category getCategory() {return category;}
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+    public void setCategory(Category category) {this.category = category;}
 
     public int getPublishYear() {
         return publishYear;
@@ -72,7 +70,9 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return publishYear == book.publishYear && number == book.number && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && category == book.category && Objects.equals(description, book.description);
+        return publishYear == book.publishYear && number == book.number && Objects.equals(id, book.id) &&
+                Objects.equals(title, book.title) && Objects.equals(author, book.author) && category == book.category &&
+                Objects.equals(description, book.description);
     }
 
     @Override
@@ -82,14 +82,15 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", category=" + category +
-                ", publishYear=" + publishYear +
-                ", description='" + description + '\'' +
-                ", number=" + number +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append(this.getClass());
+        builder.append(" id = ").append(id);
+        builder.append(" title = ").append(title);
+        builder.append(" author = ").append(author);
+        builder.append(" category = ").append(category);
+        builder.append(" publishYear = ").append(publishYear);
+        builder.append(" description = ").append(description);
+        builder.append(" number = ").append(number);
+        return builder.toString();
     }
 }
