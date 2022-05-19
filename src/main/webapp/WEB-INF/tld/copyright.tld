@@ -9,7 +9,7 @@
     <uri>/WEB-INF/tld/copyright.tld</uri>
     <tag>
         <name>copyright</name>
-        <tag-class>com.epam.yermak.project.util.tag.CopyrightTag</tag-class>
+        <tag-class>by.yermak.yermak.eliblary.util.tag.CopyrightTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 </taglib>
