@@ -36,8 +36,8 @@ multiple copies. Administrator manages Readers and Books.
 - Tests: JUnit 4
 ***
 ### Screenshot
-![Снимоsssк](https://user-images.githubusercontent.com/72652915/169157368-0f089f6b-e4fc-449b-b6ca-ff267f376459.PNG)
 ![Снимок](https://user-images.githubusercontent.com/72652915/169157310-920aace0-6182-4a2b-a818-79cda55128e8.PNG)
+![Снимоsssк](https://user-images.githubusercontent.com/72652915/169157368-0f089f6b-e4fc-449b-b6ca-ff267f376459.PNG)
 
 ***
 ### CREATED BY RENATA YERMAK 2022
