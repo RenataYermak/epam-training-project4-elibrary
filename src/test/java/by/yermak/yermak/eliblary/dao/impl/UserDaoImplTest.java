@@ -1,9 +1,10 @@
 package by.yermak.yermak.eliblary.dao.impl;
 
-import by.yermak.yermak.eliblary.model.user.Status;
-import by.yermak.yermak.eliblary.model.user.User;
-import by.yermak.yermak.eliblary.dao.UserDao;
-import by.yermak.yermak.eliblary.dao.exception.DaoException;
+import by.yermak.eliblary.dao.impl.UserDaoImpl;
+import by.yermak.eliblary.model.user.Status;
+import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.dao.UserDao;
+import by.yermak.eliblary.dao.exception.DaoException;
 import org.hamcrest.core.Is;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

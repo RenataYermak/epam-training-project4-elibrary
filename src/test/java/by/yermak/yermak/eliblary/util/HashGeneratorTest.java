@@ -1,7 +1,7 @@
 package by.yermak.yermak.eliblary.util;
 
-import by.yermak.yermak.eliblary.util.exception.UtilException;
-import by.yermak.yermak.eliblary.util.hash.HashGenerator;
+import by.yermak.eliblary.util.exception.UtilException;
+import by.yermak.eliblary.util.hash.HashGenerator;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

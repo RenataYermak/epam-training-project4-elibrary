@@ -1,8 +1,9 @@
 package by.yermak.yermak.eliblary.service.impl;
 
-import by.yermak.yermak.eliblary.model.user.User;
-import by.yermak.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package by.yermak.yermak.eliblary.validator;
 
+import by.yermak.eliblary.validator.Validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

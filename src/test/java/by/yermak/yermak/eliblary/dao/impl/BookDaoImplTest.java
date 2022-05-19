@@ -1,8 +1,9 @@
 package by.yermak.yermak.eliblary.dao.impl;
 
-import by.yermak.yermak.eliblary.model.book.Book;
-import by.yermak.yermak.eliblary.dao.exception.DaoException;
-import by.yermak.yermak.eliblary.dao.BookDao;
+import by.yermak.eliblary.dao.impl.BookDaoImpl;
+import by.yermak.eliblary.model.book.Book;
+import by.yermak.eliblary.dao.exception.DaoException;
+import by.yermak.eliblary.dao.BookDao;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

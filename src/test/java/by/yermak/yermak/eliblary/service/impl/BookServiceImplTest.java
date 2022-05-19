@@ -1,9 +1,10 @@
 package by.yermak.yermak.eliblary.service.impl;
 
-import by.yermak.yermak.eliblary.model.book.Book;
-import by.yermak.yermak.eliblary.model.book.Category;
-import by.yermak.yermak.eliblary.service.BookService;
-import by.yermak.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.model.book.Book;
+import by.yermak.eliblary.model.book.Category;
+import by.yermak.eliblary.service.BookService;
+import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
