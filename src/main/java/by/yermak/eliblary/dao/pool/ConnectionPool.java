@@ -30,8 +30,8 @@ public class ConnectionPool {
         usedConnections = new LinkedBlockingDeque<>(POOL_SIZE);
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-               Connection connection = ConnectionFactory.createConnection();
-                freeConnections.add( connection);
+                Connection connection = ConnectionFactory.createConnection();
+                freeConnections.add(connection);
             } catch (SQLException e) {
                 logger.error("exception in open connection: ", e);
             }
@@ -68,7 +68,7 @@ public class ConnectionPool {
      * @return a connection
      */
     public Connection getConnection() {
-       Connection connection = null;
+        Connection connection = null;
         try {
             connection = freeConnections.take();
             usedConnections.offer(connection);
@@ -83,17 +83,22 @@ public class ConnectionPool {
      * Releases a connection
      *
      * @param connection used connection
-     * @throws ConnectionPoolException if receives the wrong instance of the connection
      */
-    public void releaseConnection(Connection connection) throws ConnectionPoolException {
+    public boolean releaseConnection(Connection connection) {
 
 //        if (!(connection instanceof ProxyConnection)) {
 //            logger.error("wrong instance");
 //            throw new ConnectionPoolException("wrong instance");
 //        }
+        try {
             usedConnections.remove(connection);
-            freeConnections.offer(connection);
-
+            freeConnections.put(connection);
+            return true;
+        } catch (InterruptedException e) {
+            logger.error("failed to release a connection", e);
+            Thread.currentThread().interrupt();
+        }
+        return false;
     }
 
     /**
@@ -102,7 +107,8 @@ public class ConnectionPool {
     public void destroy() {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
-                freeConnections.take().close();;
+                freeConnections.take().close();
+                ;
             } catch (SQLException e) {
                 logger.error("failed to destroy pool", e);
             } catch (InterruptedException e) {

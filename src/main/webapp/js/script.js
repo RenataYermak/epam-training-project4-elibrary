@@ -7,7 +7,7 @@
 // }
 function show() {
     var a = document.getElementById("pwd");
-    if (a.type == "password") {
+    if (a.type === "password") {
         a.type = "text";
     } else {
         a.type = "password";

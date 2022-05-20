@@ -34,16 +34,4 @@ public interface EntityDao<E, K> {
         }
         return preparedStatement;
     }
-
-    default void setIntOrNull(PreparedStatement preparedStatement, int parameterIndex, Integer value) throws SQLException {
-        if (value == null) {
-            preparedStatement.setNull(parameterIndex, Types.INTEGER);
-        } else {
-            preparedStatement.setInt(parameterIndex, value);
-        }
-    }
-
-    default Integer returnResultSetIntValue(ResultSet rs, String columnName) throws SQLException {
-        return rs.getObject(columnName) != null ? rs.getInt(columnName) : null;
-    }
 }

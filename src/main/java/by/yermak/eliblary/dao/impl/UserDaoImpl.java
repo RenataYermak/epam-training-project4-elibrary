@@ -293,5 +293,3 @@ public class UserDaoImpl implements UserDao {
         preparedStatement.setString(6, user.getRole().toString());
     }
 }
-
-

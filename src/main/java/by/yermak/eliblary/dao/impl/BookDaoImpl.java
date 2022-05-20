@@ -39,7 +39,7 @@ public class BookDaoImpl implements BookDao {
         public static final String CATEGORY = "category";
         public static final String PUBLISH_YEAR = "publish_year";
         public static final String DESCRIPTION = "description";
-       // public static final String OVERALL_RATING = "overall_rating";
+        // public static final String OVERALL_RATING = "overall_rating";
         public static final String NUMBER = "number";
     }
 
@@ -151,7 +151,7 @@ public class BookDaoImpl implements BookDao {
         book.setAuthor(resultSet.getString(ColumnName.AUTHOR));
         book.setPublishYear(resultSet.getInt(ColumnName.PUBLISH_YEAR));
         book.setDescription(resultSet.getString(ColumnName.DESCRIPTION));
-        book.setNumber(returnResultSetIntValue(resultSet, ColumnName.NUMBER));
+        book.setNumber(resultSet.getInt( ColumnName.NUMBER));
         book.setCategory(Category.valueOf(resultSet.getString(ColumnName.CATEGORY).toUpperCase()));
     }
 
@@ -161,6 +161,6 @@ public class BookDaoImpl implements BookDao {
         preparedStatement.setString(3, book.getCategory().toString());
         preparedStatement.setInt(4, book.getPublishYear());
         preparedStatement.setString(5, book.getDescription());
-        setIntOrNull(preparedStatement, 6, book.getNumber());
+        preparedStatement.setInt( 6, book.getNumber());
     }
 }
