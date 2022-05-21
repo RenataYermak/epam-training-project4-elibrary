@@ -5,6 +5,7 @@ import by.yermak.eliblary.model.statistic.BookStatistic;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BookStatisticDaoImpl implements BookStatisticDao {
 
@@ -29,7 +30,7 @@ public class BookStatisticDaoImpl implements BookStatisticDao {
     }
 
     @Override
-    public BookStatistic find(Long id) throws DaoException {
+    public Optional<BookStatistic> find(Long id) throws DaoException {
         throw new UnsupportedOperationException();
     }
 
@@ -39,12 +40,12 @@ public class BookStatisticDaoImpl implements BookStatisticDao {
     }
 
     @Override
-    public BookStatistic create(BookStatistic entity) throws DaoException {
+    public Optional<BookStatistic> create(BookStatistic entity) throws DaoException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public BookStatistic update(BookStatistic entity) throws DaoException {
+    public Optional<BookStatistic> update(BookStatistic entity) throws DaoException {
         throw new UnsupportedOperationException();
     }
 

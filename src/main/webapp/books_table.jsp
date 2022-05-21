@@ -123,8 +123,8 @@
         <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
     </c:if>
     <c:if test="${orderId != null}">
-        <p class="info-style"><fmt:message key="books.info.booked_success"/> <span
-                class="info-style-srh">${bookTitle}</span> <fmt:message key="books.info.book"/></p>
+        <p class="info-style"><fmt:message key="books.info.booked_success"/>
+            <span class="info-style-srh">${bookTitle}</span> <fmt:message key="books.info.book"/></p>
     </c:if>
 </div>
 <%@ include file="/footer.jsp" %>

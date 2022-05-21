@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -30,7 +31,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean isEmailExist(String email) throws ServiceException {
-
         boolean result;
         try {
             result = userDao.isEmailExist(email);
@@ -45,7 +45,12 @@ public class UserServiceImpl implements UserService {
     public User findUser(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
-            return userDao.find(id);
+            Optional<User> optionalUser = userDao.find(id);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            } else {
+                throw new ServiceException("Input data is invalid");
+            }
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
             throw new ServiceException("Exception when find user by id: {}", e);
@@ -56,7 +61,12 @@ public class UserServiceImpl implements UserService {
     public User findUserByLogin(String login) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
-            return userDao.findByLogin(login);
+            Optional<User> optionalUser = userDao.findByLogin(login);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            } else {
+                throw new ServiceException("There is no such user with email: " + login);
+            }
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
             throw new ServiceException("Exception when find user by id: {}", e);
@@ -70,13 +80,13 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Input data is invalid");
         }
         try {
-            User user = userDao.findByLogin(login);
-            if (hashGenerator.validatePassword(pass, user.getPassword())) {
-                return user;
+            Optional<User> optionalUser = userDao.findByLogin(login);
+            if (optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword())) {
+                return optionalUser.get();
             } else {
-                throw new ServiceException("Password is invalid ");
+                throw new ServiceException("Password is invalid22 ");
             }
-        } catch (DaoException |UtilException e) {
+        } catch (DaoException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by login and pass: ", e);
             throw new ServiceException("Exception when find user by login and pass: {}", e);
         }
@@ -111,33 +121,40 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) throws ServiceException {
         LOGGER.log(Level.INFO, "method create");
-        if (validator.isUserValid(user)) {
-            try {
-                user.setPassword(hashGenerator.generateHash(user.getPassword()));
-                return userDao.create(user);
-            } catch (DaoException | UtilException e) {
-                LOGGER.log(Level.ERROR, "exception in method create: ", e);
-                throw new ServiceException("Exception when create user: {}", e);
-            }
-        } else {
+        if (!validator.isUserValid(user)) {
             throw new ServiceException("Input data is invalid");
         }
+        try {
+            user.setPassword(hashGenerator.generateHash(user.getPassword()));
+            Optional<User> optionalUser = userDao.create(user);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            } else {
+                throw new ServiceException("Input data is invalid");
+            }
+        } catch (DaoException | UtilException e) {
+            LOGGER.log(Level.ERROR, "exception in method create: ", e);
+            throw new ServiceException("Exception when create user: {}", e);
+        }
     }
-
 
     @Override
     public User update(User user) throws ServiceException {
         LOGGER.log(Level.INFO, "method update");
-        if (validator.isUserValid(user)) {
-            try {
-                user.setPassword(hashGenerator.generateHash(user.getPassword()));
-                return userDao.update(user);
-            } catch (DaoException | UtilException e) {
-                LOGGER.log(Level.ERROR, "exception in method update: ", e);
-                throw new ServiceException("Exception when update user: {}", e);
-            }
-        } else {
+        if (!validator.isUserValid(user)) {
             throw new ServiceException("Input data is invalid");
+        }
+        try {
+            user.setPassword(hashGenerator.generateHash(user.getPassword()));
+            Optional<User> optionalUser = userDao.update(user);
+            if (optionalUser.isPresent()) {
+                return optionalUser.get();
+            } else {
+                throw new ServiceException("Password is invalid ");
+            }
+        } catch (DaoException | UtilException e) {
+            LOGGER.log(Level.ERROR, "exception in method update: ", e);
+            throw new ServiceException("Exception when update user: {}", e);
         }
     }
 
@@ -185,6 +202,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Exception when deactivate user: {}", e);
         }
     }
+
 
     @Override
     public void updatePassword(User user) throws ServiceException {

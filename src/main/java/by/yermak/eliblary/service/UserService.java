@@ -5,6 +5,7 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Describes the behavior of {@link User} entity.
@@ -34,7 +35,7 @@ public interface UserService {
      *                          data source or if an error occurs while searching {@link User}
      *                          into the data source
      */
-    User findUserByLogin(String login) throws ServiceException;
+   User findUserByLogin(String login) throws ServiceException;
 
     /**
      * Log in and return {@link User} instance
@@ -49,7 +50,7 @@ public interface UserService {
      *                          do not present into data source or if an error occurs
      *                          while searching {@link User} into the data source
      */
-    User findUser(String login, String pass) throws ServiceException;
+   User findUser(String login, String pass) throws ServiceException;
 
     /**
      * Find all users list {@link User}
@@ -79,6 +80,7 @@ public interface UserService {
      *                          or if user with <tt>email</tt> or <tt>login</tt> has already exist
      *                          or if an error occurs while writing new {@link User} into
      *                          data source
+     * @return
      */
     User create(User user) throws ServiceException;
 
@@ -91,6 +93,7 @@ public interface UserService {
      *                          or if user with <tt>email</tt> has already exist
      *                          or if an error occurs while writing new {@link User} into
      *                          data source
+     * @return
      */
     User update(User user) throws ServiceException;
 

@@ -7,7 +7,7 @@ import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
 
-public interface BookOrderDao extends EntityDao<BookOrder, Long> {
+public interface BookOrderDao extends  EntityDao<BookOrder> {
     List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException;
 
     List<Order> findOrdersByUserIdAndOrderStatus(Long userId, Status orderStatus) throws DaoException;

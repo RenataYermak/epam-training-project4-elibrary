@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class BookOrderDaoImpl implements BookOrderDao {
 
@@ -195,7 +196,7 @@ public class BookOrderDaoImpl implements BookOrderDao {
     }
 
     @Override
-    public BookOrder find(Long id) throws DaoException {
+    public Optional<BookOrder> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
         BookOrder bookOrder = null;
 
@@ -221,7 +222,7 @@ public class BookOrderDaoImpl implements BookOrderDao {
             LOGGER.log(Level.ERROR, "exception in method find: ", e);
             throw new DaoException("Exception when find order: {}", e);
         }
-        return bookOrder;
+        return Optional.ofNullable(bookOrder);
     }
 
     @Override
@@ -242,12 +243,12 @@ public class BookOrderDaoImpl implements BookOrderDao {
     }
 
     @Override
-    public BookOrder create(BookOrder entity) throws DaoException {
+    public Optional<BookOrder> create(BookOrder entity) throws DaoException {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public BookOrder update(BookOrder entity) throws DaoException {
+    public Optional<BookOrder> update(BookOrder entity) throws DaoException {
         throw new UnsupportedOperationException();
     }
 }

@@ -1,3 +1,4 @@
+
 package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.service.BookService;
@@ -22,6 +23,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -44,7 +46,12 @@ public class BookServiceImpl implements BookService {
     public Book findBook(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find");
         try {
-            return bookDao.find(id);
+            Optional<Book> bookOptional = bookDao.find(id);
+            if (bookOptional.isPresent()) {
+                return bookOptional.get();
+            } else {
+                throw new ServiceException("There is no such book");
+            }
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find: ", e);
             throw new ServiceException("Exception when find book: {}", e);
@@ -83,7 +90,12 @@ public class BookServiceImpl implements BookService {
     public Book create(Book book) throws ServiceException {
         LOGGER.log(Level.INFO, "method create");
         try {
-            return bookDao.create(book);
+            Optional<Book> optionalBook = bookDao.create(book);
+            if (optionalBook.isPresent()) {
+                return optionalBook.get();
+            } else {
+                throw new ServiceException("There is no such book");
+            }
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new ServiceException("Exception when create book: {}", e);
@@ -94,7 +106,12 @@ public class BookServiceImpl implements BookService {
     public Book update(Book book) throws ServiceException {
         LOGGER.log(Level.INFO, "method update");
         try {
-            return bookDao.update(book);
+            Optional<Book> optionalBook = bookDao.update(book);
+            if (optionalBook.isPresent()) {
+                return optionalBook.get();
+            } else {
+                throw new ServiceException("There is no such book");
+            }
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new ServiceException("Exception when update book: {}", e);
@@ -118,9 +135,11 @@ public class BookServiceImpl implements BookService {
         try {
             List<Order> orders = bookOrderDao.findOrdersByOrderStatus(orderStatus);
             for (Order order : orders) {
-                User user = userDao.find(order.getUserId());
-                order.setUserFirstName(user.firstName);
-                order.setUserSecondName(user.secondName);
+                Optional<User> optionalUser = userDao.find(order.getUserId());
+                if (optionalUser.isPresent()) {
+                    order.setUserFirstName(optionalUser.get().firstName);
+                    order.setUserSecondName(optionalUser.get().secondName);
+                }
             }
             return orders;
         } catch (DaoException e) {

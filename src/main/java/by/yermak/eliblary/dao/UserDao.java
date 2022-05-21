@@ -4,13 +4,14 @@ import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface UserDao extends EntityDao<User, Long> {
+public interface UserDao extends EntityDao<User> {
     boolean isEmailExist(String email) throws DaoException;
 
-    User findByLogin(String login) throws DaoException;
+    Optional<User> findByLogin(String login) throws DaoException;
 
-    User find(String login, String pass) throws DaoException;
+   Optional<User> find(String login,String pass) throws DaoException;
 
     List<User> findUsersByQuery(String searchQuery) throws DaoException;
 
@@ -21,4 +22,5 @@ public interface UserDao extends EntityDao<User, Long> {
     void deactivate(Long id) throws DaoException;
 
     void updatePassword(Long id, String pass) throws DaoException;
+
 }

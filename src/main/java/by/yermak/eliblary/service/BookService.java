@@ -7,6 +7,7 @@ import by.yermak.eliblary.model.order.Status;
 import by.yermak.eliblary.service.exception.ServiceException;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookService {
     Book findBook(Long id) throws ServiceException;

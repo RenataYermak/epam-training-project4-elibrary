@@ -1,21 +1,23 @@
 package by.yermak.eliblary.dao.impl;
 
 import by.yermak.eliblary.dao.UserDao;
-import by.yermak.eliblary.model.user.Role;
-import by.yermak.eliblary.model.user.Status;
+import by.yermak.eliblary.dao.mapper.impl.UserMapper;
 import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.util.exception.UtilException;
-import by.yermak.eliblary.util.hash.HashGenerator;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import org.apache.logging.log4j.Level;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDaoImpl implements UserDao {
+    private static final Logger LOGGER = LogManager.getLogger();
+    private final UserMapper userMapper = new UserMapper();
 
     private static class Query {
         public static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE user_id=?";
@@ -35,88 +37,74 @@ public class UserDaoImpl implements UserDao {
                 "SELECT user_id FROM users WHERE email = ? LIMIT 1";
     }
 
-    private static class ColumnName {
-        public static final String ID = "user_id";
-        public static final String LOGIN = "login";
-        public static final String PASSWORD = "password";
-        public static final String FIRSTNAME = "firstname";
-        public static final String SECONDNAME = "secondname";
-        public static final String EMAIL = "email";
-        public static final String ROLE = "role";
-        public static final String STATUS = "status";
-        public static final String ACTIVATION_DATE = "activation_date";
-        public static final String DEACTIVATION_DATE = "deactivation_date";
-    }
-
 
     @Override
     public boolean isEmailExist(String email) throws DaoException {
+        boolean isExist = false;
         try (PreparedStatement statement = getPrepareStatement(Query.SQL_IS_EMAIL_EXIST)) {
             statement.setString(1, email);
             try (ResultSet resultSet = statement.executeQuery()) {
-                return resultSet.next();
+                if (resultSet.next()) {
+                    isExist = true;
+                }
             }
         } catch (SQLException e) {
             LOGGER.error("failed to check if user with {} email exists", email, e);
             throw new DaoException("failed to check if user with " + email + " exists", e);
         }
+        return isExist;
     }
 
     @Override
-    public User find(Long id) throws DaoException {
+    public Optional<User> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
-        User user = null;
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_ID)) {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    constructUser(user, resultSet);
+                    return userMapper.map(resultSet);
                 }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
             throw new DaoException("Exception when find user by id: {}", e);
         }
-        return user;
+        return Optional.empty();
     }
+
     @Override
-    public User findByLogin(String login) throws DaoException {
+    public Optional<User> findByLogin(String login) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
-        User user = null;
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    constructUser(user, resultSet);
+                    return userMapper.map(resultSet);
                 }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
             throw new DaoException("Exception when find user by id: {}", e);
         }
-        return user;
+        return Optional.empty();
     }
+
     @Override
-    public User find(String login, String pass) throws DaoException {
+    public Optional<User> find(String login, String pass) throws DaoException {
         LOGGER.log(Level.INFO, "method find by login and pass");
-        User user = null;
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, pass);
-
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    user = new User();
-                    constructUser(user, resultSet);
+                    return userMapper.map(resultSet);
                 }
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find by login and pass: ", e);
             throw new DaoException("Exception when find user by login and pass: {}", e);
         }
-        return user;
+        return Optional.empty();
     }
 
 
@@ -130,9 +118,8 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(3, searchQuery);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    User user = new User();
-                    constructUser(user, resultSet);
-                    users.add(user);
+                    Optional<User> optionalUser = userMapper.map(resultSet);
+                    optionalUser.ifPresent(users::add);
                 }
             }
         } catch (SQLException e) {
@@ -149,9 +136,8 @@ public class UserDaoImpl implements UserDao {
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_USERS);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                User user = new User();
-                constructUser(user, resultSet);
-                users.add(user);
+                Optional<User> optionalUser = userMapper.map(resultSet);
+                optionalUser.ifPresent(users::add);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
@@ -167,9 +153,8 @@ public class UserDaoImpl implements UserDao {
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                User user = new User();
-                constructUser(user, resultSet);
-                users.add(user);
+                Optional<User> optionalUser = userMapper.map(resultSet);
+                optionalUser.ifPresent(users::add);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findActivatedUsers: ", e);
@@ -185,9 +170,8 @@ public class UserDaoImpl implements UserDao {
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
              ResultSet resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                User user = new User();
-                constructUser(user, resultSet);
-                users.add(user);
+                Optional<User> optionalUser = userMapper.map(resultSet);
+                optionalUser.ifPresent(users::add);
             }
 
         } catch (SQLException e) {
@@ -198,7 +182,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User create(User user) throws DaoException {
+    public Optional<User> create(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.INSERT_USER)) {
             constructPreparedStatement(preparedStatement, user);
@@ -206,30 +190,33 @@ public class UserDaoImpl implements UserDao {
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     user.setId(resultSet.getLong(1));
-                    User createdUser = find(user.getId());
-                    user.setStatus(createdUser.getStatus());
-                    user.setActivationDate(createdUser.getActivationDate());
+                    Optional<User> optionalUser = find(user.getId());
+                    if (optionalUser.isPresent()) {
+                        user.setStatus(optionalUser.get().getStatus());
+                        user.setActivationDate(optionalUser.get().getActivationDate());
+                        return Optional.of(user);
+                    }
                 }
             }
         } catch (SQLException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new DaoException("Exception when create user: {}", e);
         }
-        return user;
+        return Optional.empty();
     }
 
     @Override
-    public User update(User user) throws DaoException {
+    public Optional<User> update(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method update");
         try (PreparedStatement preparedStatement = getPrepareStatement(Query.UPDATE_USER)) {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
-        } catch (SQLException |UtilException e) {
+        } catch (SQLException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new DaoException("Exception when update user: {}", e);
         }
-        return user;
+        return Optional.of(user);
     }
 
     @Override
@@ -270,21 +257,7 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-    private void constructUser(User user, ResultSet resultSet) throws SQLException {
-        user.setId(resultSet.getLong(ColumnName.ID));
-        user.setLogin(resultSet.getString(ColumnName.LOGIN));
-        user.setPassword(resultSet.getString(ColumnName.PASSWORD));
-        user.setFirstName(resultSet.getString(ColumnName.FIRSTNAME));
-        user.setSecondName(resultSet.getString(ColumnName.SECONDNAME));
-        user.setEmail(resultSet.getString(ColumnName.EMAIL));
-        user.setActivationDate(resultSet.getTimestamp(ColumnName.ACTIVATION_DATE));
-        user.setDeactivationDate(resultSet.getTimestamp(ColumnName.DEACTIVATION_DATE));
-        user.setRole(Role.valueOf(resultSet.getString(ColumnName.ROLE).toUpperCase()));
-        user.setStatus(Status.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
-    }
-
     private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException, UtilException {
-        HashGenerator hashGenerator = new HashGenerator();
         preparedStatement.setString(1, user.getLogin());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getFirstName());
