@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
-                    <td><input type="number" size="4" name="year" min = "1500" required pattern="^[0-9]$"
+                    <td><input type="number" size="4" name="year" min = "1500" max = "2022" required pattern="^[0-9]{4}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);

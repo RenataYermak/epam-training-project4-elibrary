@@ -71,8 +71,7 @@ public interface UserService {
     List<User> findUsersByQuery(String searchQuery) throws ServiceException;
 
     /**
-     * Creat {@link User} with filled fields, allow access to service after using
-     * single-use auth-token, which sent to email
+     * Creat {@link User} with filled fields
      *
      * @param user {@link User} is filled user instance
      * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
@@ -148,5 +147,14 @@ public interface UserService {
      *                          while searching {@link User} into the data source
      */
     void updatePassword(User user) throws ServiceException;
-}
 
+    /**
+     * Send message about successful registration on user email.
+     *
+     * @param firstName     the firstname
+     * @param secondName    the secondname
+     * @param email         the email
+     * @param currentLocale the current locale, chosen by current user
+     */
+    void sendEmailRegisteredUser (String firstName,String secondName, String email, String currentLocale);
+}

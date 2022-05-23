@@ -6,6 +6,9 @@ import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.util.email.MailLanguageText;
+import by.yermak.eliblary.util.email.MailSender;
+import by.yermak.eliblary.util.email.MessagesKey;
 import by.yermak.eliblary.util.exception.UtilException;
 import by.yermak.eliblary.util.hash.HashGenerator;
 import by.yermak.eliblary.validator.Validator;
@@ -18,7 +21,6 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final UserDao userDao;
     private final Validator validator;
     private final HashGenerator hashGenerator;
@@ -217,6 +219,12 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new ServiceException("Input data is invalid");
         }
+    }
+
+    @Override
+    public void sendEmailRegisteredUser(String firstName,String secondName, String email, String currentLocale) {
+        String finalRegistrationMessage =firstName + " " + secondName + ", " + MailLanguageText.getInstance().getText(currentLocale, "successful.reg.email.body");
+        MailSender.getInstance().send(email, MessagesKey.SUCCESSFUL_REG_EMAIL_HEADER, finalRegistrationMessage);
     }
 }
 

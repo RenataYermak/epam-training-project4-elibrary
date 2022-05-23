@@ -18,3 +18,4 @@ gradle/wrapper
 .lib
 settings.gradle
 
+/lib/

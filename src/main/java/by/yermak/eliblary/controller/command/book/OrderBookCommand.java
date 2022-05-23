@@ -32,8 +32,8 @@ public class OrderBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long userId = Long.parseLong(request.getParameter(RequestParam.USER_ID));
-                Long bookId = Long.parseLong(request.getParameter(RequestParam.BOOK_ID));
+                Long userId = parseLongParameter(request.getParameter(RequestParam.USER_ID));
+                Long bookId = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 String bookTitle = request.getParameter(RequestParam.BOOK_TITLE);
                 String issue = request.getParameter(RequestParam.ISSUE);
                 Long orderId = bookService.orderBook(bookId, userId, Issue.valueOf(issue.toUpperCase()));

@@ -27,4 +27,31 @@ public interface Command {
     default User getAuthUser(HttpSession session) {
         return (User) session.getAttribute(SessionAttribute.AUTHORIZED_USER);
     }
+    /**
+     * Parses a long input parameter.
+     *
+     * @param input an input request parameter
+     * @return parsed long parameter or 0 otherwise
+     */
+    default long parseLongParameter(String input) {
+        try {
+            return Long.parseLong((input));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    /**
+     * Parses an int input parameter.
+     *
+     * @param input an input request parameter
+     * @return parsed int parameter or 0 otherwise
+     */
+    default int parseIntParameter(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 }

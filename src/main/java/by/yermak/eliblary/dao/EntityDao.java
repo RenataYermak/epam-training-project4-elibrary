@@ -16,7 +16,7 @@ public interface EntityDao<E> {
     Logger LOGGER = LogManager.getLogger();
     Connection connection = ConnectionPool.getInstance().getConnection();
 
-   Optional< E> find(Long id) throws DaoException;
+    Optional<E> find(Long id) throws DaoException;
 
     List<E> findAll() throws DaoException;
 

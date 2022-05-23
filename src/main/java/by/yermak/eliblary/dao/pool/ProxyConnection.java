@@ -1,6 +1,6 @@
-//package com.epam.yermak.project.dao.config;
+//package by.yermak.eliblary.dao.pool;;
 //
-//import com.epam.yermak.project.dao.config.exception.ConnectionPoolException;
+//
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
 //
@@ -9,21 +9,13 @@
 //import java.util.Properties;
 //import java.util.concurrent.Executor;
 //
-//public class ProxyConnection implements Connection {
+//record ProxyConnection(Connection connection) implements Connection {
 //    private static final Logger LOGGER = LogManager.getLogger();
-//    private final Connection connection;
-//
-//    ProxyConnection(Connection connection) {
-//        this.connection = connection;
-//    }
 //
 //    @Override
 //    public void close() throws SQLException {
-//        try {
-//            ConnectionPool.getInstance().releaseConnection(this);
-//        } catch (ConnectionPoolException e) {
-//            LOGGER.error("failed to close the connection", e);
-//        }
+//        this.setAutoCommit(true);
+//        ConnectionPool.getInstance().releaseConnection(this);
 //    }
 //
 //    void reallyClose() throws SQLException {

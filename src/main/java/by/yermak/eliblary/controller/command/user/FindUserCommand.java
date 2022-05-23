@@ -30,7 +30,7 @@ public class FindUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long userId = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long userId = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 User user = userService.findUser(userId);
                 request.setAttribute(RequestAttribute.USER, user);
                 return new ResponseContext(PagePath.USER_PROFILE, ResponseContext.ResponseContextType.FORWARD);

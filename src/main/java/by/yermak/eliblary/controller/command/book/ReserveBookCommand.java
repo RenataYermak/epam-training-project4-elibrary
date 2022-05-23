@@ -32,7 +32,7 @@ public class ReserveBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session) && isAdmin(session)) {
             try {
-                Long orderId = Long.parseLong(request.getParameter(RequestParam.ORDER_ID));
+                Long orderId = parseLongParameter(request.getParameter(RequestParam.ORDER_ID));
                 bookService.reserveBook(orderId);
                 List<Order> orders = bookService.findOrdersByOrderStatus(Status.ORDERED);
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");

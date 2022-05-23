@@ -31,8 +31,8 @@ public class ConnectionPool {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
                 Connection connection = ConnectionFactory.createConnection();
-                freeConnections.add(connection);
-            } catch (SQLException e) {
+                freeConnections.put(connection);
+            } catch (SQLException | InterruptedException e) {
                 logger.error("exception in open connection: ", e);
             }
         }
@@ -71,7 +71,7 @@ public class ConnectionPool {
         Connection connection = null;
         try {
             connection = freeConnections.take();
-            usedConnections.offer(connection);
+            usedConnections.put(connection);
         } catch (InterruptedException e) {
             logger.error("fexception in get connection from pool:", e);
             Thread.currentThread().interrupt();
@@ -85,10 +85,9 @@ public class ConnectionPool {
      * @param connection used connection
      */
     public boolean releaseConnection(Connection connection) {
-
 //        if (!(connection instanceof ProxyConnection)) {
 //            logger.error("wrong instance");
-//            throw new ConnectionPoolException("wrong instance");
+//            return false;
 //        }
         try {
             usedConnections.remove(connection);
@@ -108,7 +107,6 @@ public class ConnectionPool {
         for (int i = 0; i < POOL_SIZE; i++) {
             try {
                 freeConnections.take().close();
-                ;
             } catch (SQLException e) {
                 logger.error("failed to destroy pool", e);
             } catch (InterruptedException e) {

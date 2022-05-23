@@ -37,19 +37,15 @@ public class AddBookCommand implements Command {
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);
                 String category = request.getParameter(RequestParam.BOOK_CATEGORY);
                 String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
-//                int publishYear = Integer.parseInt(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
-//                int number = Integer.parseInt(request.getParameter(RequestParam.BOOK_NUMBER));
-                String publishYear = request.getParameter(RequestParam.BOOK_PUBLISH_YEAR);
-                String number = (request.getParameter(RequestParam.BOOK_NUMBER));
+                int publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
+                int number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
                 Book book = new Book();
                 book.setTitle(title);
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
-//                book.setPublishYear(publishYear);
-//                book.setNumber(number);
-                book.setPublishYear(Integer.parseInt(publishYear));
-                book.setNumber(Integer.parseInt(number));
+                book.setPublishYear(publishYear);
                 book.setDescription(description);
+                book.setNumber(number);
                 book = bookService.create(book);
                 if (book.getId() != null) {
                     LOGGER.log(Level.INFO, "book was created successfully");

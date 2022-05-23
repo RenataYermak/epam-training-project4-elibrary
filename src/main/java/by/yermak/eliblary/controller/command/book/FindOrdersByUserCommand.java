@@ -32,7 +32,7 @@ public class FindOrdersByUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long userId = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long userId = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 Status orderStatus = Status.valueOf(
                         request.getParameter(RequestParam.ORDER_STATUS).toUpperCase());
                 List<Order> orders = bookService.findOrdersByUserIdAndStatus(userId, orderStatus);

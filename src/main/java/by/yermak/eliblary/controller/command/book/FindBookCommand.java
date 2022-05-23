@@ -30,7 +30,7 @@ public class FindBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.BOOK_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 Book book = bookService.findBook(id);
                 request.setAttribute(RequestAttribute.BOOK, book);
                 return new ResponseContext(PagePath.EDIT_BOOK, ResponseContext.ResponseContextType.FORWARD);

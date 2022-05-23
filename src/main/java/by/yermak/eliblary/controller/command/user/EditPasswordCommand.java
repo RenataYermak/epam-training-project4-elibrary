@@ -30,7 +30,7 @@ public class EditPasswordCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 String pass = request.getParameter(RequestParam.USER_PASSWORD);
                 User user = userService.findUser(id);
                 if (user != null) {

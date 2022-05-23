@@ -28,7 +28,7 @@ public class DeactivateUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session) && isAdmin(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 userService.deactivate(id);
                 //TODO
                 //session.invalidate();

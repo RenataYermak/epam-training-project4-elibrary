@@ -28,7 +28,7 @@ public class DeleteBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session) && isAdmin(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.BOOK_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 bookService.delete(id);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);

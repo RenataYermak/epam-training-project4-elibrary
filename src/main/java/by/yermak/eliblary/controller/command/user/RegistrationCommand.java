@@ -10,6 +10,8 @@ import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.user.Role;
 import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.util.email.MailLanguageText;
+import by.yermak.eliblary.util.email.MessagesKey;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,6 +32,8 @@ public class RegistrationCommand implements Command {
     @Override
     public ResponseContext execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        MailLanguageText localizedTextExtractor = MailLanguageText.getInstance();
+        String currentLocale = request.getSession().getAttribute(MessagesKey.LOCALE_NAME).toString();
         if (isAdmin(session) && isAuthorized(session)) {
             try {
                 String login = request.getParameter(RequestParam.USER_LOGIN);
@@ -46,6 +50,7 @@ public class RegistrationCommand implements Command {
                 user.setEmail(email);
                 user.setRole(Role.valueOf(role.toUpperCase()));
                 user = userService.create(user);
+                userService.sendEmailRegisteredUser(firstName,secondName,email,currentLocale);
                 if (user.getId() != null) {
                     LOGGER.log(Level.INFO, "user was registered successfully");
                     List<User> allUsers = userService.findAll();

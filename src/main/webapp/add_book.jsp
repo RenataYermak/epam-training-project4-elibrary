@@ -75,19 +75,19 @@
                                        key="validation.book.add.publishYear"/>' : '');"
                                value="${book.publishYear}"></td>
                 </tr>
-<%--                <tr>--%>
-<%--                    <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
-<%--                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"--%>
-<%--                               oninvalid="this.setCustomValidity('<fmt:message--%>
-<%--                                       key="validation.book.add.description"/>')"--%>
-<%--                               onchange="this.setAttribute('value', this.value);--%>
-<%--                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message--%>
-<%--                                       key="validation.book.add.description"/>' : '');"--%>
-<%--                               value="${book.description}"></td>--%>
-<%--                </tr>--%>
+                <tr>
+                    <td class="content-table"><fmt:message key="book.label.description"/></td>
+                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.book.add.description"/>')"
+                               onchange="this.setAttribute('value', this.value);
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.book.add.description"/>' : '');"
+                               value="${book.description}"></td>
+                </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min = "0"  required pattern="^[0-9]{1,3}$"
+                    <td><input type="number" name="number" min = "0"  max = "999" required pattern="^[0-9]{1,3}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.number"/>')"
                                onchange="this.setAttribute('value', this.value);

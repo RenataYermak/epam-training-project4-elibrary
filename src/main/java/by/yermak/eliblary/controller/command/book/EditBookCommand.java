@@ -32,15 +32,13 @@ public class EditBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session) && isAuthorized(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.BOOK_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 String title = request.getParameter(RequestParam.BOOK_TITLE);
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);
                 String category = request.getParameter(RequestParam.BOOK_CATEGORY);
-                String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
-//                int publishYear = Integer.parseInt(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
-//                int number = Integer.parseInt(request.getParameter(RequestParam.BOOK_NUMBER));
-                String publishYear = request.getParameter(RequestParam.BOOK_PUBLISH_YEAR);
-                String number = request.getParameter(RequestParam.BOOK_NUMBER);
+ ///               String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
+                int publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
+                int number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
                 Book book = bookService.findBook(id);
                 if (book != null) {
                     if (category != null) {
@@ -48,11 +46,9 @@ public class EditBookCommand implements Command {
                     }
                     book.setTitle(title);
                     book.setAuthor(author);
-//                    book.setPublishYear(publishYear);
-//                    book.setNumber(number);
-                    book.setPublishYear(Integer.parseInt((publishYear)));
-                    book.setNumber(Integer.parseInt(number));
-                    book.setDescription(description);
+                    book.setPublishYear(publishYear);
+                    book.setNumber(number);
+//                    book.setDescription(description);
                     bookService.update(book);
                     request.setAttribute(RequestAttribute.BOOK, book);
                     request.setAttribute(

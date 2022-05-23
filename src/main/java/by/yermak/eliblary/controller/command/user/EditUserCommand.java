@@ -28,7 +28,7 @@ public class EditUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 String login = request.getParameter(RequestParam.USER_LOGIN);
                 String pass = request.getParameter(RequestParam.USER_PASSWORD);
                 String firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
