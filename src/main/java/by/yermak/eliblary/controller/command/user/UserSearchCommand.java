@@ -5,7 +5,7 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.service.UserService;
@@ -27,7 +27,7 @@ public class UserSearchCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         String searchQuery = request.getParameter(RequestParam.SEARCH_QUERY);
         if (isAuthorized(session)) {
@@ -40,11 +40,11 @@ public class UserSearchCommand implements Command {
                     request.setAttribute(
                             RequestAttribute.WARNING_MESSAGE_USER_SEARCH, "There were no users found for ");
                 }
-                return new ResponseContext(PagePath.USERS, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during search users: ", e);
             }
         }
-        return new ResponseContext(PagePath.USERS, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.USERS, Router.RouterType.FORWARD);
     }
 }

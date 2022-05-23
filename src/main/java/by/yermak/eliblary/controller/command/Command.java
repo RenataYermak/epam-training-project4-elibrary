@@ -1,6 +1,6 @@
 package by.yermak.eliblary.controller.command;
 
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.SessionAttribute;
 import by.yermak.eliblary.model.user.Role;
 import by.yermak.eliblary.model.user.User;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 @FunctionalInterface
 public interface Command {
-    ResponseContext execute(HttpServletRequest request, HttpSession session);
+    Router execute(HttpServletRequest request, HttpSession session);
 
     static Command of(String name) {
         return CommandHelper.getInstance().getCommand(name);

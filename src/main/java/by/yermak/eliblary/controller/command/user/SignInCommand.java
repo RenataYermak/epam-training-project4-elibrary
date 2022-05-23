@@ -29,7 +29,7 @@ public class SignInCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         try {
             String login = request.getParameter(RequestParam.USER_LOGIN);
@@ -41,7 +41,7 @@ public class SignInCommand implements Command {
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS);
-                return new ResponseContext(PagePath.BOOKS, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
             }
             LOGGER.log(Level.INFO, "failed to login, bad credentials");
             request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Incorrect login or password");
@@ -49,6 +49,6 @@ public class SignInCommand implements Command {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);
         }
         request.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.SIGN_IN);
-        return new ResponseContext(PagePath.SIGN_IN, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);
     }
 }

@@ -5,7 +5,7 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.user.Role;
 import by.yermak.eliblary.model.user.User;
@@ -30,7 +30,7 @@ public class RegistrationCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         MailLanguageText localizedTextExtractor = MailLanguageText.getInstance();
         String currentLocale = request.getSession().getAttribute(MessagesKey.LOCALE_NAME).toString();
@@ -59,13 +59,13 @@ public class RegistrationCommand implements Command {
 
                 request.setAttribute(
                         RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "User was registered  successfully");
-                return new ResponseContext(PagePath.REGISTRATION, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during user registration: ", e);
             }
         }
         request.setAttribute(
                 RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "User didn't registered ");
-        return new ResponseContext(PagePath.REGISTRATION, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
     }
 }

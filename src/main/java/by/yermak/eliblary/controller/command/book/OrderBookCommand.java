@@ -3,7 +3,7 @@ package by.yermak.eliblary.controller.command.book;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.book.Book;
 import by.yermak.eliblary.model.order.Issue;
@@ -28,7 +28,7 @@ public class OrderBookCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
@@ -45,6 +45,6 @@ public class OrderBookCommand implements Command {
                 LOGGER.log(Level.ERROR, "error during reserve book: ", e);
             }
         }
-        return new ResponseContext(PagePath.BOOKS, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
     }
 }

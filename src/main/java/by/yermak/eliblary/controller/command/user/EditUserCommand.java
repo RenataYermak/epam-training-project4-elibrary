@@ -24,7 +24,7 @@ public class EditUserCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
@@ -55,7 +55,7 @@ public class EditUserCommand implements Command {
                     request.setAttribute(RequestAttribute.USER, user);
                     request.setAttribute(
                             RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "User updated successfully");
-                    return new ResponseContext(PagePath.USER_PROFILE, ResponseContext.ResponseContextType.FORWARD);
+                    return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating user: ", e);
@@ -63,6 +63,6 @@ public class EditUserCommand implements Command {
         }
         request.setAttribute(
                 RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "User didn't updated ");
-        return new ResponseContext(PagePath.USER_PROFILE, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
     }
 }

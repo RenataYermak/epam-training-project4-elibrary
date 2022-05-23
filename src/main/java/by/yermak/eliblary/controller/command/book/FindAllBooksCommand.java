@@ -2,7 +2,7 @@ package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.book.Book;
 import by.yermak.eliblary.service.BookService;
@@ -26,18 +26,18 @@ public class FindAllBooksCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
-                return new ResponseContext(PagePath.BOOKS, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all books: ", e);
             }
         }
 
-        return new ResponseContext(PagePath.SIGN_IN, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);
     }
 }

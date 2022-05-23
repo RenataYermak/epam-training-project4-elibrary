@@ -5,7 +5,7 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.service.UserService;
@@ -26,7 +26,7 @@ public class EditPasswordCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
@@ -40,12 +40,12 @@ public class EditPasswordCommand implements Command {
                     request.setAttribute(
                             RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "Password updated successfully");
 
-                    return new ResponseContext(PagePath.USER_PROFILE, ResponseContext.ResponseContextType.FORWARD);
+                    return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating user: ", e);
             }
         }
-        return new ResponseContext(PagePath.USER_PROFILE, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
     }
 }

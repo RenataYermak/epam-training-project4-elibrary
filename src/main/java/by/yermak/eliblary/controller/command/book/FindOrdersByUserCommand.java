@@ -5,7 +5,7 @@ import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.order.Order;
 import by.yermak.eliblary.model.order.Status;
@@ -28,7 +28,7 @@ public class FindOrdersByUserCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
@@ -47,6 +47,6 @@ public class FindOrdersByUserCommand implements Command {
                 LOGGER.log(Level.ERROR, "error during find books by userId and orderStatus: ", e);
             }
         }
-        return new ResponseContext(PagePath.ORDERS, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);
     }
 }

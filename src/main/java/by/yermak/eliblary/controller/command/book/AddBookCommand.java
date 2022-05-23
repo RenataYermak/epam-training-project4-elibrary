@@ -3,7 +3,7 @@ package by.yermak.eliblary.controller.command.book;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.book.Book;
 import by.yermak.eliblary.model.book.Category;
@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 public class AddBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -29,7 +28,7 @@ public class AddBookCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAdmin(session) && isAuthorized(session)) {
             try {
@@ -46,6 +45,7 @@ public class AddBookCommand implements Command {
                 book.setPublishYear(publishYear);
                 book.setDescription(description);
                 book.setNumber(number);
+                //тут тоже ошибка !!!
                 book = bookService.create(book);
                 if (book.getId() != null) {
                     LOGGER.log(Level.INFO, "book was created successfully");
@@ -53,12 +53,12 @@ public class AddBookCommand implements Command {
                     request.setAttribute(RequestAttribute.BOOKS, allBooks);
                 }
                 request.setAttribute(RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book was added  successfully");
-                return new ResponseContext(PagePath.ADD_BOOK, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
             }
         }
         request.setAttribute(RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "Book didn't add");
-        return new ResponseContext(PagePath.ADD_BOOK, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
     }
 }

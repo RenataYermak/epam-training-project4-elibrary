@@ -4,7 +4,7 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
@@ -26,18 +26,18 @@ public class FindBookCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 Book book = bookService.findBook(id);
                 request.setAttribute(RequestAttribute.BOOK, book);
-                return new ResponseContext(PagePath.EDIT_BOOK, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find book by id: ", e);
             }
         }
-        return new ResponseContext(PagePath.SIGN_IN, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);
     }
 }

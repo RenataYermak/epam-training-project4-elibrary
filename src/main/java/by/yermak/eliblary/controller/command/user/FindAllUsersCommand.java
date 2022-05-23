@@ -4,7 +4,7 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.ResponseContext;
+import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.model.user.User;
 import by.yermak.eliblary.service.UserService;
@@ -26,7 +26,7 @@ public class FindAllUsersCommand implements Command {
     }
 
     @Override
-    public ResponseContext execute(HttpServletRequest request, HttpSession session) {
+    public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
@@ -34,11 +34,11 @@ public class FindAllUsersCommand implements Command {
                         (isAdmin(session)) ?
                                 userService.findAll() : userService.findActivatedUsers();
                 request.setAttribute(RequestAttribute.USERS, users);
-                return new ResponseContext(PagePath.USERS, ResponseContext.ResponseContextType.FORWARD);
+                return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all users: ", e);
             }
         }
-        return new ResponseContext(PagePath.USERS, ResponseContext.ResponseContextType.FORWARD);
+        return new Router(PagePath.USERS, Router.RouterType.FORWARD);
     }
 }
