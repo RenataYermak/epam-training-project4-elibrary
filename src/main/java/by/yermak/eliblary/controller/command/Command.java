@@ -8,25 +8,52 @@ import by.yermak.eliblary.model.user.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@FunctionalInterface
+/**
+ * The Command interface
+ */
 public interface Command {
+    /**
+     * Executes a given command.
+     *
+     * @param request the HttpServletRequest object
+     * @param session the HttpSession object
+     * @return a resulted Router object that contains the result page and routing type
+     */
     Router execute(HttpServletRequest request, HttpSession session);
 
     static Command of(String name) {
         return CommandHelper.getInstance().getCommand(name);
     }
 
+    /**
+     * Checked an authorized user
+     *
+     * @param session the HttpSession object
+     * @return whether the user is authorized
+     */
     default boolean isAuthorized(HttpSession session) {
         return session.getAttribute(SessionAttribute.AUTHORIZED_USER) != null;
     }
 
+    /**
+     * Checked an administrated user
+     *
+     * @param session the HttpSession object
+     * @return whether the user is admin
+     */
     default boolean isAdmin(HttpSession session) {
         return getAuthUser(session).getRole().equals(Role.ADMIN);
     }
-
+    /**
+     * Get an authorized user from session
+     *
+     * @param session the HttpSession object
+     * @return user from session
+     */
     default User getAuthUser(HttpSession session) {
         return (User) session.getAttribute(SessionAttribute.AUTHORIZED_USER);
     }
+
     /**
      * Parses a long input parameter.
      *

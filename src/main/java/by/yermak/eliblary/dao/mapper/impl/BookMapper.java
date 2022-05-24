@@ -5,13 +5,12 @@ import by.yermak.eliblary.model.book.Book;
 import by.yermak.eliblary.model.book.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
 import static by.yermak.eliblary.dao.mapper.ColumnNameHelper.*;
-
 
 public class BookMapper implements EntityMapper<Book> {
     private static final Logger LOGGER = LogManager.getLogger();

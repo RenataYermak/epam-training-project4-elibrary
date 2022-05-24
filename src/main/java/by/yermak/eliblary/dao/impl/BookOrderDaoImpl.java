@@ -8,6 +8,9 @@ import by.yermak.eliblary.model.order.Order;
 import by.yermak.eliblary.model.order.Status;
 import by.yermak.eliblary.dao.exception.DaoException;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BookOrderDaoImpl implements BookOrderDao {
+    private static final Logger LOGGER = LogManager.getLogger();
 
     private static class Query {
         public static final String SELECT_BOOKS_BY_ORDER_STATUS =

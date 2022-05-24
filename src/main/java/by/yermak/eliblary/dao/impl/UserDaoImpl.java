@@ -94,12 +94,12 @@ public class UserDaoImpl  implements UserDao {
     }
 
     @Override
-    public Optional<User> find(String login, String pass) throws DaoException {
+    public Optional<User> find(String login, String password) throws DaoException {
         LOGGER.log(Level.INFO, "method find by login and pass");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS)) {
             preparedStatement.setString(1, login);
-            preparedStatement.setString(2, pass);
+            preparedStatement.setString(2, password);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return userMapper.map(resultSet);
@@ -258,11 +258,11 @@ public class UserDaoImpl  implements UserDao {
     }
 
     @Override
-    public void updatePassword(Long id, String pass) throws DaoException {
+    public void updatePassword(Long id, String password) throws DaoException {
         LOGGER.log(Level.INFO, "method updatePassword");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(Query.UPDATE_PASSWORD)) {
-            preparedStatement.setString(1, pass);
+            preparedStatement.setString(1, password);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

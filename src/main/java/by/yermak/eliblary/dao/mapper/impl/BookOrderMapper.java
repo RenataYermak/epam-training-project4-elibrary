@@ -1,6 +1,5 @@
 package by.yermak.eliblary.dao.mapper.impl;
 
-import by.yermak.eliblary.dao.impl.BookOrderDaoImpl;
 import by.yermak.eliblary.dao.mapper.EntityMapper;
 import by.yermak.eliblary.model.order.BookOrder;
 import by.yermak.eliblary.model.order.Issue;

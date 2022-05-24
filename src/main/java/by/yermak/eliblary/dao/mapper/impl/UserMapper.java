@@ -1,6 +1,5 @@
 package by.yermak.eliblary.dao.mapper.impl;
 
-import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.dao.mapper.EntityMapper;
 import by.yermak.eliblary.model.user.Role;
 import by.yermak.eliblary.model.user.Status;
@@ -16,7 +15,7 @@ import static by.yermak.eliblary.dao.mapper.ColumnNameHelper.*;
 
 public class UserMapper implements EntityMapper<User> {
     private static final Logger LOGGER = LogManager.getLogger();
-    //public static final String ID = "user_id";
+
     @Override
     public Optional<User> map(ResultSet resultSet) {
         try {

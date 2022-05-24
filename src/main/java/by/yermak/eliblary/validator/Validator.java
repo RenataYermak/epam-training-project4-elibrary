@@ -2,8 +2,6 @@ package by.yermak.eliblary.validator;
 
 import by.yermak.eliblary.model.user.User;
 
-import java.util.Optional;
-
 public class Validator {
     private static final String NAME_REGEX = "^[\\p{L}]{2,25}$";
     private static final String PASSWORD_REGEX = "(?=.*[\\d])(?=.*[\\p{Ll}])(?=.*[\\p{Lu}])(?=\\S+$).{8,49}";
@@ -15,11 +13,11 @@ public class Validator {
     }
 
     public static class ValidatorHolder {
-        public static final Validator HOLDER_INSTANCE = new Validator();
+        public static final Validator instance = new Validator();
     }
 
     public static Validator getInstance() {
-        return ValidatorHolder.HOLDER_INSTANCE;
+        return ValidatorHolder.instance;
     }
 
     public boolean isUserValid(User user) {
