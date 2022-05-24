@@ -31,7 +31,7 @@ multiple copies. Administrator manages Readers and Books.
 - Server / Servlet container: Tomcat 9
 - Database: MySQL
 - JDBC
-- HTML, SSC, JS
+- HTML, CSS, JS
 - Logger: Log4J
 - Tests: JUnit 4
 ***
