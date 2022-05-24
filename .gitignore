@@ -10,12 +10,5 @@
 *.log
 /build/
 /out/
-.gradle
-gradlew.bat
-gradlew
-build.gradle
-gradle/wrapper
-.lib
-settings.gradle
-
 /lib/
+

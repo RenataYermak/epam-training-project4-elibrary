@@ -14,7 +14,7 @@ class ConnectionFactory {
 
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Properties properties = new Properties();
-    private static final String DB_PROPERTIES_PATH = "config/db-mysql-elibrary.properties";
+    private static final String DB_PROPERTIES_PATH = "config\\db-mysql-elibrary.properties";
     private static final String DRIVER_PROPERTY = "db.driver";
     private static final String URL_PROPERTY = "db.url";
     private static final String USER_PROPERTY = "db.user";
@@ -45,10 +45,10 @@ class ConnectionFactory {
     private ConnectionFactory() {
     }
 
-  //     static ProxyConnection createConnection() throws SQLException {
-//        return new ProxyConnection(DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD));
-//    }
-    static Connection createConnection() throws SQLException {
-        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+         static ProxyConnection createConnection() throws SQLException {
+        return new ProxyConnection(DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD));
     }
+//    static Connection createConnection() throws SQLException {
+//        return DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+//    }
 }

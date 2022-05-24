@@ -1,6 +1,7 @@
 package by.yermak.eliblary.dao.impl;
 
 import by.yermak.eliblary.dao.BookOrderDao;
+import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.model.order.BookOrder;
 import by.yermak.eliblary.model.order.Issue;
 import by.yermak.eliblary.model.order.Order;
@@ -8,10 +9,7 @@ import by.yermak.eliblary.model.order.Status;
 import by.yermak.eliblary.dao.exception.DaoException;
 import org.apache.logging.log4j.Level;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -66,7 +64,8 @@ public class BookOrderDaoImpl implements BookOrderDao {
         LOGGER.log(Level.INFO, "method findOrdersByOrderStatus");
         List<Order> orders = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_BOOKS_BY_ORDER_STATUS)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_BOOKS_BY_ORDER_STATUS)) {
             preparedStatement.setString(1, orderStatus.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -96,7 +95,8 @@ public class BookOrderDaoImpl implements BookOrderDao {
         LOGGER.log(Level.INFO, "method findBooksByUserIdAndOrderStatus");
         List<Order> orders = new ArrayList<>();
 
-        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS)) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setString(2, orderStatus.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -127,8 +127,9 @@ public class BookOrderDaoImpl implements BookOrderDao {
     @Override
     public Long orderBook(Order order) throws DaoException {
         LOGGER.log(Level.INFO, "method orderBook");
-        try (PreparedStatement psOrderBook = getPrepareStatement(Query.ORDER_BOOK);
-             PreparedStatement psUpdateBookNumber = getPrepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_LESS)) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement psOrderBook = connection.prepareStatement(Query.ORDER_BOOK);
+             PreparedStatement psUpdateBookNumber = connection.prepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_LESS, Statement.RETURN_GENERATED_KEYS)) {
             psOrderBook.setLong(1, order.getBookId());
             psOrderBook.setLong(2, order.getUserId());
             psOrderBook.setString(3, order.getIssue().toString());
@@ -153,7 +154,8 @@ public class BookOrderDaoImpl implements BookOrderDao {
     @Override
     public void reserveBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method reserveBook");
-        try (PreparedStatement psReserveBook = getPrepareStatement(Query.RESERVE_BOOK);) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement psReserveBook = connection.prepareStatement(Query.RESERVE_BOOK);) {
             psReserveBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             psReserveBook.setLong(2, orderId);
             psReserveBook.executeUpdate();
@@ -166,8 +168,9 @@ public class BookOrderDaoImpl implements BookOrderDao {
     @Override
     public void returnBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method returnBook");
-        try (PreparedStatement psReturnBook = getPrepareStatement(Query.RETURN_BOOK);
-             PreparedStatement psUpdateBookNumber = getPrepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_MORE);) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement psReturnBook = connection.prepareStatement(Query.RETURN_BOOK);
+             PreparedStatement psUpdateBookNumber = connection.prepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_MORE);) {
             psReturnBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             psReturnBook.setLong(2, orderId);
             psUpdateBookNumber.setLong(1, orderId);
@@ -182,8 +185,9 @@ public class BookOrderDaoImpl implements BookOrderDao {
     @Override
     public void rejectOrder(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method rejectOrder");
-        try (PreparedStatement psRejectBook = getPrepareStatement(Query.REJECT_ORDER);
-             PreparedStatement psUpdateBookNumber = getPrepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_MORE);) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement psRejectBook = connection.prepareStatement(Query.REJECT_ORDER);
+             PreparedStatement psUpdateBookNumber = connection.prepareStatement(Query.SET_BOOKS_NUMBER_TO_ONE_MORE);) {
             psRejectBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             psRejectBook.setLong(2, orderId);
             psUpdateBookNumber.setLong(1, orderId);
@@ -200,7 +204,8 @@ public class BookOrderDaoImpl implements BookOrderDao {
         LOGGER.log(Level.INFO, "method find");
         BookOrder bookOrder = null;
 
-        try (PreparedStatement preparedStatement = getPrepareStatement(Query.SELECT_ORDER_BY_ID);) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ORDER_BY_ID);) {
             preparedStatement.setLong(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -228,7 +233,8 @@ public class BookOrderDaoImpl implements BookOrderDao {
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        try (PreparedStatement preparedStatement = getPrepareStatement(Query.DELETE_ORDER);) {
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(Query.DELETE_ORDER);) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
