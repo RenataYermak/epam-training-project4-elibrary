@@ -24,15 +24,15 @@ multiple copies. Administrator manages Readers and Books.
 
 ***
 ### Components used for the project:
-- Java 9
+- Java 17
 - Gradle
 - Git
 - JavaEE: Servlet, JSP, JSTL
-- Server / Servlet container: Tomcat 10
-- HTTPS by SSL certificate
+- Server / Servlet container: Tomcat 9
 - Database: MySQL
 - JDBC
-- Logger: Log4J2
+- HTML, SSC, JS
+- Logger: Log4J
 - Tests: JUnit 4
 ***
 ### Screenshot
