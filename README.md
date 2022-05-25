@@ -5,7 +5,7 @@ multiple copies. Administrator manages Readers and Books.
 ***
 ### *User:*
 - log in/log out
-- switch language (with saving chosen lang into the cookies)
+- switch language
 - view book catalog list
 - search catalog books
 - order book for reading room or season ticket
@@ -18,10 +18,8 @@ multiple copies. Administrator manages Readers and Books.
 - add the book
 - edit the book
 - edit users
-- ban or unban users 
-- view online users list
+- deactivated users
 - view all users list
-
 ***
 ### Components used for the project:
 - Java 17
