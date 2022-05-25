@@ -32,7 +32,7 @@ public class RegistrationCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        String currentLocale = request.getSession().getAttribute(MessagesKey.LOCALE_NAME).toString();
+        String currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session) && isAuthorized(session)) {
             try {
                 String login = request.getParameter(RequestParam.USER_LOGIN);

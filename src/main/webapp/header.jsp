@@ -18,16 +18,16 @@
                         </button>
                     </form>
                 </div>
-                <div class="header-right-buttons">
-                    <form action="controller">
-                        <label>
-                            <input hidden name="userId" value="${authUser.id}">
-                        </label>
-                        <button class="hrb-style" type="submit" name="command" value="find_user">
-                            <i class='fas fa-user-alt'></i> <fmt:message key="header.my_account"/>
-                        </button>
-                    </form>
-                </div>
+                    <div class="header-right-buttons">
+                        <form action="controller">
+                            <label>
+                                <input hidden name="userId" value="${authUser.id}">
+                            </label>
+                            <button class="hrb-style" type="submit" name="command" value="find_user">
+                                <i class='fas fa-user-alt'></i> <fmt:message key="header.my_account"/>
+                            </button>
+                        </form>
+                    </div>
                 <div class="header-right-buttons">
                     <form action="controller" method="post">
                         <input type="hidden" name="command" value="change_locale">

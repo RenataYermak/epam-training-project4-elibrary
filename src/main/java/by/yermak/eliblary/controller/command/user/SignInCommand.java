@@ -1,6 +1,7 @@
 package by.yermak.eliblary.controller.command.user;
 
 import by.yermak.eliblary.controller.*;
+import by.yermak.eliblary.model.user.Status;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
@@ -35,7 +36,7 @@ public class SignInCommand implements Command {
             String login = request.getParameter(RequestParam.USER_LOGIN);
             String pass = request.getParameter(RequestParam.USER_PASSWORD);
             User user = userService.findUser(login, pass);
-            if (user != null) {
+            if (user != null && user.getStatus().equals(Status.ACTIVATED)) {
                 LOGGER.log(Level.INFO, "user logged in successfully");
                 session.setAttribute(SessionAttribute.AUTHORIZED_USER, user);
                 List<Book> books = bookService.findAllBooks();
@@ -43,8 +44,13 @@ public class SignInCommand implements Command {
                 session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS_TABLE);
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             }
-            LOGGER.log(Level.INFO, "failed to login, bad credentials");
-            request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Incorrect login or password");
+            if (user != null && user.getStatus().equals(Status.DEACTIVATED)) {
+                LOGGER.log(Level.INFO, "failed to login, not permission");
+                request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Account blocked by administrator");
+            } else {
+                LOGGER.log(Level.INFO, "failed to login, bad credentials");
+                request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Incorrect login or password");
+            }
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);
         }

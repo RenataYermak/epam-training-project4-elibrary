@@ -7,11 +7,13 @@
     <div id="sidebar">
         <div>
             <ul>
-                <li>
-                    <i class='fas fa-user-friends'></i>
-                    <a href="${pageContext.request.contextPath}/controller?command=find_users"><fmt:message
-                            key="sidebar.link.users"/></a>
-                </li>
+                <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                    <li>
+                        <i class='fas fa-user-friends'></i>
+                        <a href="${pageContext.request.contextPath}/controller?command=find_users"><fmt:message
+                                key="sidebar.link.users"/></a>
+                    </li>
+                </c:if>
                 <li>
                     <i class='fas fa-book'></i>
                     <a href="${pageContext.request.contextPath}/controller?command=find_books"><fmt:message

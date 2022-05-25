@@ -32,6 +32,13 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                <a href="${pageContext.request.contextPath}/controller?command=find_books">
+                    <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="user.back.user_list"/>
+                </a>
+            </c:if>
+        </div>
+        <div class="content-search">
+            <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                 <form action="registration.jsp">
                     <button type="submit"><i class='far fa-address-book'></i> <fmt:message
                             key="user.button.register_user"/></button>
@@ -66,8 +73,8 @@
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.firstname"/>')"
                            onchange="this.setAttribute('value', this.value);
-                                   this.setCustomValidity(this.validity.patternMismatch ?
-                                   '<fmt:message key="validation.user.registration.firstname"/>' : '');"
+                                   this.setCustomValidity(this.validity.patternMismatch ?'<fmt:message
+                                   key="validation.user.registration.firstname"/>' : '');"
                            value="${user.firstName}"></td>
             </tr>
             <tr>

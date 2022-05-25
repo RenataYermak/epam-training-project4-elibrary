@@ -1,6 +1,7 @@
 package by.yermak.eliblary.controller.command.user;
 
 import by.yermak.eliblary.controller.PagePath;
+import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestParam;
@@ -26,16 +27,19 @@ public class DeactivateUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAuthorized(session) && isAdmin(session)) {
+        if (isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 userService.deactivate(id);
                 //TODO
                 //session.invalidate();
+                request.setAttribute(
+                        RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "User deactivated successfully");
+                return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deactivating user: ", e);
             }
         }
-        return new Router(PagePath.USERS, Router.RouterType.FORWARD);
+        return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
     }
 }

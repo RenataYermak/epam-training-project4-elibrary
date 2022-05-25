@@ -31,6 +31,13 @@
             <div class="content-title">
                 <h2><fmt:message key="book.title.add_book"/></h2>
             </div>
+            <div class="content-search">
+                <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                    <a href="${pageContext.request.contextPath}/controller?command=find_books">
+                        <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="book.back.book_list"/>
+                    </a>
+                </c:if>
+            </div>
         </div>
         <hr/>
         <form action="controller" method="post">
