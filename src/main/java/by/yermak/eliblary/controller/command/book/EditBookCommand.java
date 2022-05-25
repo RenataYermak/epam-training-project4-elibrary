@@ -35,7 +35,6 @@ public class EditBookCommand implements Command {
                 String title = request.getParameter(RequestParam.BOOK_TITLE);
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);
                 String category = request.getParameter(RequestParam.BOOK_CATEGORY);
-                //тут проблема не парситься publishYear
                 int publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
                 int number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
                 Book book = bookService.findBook(id);

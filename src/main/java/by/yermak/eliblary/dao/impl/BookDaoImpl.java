@@ -93,16 +93,17 @@ public class BookDaoImpl implements BookDao {
     @Override
     public Optional<Book> create(Book book) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        try (Connection connection  = ConnectionPool.getInstance().getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(Query.INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
-            constructPrepareStatement(preparedStatement, book);
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(Query.INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
+            constructPreparedStatement(preparedStatement, book);
             preparedStatement.executeUpdate();
             try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     book.setId(resultSet.getLong(1));
-                    find(book.getId());
-                    return Optional.of(book);
-
+                    Optional<Book> optionalBook = find(book.getId());
+                    if(optionalBook.isPresent()) {
+                        return Optional.of(book);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -117,7 +118,7 @@ public class BookDaoImpl implements BookDao {
         LOGGER.log(Level.INFO, "method update");
         try (Connection connection  = ConnectionPool.getInstance().getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(Query.UPDATE_BOOK)) {
-            constructPrepareStatement(preparedStatement, book);
+            constructPreparedStatement(preparedStatement, book);
             preparedStatement.setLong(7, book.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -140,7 +141,7 @@ public class BookDaoImpl implements BookDao {
         }
     }
 
-    private void constructPrepareStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
+    private void constructPreparedStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
         preparedStatement.setString(1, book.getTitle());
         preparedStatement.setString(2, book.getAuthor());
         preparedStatement.setString(3, book.getCategory().toString());

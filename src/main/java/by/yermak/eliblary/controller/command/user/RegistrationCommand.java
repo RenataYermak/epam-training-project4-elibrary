@@ -32,25 +32,30 @@ public class RegistrationCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        MailLanguageText localizedTextExtractor = MailLanguageText.getInstance();
         String currentLocale = request.getSession().getAttribute(MessagesKey.LOCALE_NAME).toString();
         if (isAdmin(session) && isAuthorized(session)) {
             try {
                 String login = request.getParameter(RequestParam.USER_LOGIN);
-                String pass = request.getParameter(RequestParam.USER_PASSWORD);
+                String password = request.getParameter(RequestParam.USER_PASSWORD);
                 String role = request.getParameter(RequestParam.USER_ROLE);
                 String firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
                 String secondName = request.getParameter(RequestParam.USER_SECONDNAME);
                 String email = request.getParameter(RequestParam.USER_EMAIL);
                 User user = new User();
                 user.setLogin(login);
-                user.setPassword(pass);
+                user.setPassword(password);
                 user.setFirstName(firstName);
                 user.setSecondName(secondName);
-                user.setEmail(email);
+                if (!userService.isEmailExist(email)) {
+                    user.setEmail(email);
+                } else {
+                    request.setAttribute(
+                            RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "Email is already exists ");
+                    return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
+                }
                 user.setRole(Role.valueOf(role.toUpperCase()));
                 user = userService.create(user);
-                userService.sendEmailRegisteredUser(firstName,secondName,email,currentLocale);
+                userService.sendEmailRegisteredUser(firstName, secondName, email, currentLocale);
                 if (user.getId() != null) {
                     LOGGER.log(Level.INFO, "user was registered successfully");
                     List<User> allUsers = userService.findAll();

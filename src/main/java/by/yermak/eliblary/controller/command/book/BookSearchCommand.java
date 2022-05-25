@@ -40,11 +40,11 @@ public class BookSearchCommand implements Command {
                     request.setAttribute(
                             RequestAttribute.WARNING_MESSAGE_BOOK_SEARCH, "There were no books found for ");
                 }
-                return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
+                return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during search books: ", e);
             }
         }
-        return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
+        return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
     }
 }

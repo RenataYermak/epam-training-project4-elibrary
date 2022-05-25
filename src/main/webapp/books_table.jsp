@@ -35,8 +35,8 @@
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
                     <input type="search" name="searchQuery" id="site-search"
-                           placeholder="<fmt:message key="table.label.book_search"/>"
-                           required pattern="^[\p{L}\d-.]{2,25}$">
+                           placeholder=<fmt:message key="table.label.book_search"/>
+                            pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
                 <button type="submit" name="command" value="book_search">
                     <fmt:message key="table.button.search"/></button>

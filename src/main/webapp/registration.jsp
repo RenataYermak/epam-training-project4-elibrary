@@ -50,8 +50,7 @@
                                onchange="this.setAttribute('value', this.value);
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.login"/>' : '');"
-                               value="${user.login}"
-                               readonly onfocus="this.removeAttribute('readonly')"></td>
+                               value="${user.login}"></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.first_name"/></td>
@@ -75,7 +74,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.password"/></td>
-                    <td><input type="password" name="password" id = "pwd" required
+                    <td><input type="password" name="password" id="pwd" required
                                pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.password"/>')"
@@ -83,11 +82,11 @@
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.password"/>' : '');"
                                value="${user.password}">
-                        <input type="checkbox" onclick="show()" ><fmt:message key="sign_in.button.show_password"/></td>
+                        <input type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.email"/></td>
-                    <td><input type="text" name="email" required
+                    <td><input type="email" name="email" required
                                pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.email"/>')"

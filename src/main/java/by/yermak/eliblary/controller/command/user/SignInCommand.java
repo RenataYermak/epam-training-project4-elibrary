@@ -40,8 +40,8 @@ public class SignInCommand implements Command {
                 session.setAttribute(SessionAttribute.AUTHORIZED_USER, user);
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
-                session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS);
-                return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
+                session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS_TABLE);
+                return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             }
             LOGGER.log(Level.INFO, "failed to login, bad credentials");
             request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Incorrect login or password");

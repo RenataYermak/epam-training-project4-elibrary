@@ -32,7 +32,7 @@ public class FindAllBooksCommand implements Command {
             try {
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
-                return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
+                return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all books: ", e);
             }

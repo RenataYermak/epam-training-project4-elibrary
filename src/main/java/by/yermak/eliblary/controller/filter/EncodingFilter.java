@@ -2,22 +2,32 @@ package by.yermak.eliblary.controller.filter;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-@WebFilter
+@WebFilter(urlPatterns = "/*",
+        initParams = @WebInitParam(name = "encoding", value = "UTF-8"))
 public class EncodingFilter implements Filter {
-    private final static String ENCODING_UTF_8 = "UTF-8";
+    private static final String ENCODING = "encoding";
+    private String code;
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
+    public void init(FilterConfig filterConfig) {
+        code = filterConfig.getInitParameter(ENCODING);
+    }
 
-        request.setCharacterEncoding(ENCODING_UTF_8);
-        response.setCharacterEncoding(ENCODING_UTF_8);
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String codeEncoding = request.getCharacterEncoding();
+        if (code != null && !code.equalsIgnoreCase(codeEncoding)) {
+            request.setCharacterEncoding(code);
+            response.setCharacterEncoding(code);
+        }
+        chain.doFilter(request, response);
+    }
 
-        filterChain.doFilter(request, response);
+    @Override
+    public void destroy() {
+        code = null;
     }
 }

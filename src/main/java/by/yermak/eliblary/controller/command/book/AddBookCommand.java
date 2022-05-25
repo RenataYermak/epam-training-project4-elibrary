@@ -35,7 +35,7 @@ public class AddBookCommand implements Command {
                 String title = request.getParameter(RequestParam.BOOK_TITLE);
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);
                 String category = request.getParameter(RequestParam.BOOK_CATEGORY);
-                String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
+              //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
                 int publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
                 int number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
                 Book book = new Book();
@@ -43,7 +43,7 @@ public class AddBookCommand implements Command {
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
                 book.setPublishYear(publishYear);
-                book.setDescription(description);
+             //   book.setDescription(description);
                 book.setNumber(number);
                 //тут тоже ошибка !!!
                 book = bookService.create(book);

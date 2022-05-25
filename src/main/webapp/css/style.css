@@ -55,7 +55,13 @@ a {
 a:hover {
     border-bottom: 1px solid black;
 }
+input:valid {
+    border-color: green;
+}
 
+input:invalid {
+    border-color: red;
+}
 
 
 

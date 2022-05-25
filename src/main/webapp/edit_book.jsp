@@ -30,6 +30,13 @@
             <div class="content-title">
                 <h2><fmt:message key="page.title.book_edit"/></h2>
             </div>
+            <div class="content-search">
+                <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                    <a href="${pageContext.request.contextPath}/controller?command=find_books">
+                        <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="book.back.book_list"/>
+                    </a>
+                </c:if>
+            </div>
         </div>
         <hr/>
         <form action="controller" method="post">
@@ -66,7 +73,8 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
-                    <td><input type="number" size="4" name="year" min = "1500" max = "2022" required pattern="^[0-9]{4}$"
+                    <td><input type="number" size="4" name="publishYear" min="1500" max="2022" required
+                               pattern="^[0-9]{4}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -74,19 +82,19 @@
                                        key="validation.user.registration.firstname"/>' : '');"
                                value="${book.publishYear}"></td>
                 </tr>
-<%--                <tr>--%>
-<%--                    <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
-<%--                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"--%>
-<%--                               oninvalid="this.setCustomValidity('<fmt:message--%>
-<%--                                       key="validation.user.registration.password"/>')"--%>
-<%--                               onchange="this.setAttribute('value', this.value);--%>
-<%--                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message--%>
-<%--                                       key="validation.user.registration.password"/>' : '');"--%>
-<%--                               value="${book.description}"></td>--%>
-<%--                </tr>--%>
+                    <%--                <tr>--%>
+                    <%--                    <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
+                    <%--                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"--%>
+                    <%--                               oninvalid="this.setCustomValidity('<fmt:message--%>
+                    <%--                                       key="validation.user.registration.password"/>')"--%>
+                    <%--                               onchange="this.setAttribute('value', this.value);--%>
+                    <%--                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message--%>
+                    <%--                                       key="validation.user.registration.password"/>' : '');"--%>
+                    <%--                               value="${book.description}"></td>--%>
+                    <%--                </tr>--%>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min = "0" max ="999" required pattern="^[0-9]{1,3}$"
+                    <td><input type="number" name="number" min="0" max="999" required pattern="^[0-9]{1,3}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.password"/>')"
                                onchange="this.setAttribute('value', this.value);

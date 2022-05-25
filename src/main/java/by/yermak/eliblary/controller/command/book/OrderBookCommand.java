@@ -45,6 +45,6 @@ public class OrderBookCommand implements Command {
                 LOGGER.log(Level.ERROR, "error during reserve book: ", e);
             }
         }
-        return new Router(PagePath.BOOKS, Router.RouterType.FORWARD);
+        return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
     }
 }

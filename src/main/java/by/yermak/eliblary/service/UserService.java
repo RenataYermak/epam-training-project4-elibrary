@@ -10,6 +10,12 @@ import java.util.List;
  * Describes the behavior of {@link User} entity.
  */
 public interface UserService {
+    /**
+     * Checks whether an email is already exist
+     *
+     * @param email a user's email
+     * @return whether an email is already exist
+     */
     boolean isEmailExist(String email) throws ServiceException;
 
     /**

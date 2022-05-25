@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
-<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <html lang="en">
 <head>
@@ -33,10 +33,12 @@
         <div class="content-search">
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
-                    <input type="search" name="searchQuery" id="site-search" placeholder=<fmt:message key="users.label.user_search"/>
-                            required pattern="^[\p{L}\d-.]{2,25}$">
+                    <input type="search" name="searchQuery" id="site-search"
+                           placeholder= <fmt:message key="users.label.user_search"/>
+                            pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
-                <button type="submit" name="command" value="user_search"><fmt:message key="users.button.search"/></button>
+                <button type="submit" name="command" value="user_search"><fmt:message
+                        key="users.button.search"/></button>
             </form>
         </div>
     </div>
@@ -49,7 +51,7 @@
                 <th class="cell"><fmt:message key="users.table.label.second_name"/></th>
                 <th class="cell"><fmt:message key="users.table.label.email"/></th>
                 <th class="cell"><fmt:message key="users.table.label.role"/></th>
-                <th class="cell"><fmt:message key="users.table.label.status"/></th>
+<%--                <th class="cell"><fmt:message key="users.table.label.status"/></th>--%>
                 <th class="cell"><fmt:message key="users.table.label.activation_date"/></th>
                 <th class="cell"><fmt:message key="users.table.label.deactivation_date"/></th>
                 <th class="cell"><fmt:message key="users.table.label.action"/></th>
@@ -61,7 +63,7 @@
                     <td class="cell">${user.secondName}</td>
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
-                    <td class="cell">${user.status.name}</td>
+<%--                    <td class="cell">${user.status.name}</td>--%>
                     <td class="cell">${user.activationDate}</td>
                     <td class="cell">${user.deactivationDate}</td>
                     <td class="cell">
