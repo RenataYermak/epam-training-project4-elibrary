@@ -24,7 +24,7 @@ public class BookDaoImpl implements BookDao {
         public static final String SELECT_BOOK_BY_ID = "SELECT * FROM books WHERE book_id=?";
         public static final String INSERT_BOOK =
                 "INSERT INTO books (title, author, category, publish_year, description, number) " +
-                        "VALUES(?, ?, ?, ?, ?, ?, ?);";
+                        "VALUES(?, ?, ?, ?, ?, ?)";
         public static final String UPDATE_BOOK =
                 "UPDATE books SET title=?, author=?, category=?, publish_year=?, description=?,  number=? " +
                         "WHERE book_id=?";

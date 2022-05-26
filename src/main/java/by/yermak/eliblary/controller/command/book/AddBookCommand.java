@@ -30,7 +30,7 @@ public class AddBookCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAdmin(session) && isAuthorized(session)) {
+        if (isAdmin(session)) {
             try {
                 String title = request.getParameter(RequestParam.BOOK_TITLE);
                 String author = request.getParameter(RequestParam.BOOK_AUTHOR);

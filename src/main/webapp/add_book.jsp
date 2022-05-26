@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8"  %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
@@ -103,9 +103,9 @@
                                value="${book.number}"></td>
                 </tr>
             </table>
-            <c:if test="${successMessageUserUpdated != null || warningMessagePassMismatch != null}">
+            <c:if test="${successMessageBookUpdated != null || warningMessagePassMismatch != null}">
                 <div class="content-submit-btn-main">
-                    <p class="content-msg cnt-msg-success">${successMessageUserUpdated}</p>
+                    <p class="content-msg cnt-msg-success">${successMessageBookUpdated}</p>
                     <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
                 </div>
             </c:if>

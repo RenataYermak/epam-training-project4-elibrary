@@ -33,7 +33,7 @@ public class RegistrationCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         String currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAdmin(session) && isAuthorized(session)) {
+        if (isAdmin(session)) {
             try {
                 String login = request.getParameter(RequestParam.USER_LOGIN);
                 String password = request.getParameter(RequestParam.USER_PASSWORD);

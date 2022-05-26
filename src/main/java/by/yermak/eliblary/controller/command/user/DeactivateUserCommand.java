@@ -31,8 +31,6 @@ public class DeactivateUserCommand implements Command {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 userService.deactivate(id);
-                //TODO
-                //session.invalidate();
                 request.setAttribute(
                         RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "User deactivated successfully");
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);

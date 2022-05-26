@@ -1,6 +1,7 @@
 package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
+import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
@@ -26,14 +27,17 @@ public class DeleteBookCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAuthorized(session) && isAdmin(session)) {
+        if (isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
                 bookService.delete(id);
+                request.setAttribute(RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book was deleted successfully");
+                return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);
             }
         }
-        return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
+        request.setAttribute(RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "Book didn't delete");
+        return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
     }
 }

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -114,10 +114,17 @@
                 <button class="content-submit-btn" type="submit" name="command" value="find_book"><fmt:message
                         key="book.button.cancel"/></button>
                 <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
-                        value="edit_book">
-                    <fmt:message key="book.button.edit"/>
+                        value="edit_book"> <fmt:message key="book.button.edit"/>
                 </button>
             </div>
+            <c:if test="${authUser.role == 'ADMIN'}">
+                <div class="content-submit-btn-deactivate">
+                    <button class="content-submit-btn content-sub-btn-d-style"
+                            type="submit" name="command" value="delete_book"><fmt:message
+                            key="book.button.delete_book"/>
+                    </button>
+                </div>
+            </c:if>
         </form>
     </c:if>
     <%--    <c:if test="${sessionScope.authUser.role != 'ADMIN'}">--%>
