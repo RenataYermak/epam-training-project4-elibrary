@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.order;
+package by.yermak.eliblary.entity.order;
 
 public enum Status {
     ORDERED("ordered"),

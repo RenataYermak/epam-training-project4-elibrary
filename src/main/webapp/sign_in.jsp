@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"  %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
@@ -47,16 +47,32 @@
         <form name="loginForm" method="post" action="controller">
             <div class="signIn">
                 <label>
-                    <input style="margin-bottom: 5px" type="text" name="login" placeholder="login">
+                    <input style="margin-bottom: 5px" type="text" name="login" required placeholder="login"
+                           pattern="[\w\d-]{2,25}$"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.login"/>')"
+                           onchange="this.setAttribute('value', this.value);
+                                   this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                   key="validation.user.registration.login"/>' : '');"
+                           value="${user.login}">
                 </label>
                 <br/>
                 <label>
-                    <input style="margin-bottom: 10px" type="password" id="pwd"  name="password" placeholder="password ">
+                    <input style="margin-bottom: 10px" type="password" id="pwd" name="password" required
+                           placeholder="password"
+                           pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}"
+                           oninvalid="this.setCustomValidity('<fmt:message
+                                   key="validation.user.registration.password"/>')"
+                           onchange="this.setAttribute('value', this.value);
+                                   this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                   key="validation.user.registration.password"/>' : '');"
+                           value="${user.password}">
                     <br/>
-                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()" ><fmt:message key="sign_in.button.show_password"/>
+                    <input style="margin-bottom: 10px" type="checkbox" onclick="show()"><fmt:message
+                        key="sign_in.button.show_password"/>
                 </label>
                 <br/>
-                <button  type="submit" name="command" value="sign_in"><fmt:message
+                <button type="submit" name="command" value="sign_in"><fmt:message
                         key="sign_in.button.sign_in"/></button>
                 <p style="color: #ea6153">${errorMessageSignIn}</p>
             </div>

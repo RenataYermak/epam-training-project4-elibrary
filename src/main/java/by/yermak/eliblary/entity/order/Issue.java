@@ -1,7 +1,8 @@
-package by.yermak.eliblary.model.order;
+package by.yermak.eliblary.entity.order;
 
 public enum Issue {
-    READING_ROOM("Reading Room"), SEASON_TICKET("Season Ticket");
+    READING_ROOM("Reading Room"),
+    SEASON_TICKET("Season Ticket");
 
     private final String value;
 

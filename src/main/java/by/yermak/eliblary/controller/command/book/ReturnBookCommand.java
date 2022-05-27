@@ -1,15 +1,16 @@
 package by.yermak.eliblary.controller.command.book;
 
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.model.order.Order;
-import by.yermak.eliblary.model.order.Status;
+import by.yermak.eliblary.entity.order.Order;
+import by.yermak.eliblary.entity.order.Status;
+import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
+import by.yermak.eliblary.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +22,10 @@ import java.util.List;
 public class ReturnBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final BookService bookService;
+    private final OrderService orderService;
 
     public ReturnBookCommand() {
-        this.bookService = new BookServiceImpl();
+        this.orderService = new OrderServiceImpl();
     }
 
     @Override
@@ -33,8 +34,8 @@ public class ReturnBookCommand implements Command {
         if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long orderId = parseLongParameter(request.getParameter(RequestParam.ORDER_ID));
-                bookService.returnBook(orderId);
-                List<Order> orders = bookService.findOrdersByOrderStatus(Status.RESERVED);
+                orderService.returnBook(orderId);
+                List<Order> orders = orderService.findOrdersByOrderStatus(Status.RESERVED);
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.RESERVED.getValue());
                 request.setAttribute(RequestAttribute.ORDERS, orders);

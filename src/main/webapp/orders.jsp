@@ -43,7 +43,6 @@
             </form>
         </div>
     </div>
-    <hr/>
     <c:if test="${fn:length(orders) > 0}">
         <table class="table">
             <tr class="row header green">
@@ -63,10 +62,10 @@
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr class="row">
-                    <td class="cell">${order.book.title}</td>
+                    <td class="cell">${order.book.id}</td>
                     <td class="cell">${order.issue.value}</td>
                     <td class="cell">${order.status.value}</td>
-                    <td class="cell">${order.userFirstName} ${order.userSecondName}</td>
+                    <td class="cell">${order.user.id}</td>
                     <c:if test="${orderStatus == 'ordered'}">
                         <td class="cell">${order.orderedDate}</td>
                     </c:if>

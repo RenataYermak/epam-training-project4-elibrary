@@ -2,8 +2,8 @@ package by.yermak.eliblary.controller.command;
 
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.SessionAttribute;
-import by.yermak.eliblary.model.user.Role;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.Role;
+import by.yermak.eliblary.entity.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

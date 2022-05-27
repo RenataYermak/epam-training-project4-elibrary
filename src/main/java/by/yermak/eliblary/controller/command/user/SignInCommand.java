@@ -1,15 +1,16 @@
 package by.yermak.eliblary.controller.command.user;
 
 import by.yermak.eliblary.controller.*;
-import by.yermak.eliblary.model.user.Status;
+import by.yermak.eliblary.entity.user.Status;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.model.book.Book;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,9 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static by.yermak.eliblary.util.locale.MessagesKey.ACCOUNT_BLOCKED;
+import static by.yermak.eliblary.util.locale.MessagesKey.INCORRECT_LOGIN_OR_PASSWORD;
+
 public class SignInCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
+    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
     private final BookService bookService;
 
@@ -32,10 +36,11 @@ public class SignInCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         try {
-            String login = request.getParameter(RequestParam.USER_LOGIN);
-            String pass = request.getParameter(RequestParam.USER_PASSWORD);
-            User user = userService.findUser(login, pass);
+            var login = request.getParameter(RequestParam.USER_LOGIN);
+            var pass = request.getParameter(RequestParam.USER_PASSWORD);
+            var user = userService.findUser(login, pass);
             if (user != null && user.getStatus().equals(Status.ACTIVATED)) {
                 LOGGER.log(Level.INFO, "user logged in successfully");
                 session.setAttribute(SessionAttribute.AUTHORIZED_USER, user);
@@ -46,10 +51,12 @@ public class SignInCommand implements Command {
             }
             if (user != null && user.getStatus().equals(Status.DEACTIVATED)) {
                 LOGGER.log(Level.INFO, "failed to login, not permission");
-                request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Account blocked by administrator");
+                request.setAttribute(
+                        RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, ACCOUNT_BLOCKED));
             } else {
                 LOGGER.log(Level.INFO, "failed to login, bad credentials");
-                request.setAttribute(RequestAttribute.ERROR_MESSAGE_SIGN_IN, "Incorrect login or password");
+                request.setAttribute(
+                        RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, INCORRECT_LOGIN_OR_PASSWORD));
             }
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);

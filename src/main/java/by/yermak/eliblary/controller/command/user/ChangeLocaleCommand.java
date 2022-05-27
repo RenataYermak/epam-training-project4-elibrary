@@ -17,7 +17,7 @@ public class ChangeLocaleCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        String locale = request.getParameter(RequestAttribute.LOCALE_NAME);
+        var locale = request.getParameter(RequestAttribute.LOCALE_NAME);
         request.getSession().setAttribute(RequestAttribute.LOCALE_NAME, locale);
         if (session.getAttribute(RequestAttribute.CURRENT_PAGE) == null) {
             return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);

@@ -1,7 +1,7 @@
 package by.yermak.eliblary.dao.impl;
 
 import by.yermak.eliblary.dao.BookStatisticDao;
-import by.yermak.eliblary.model.statistic.BookStatistic;
+import by.yermak.eliblary.entity.statistic.BookStatistic;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;

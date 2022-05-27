@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.statistic;
+package by.yermak.eliblary.entity.statistic;
 
 import java.io.Serial;
 import java.io.Serializable;

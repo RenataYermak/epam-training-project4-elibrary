@@ -1,19 +1,11 @@
 package by.yermak.eliblary.dao.pool;
 
-;
-
 import java.sql.*;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-public class ProxyConnection implements Connection {
-
-    private final Connection connection;
-
-    ProxyConnection(Connection connection) {
-        this.connection = connection;
-    }
+public record ProxyConnection(Connection connection) implements Connection {
 
     @Override
     public void close() throws SQLException {

@@ -70,7 +70,7 @@ public class HashGenerator {
     }
 
     private byte[] generateTransitionalHash(String password, byte[] salt) throws UtilException {
-        PBEKeySpec pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt, ENCRYPTION_ITERATIONS, KEY_LENGTH);
+        var pbeKeySpec = new PBEKeySpec(password.toCharArray(), salt, ENCRYPTION_ITERATIONS, KEY_LENGTH);
         try {
             return secretKeyFactory.generateSecret(pbeKeySpec).getEncoded();
         } catch (InvalidKeySpecException e) {

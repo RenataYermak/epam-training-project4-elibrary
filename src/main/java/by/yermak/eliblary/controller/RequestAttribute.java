@@ -30,13 +30,14 @@ public final class RequestAttribute {
     public static final String ERROR_MESSAGE_SIGN_IN = "errorMessageSignIn";
     public static final String WARNING_MESSAGE_BOOK_SEARCH = "warningMessageBookSearch";
     public static final String WARNING_MESSAGE_USER_SEARCH = "warningMessageUserSearch";
+    public static final String SUCCESS_MESSAGE_USER_CREATE = "successMessageUserCreate";
     public static final String SUCCESS_MESSAGE_USER_UPDATE = "successMessageUserUpdated";
+    public static final String SUCCESS_MESSAGE_BOOK_CREATE = "successMessageBookCreate";
     public static final String SUCCESS_MESSAGE_BOOK_UPDATE = "successMessageBookUpdated";
     public static final String WARNING_MESSAGE_PASS_MISMATCH = "warningMessagePassMismatch";
     public static final String SEARCH_QUERY = "searchQuery";
     public static final String LOCALE_NAME = "locale";
     public static final String DEFAULT_LANG = "en_EN";
-    public static final String RUSSIAN_LANG = "ru_RU";
     public static final String CURRENT_PAGE = "current_page";
 
 

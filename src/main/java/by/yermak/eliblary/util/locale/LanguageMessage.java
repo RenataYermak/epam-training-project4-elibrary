@@ -1,15 +1,15 @@
-package by.yermak.eliblary.util.email;
+package by.yermak.eliblary.util.locale;
 
-public class MailLanguageText {
+public class LanguageMessage {
     public static final String DEFAULT_LANG = "en_EN";
-    private static MailLanguageText instance;
+    private static LanguageMessage instance;
 
-    private MailLanguageText() {
+    private LanguageMessage() {
     }
 
-    public static MailLanguageText getInstance() {
+    public static LanguageMessage getInstance() {
         if (instance == null) {
-            instance = new MailLanguageText();
+            instance = new LanguageMessage();
         }
         return instance;
     }

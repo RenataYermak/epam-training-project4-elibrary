@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.review;
+package by.yermak.eliblary.entity.review;
 
 import java.io.Serial;
 import java.io.Serializable;

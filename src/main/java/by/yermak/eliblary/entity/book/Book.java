@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.book;
+package by.yermak.eliblary.entity.book;
 
 import java.io.Serial;
 import java.io.Serializable;

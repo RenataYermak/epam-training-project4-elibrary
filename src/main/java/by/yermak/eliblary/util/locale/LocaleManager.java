@@ -1,4 +1,4 @@
-package by.yermak.eliblary.util.email;
+package by.yermak.eliblary.util.locale;
 
 import java.util.Locale;
 import java.util.ResourceBundle;

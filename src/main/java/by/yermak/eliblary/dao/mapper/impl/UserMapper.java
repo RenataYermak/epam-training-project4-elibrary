@@ -1,9 +1,9 @@
 package by.yermak.eliblary.dao.mapper.impl;
 
 import by.yermak.eliblary.dao.mapper.EntityMapper;
-import by.yermak.eliblary.model.user.Role;
-import by.yermak.eliblary.model.user.Status;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.Role;
+import by.yermak.eliblary.entity.user.Status;
+import by.yermak.eliblary.entity.user.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,7 +19,7 @@ public class UserMapper implements EntityMapper<User> {
     @Override
     public Optional<User> map(ResultSet resultSet) {
         try {
-            User user = new User();
+            var user = new User();
             user.setId(resultSet.getLong(USER_ID));
             user.setLogin(resultSet.getString(LOGIN));
             user.setPassword(resultSet.getString(PASSWORD));

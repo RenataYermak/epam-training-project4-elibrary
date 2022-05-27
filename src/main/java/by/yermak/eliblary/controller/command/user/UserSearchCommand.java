@@ -7,8 +7,9 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static by.yermak.eliblary.util.locale.MessagesKey.SEARCH_USER_FAIL;
+
 public class UserSearchCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
+    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
 
     public UserSearchCommand() {
@@ -29,7 +32,8 @@ public class UserSearchCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        String searchQuery = request.getParameter(RequestParam.SEARCH_QUERY);
+        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
+        var searchQuery = request.getParameter(RequestParam.SEARCH_QUERY);
         if (isAuthorized(session)) {
             try {
                 List<User> users = userService.findUsersByQuery(searchQuery);
@@ -38,7 +42,7 @@ public class UserSearchCommand implements Command {
                 } else {
                     request.setAttribute(RequestAttribute.SEARCH_QUERY, searchQuery);
                     request.setAttribute(
-                            RequestAttribute.WARNING_MESSAGE_USER_SEARCH, "There were no users found for ");
+                            RequestAttribute.WARNING_MESSAGE_USER_SEARCH, message.getText(currentLocale,SEARCH_USER_FAIL));
                 }
                 return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

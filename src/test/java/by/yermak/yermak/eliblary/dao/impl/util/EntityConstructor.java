@@ -1,9 +1,9 @@
 package by.yermak.yermak.eliblary.dao.impl.util;
 
-import by.yermak.eliblary.model.book.Book;
-import by.yermak.eliblary.model.book.Category;
-import by.yermak.eliblary.model.user.Role;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.book.Category;
+import by.yermak.eliblary.entity.user.Role;
+import by.yermak.eliblary.entity.user.User;
 
 public final class EntityConstructor {
     public static User constructTestUser() {

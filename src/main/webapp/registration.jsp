@@ -105,9 +105,9 @@
                     </td>
                 </tr>
             </table>
-            <c:if test="${successMessageUserUpdated != null || warningMessagePassMismatch != null}">
+            <c:if test="${successMessageUserCreate != null || warningMessagePassMismatch != null}">
                 <div class="content-submit-btn-main">
-                    <p class="content-msg cnt-msg-success">${successMessageUserUpdated}</p>
+                    <p class="content-msg cnt-msg-success">${successMessageUserCreate}</p>
                     <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
                 </div>
             </c:if>

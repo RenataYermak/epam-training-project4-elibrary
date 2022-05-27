@@ -1,8 +1,8 @@
 package by.yermak.eliblary.dao.mapper.impl;
 
 import by.yermak.eliblary.dao.mapper.EntityMapper;
-import by.yermak.eliblary.model.book.Book;
-import by.yermak.eliblary.model.book.Category;
+import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.book.Category;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +18,7 @@ public class BookMapper implements EntityMapper<Book> {
     @Override
     public Optional<Book> map(ResultSet resultSet) {
         try {
-            Book book = new Book();
+            var book = new Book();
             book.setId(resultSet.getLong(BOOK_ID));
             book.setTitle(resultSet.getString(TITLE));
             book.setAuthor(resultSet.getString(AUTHOR));

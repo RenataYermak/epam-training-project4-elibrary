@@ -17,7 +17,7 @@ public class LocaleFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        var request = (HttpServletRequest) servletRequest;
         if (request.getSession().getAttribute(RequestAttribute.LOCALE_NAME) == null) {
             request.getSession().setAttribute(RequestAttribute.LOCALE_NAME, RequestAttribute.DEFAULT_LANG);
         }

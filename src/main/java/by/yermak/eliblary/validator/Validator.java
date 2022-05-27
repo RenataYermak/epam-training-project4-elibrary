@@ -1,6 +1,6 @@
 package by.yermak.eliblary.validator;
 
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 
 public class Validator {
     private static final String NAME_REGEX = "^[\\p{L}]{2,25}$";

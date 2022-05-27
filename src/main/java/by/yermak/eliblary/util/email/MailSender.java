@@ -16,9 +16,7 @@ import java.util.Properties;
 import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
 public class MailSender {
-
-    private static final String USER_NAME = "mail.smtp.user";
-    private  Properties properties;
+    private Properties properties;
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String PROPERTIES_FILE = "config\\email.properties";
     private static MailSender instance;
@@ -41,21 +39,21 @@ public class MailSender {
 
     public void send(String sendToMail, String mailSubject, String mailText) {
         try {
-            MimeMessage message = initMessage(sendToMail, mailText, mailSubject);
-            Transport.send(message);
+            var mimeMessage = initMessage(sendToMail, mailText, mailSubject);
+            Transport.send(mimeMessage);
         } catch (MessagingException | UtilException e) {
             LOGGER.error(e.getMessage());
         }
     }
 
-    private MimeMessage initMessage(String sendToMail, String mailText, String mailSubject) throws  UtilException {
+    private MimeMessage initMessage(String sendToMail, String mailText, String mailSubject) throws UtilException {
         MimeMessage message;
         try {
-            Session mailSession = SessionFactory.createSession(properties);
-            mailSession.setDebug(true);
-            message = new MimeMessage(mailSession);
+            var session = SessionFactory.createSession(properties);
+            session.setDebug(true);
+            message = new MimeMessage(session);
             message.setSubject(mailSubject);
-            message.setContent(mailText,"text/plain; charset=UTF-8");
+            message.setContent(mailText, "text/plain; charset=UTF-8");
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToMail));
         } catch (MessagingException e) {
             throw new UtilException(e.getMessage());

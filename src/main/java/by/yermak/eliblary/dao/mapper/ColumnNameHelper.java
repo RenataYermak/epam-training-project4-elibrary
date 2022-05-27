@@ -29,7 +29,7 @@ public class ColumnNameHelper {
     /**
      * bookOrder
      */
-    public static final String BOOK_ORDER_ID = "order_id";
+    public static final String ORDER_ID = "order_id";
     public static final String STATUS = "status";
     public static final String ISSUE = "issue";
     public static final String ORDERED_DATE = "ordered_date";

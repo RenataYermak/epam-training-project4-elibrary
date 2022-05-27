@@ -8,6 +8,7 @@ import by.yermak.eliblary.controller.RequestParam;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.service.UserService;
+import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,9 +16,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_USER_DEACTIVATE;
+
 public class DeactivateUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
+    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
 
     public DeactivateUserCommand() {
@@ -27,12 +30,13 @@ public class DeactivateUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 userService.deactivate(id);
                 request.setAttribute(
-                        RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, "User deactivated successfully");
+                        RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale,SUCCESS_USER_DEACTIVATE));
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deactivating user: ", e);

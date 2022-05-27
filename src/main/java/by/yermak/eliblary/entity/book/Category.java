@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.book;
+package by.yermak.eliblary.entity.book;
 
 public enum Category {
     SCI_FI("sci_fi"),

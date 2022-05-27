@@ -26,9 +26,9 @@ public class Controller extends HttpServlet {
 
     private void executeRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String commandName = req.getParameter(RequestParam.COMMAND);
-        Command command = Command.of(commandName);
-        Router router = command.execute(req, req.getSession(true));
+        var commandName = req.getParameter(RequestParam.COMMAND);
+        var command = Command.of(commandName);
+        var router = command.execute(req, req.getSession(true));
         if (router.getRouterType().equals(Router.RouterType.REDIRECT)) {
             resp.sendRedirect(req.getContextPath() + router.getPagePath());
         } else {

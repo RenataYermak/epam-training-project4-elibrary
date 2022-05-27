@@ -28,7 +28,7 @@ public class DeleteUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if ( isAdmin(session)) {
             try {
-                Long id = Long.parseLong(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
                 userService.delete(id);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);

@@ -2,13 +2,13 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.util.email.MailLanguageText;
+import by.yermak.eliblary.util.locale.LanguageMessage;
 import by.yermak.eliblary.util.email.MailSender;
-import by.yermak.eliblary.util.email.MessagesKey;
+import by.yermak.eliblary.util.locale.MessagesKey;
 import by.yermak.eliblary.util.exception.UtilException;
 import by.yermak.eliblary.util.hash.HashGenerator;
 import by.yermak.eliblary.validator.Validator;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public User findUser(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
-            Optional<User> optionalUser = userDao.find(id);
+            var optionalUser = userDao.find(id);
             if (optionalUser.isPresent()) {
                 return optionalUser.get();
             } else {
@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     public User findUserByLogin(String login) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
-            Optional<User> optionalUser = userDao.findByLogin(login);
+            var optionalUser = userDao.findByLogin(login);
             if (optionalUser.isPresent()) {
                 return optionalUser.get();
             } else {
@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Input data is invalid");
         }
         try {
-            Optional<User> optionalUser = userDao.findByLogin(login);
+            var optionalUser = userDao.findByLogin(login);
             if (optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword())) {
                 return optionalUser.get();
             } else {
@@ -128,7 +128,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             user.setPassword(hashGenerator.generateHash(user.getPassword()));
-            Optional<User> optionalUser = userDao.create(user);
+            var optionalUser = userDao.create(user);
             if (optionalUser.isPresent()) {
                 return optionalUser.get();
             } else {
@@ -148,7 +148,7 @@ public class UserServiceImpl implements UserService {
         }
         try {
             user.setPassword(hashGenerator.generateHash(user.getPassword()));
-            Optional<User> optionalUser = userDao.update(user);
+            var optionalUser = userDao.update(user);
             if (optionalUser.isPresent()) {
                 return optionalUser.get();
             } else {
@@ -223,7 +223,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void sendEmailRegisteredUser(String firstName,String secondName, String email, String currentLocale) {
-        String finalRegistrationMessage =firstName + " " + secondName + ", " + MailLanguageText.getInstance().getText(currentLocale, "successful.reg.email.body");
+        var finalRegistrationMessage =firstName + " " + secondName + ", " + LanguageMessage.getInstance().getText(currentLocale, "successful.reg.email.body");
         MailSender.getInstance().send(email, MessagesKey.SUCCESSFUL_REG_EMAIL_HEADER, finalRegistrationMessage);
     }
 }

@@ -8,7 +8,7 @@ import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
-import by.yermak.eliblary.model.book.Book;
+import by.yermak.eliblary.entity.book.Book;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +31,7 @@ public class FindBookCommand implements Command {
         if (isAuthorized(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
-                Book book = bookService.findBook(id);
+                var book = bookService.findBook(id);
                 request.setAttribute(RequestAttribute.BOOK, book);
                 return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

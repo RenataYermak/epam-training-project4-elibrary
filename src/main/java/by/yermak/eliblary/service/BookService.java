@@ -1,15 +1,14 @@
 package by.yermak.eliblary.service;
 
-import by.yermak.eliblary.model.book.Book;
-import by.yermak.eliblary.model.order.Issue;
-import by.yermak.eliblary.model.order.Order;
-import by.yermak.eliblary.model.order.Status;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
 
 import java.util.List;
-
+/**
+ * Describes the behavior of {@link Book} entity.
+ */
 public interface BookService {
     /**
      * Find book {@link Book} instance by <tt>id</tt>
@@ -71,54 +70,5 @@ public interface BookService {
      */
     void delete(Long id) throws ServiceException;
 
-    /**
-     * Find  orders list {@link Order} by status
-     *
-     * @return all orders list by status {@link Order}
-     * @throws ServiceException if {@link Order} in empty occurs after searching {@link Order} by
-     *                          status into the data source
-     */
-    List<Order> findOrdersByOrderStatus(Status orderStatus) throws ServiceException;
 
-    /**
-     * Find  orders list {@link Order} by {@link User} id and {@link Order} status
-     *
-     * @return orders list {@link Order}
-     * @throws ServiceException if {@link Order} in empty occurs after searching {@link Order} by
-     *                          status into the data source or if  {@link User} with <tt>id</tt>
-     *                          do not present into data source
-     */
-    List<Order> findOrdersByUserIdAndStatus(Long userId, Status orderStatus) throws ServiceException;
-
-    Long orderBook(Long bookId, Long userId, Issue issue) throws ServiceException;
-
-    /**
-     * Reserved {@link Book}
-     *
-     * @param orderId {@link Order}'s id
-     * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Book}
-     *                          into the data source
-     */
-    void reserveBook(Long orderId) throws ServiceException;
-
-    /**
-     * Returned {@link Book}
-     *
-     * @param orderId {@link Order}'s id
-     * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Book}
-     *                          into the data source
-     */
-    void returnBook(Long orderId) throws ServiceException;
-
-    /**
-     * Rejected {@link Book}
-     *
-     * @param orderId {@link Order}'s id
-     * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Book}
-     *                          into the data source
-     */
-    void rejectedOrder(Long orderId) throws ServiceException;
 }

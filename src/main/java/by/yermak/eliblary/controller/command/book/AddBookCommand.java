@@ -5,11 +5,12 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParam;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.model.book.Book;
-import by.yermak.eliblary.model.book.Category;
+import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
+import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,9 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import static by.yermak.eliblary.util.locale.MessagesKey.BOOK_NOT_ADD;
+import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_BOOK_ADD;
+
 public class AddBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
+    LanguageMessage message = LanguageMessage.getInstance();
     private final BookService bookService;
 
     public AddBookCommand() {
@@ -30,35 +34,37 @@ public class AddBookCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session)) {
             try {
-                String title = request.getParameter(RequestParam.BOOK_TITLE);
-                String author = request.getParameter(RequestParam.BOOK_AUTHOR);
-                String category = request.getParameter(RequestParam.BOOK_CATEGORY);
+                var title = request.getParameter(RequestParam.BOOK_TITLE);
+                var author = request.getParameter(RequestParam.BOOK_AUTHOR);
+                var category = request.getParameter(RequestParam.BOOK_CATEGORY);
               //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
-                int publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
-                int number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
-                Book book = new Book();
+                var publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
+                var number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
+                var book = new Book();
                 book.setTitle(title);
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
                 book.setPublishYear(publishYear);
              //   book.setDescription(description);
                 book.setNumber(number);
-                //тут тоже ошибка !!!
                 book = bookService.create(book);
                 if (book.getId() != null) {
                     LOGGER.log(Level.INFO, "book was created successfully");
                     List<Book> allBooks = bookService.findAllBooks();
                     request.setAttribute(RequestAttribute.BOOKS, allBooks);
                 }
-                request.setAttribute(RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book was added  successfully");
+                request.setAttribute(
+                        RequestAttribute.SUCCESS_MESSAGE_BOOK_CREATE,message.getText(currentLocale, SUCCESS_BOOK_ADD) );
                 return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
             }
         }
-        request.setAttribute(RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, "Book didn't add");
+        request.setAttribute(
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,BOOK_NOT_ADD));
         return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
     }
 }

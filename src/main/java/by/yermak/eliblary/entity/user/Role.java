@@ -1,4 +1,4 @@
-package by.yermak.eliblary.model.user;
+package by.yermak.eliblary.entity.user;
 
 public enum Role {
     ADMIN("admin"),

@@ -103,9 +103,9 @@
                                value="${book.number}"></td>
                 </tr>
             </table>
-            <c:if test="${successMessageBookUpdated != null || warningMessagePassMismatch != null}">
+            <c:if test="${successMessageBookCreate != null || warningMessagePassMismatch != null}">
                 <div class="content-submit-btn-main">
-                    <p class="content-msg cnt-msg-success">${successMessageBookUpdated}</p>
+                    <p class="content-msg cnt-msg-success">${successMessageBookCreate}</p>
                     <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
                 </div>
             </c:if>

@@ -1,6 +1,6 @@
 package by.yermak.eliblary.dao;
 
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;

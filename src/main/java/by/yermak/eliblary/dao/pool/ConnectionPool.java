@@ -49,10 +49,10 @@ public class ConnectionPool {
 
         String driverProperty;
 
-        try (InputStream propertiesStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DB_PROPERTIES_PATH)) {
+        try (var inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DB_PROPERTIES_PATH)) {
 
-            Properties fileProperties = new Properties();
-            fileProperties.load(propertiesStream);
+            var fileProperties = new Properties();
+            fileProperties.load(inputStream);
 
             DB_URL = fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_URL_PROPERTY);
             properties.put(DB_USER_PROPERTY, fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_USER_PROPERTY));
@@ -64,7 +64,7 @@ public class ConnectionPool {
             Class.forName(driverProperty);
 
             String poolSizeParameter;
-            int poolSize = DEFAULT_POOL_SIZE;
+            var poolSize = DEFAULT_POOL_SIZE;
             if ((poolSizeParameter = fileProperties.getProperty(POOL_PROPERTIES_PREFIX + POOL_SIZE_PROPERTY)) != null) {
                 try {
                     poolSize = Integer.parseInt(poolSizeParameter);
@@ -158,130 +158,3 @@ public class ConnectionPool {
         }
     }
 }
-//package by.yermak.eliblary.dao.pool;
-//
-//import by.yermak.eliblary.dao.pool.exception.ConnectionPoolException;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-//
-//import java.sql.Connection;
-//import java.sql.Driver;
-//import java.sql.DriverManager;
-//import java.sql.SQLException;
-//import java.util.Enumeration;
-//import java.util.concurrent.*;
-//import java.util.concurrent.atomic.AtomicBoolean;
-//import java.util.concurrent.locks.Lock;
-//import java.util.concurrent.locks.ReentrantLock;
-//
-//
-//public class ConnectionPool {
-//    private static final Logger logger = LogManager.getLogger();
-//    private static final AtomicBoolean isPoolCreated = new AtomicBoolean(false);
-//    private static final Lock locker = new ReentrantLock(true);
-//    private static final int POOL_SIZE = 9;
-//    private static ConnectionPool instance;
-//    private final BlockingDeque<ProxyConnection> freeConnections;
-//    private final BlockingDeque<ProxyConnection> usedConnections;
-//
-//
-//    private ConnectionPool() {
-//        freeConnections = new LinkedBlockingDeque<>(POOL_SIZE);
-//        usedConnections = new LinkedBlockingDeque<>(POOL_SIZE);
-//        for (int i = 0; i < POOL_SIZE; i++) {
-//            ProxyConnection connection;
-//            try {
-//                 connection = ConnectionFactory.createConnection();
-//                freeConnections.put(connection);
-//            } catch (SQLException | InterruptedException e) {
-//                logger.error("exception in open connection: ", e);
-//            }
-//        }
-//        if (freeConnections.isEmpty()) {
-//            logger.fatal("the connection pool is empty, no connections created");
-//            throw new RuntimeException("the connection pool is empty, no connections were created");
-//        }
-//    }
-//
-//    /**
-//     * Get instance of the connection pool.
-//     *
-//     * @return the connection pool instance
-//     */
-//    public static ConnectionPool getInstance() {
-//        if (!isPoolCreated.get()) {
-//            try {
-//                locker.lock();
-//                if (instance == null) {
-//                    instance = new ConnectionPool();
-//                    isPoolCreated.set(true);
-//                }
-//            } finally {
-//                locker.unlock();
-//            }
-//        }
-//        return instance;
-//    }
-//
-//    /**
-//     * Takes a free connection from the ConnectionPool
-//     *
-//     * @return a connection
-//     */
-//    public Connection getConnection() {
-//        ProxyConnection connection = null;
-//        try {
-//            connection = freeConnections.take();
-//            usedConnections.put(connection);
-//        } catch (InterruptedException e) {
-//            logger.error("fexception in get connection from pool:", e);
-//            Thread.currentThread().interrupt();
-//        }
-//        return connection;
-//    }
-//
-//    /**
-//     * Releases a connection
-//     *
-//     * @param connection used connection
-//     */
-//    public boolean releaseConnection(Connection connection) {
-//        if (!(connection instanceof ProxyConnection)) {
-//            logger.error("wrong instance");
-//            return false;
-//        }
-//        try {
-//            usedConnections.remove(connection);
-//            freeConnections.put((ProxyConnection) connection);
-//            return true;
-//        } catch (InterruptedException e) {
-//            logger.error("failed to release a connection", e);
-//            Thread.currentThread().interrupt();
-//        }
-//        return false;
-//    }
-//
-//    /**
-//     * Destroys the connection pool
-//     */
-//    public void destroy() {
-//        for (int i = 0; i < POOL_SIZE; i++) {
-//            try {
-//                freeConnections.take().reallyClose();
-//            } catch (SQLException e) {
-//                logger.error("failed to destroy pool", e);
-//            } catch (InterruptedException e) {
-//                logger.error("failed to destroy pool", e);
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//        try {
-//            Enumeration<Driver> drivers = DriverManager.getDrivers();
-//            while (drivers.hasMoreElements()) {
-//                DriverManager.deregisterDriver(drivers.nextElement());
-//            }
-//        } catch (SQLException exception) {
-//            logger.error("Drivers were not de-registered");
-//        }
-//    }
-//}

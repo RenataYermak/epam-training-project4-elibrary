@@ -3,7 +3,7 @@ package by.yermak.eliblary.dao.impl;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.mapper.impl.UserMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.util.exception.UtilException;
 import by.yermak.eliblary.dao.exception.DaoException;
 
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserDaoImpl  implements UserDao {
+public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger();
     private final UserMapper userMapper = new UserMapper();
 
@@ -42,10 +42,10 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public boolean isEmailExist(String email) throws DaoException {
         boolean isExist = false;
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement statement = connection.prepareStatement(Query.SQL_IS_EMAIL_EXIST)) {
-            statement.setString(1, email);
-            try (ResultSet resultSet = statement.executeQuery()) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SQL_IS_EMAIL_EXIST)) {
+            preparedStatement.setString(1, email);
+            try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     isExist = true;
                 }
@@ -60,10 +60,10 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public Optional<User> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_ID)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_ID)) {
             preparedStatement.setLong(1, id);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return userMapper.map(resultSet);
                 }
@@ -78,10 +78,10 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public Optional<User> findByLogin(String login) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_LOGIN)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return userMapper.map(resultSet);
                 }
@@ -96,11 +96,11 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public Optional<User> find(String login, String password) throws DaoException {
         LOGGER.log(Level.INFO, "method find by login and pass");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_USER_BY_LOGIN_AND_PASS)) {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return userMapper.map(resultSet);
                 }
@@ -117,14 +117,14 @@ public class UserDaoImpl  implements UserDao {
     public List<User> findUsersByQuery(String searchQuery) throws DaoException {
         LOGGER.log(Level.INFO, "method findUsersByQuery");
         List<User> users = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.USER_SEARCH)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.USER_SEARCH)) {
             preparedStatement.setString(1, searchQuery);
             preparedStatement.setString(2, searchQuery);
             preparedStatement.setString(3, searchQuery);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Optional<User> optionalUser = userMapper.map(resultSet);
+                    var optionalUser = userMapper.map(resultSet);
                     optionalUser.ifPresent(users::add);
                 }
             }
@@ -139,11 +139,11 @@ public class UserDaoImpl  implements UserDao {
     public List<User> findAll() throws DaoException {
         LOGGER.log(Level.INFO, "method findAll");
         List<User> users = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ALL_USERS);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_ALL_USERS);
+             var resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Optional<User> optionalUser = userMapper.map(resultSet);
+                var optionalUser = userMapper.map(resultSet);
                 optionalUser.ifPresent(users::add);
             }
         } catch (SQLException e) {
@@ -157,11 +157,11 @@ public class UserDaoImpl  implements UserDao {
     public List<User> findActivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findActivatedUsers");
         List<User> users = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_ALL_ACTIVATED_USERS);
+             var resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Optional<User> optionalUser = userMapper.map(resultSet);
+                var optionalUser = userMapper.map(resultSet);
                 optionalUser.ifPresent(users::add);
             }
         } catch (SQLException e) {
@@ -175,11 +175,11 @@ public class UserDaoImpl  implements UserDao {
     public List<User> findDeactivatedUsers() throws DaoException {
         LOGGER.log(Level.INFO, "method findDeactivatedUsers");
         List<User> users = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.SELECT_ALL_DEACTIVATED_USERS);
+             var resultSet = preparedStatement.executeQuery()) {
             while (resultSet.next()) {
-                Optional<User> optionalUser = userMapper.map(resultSet);
+                var optionalUser = userMapper.map(resultSet);
                 optionalUser.ifPresent(users::add);
             }
 
@@ -193,14 +193,14 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public Optional<User> create(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.executeUpdate();
-            try (ResultSet resultSet = preparedStatement.getGeneratedKeys()) {
+            try (var resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     user.setId(resultSet.getLong(1));
-                    Optional<User> optionalUser = find(user.getId());
+                    var optionalUser = find(user.getId());
                     if (optionalUser.isPresent()) {
                         user.setStatus(optionalUser.get().getStatus());
                         user.setActivationDate(optionalUser.get().getActivationDate());
@@ -218,8 +218,8 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public Optional<User> update(User user) throws DaoException {
         LOGGER.log(Level.INFO, "method update");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.UPDATE_USER)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.UPDATE_USER)) {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
@@ -233,8 +233,8 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public void deactivate(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method deactivate");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.DEACTIVATE_USER)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.DEACTIVATE_USER)) {
             preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
@@ -247,8 +247,8 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.DELETE_USER);) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.DELETE_USER);) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -260,8 +260,8 @@ public class UserDaoImpl  implements UserDao {
     @Override
     public void updatePassword(Long id, String password) throws DaoException {
         LOGGER.log(Level.INFO, "method updatePassword");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(Query.UPDATE_PASSWORD)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(Query.UPDATE_PASSWORD)) {
             preparedStatement.setString(1, password);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();

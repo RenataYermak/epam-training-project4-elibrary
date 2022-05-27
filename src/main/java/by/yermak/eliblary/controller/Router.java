@@ -1,17 +1,9 @@
 package by.yermak.eliblary.controller;
 
-public class Router {
+public record Router(String pagePath, RouterType routerType) {
     public enum RouterType {
         FORWARD,
         REDIRECT
-    }
-
-    private final String pagePath;
-    private final RouterType routerType;
-
-    public Router(String pagePath, RouterType routerType) {
-        this.pagePath = pagePath;
-        this.routerType = routerType;
     }
 
     public String getPagePath() {

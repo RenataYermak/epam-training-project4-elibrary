@@ -1,6 +1,6 @@
 package by.yermak.eliblary.service;
 
-import by.yermak.eliblary.model.user.User;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
 
