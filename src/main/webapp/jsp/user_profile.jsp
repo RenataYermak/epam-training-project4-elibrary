@@ -23,8 +23,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="/jsp/header.jsp" %>
-<%@ include file="/jsp/sidebar.jsp" %>
+<%@ include file="header.jsp" %>
+<%@ include file="sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <div class="content-title">
@@ -162,7 +162,7 @@
         </c:if>
     </form>
 </div>
-<%@ include file="/jsp/footer.jsp" %>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
 

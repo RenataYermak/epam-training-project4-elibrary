@@ -24,8 +24,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="/jsp/header.jsp" %>
-<%@ include file="/jsp/sidebar.jsp" %>
+<%@ include file="header.jsp" %>
+<%@ include file="sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <div class="content-title">
@@ -160,7 +160,7 @@
             <span class="info-style-srh">${bookTitle}</span> <fmt:message key="books.info.book"/></p>
     </c:if>
 </div>
-<%@ include file="/jsp/footer.jsp" %>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
 

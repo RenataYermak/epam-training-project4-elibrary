@@ -23,8 +23,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="/jsp/header.jsp" %>
-<%@ include file="/jsp/sidebar.jsp" %>
+<%@ include file="header.jsp" %>
+<%@ include file="sidebar.jsp" %>
 <div id="content" style="width: 1000px; height: 610px;">
     <div class="content-main">
         <div class="content-title">
@@ -54,6 +54,6 @@
                 allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
 </div>
-<%@ include file="/jsp/footer.jsp" %>
+<%@ include file="footer.jsp" %>
 </body>
 </html>
