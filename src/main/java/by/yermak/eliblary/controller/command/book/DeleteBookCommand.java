@@ -2,7 +2,7 @@ package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.service.BookService;
@@ -35,7 +35,7 @@ public class DeleteBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAdmin(session)) {
             try {
-                Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
                 bookService.delete(id);
                 request.setAttribute(
                         RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale,SUCCESS_BOOK_DELETE));

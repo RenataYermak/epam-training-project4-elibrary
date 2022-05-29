@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <sidebar>
     <div id="sidebar">
         <div>
@@ -48,7 +47,7 @@
                 <hr/>
                 <li>
                     <i class='fas fa-globe'></i>
-                    <a href="b_author.html"><fmt:message key="sidebar.link.about_library"/></a>
+                    <a href="about_library.jsp"><fmt:message key="sidebar.link.about_library"/></a>
                 </li>
             </ul>
         </div>

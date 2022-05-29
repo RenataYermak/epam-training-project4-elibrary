@@ -78,4 +78,13 @@ public interface UserDao extends EntityDao<User> {
      * @throws DaoException if there is any problem during access
      */
     void updatePassword(Long id, String password) throws DaoException;
+
+    /**
+     * Finds users in page
+     *
+     * @param page count pages
+     * @return a list of books in page
+     * @throws DaoException if there is any problem during access
+     */
+    List<User> findAlL(int page) throws DaoException;
 }

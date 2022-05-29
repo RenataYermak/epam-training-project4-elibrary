@@ -5,10 +5,9 @@ import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
@@ -34,14 +33,14 @@ public class EditBookCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAuthorized(session) && isAuthorized(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
-                Long id = parseLongParameter(request.getParameter(RequestParam.BOOK_ID));
-                var title = request.getParameter(RequestParam.BOOK_TITLE);
-                var author = request.getParameter(RequestParam.BOOK_AUTHOR);
-                var category = request.getParameter(RequestParam.BOOK_CATEGORY);
-                var publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
-                var number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
+                Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
+                var title = request.getParameter(RequestParameter.BOOK_TITLE);
+                var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
+                var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
+                var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
+                var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
                 var book = bookService.findBook(id);
                 if (book != null) {
                     if (category != null) {

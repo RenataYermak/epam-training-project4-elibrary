@@ -29,7 +29,7 @@ body {
 }
 
 #footer { /* Нижний блок */
-    background:#575757; /* Цвет фона */
+    background: #575757; /* Цвет фона */
     padding: 6px; /* Поля вокруг текста */
     color: #f6f6f6; /* Цвет текста */
     clear: left; /* Отменяем действие float */
@@ -52,9 +52,29 @@ a {
     color: black;
 
 }
+nav {
+    display: flex;
+    justify-content: start;
+}
+.pagination {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.pagination li {
+    margin: 0 1px;
+}
+
+.nav-link a {
+    font-size: 18px;
+}
+
 a:hover {
     border-bottom: 1px solid black;
 }
+
 input:valid {
     border-color: green;
 }
@@ -62,7 +82,6 @@ input:valid {
 input:invalid {
     border-color: red;
 }
-
 
 
 

@@ -4,7 +4,7 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.service.UserService;
@@ -33,7 +33,7 @@ public class DeactivateUserCommand implements Command {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session)) {
             try {
-                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 userService.deactivate(id);
                 request.setAttribute(
                         RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale,SUCCESS_USER_DEACTIVATE));

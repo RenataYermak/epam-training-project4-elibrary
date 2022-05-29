@@ -6,6 +6,8 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
 
 import java.util.List;
+import java.util.Set;
+
 /**
  * Describes the behavior of {@link Book} entity.
  */
@@ -70,5 +72,14 @@ public interface BookService {
      */
     void delete(Long id) throws ServiceException;
 
-
+    /**
+     * Find books in page  {@link User}
+     *
+     * @param page count pages
+     * @return all  users list {@link User} instance
+     * @throws ServiceException if  {@link User}'s list don"t into
+     *                          data source or if an error occurs while searching {@link User}
+     *                          into the data source
+     */
+    List<Book> findAllBooks(int page) throws ServiceException;
 }

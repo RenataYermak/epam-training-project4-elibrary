@@ -5,7 +5,7 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.service.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +28,7 @@ public class DeleteUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if ( isAdmin(session)) {
             try {
-                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
+                Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 userService.delete(id);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);

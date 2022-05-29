@@ -2,6 +2,7 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
+import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.service.UserService;
@@ -30,7 +31,14 @@ public class UserServiceImpl implements UserService {
         this.validator = new Validator();
         this.hashGenerator = new HashGenerator();
     }
-
+    @Override
+    public List<User> findAll(int page) throws ServiceException {
+        try {
+            return userDao.findAlL(page);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception in findAllUsers method", e);
+        }
+    }
     @Override
     public boolean isEmailExist(String email) throws ServiceException {
         boolean result;

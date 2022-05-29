@@ -1,6 +1,7 @@
 
 package by.yermak.eliblary.service.impl;
 
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
 import by.yermak.eliblary.dao.OrderDao;
@@ -8,7 +9,7 @@ import by.yermak.eliblary.dao.BookStatisticDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
-import by.yermak.eliblary.dao.impl.OrderDaoImpl;
+import by.yermak.eliblary.dao.impl.BookOrderDaoImpl;
 import by.yermak.eliblary.dao.impl.BookStatisticDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
@@ -19,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Optional;
 
 public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -32,10 +32,19 @@ public class BookServiceImpl implements BookService {
 
     public BookServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.bookOrderDao = new OrderDaoImpl();
+        this.bookOrderDao = new BookOrderDaoImpl();
         this.bookStatisticDao = new BookStatisticDaoImpl();
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
+    }
+
+    @Override
+    public List<Book> findAllBooks(int page) throws ServiceException {
+        try {
+            return bookDao.findAllBooks(page);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception in findAllUsers method", e);
+        }
     }
 
     @Override

@@ -34,8 +34,9 @@
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
                     <input type="search" name="searchQuery" id="site-search"
-                           placeholder= <fmt:message key="users.label.user_search"/>
-                            pattern="^[\p{L}\d-.]{1,25}$">
+                           placeholder=
+                           <fmt:message key="users.label.user_search"/>
+                                   pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
                 <button type="submit" name="command" value="user_search"><fmt:message
                         key="users.button.search"/></button>
@@ -51,7 +52,7 @@
                 <th class="cell"><fmt:message key="users.table.label.second_name"/></th>
                 <th class="cell"><fmt:message key="users.table.label.email"/></th>
                 <th class="cell"><fmt:message key="users.table.label.role"/></th>
-<%--                <th class="cell"><fmt:message key="users.table.label.status"/></th>--%>
+                    <%--                <th class="cell"><fmt:message key="users.table.label.status"/></th>--%>
                 <th class="cell"><fmt:message key="users.table.label.activation_date"/></th>
                 <th class="cell"><fmt:message key="users.table.label.deactivation_date"/></th>
                 <th class="cell"><fmt:message key="users.table.label.action"/></th>
@@ -63,7 +64,7 @@
                     <td class="cell">${user.secondName}</td>
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
-<%--                    <td class="cell">${user.status.name}</td>--%>
+                        <%--                    <td class="cell">${user.status.name}</td>--%>
                     <td class="cell">${user.activationDate}</td>
                     <td class="cell">${user.deactivationDate}</td>
                     <td class="cell">
@@ -83,6 +84,36 @@
             </c:forEach>
         </table>
     </c:if>
+    <div class="container">
+        <div class="rows" style="justify-content: start">
+            <nav aria-label="pagination">
+                <ul class="pagination">
+                    <c:if test="${requestScope.page != 1}">
+                        <li><a class="page-link"
+                               href="${pageContext.request.contextPath}/controller?command=find_users&page=${requestScope.page-1}">
+                            <span aria-hidden="true">&laquo;</span></a></li>
+                    </c:if>
+                    <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                        <c:choose>
+                            <c:when test="${requestScope.page eq i}">
+                                <li><a class="page-link">${i}</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_users&page=${i}">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                        <li><a class="page-link"
+                               href="${pageContext.request.contextPath}/controller?command=find_users&page=${requestScope.page+1}">
+                            <span aria-hidden="true">&raquo;</span></a></li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
+    </div>
     <c:if test="${fn:length(users) == 0}">
         <p class="info-style">${warningMessageUserSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
     </c:if>

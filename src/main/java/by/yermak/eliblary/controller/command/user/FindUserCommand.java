@@ -4,10 +4,9 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -30,7 +29,7 @@ public class FindUserCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long userId = parseLongParameter(request.getParameter(RequestParam.USER_ID));
+                Long userId = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 var user = userService.findUser(userId);
                 request.setAttribute(RequestAttribute.USER, user);
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);

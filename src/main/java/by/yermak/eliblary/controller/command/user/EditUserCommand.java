@@ -5,7 +5,6 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.user.Role;
-import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.util.locale.LanguageMessage;
 import org.apache.logging.log4j.Level;
@@ -33,13 +32,13 @@ public class EditUserCommand implements Command {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAuthorized(session)) {
             try {
-                Long id = parseLongParameter(request.getParameter(RequestParam.USER_ID));
-                var login = request.getParameter(RequestParam.USER_LOGIN);
-                var pass = request.getParameter(RequestParam.USER_PASSWORD);
-                var firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
-                var secondName = request.getParameter(RequestParam.USER_SECONDNAME);
-                var email = request.getParameter(RequestParam.USER_EMAIL);
-                var role = request.getParameter(RequestParam.USER_ROLE);
+                Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
+                var login = request.getParameter(RequestParameter.USER_LOGIN);
+                var pass = request.getParameter(RequestParameter.USER_PASSWORD);
+                var firstName = request.getParameter(RequestParameter.USER_FIRSTNAME);
+                var secondName = request.getParameter(RequestParameter.USER_SECONDNAME);
+                var email = request.getParameter(RequestParameter.USER_EMAIL);
+                var role = request.getParameter(RequestParameter.USER_ROLE);
                 var user = userService.findUser(id);
                 if (user != null) {
                     if (login != null) {

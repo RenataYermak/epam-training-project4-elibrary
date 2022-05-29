@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"  %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -35,8 +35,9 @@
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
                     <input type="search" name="searchQuery" id="site-search"
-                           placeholder=<fmt:message key="table.label.book_search"/>
-                            pattern="^[\p{L}\d-.]{1,25}$">
+                           placeholder=
+                           <fmt:message key="table.label.book_search"/>
+                                   pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
                 <button type="submit" name="command" value="book_search">
                     <fmt:message key="table.button.search"/></button>
@@ -119,8 +120,39 @@
             </c:forEach>
         </table>
     </c:if>
+    <div class="container">
+        <div class="rows" style="justify-content:start">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <c:if test="${requestScope.page != 1}">
+                        <li><a class="page-link"
+                               href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page-1}">
+                            <span aria-hidden="true">&laquo;</span></a></li>
+                    </c:if>
+                    <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                        <c:choose>
+                            <c:when test="${requestScope.page eq i}">
+                                <li><a class="page-link">${i}</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_books&page=${i}">${i}</a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                        <li><a class="page-link"
+                               href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page+1}">
+                            <span aria-hidden="true">&raquo;</span></a></li>
+                    </c:if>
+                </ul>
+            </nav>
+        </div>
+    </div>
     <c:if test="${fn:length(books) == 0}">
-        <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
+        <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span>
+        </p>
     </c:if>
     <c:if test="${orderId != null}">
         <p class="info-style"><fmt:message key="books.info.booked_success"/>

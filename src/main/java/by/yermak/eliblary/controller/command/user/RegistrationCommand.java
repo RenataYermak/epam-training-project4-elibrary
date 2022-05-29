@@ -4,7 +4,7 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.user.Role;
@@ -17,7 +17,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 import static by.yermak.eliblary.util.locale.MessagesKey.*;
 
@@ -37,12 +36,12 @@ public class RegistrationCommand implements Command {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session)) {
             try {
-                var login = request.getParameter(RequestParam.USER_LOGIN);
-                var password = request.getParameter(RequestParam.USER_PASSWORD);
-                var role = request.getParameter(RequestParam.USER_ROLE);
-                var firstName = request.getParameter(RequestParam.USER_FIRSTNAME);
-                var secondName = request.getParameter(RequestParam.USER_SECONDNAME);
-                var email = request.getParameter(RequestParam.USER_EMAIL);
+                var login = request.getParameter(RequestParameter.USER_LOGIN);
+                var password = request.getParameter(RequestParameter.USER_PASSWORD);
+                var role = request.getParameter(RequestParameter.USER_ROLE);
+                var firstName = request.getParameter(RequestParameter.USER_FIRSTNAME);
+                var secondName = request.getParameter(RequestParameter.USER_SECONDNAME);
+                var email = request.getParameter(RequestParameter.USER_EMAIL);
                 var user = new User();
                 user.setLogin(login);
                 user.setPassword(password);

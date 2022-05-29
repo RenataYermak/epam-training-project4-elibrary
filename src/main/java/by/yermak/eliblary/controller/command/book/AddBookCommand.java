@@ -2,7 +2,7 @@ package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.book.Book;
@@ -37,12 +37,12 @@ public class AddBookCommand implements Command {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAdmin(session)) {
             try {
-                var title = request.getParameter(RequestParam.BOOK_TITLE);
-                var author = request.getParameter(RequestParam.BOOK_AUTHOR);
-                var category = request.getParameter(RequestParam.BOOK_CATEGORY);
+                var title = request.getParameter(RequestParameter.BOOK_TITLE);
+                var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
+                var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
               //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
-                var publishYear = parseIntParameter(request.getParameter(RequestParam.BOOK_PUBLISH_YEAR));
-                var number = parseIntParameter(request.getParameter(RequestParam.BOOK_NUMBER));
+                var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
+                var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
                 var book = new Book();
                 book.setTitle(title);
                 book.setAuthor(author);

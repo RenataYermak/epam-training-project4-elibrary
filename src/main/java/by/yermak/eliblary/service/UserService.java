@@ -162,4 +162,15 @@ public interface UserService {
      * @param currentLocale the current locale, chosen by current user
      */
     void sendEmailRegisteredUser(String firstName, String secondName, String email, String currentLocale);
+
+    /**
+     * Find users in page  {@link User}
+     *
+     * @param page count pages
+     * @return all  users list {@link User} instance
+     * @throws ServiceException if  {@link User}'s list don"t into
+     *                          data source or if an error occurs while searching {@link User}
+     *                          into the data source
+     */
+    List<User> findAll(int page) throws ServiceException;
 }

@@ -16,4 +16,13 @@ public interface BookDao extends EntityDao<Book> {
      * @throws DaoException if there is any problem during access
      */
     List<Book> findBooksByQuery(String searchQuery) throws DaoException;
+
+    /**
+     * Finds books in page
+     *
+     * @param page count pages
+     * @return a list of books in page
+     * @throws DaoException if there is any problem during access
+     */
+    List<Book> findAllBooks(int page) throws DaoException;
 }

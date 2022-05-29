@@ -1,6 +1,6 @@
 package by.yermak.eliblary.dao.mapper;
 
-public class ColumnNameHelper {
+public class ColumnName {
     /**
      * user
      */
@@ -26,6 +26,7 @@ public class ColumnNameHelper {
     public static final String DESCRIPTION = "description";
     // public static final String OVERALL_RATING = "overall_rating";
     public static final String NUMBER = "number";
+
     /**
      * bookOrder
      */
@@ -38,8 +39,8 @@ public class ColumnNameHelper {
     public static final String REJECTED_DATE = "rejected_date";
     public static final String USER_FIRSTNAME = "firstname";
     public static final String USER_SECONDNAME = "secondname";
+    public static final String BOOK_TITLE = "title";
 
-
-    private ColumnNameHelper() {
+    private ColumnName() {
     }
 }

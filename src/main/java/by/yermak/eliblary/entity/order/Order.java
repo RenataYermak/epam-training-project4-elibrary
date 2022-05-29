@@ -1,22 +1,30 @@
 package by.yermak.eliblary.entity.order;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class Order implements Serializable {
-    @Serial
-    private static final long serialVersionUID = 1L;
+public class Order {
     private Long id;
     private Long bookId;
     private Long userId;
-    private Status status;
     private Issue issue;
+    private Status status;
+    private String userFirstName;
+    private String userSecondName;
+    private String bookTitle;
     private Timestamp orderedDate;
     private Timestamp reservedDate;
     private Timestamp returnedDate;
     private Timestamp rejectedDate;
+
+    public Order() {
+    }
+
+    public Order(Long bookId, Long userId, Issue issue) {
+        this.bookId = bookId;
+        this.userId = userId;
+        this.issue = issue;
+    }
 
     public Long getId() {
         return id;
@@ -42,6 +50,14 @@ public class Order implements Serializable {
         this.userId = userId;
     }
 
+    public Issue getIssue() {
+        return issue;
+    }
+
+    public void setIssue(Issue issue) {
+        this.issue = issue;
+    }
+
     public Status getStatus() {
         return status;
     }
@@ -50,12 +66,28 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public Issue getIssue() {
-        return issue;
+    public String getUserFirstName() {
+        return userFirstName;
     }
 
-    public void setIssue(Issue issue) {
-        this.issue = issue;
+    public void setUserFirstName(String userFirstName) {
+        this.userFirstName = userFirstName;
+    }
+
+    public String getUserSecondName() {
+        return userSecondName;
+    }
+
+    public void setUserSecondName(String userSecondName) {
+        this.userSecondName = userSecondName;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     public Timestamp getOrderedDate() {
@@ -94,34 +126,41 @@ public class Order implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Order bookOrder = (Order) o;
-        return id.equals(bookOrder.id) && bookId.equals(bookOrder.bookId) &&
-                userId.equals(bookOrder.userId) && status == bookOrder.status &&
-                issue == bookOrder.issue && orderedDate.equals(bookOrder.orderedDate) &&
-                Objects.equals(reservedDate, bookOrder.reservedDate) &&
-                Objects.equals(returnedDate, bookOrder.returnedDate) &&
-                Objects.equals(rejectedDate, bookOrder.rejectedDate);
+        Order order = (Order) o;
+        return Objects.equals(id, order.id) &&
+                Objects.equals(bookId, order.bookId) &&
+                Objects.equals(userId, order.userId) &&
+                issue == order.issue && status == order.status &&
+                Objects.equals(userFirstName, order.userFirstName) &&
+                Objects.equals(userSecondName, order.userSecondName) &&
+                Objects.equals(bookTitle, order.bookTitle) &&
+                Objects.equals(orderedDate, order.orderedDate) &&
+                Objects.equals(reservedDate, order.reservedDate) &&
+                Objects.equals(rejectedDate, order.rejectedDate) &&
+                Objects.equals(returnedDate, order.returnedDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bookId, userId, status, issue,
-                orderedDate, reservedDate, returnedDate, rejectedDate);
+        return Objects.hash(id, bookId, userId, issue, status, userFirstName,
+                userSecondName, bookTitle, orderedDate, reservedDate, returnedDate, rejectedDate);
     }
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass());
-        builder.append(" id = ").append(id);
-        builder.append(" bookId = ").append(bookId);
-        builder.append(" userId = ").append(userId);
-        builder.append(" issue = ").append(issue);
-        builder.append(" status = ").append(status);
-        builder.append(" orderedDate = ").append(orderedDate);
-        builder.append(" reservedDate = ").append(reservedDate);
-        builder.append(" reservedDate = ").append(reservedDate);
-        builder.append(" rejectedDate = ").append(rejectedDate);
-        return builder.toString();
+        return "Order{" +
+                "id=" + id +
+                ", bookId=" + bookId +
+                ", userId=" + userId +
+                ", issue=" + issue +
+                ", status=" + status +
+                ", userFirstName='" + userFirstName + '\'' +
+                ", userSecondName='" + userSecondName + '\'' +
+                ", bookTitle='" + bookTitle + '\'' +
+                ", orderedDate=" + orderedDate +
+                ", reservedDate=" + reservedDate +
+                ", reservedDate=" + returnedDate +
+                ", rejectedDate=" + rejectedDate +
+                '}';
     }
 }

@@ -1,6 +1,6 @@
 package by.yermak.eliblary.controller;
 
-public final class RequestParam {
+public final class RequestParameter {
     /**
      * Command params
      */
@@ -17,7 +17,6 @@ public final class RequestParam {
     public static final String BOOK_CATEGORY = "category";
     public static final String BOOK_DESCRIPTION = "description";
     public static final String BOOK_NUMBER = "number";
-
 
     /**
      * User params
@@ -42,6 +41,9 @@ public final class RequestParam {
      * Other
      */
     public static final String SEARCH_QUERY = "searchQuery";
+    public static final String PAGINATION_CURRENT_PAGE = "currentPage";
+    public static final String PAGINATION_RECORDS_PER_PAGE = "recordsPerPage";
+    public static final String PAGINATION_PAGES_QUANTITY = "pagesQuantity";
 
-    private RequestParam() {}
+    private RequestParameter() {}
 }

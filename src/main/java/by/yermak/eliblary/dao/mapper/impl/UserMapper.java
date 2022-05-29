@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.mapper.ColumnNameHelper.*;
+import static by.yermak.eliblary.dao.mapper.ColumnName.*;
 
 public class UserMapper implements EntityMapper<User> {
     private static final Logger LOGGER = LogManager.getLogger();

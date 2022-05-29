@@ -4,7 +4,7 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
-import by.yermak.eliblary.controller.RequestParam;
+import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.user.User;
@@ -33,7 +33,7 @@ public class UserSearchCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        var searchQuery = request.getParameter(RequestParam.SEARCH_QUERY);
+        var searchQuery = request.getParameter(RequestParameter.SEARCH_QUERY);
         if (isAuthorized(session)) {
             try {
                 List<User> users = userService.findUsersByQuery(searchQuery);
