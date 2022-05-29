@@ -45,8 +45,9 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <form action="add_book.jsp">
-                    <button type="submit"><i class='far fa-address-book'></i> <fmt:message key="book.button.add_book"/>
+                <form action="controller" method="get" >
+                    <button type="submit" name="command" value="add_book_page"><i class='far fa-address-book'></i>
+                        <fmt:message key="book.button.add_book"/>
                     </button>
                 </form>
             </c:if>

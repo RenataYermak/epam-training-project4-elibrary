@@ -5,6 +5,7 @@ public final class PagePath {
      * Book pages path
      */
     public static final String EDIT_BOOK ="/edit_book.jsp";
+    public static final String BOOKS_TABLE_URL ="/controller?command=find_books";
     public static final String BOOKS_TABLE ="/books_table.jsp";
     public static final String ADD_BOOK ="/add_book.jsp";
     /**
@@ -19,6 +20,7 @@ public final class PagePath {
     public static final String SIGN_IN = "/sign_in.jsp";
     public static final String REGISTRATION = "/registration.jsp";
     public static final String ORDERS = "/orders.jsp";
+    public static final String ABOUT_LIBRARY = "/about_library.jsp";
 
 //    /**
 //     * Book pages path

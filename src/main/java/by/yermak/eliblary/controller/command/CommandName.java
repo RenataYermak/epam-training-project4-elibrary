@@ -16,7 +16,9 @@ public enum CommandName {
     RESERVE_BOOK,
     RETURN_BOOK,
     REJECT_ORDER,
-
+    ABOUT_LIBRARY_PAGE,
+    ADD_BOOK_PAGE,
+    REGISTER_PAGE,
     /**
      * User commands
      */

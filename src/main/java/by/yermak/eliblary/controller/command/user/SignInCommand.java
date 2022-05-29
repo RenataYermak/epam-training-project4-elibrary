@@ -46,7 +46,7 @@ public class SignInCommand implements Command {
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS_TABLE);
-                return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
+                return new Router(PagePath.BOOKS_TABLE_URL, Router.RouterType.REDIRECT);
             }
             if (user != null && user.getStatus().equals(Status.DEACTIVATED)) {
                 LOGGER.log(Level.INFO, "failed to login, not permission");

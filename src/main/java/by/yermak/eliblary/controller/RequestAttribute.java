@@ -43,7 +43,7 @@ public final class RequestAttribute {
     public static final String ITEMS_PER_PAGE = "items_per_page";
     public static final String NUMBER_OF_PAGES = "number_of_pages";
     public static final int DEFAULT_PAGE_NUMBER = 1;
-    public static final int RECORDS_PER_PAGE= 4;
+    public static final int RECORDS_PER_PAGE= 7;
 
     private RequestAttribute() {
     }

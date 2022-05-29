@@ -263,7 +263,7 @@ public final class QuerySQL {
                    number
             FROM books
             WHERE title LIKE CONCAT('%',?,'%') OR author LIKE CONCAT('%',?,'%')""";
-    public static final int ELEMENTS_ON_PAGE = 4;
+    public static final int ELEMENTS_ON_PAGE = 7;
     public static final String FIND_PAGE_QUERY_BOOKS = """
             SELECT book_id,
                    title,
