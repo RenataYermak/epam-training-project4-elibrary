@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebFilter(urlPatterns = {"/*"})
 public class CurrentPageFilter implements Filter {
 
-    private static final String CONTAINS_JSP = "webapp/";
+    private static final String CONTAINS_JSP = "jsp/";
     private static final String CONTAINS_CONTROLLER = "controller";
     private static final String CONTAINS_CHANGE_LOCALE = "command=change_locale";
 

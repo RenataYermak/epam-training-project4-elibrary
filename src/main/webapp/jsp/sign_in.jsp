@@ -7,11 +7,11 @@
 <head>
     <title>Sing in </title>
     <!-- Styles -->
-    <link rel="stylesheet" href="css/header-style.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/sidebar-style.css">
-    <link rel="stylesheet" href="css/table-style.css">
-    <link rel="stylesheet" href="css/content-style.css">
+    <link rel="stylesheet" href="../css/header-style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar-style.css">
+    <link rel="stylesheet" href="../css/table-style.css">
+    <link rel="stylesheet" href="../css/content-style.css">
     <!-- Icons -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->

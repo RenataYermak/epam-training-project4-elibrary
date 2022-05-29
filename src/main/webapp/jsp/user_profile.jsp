@@ -8,11 +8,11 @@
 <head>
     <title>${user.firstName}</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="css/header-style.css">
-    <link rel="stylesheet" href="css/sidebar-style.css">
-    <link rel="stylesheet" href="css/table-style.css">
-    <link rel="stylesheet" href="css/content-style.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/header-style.css">
+    <link rel="stylesheet" href="../css/sidebar-style.css">
+    <link rel="stylesheet" href="../css/table-style.css">
+    <link rel="stylesheet" href="../css/content-style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Icons -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->
@@ -23,8 +23,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
-<%@ include file="/sidebar.jsp" %>
+<%@ include file="/jsp/header.jsp" %>
+<%@ include file="/jsp/sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <div class="content-title">
@@ -162,7 +162,7 @@
         </c:if>
     </form>
 </div>
-<%@ include file="/footer.jsp" %>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>
 

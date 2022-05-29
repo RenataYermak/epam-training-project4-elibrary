@@ -8,11 +8,11 @@
 <head>
     <title>User Registration</title>
     <!-- Styles -->
-    <link rel="stylesheet" href="css/header-style.css">
-    <link rel="stylesheet" href="css/sidebar-style.css">
-    <link rel="stylesheet" href="css/table-style.css">
-    <link rel="stylesheet" href="css/content-style.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/header-style.css">
+    <link rel="stylesheet" href="../css/sidebar-style.css">
+    <link rel="stylesheet" href="../css/table-style.css">
+    <link rel="stylesheet" href="../css/content-style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <!-- Icons -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->
@@ -23,8 +23,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="/header.jsp" %>
-<%@ include file="/sidebar.jsp" %>
+<%@ include file="/jsp/header.jsp" %>
+<%@ include file="/jsp/sidebar.jsp" %>
 <div id="content">
     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
         <div class="content-main">
@@ -126,7 +126,6 @@
         <p class="info-style"><fmt:message key="register.info.permission"/></p>
     </c:if>
 </div>
-<%@ include file="/footer.jsp" %>
-<crt:copyright/>
+<%@ include file="/jsp/footer.jsp" %>
 </body>
 </html>
