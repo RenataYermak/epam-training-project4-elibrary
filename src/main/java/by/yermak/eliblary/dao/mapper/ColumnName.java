@@ -4,28 +4,27 @@ public class ColumnName {
     /**
      * user
      */
-    public static final String USER_ID = "user_id";
-    public static final String LOGIN = "login";
-    public static final String PASSWORD = "password";
-    public static final String FIRSTNAME = "firstname";
-    public static final String SECONDNAME = "secondname";
-    public static final String EMAIL = "email";
-    public static final String ROLE = "role";
-    public static final String USER_STATUS = "status";
-    public static final String ACTIVATION_DATE = "activation_date";
-    public static final String DEACTIVATION_DATE = "deactivation_date";
+    public static final String USER_ID = "u.user_id";
+    public static final String LOGIN = "u.login";
+    public static final String PASSWORD = "u.password";
+    public static final String FIRSTNAME = "u.firstname";
+    public static final String SECONDNAME = "u.secondname";
+    public static final String EMAIL = "u.email";
+    public static final String ROLE = "ur.role_name";
+    public static final String USER_STATUS = "us.status_name";
+    public static final String ACTIVATION_DATE = "u.activation_date";
+    public static final String DEACTIVATION_DATE = "u.deactivation_date";
 
     /**
      * book
      */
-    public static final String BOOK_ID = "book_id";
-    public static final String TITLE = "title";
-    public static final String AUTHOR = "author";
-    public static final String CATEGORY = "category";
-    public static final String PUBLISH_YEAR = "publish_year";
-    public static final String DESCRIPTION = "description";
-    // public static final String OVERALL_RATING = "overall_rating";
-    public static final String NUMBER = "number";
+    public static final String BOOK_ID = "b.book_id";
+    public static final String TITLE = "b.title";
+    public static final String AUTHOR = "b.author";
+    public static final String CATEGORY = "bc.category_name";
+    public static final String PUBLISH_YEAR = "b.publish_year";
+    public static final String DESCRIPTION = "b.description";
+    public static final String NUMBER = "b.number";
 
     /**
      * bookOrder

@@ -2,12 +2,10 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.dao.BookDao;
 import by.yermak.eliblary.dao.OrderDao;
-import by.yermak.eliblary.dao.BookStatisticDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
 import by.yermak.eliblary.dao.impl.BookOrderDaoImpl;
-import by.yermak.eliblary.dao.impl.BookStatisticDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.order.Issue;
 import by.yermak.eliblary.entity.order.Order;
@@ -28,14 +26,12 @@ public class BookOrderServiceImpl implements BookOrderService {
 
     private final BookDao bookDao;
     private final OrderDao orderDao;
-    private final BookStatisticDao bookStatisticDao;
     private final UserDao userDao;
     private final Validator validator;
 
     public BookOrderServiceImpl() {
         this.bookDao = new BookDaoImpl();
         this.orderDao = new BookOrderDaoImpl();
-        this.bookStatisticDao = new BookStatisticDaoImpl();
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
     }
