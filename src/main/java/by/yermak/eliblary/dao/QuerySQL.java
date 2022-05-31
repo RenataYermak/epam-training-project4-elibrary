@@ -140,6 +140,11 @@ public final class QuerySQL {
             FROM users u
             WHERE u.email = ?
             LIMIT 1""";
+    public static final String SQL_IS_LOGIN_EXIST = """
+            SELECT user_id
+            FROM users u
+            WHERE u.login = ?
+            LIMIT 1""";
     public static final String FIND_PAGE_QUERY_USERS = """
             SELECT u.user_id,
                    u.login,
@@ -219,144 +224,6 @@ public final class QuerySQL {
             FROM books b
             JOIN book_categories bc ON b.category_id = bc.category_id
             LIMIT ?, ?""";
-//    /**
-//     * user
-//     */
-//    public static final String SELECT_USER_BY_ID = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE user_id=?""";
-//    public static final String SELECT_USER_BY_LOGIN = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE login=?""";
-//    public static final String SELECT_USER_BY_LOGIN_AND_PASS = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE login=? and password=? AND `status`='ACTIVATED'""";
-//    public static final String SELECT_ALL_USERS = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users""";
-//    public static final String SELECT_ALL_ACTIVATED_USERS = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE `status`='ACTIVATED'""";
-//    public static final String SELECT_ALL_DEACTIVATED_USERS = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE `status`='DEACTIVATED'""";
-//    public static final String INSERT_USER = """
-//            INSERT INTO users(login, password, firstname, secondname, email, role)
-//            VALUES(?, ?, ?, ?, ?,?)""";
-//    public static final String UPDATE_USER = """
-//            UPDATE users
-//            SET login=?,
-//                password=?,
-//                firstname=?,
-//                secondname=?,
-//                email=?,
-//                role=?
-//            WHERE user_id=?""";
-//    public static final String DEACTIVATE_USER = """
-//            UPDATE users
-//            SET `status`='DEACTIVATED',
-//                deactivation_date=?
-//            WHERE user_id=?""";
-//    public static final String DELETE_USER = """
-//            DELETE
-//            FROM users
-//            WHERE user_id=?""";
-//    public static final String USER_SEARCH = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            WHERE login LIKE CONCAT('%',?,'%')
-//                  OR firstname LIKE CONCAT('%',?,'%')
-//                  OR secondname LIKE CONCAT('%',?,'%')""";
-//    public static final String UPDATE_PASSWORD = """
-//            UPDATE users
-//            SET password=?
-//            WHERE user_id=?""";
-//    public static final String SQL_IS_EMAIL_EXIST = """
-//            SELECT user_id
-//            FROM users
-//            WHERE email = ?
-//            LIMIT 1""";
-//    public static final String FIND_PAGE_QUERY_USERS = """
-//            SELECT user_id,
-//                   login,
-//                   password,
-//                   firstname,
-//                   secondname,
-//                   email,
-//                   role,
-//                   status,
-//                   activation_date,
-//                   deactivation_date
-//            FROM users
-//            LIMIT ?, ?""";
 
     /**
      * bookOrder
@@ -432,65 +299,6 @@ public final class QuerySQL {
             FROM book_orders
             WHERE order_id=?""";
 
-    /**
-     * book
-     */
-//    public static final String SELECT_ALL_BOOKS = """
-//            SELECT book_id,
-//                   title,
-//                   author,
-//                   category,
-//                   publish_year,
-//                   description,
-//                   number
-//            FROM books""";
-//    public static final String SELECT_BOOK_BY_ID = """
-//            SELECT book_id,
-//                   title,
-//                   author,
-//                   category,
-//                   publish_year,
-//                   description,
-//                   number
-//            FROM books
-//            WHERE book_id=?""";
-//    public static final String INSERT_BOOK = """
-//            INSERT INTO books (title, author, category, publish_year, description, number)
-//            VALUES(?, ?, ?, ?, ?, ?)""";
-//    public static final String UPDATE_BOOK = """
-//            UPDATE books
-//            SET title=?,
-//                author=?,
-//                category=?,
-//                publish_year=?,
-//                description=?,
-//                number=?
-//            WHERE book_id=?""";
-//    public static final String DELETE_BOOK = """
-//            DELETE
-//            FROM books
-//            WHERE book_id=?""";
-//    public static final String BOOK_SEARCH = """
-//            SELECT book_id,
-//                   title,
-//                   author,
-//                   category,
-//                   publish_year,
-//                   description,
-//                   number
-//            FROM books
-//            WHERE title LIKE CONCAT('%',?,'%') OR author LIKE CONCAT('%',?,'%')""";
-//    public static final int ELEMENTS_ON_PAGE = 7;
-//    public static final String FIND_PAGE_QUERY_BOOKS = """
-//            SELECT book_id,
-//                   title,
-//                   author,
-//                   category,
-//                   publish_year,
-//                   description,
-//                   number
-//            FROM books
-//            LIMIT ?, ?""";
     private QuerySQL() {
     }
 }

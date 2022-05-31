@@ -18,6 +18,14 @@ public interface UserDao extends EntityDao<User> {
      * @throws DaoException if there is any problem during access
      */
     boolean isEmailExist(String email) throws DaoException;
+    /**
+     * Checks if email already exists.
+     *
+     * @param login the user's login
+     * @return whether an email was found
+     * @throws DaoException if there is any problem during access
+     */
+    boolean isLoginExist(String login) throws DaoException;
 
     /**
      * Finds a user with the specified login.

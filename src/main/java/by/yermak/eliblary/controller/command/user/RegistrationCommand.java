@@ -43,7 +43,6 @@ public class RegistrationCommand implements Command {
                 var secondName = request.getParameter(RequestParameter.USER_SECONDNAME);
                 var email = request.getParameter(RequestParameter.USER_EMAIL);
                 var user = new User();
-                user.setLogin(login);
                 user.setPassword(password);
                 user.setFirstName(firstName);
                 user.setSecondName(secondName);
@@ -52,6 +51,13 @@ public class RegistrationCommand implements Command {
                 } else {
                     request.setAttribute(
                             RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, EMAIL_ALREADY_EXISTS));
+                    return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
+                }
+                if (!userService.isLoginExist(login)) {
+                    user.setLogin(login);
+                } else {
+                    request.setAttribute(
+                            RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, LOGIN_ALREADY_EXISTS));
                     return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
                 }
                 user.setRole(Role.valueOf(role.toUpperCase()));
@@ -70,7 +76,7 @@ public class RegistrationCommand implements Command {
             }
         }
         request.setAttribute(
-                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,USER_NOT_CREATED));
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, USER_NOT_CREATED));
         return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
     }
 }

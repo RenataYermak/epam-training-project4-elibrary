@@ -19,6 +19,14 @@ public interface UserService {
     boolean isEmailExist(String email) throws ServiceException;
 
     /**
+     * Checks whether an email is already exist
+     *
+     * @param login a user's login
+     * @return whether an email is already exist
+     */
+    boolean isLoginExist(String login) throws ServiceException;
+
+    /**
      * Find user {@link User} instance by <tt>id</tt>
      *
      * @param id {@link User}'s id
