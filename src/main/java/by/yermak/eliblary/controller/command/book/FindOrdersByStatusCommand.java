@@ -37,7 +37,7 @@ public class FindOrdersByStatusCommand implements Command {
                 List<Order> orders = orderService.findOrdersByOrderStatus(orderStatus);
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
-                } else if(orderStatus.equals(Status.RESERVED)) {
+                } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 }
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getValue());

@@ -53,7 +53,7 @@ public class EditBookCommand implements Command {
                     bookService.update(book);
                     request.setAttribute(RequestAttribute.BOOK, book);
                     request.setAttribute(
-                            RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale,SUCCESS_BOOK_UPDATE));
+                            RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale, SUCCESS_BOOK_UPDATE));
                     return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
                 }
             } catch (ServiceException e) {
@@ -61,7 +61,7 @@ public class EditBookCommand implements Command {
             }
         }
         request.setAttribute(
-                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,BOOK_NOT_UPDATE));
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, BOOK_NOT_UPDATE));
         return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
     }
 }

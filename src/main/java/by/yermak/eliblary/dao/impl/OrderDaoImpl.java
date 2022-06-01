@@ -21,7 +21,7 @@ public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = LogManager.getLogger();
     OrderMapper orderMapper = new OrderMapper();
 
-       @Override
+    @Override
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException {
         LOGGER.log(Level.INFO, "method findOrdersByOrderStatus");
         List<Order> orders = new ArrayList<>();

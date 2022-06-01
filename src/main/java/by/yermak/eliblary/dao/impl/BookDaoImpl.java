@@ -33,7 +33,7 @@ public class BookDaoImpl implements BookDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find all users on defined page ", e);
+            throw new DaoException("Failed to find all users on defined page: {} ", e);
         }
         return booksOnPage;
     }

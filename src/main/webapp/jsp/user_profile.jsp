@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
@@ -39,7 +39,7 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <form action="controller" method="get" >
+                <form action="controller" method="get">
                     <button type="submit" name="command" value="register_page"><i class='far fa-address-book'></i>
                         <fmt:message key="user.button.register_user"/>
                     </button>

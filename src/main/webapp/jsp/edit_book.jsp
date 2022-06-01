@@ -83,16 +83,6 @@
                                        key="validation.user.registration.firstname"/>' : '');"
                                value="${book.publishYear}"></td>
                 </tr>
-                    <%--                <tr>--%>
-                    <%--                    <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
-                    <%--                    <td><input type="text" name="description" required pattern="^[\p{L}\d-.]{2,25}$"--%>
-                    <%--                               oninvalid="this.setCustomValidity('<fmt:message--%>
-                    <%--                                       key="validation.user.registration.password"/>')"--%>
-                    <%--                               onchange="this.setAttribute('value', this.value);--%>
-                    <%--                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message--%>
-                    <%--                                       key="validation.user.registration.password"/>' : '');"--%>
-                    <%--                               value="${book.description}"></td>--%>
-                    <%--                </tr>--%>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
                     <td><input type="number" name="number" min="0" max="999" required pattern="^[0-9]{1,3}$"
@@ -115,7 +105,7 @@
                 <button class="content-submit-btn" type="submit" name="command" value="find_book"><fmt:message
                         key="book.button.cancel"/></button>
                 <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
-                        value="edit_book"> <fmt:message key="book.button.edit"/>
+                        value="edit_book"><fmt:message key="book.button.edit"/>
                 </button>
             </div>
             <c:if test="${authUser.role == 'ADMIN'}">
@@ -128,9 +118,6 @@
             </c:if>
         </form>
     </c:if>
-    <%--    <c:if test="${sessionScope.authUser.role != 'ADMIN'}">--%>
-    <%--        <p class="info-style"><fmt:message key="register.info.permission"/></p>--%>
-    <%--    </c:if>--%>
 </div>
 <%@ include file="footer.jsp" %>
 </body>

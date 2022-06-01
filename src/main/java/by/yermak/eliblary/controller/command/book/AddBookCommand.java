@@ -40,7 +40,7 @@ public class AddBookCommand implements Command {
                 var title = request.getParameter(RequestParameter.BOOK_TITLE);
                 var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
                 var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
-              //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
+                //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
                 var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
                 var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
                 var book = new Book();
@@ -48,7 +48,7 @@ public class AddBookCommand implements Command {
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
                 book.setPublishYear(publishYear);
-             //   book.setDescription(description);
+                //   book.setDescription(description);
                 book.setNumber(number);
                 book = bookService.create(book);
                 if (book.getId() != null) {
@@ -57,14 +57,14 @@ public class AddBookCommand implements Command {
                     request.setAttribute(RequestAttribute.BOOKS, allBooks);
                 }
                 request.setAttribute(
-                        RequestAttribute.SUCCESS_MESSAGE_BOOK_CREATE,message.getText(currentLocale, SUCCESS_BOOK_ADD) );
+                        RequestAttribute.SUCCESS_MESSAGE_BOOK_CREATE, message.getText(currentLocale, SUCCESS_BOOK_ADD));
                 return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
             }
         }
         request.setAttribute(
-                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,BOOK_NOT_ADD));
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, BOOK_NOT_ADD));
         return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
     }
 }

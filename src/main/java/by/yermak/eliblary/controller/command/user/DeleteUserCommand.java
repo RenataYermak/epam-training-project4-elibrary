@@ -26,7 +26,7 @@ public class DeleteUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if ( isAdmin(session)) {
+        if (isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 userService.delete(id);

@@ -26,13 +26,21 @@ public class ConnectionPool {
 
     private static final String DB_PROPERTIES_PATH = "config/db-mysql-elibrary.properties";
     private static final String DB_PROPERTIES_PREFIX = "db.";
-    private static final String DB_URL_PROPERTY = "url";
-    private static final String DB_USER_PROPERTY = "user";
-    private static final String DB_PASSWORD_PROPERTY = "password";
-    private static final String DB_DRIVER_PROPERTY = "driver";
+    private static final String DB_URL_PROPERTY = "db.url";
+    private static final String DB_USER_PROPERTY = "db.user";
+    private static final String DB_PASSWORD_PROPERTY = "db.password";
+    private static final String DB_DRIVER_PROPERTY = "db.driver";
+    private static final String URL_PROPERTY = "url";
+    private static final String USER_PROPERTY = "user";
+    private static final String PASSWORD_PROPERTY = "password";
+    private static final String DRIVER_PROPERTY = "driver";
+    //    private static final String DB_URL_PROPERTY = "url";
+//    private static final String DB_USER_PROPERTY = "user";
+//    private static final String DB_PASSWORD_PROPERTY = "password";
+//    private static final String DB_DRIVER_PROPERTY = "driver";
     private static final String DEFAULT_DRIVER_PROPERTY = "com.mysql.cj.jdbc.Driver";
     private static final String POOL_PROPERTIES_PREFIX = "pool.";
-    private static final String POOL_SIZE_PROPERTY = "size";
+    private static final String POOL_SIZE_PROPERTY = "pool.size";
     private static final String DB_URL;
     private static final int DEFAULT_POOL_SIZE = 6;
     private static final int POOL_SIZE;
@@ -44,28 +52,26 @@ public class ConnectionPool {
     private final BlockingQueue<ProxyConnection> freeConnection = new LinkedBlockingQueue<>(POOL_SIZE);
     private final BlockingQueue<ProxyConnection> usedConnection = new LinkedBlockingQueue<>(POOL_SIZE);
 
-
     static {
 
         String driverProperty;
 
         try (var inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DB_PROPERTIES_PATH)) {
-
             var fileProperties = new Properties();
             fileProperties.load(inputStream);
 
-            DB_URL = fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_URL_PROPERTY);
-            properties.put(DB_USER_PROPERTY, fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_USER_PROPERTY));
-            properties.put(DB_PASSWORD_PROPERTY, fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_PASSWORD_PROPERTY));
+            DB_URL = fileProperties.getProperty(DB_URL_PROPERTY);
+            properties.put(USER_PROPERTY, fileProperties.getProperty(DB_USER_PROPERTY));
+            properties.put(PASSWORD_PROPERTY, fileProperties.getProperty(DB_PASSWORD_PROPERTY));
 
-            if ((driverProperty = fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_DRIVER_PROPERTY)) == null) {
+            if ((driverProperty = fileProperties.getProperty(DB_DRIVER_PROPERTY)) == null) {
                 driverProperty = DEFAULT_DRIVER_PROPERTY;
             }
             Class.forName(driverProperty);
 
             String poolSizeParameter;
             var poolSize = DEFAULT_POOL_SIZE;
-            if ((poolSizeParameter = fileProperties.getProperty(POOL_PROPERTIES_PREFIX + POOL_SIZE_PROPERTY)) != null) {
+            if ((poolSizeParameter = fileProperties.getProperty(POOL_SIZE_PROPERTY)) != null) {
                 try {
                     poolSize = Integer.parseInt(poolSizeParameter);
                 } catch (NumberFormatException nfe) {
@@ -81,6 +87,43 @@ public class ConnectionPool {
             throw new ExceptionInInitializerError("driver was not found");
         }
     }
+//
+//    static {
+//
+//        String driverProperty;
+//
+//        try (var inputStream = ConnectionPool.class.getClassLoader().getResourceAsStream(DB_PROPERTIES_PATH)) {
+//
+//            var fileProperties = new Properties();
+//            fileProperties.load(inputStream);
+//
+//            DB_URL = fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_URL_PROPERTY);
+//            properties.put(DB_USER_PROPERTY, fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_USER_PROPERTY));
+//            properties.put(DB_PASSWORD_PROPERTY, fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_PASSWORD_PROPERTY));
+//
+//            if ((driverProperty = fileProperties.getProperty(DB_PROPERTIES_PREFIX + DB_DRIVER_PROPERTY)) == null) {
+//                driverProperty = DEFAULT_DRIVER_PROPERTY;
+//            }
+//            Class.forName(driverProperty);
+//
+//            String poolSizeParameter;
+//            var poolSize = DEFAULT_POOL_SIZE;
+//            if ((poolSizeParameter = fileProperties.getProperty(POOL_PROPERTIES_PREFIX + POOL_SIZE_PROPERTY)) != null) {
+//                try {
+//                    poolSize = Integer.parseInt(poolSizeParameter);
+//                } catch (NumberFormatException nfe) {
+//                    LOGGER.error("Invalid pool size parameter in properties file: " + poolSizeParameter);
+//                }
+//            }
+//            POOL_SIZE = poolSize;
+//        } catch (IOException e) {
+//            LOGGER.error("failed to read database properties", e);
+//            throw new ExceptionInInitializerError("failed to read database properties");
+//        } catch (ClassNotFoundException e) {
+//            LOGGER.error("driver was not found");
+//            throw new ExceptionInInitializerError("driver was not found");
+//        }
+//    }
 
     private ConnectionPool() {
         for (int i = 0; i < POOL_SIZE; i++) {

@@ -42,7 +42,7 @@ public class BookSearchCommand implements Command {
                 } else {
                     request.setAttribute(RequestAttribute.SEARCH_QUERY, searchQuery);
                     request.setAttribute(
-                            RequestAttribute.WARNING_MESSAGE_BOOK_SEARCH, message.getText(currentLocale,SEARCH_BOOK_FAIL));
+                            RequestAttribute.WARNING_MESSAGE_BOOK_SEARCH, message.getText(currentLocale, SEARCH_BOOK_FAIL));
                 }
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

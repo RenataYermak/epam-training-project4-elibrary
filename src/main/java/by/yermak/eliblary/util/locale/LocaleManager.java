@@ -7,7 +7,7 @@ public enum LocaleManager {
     EN(ResourceBundle.getBundle("locale",new Locale("en","EN"))),
     RU(ResourceBundle.getBundle("locale",new Locale("ru","RU")));
 
-    private ResourceBundle bundle;
+    private final ResourceBundle bundle;
 
     LocaleManager(ResourceBundle bundle){
         this.bundle = bundle;

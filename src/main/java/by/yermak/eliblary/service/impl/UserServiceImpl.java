@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         try {
             result = userDao.isEmailExist(email);
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "failed to check if user with {} exists", e);
+            LOGGER.log(Level.ERROR, "failed to check if user with {} exists ", e);
             throw new ServiceException("Exception when find email : {}", e);
         }
         return result;

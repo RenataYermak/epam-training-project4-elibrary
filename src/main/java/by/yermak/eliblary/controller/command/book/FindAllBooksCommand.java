@@ -40,7 +40,7 @@ public class FindAllBooksCommand implements Command {
                 int numberOfPages = (int) Math.ceil(bookList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
-               // request.setAttribute(RequestAttribute.ITEMS_PER_PAGE, countBook);
+                // request.setAttribute(RequestAttribute.ITEMS_PER_PAGE, countBook);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

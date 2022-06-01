@@ -36,7 +36,7 @@ public class DeactivateUserCommand implements Command {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 userService.deactivate(id);
                 request.setAttribute(
-                        RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale,SUCCESS_USER_DEACTIVATE));
+                        RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale, SUCCESS_USER_DEACTIVATE));
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deactivating user: ", e);

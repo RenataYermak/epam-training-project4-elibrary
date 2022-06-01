@@ -1,8 +1,8 @@
-<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8"  %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
-<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
 <html lang="en">
 <head>
@@ -69,13 +69,15 @@
                             <option value="sci_fi"><fmt:message key="book.category.sci_fi"/></option>
                             <option value="detective"><fmt:message key="book.category.detective"/></option>
                             <option value="novel" selected="selected"><fmt:message key="book.category.novel"/></option>
-                            <option value="science" selected="selected"><fmt:message key="book.category.science"/></option>
+                            <option value="science" selected="selected"><fmt:message
+                                    key="book.category.science"/></option>
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
-                    <td><input type="number" size="4" name="publishYear" min = "1500" required pattern="^[0-9]$"
+                    <td><input type="number" size="4" name="publishYear" min="1500" max="2022" required
+                               pattern="^[0-9]$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.publishYear"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -85,7 +87,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min = "0"  max = "999" required pattern="^[0-9]{1,3}$"
+                    <td><input type="number" name="number" min="0" max="100" required pattern="^[0-9]{1,3}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.number"/>')"
                                onchange="this.setAttribute('value', this.value);

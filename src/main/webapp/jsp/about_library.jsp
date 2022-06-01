@@ -38,12 +38,14 @@
         <li><fmt:message key="about_library.info1"/></li>
         </p>
         <p>
-        <li><h3><fmt:message key="about_library.contacts"/></h3></li>
+            <li>
+        <h3><fmt:message key="about_library.contacts"/></h3></li>
         <li><fmt:message key="about_library.address"/></li>
         <li><fmt:message key="about_library.tel"/></li>
         </p>
         <p>
-        <li><h3><fmt:message key="about_library.work.time1"/></h3></li>
+            <li>
+        <h3><fmt:message key="about_library.work.time1"/></h3></li>
         <li><fmt:message key="about_library.work.time2"/></li>
         <li><fmt:message key="about_library.work.time3"/></li>
         </p>

@@ -16,8 +16,9 @@ import java.util.Properties;
 import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
 public class MailSender {
-    private Properties properties;
     private static final Logger LOGGER = LogManager.getLogger();
+
+    private Properties properties;
     private static final String PROPERTIES_FILE = "config\\email.properties";
     private static MailSender instance;
 

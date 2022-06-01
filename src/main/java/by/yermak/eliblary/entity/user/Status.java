@@ -1,7 +1,8 @@
 package by.yermak.eliblary.entity.user;
 
 public enum Status {
-    ACTIVATED("activated"), DEACTIVATED("deactivated");
+    ACTIVATED("activated"),
+    DEACTIVATED("deactivated");
 
     private final String name;
 

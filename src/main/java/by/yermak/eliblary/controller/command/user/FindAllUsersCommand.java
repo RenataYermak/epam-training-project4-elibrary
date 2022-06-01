@@ -41,7 +41,7 @@ public class FindAllUsersCommand implements Command {
                 int numberOfPages = (int) Math.ceil(userList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 request.setAttribute(RequestAttribute.USERS, users);
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
-             //   request.setAttribute(RequestAttribute.ITEMS_PER_PAGE, countUsers);
+                //   request.setAttribute(RequestAttribute.ITEMS_PER_PAGE, countUsers);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);
                 return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

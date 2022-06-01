@@ -65,7 +65,7 @@
                     <th class="cell"><fmt:message key="orders.label.action"/></th>
                 </c:if>
             </tr>
-            <c:forEach items="${orders}$"  var="order">
+            <c:forEach items="${orders}$" var="order">
                 <tr class="row">
                     <td class="cell">${book.bookTitle}</td>
                     <td class="cell">${order.author}</td>

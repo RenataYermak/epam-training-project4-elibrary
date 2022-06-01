@@ -11,7 +11,12 @@ import java.util.Optional;
  * @param <E> the type entity
  */
 public interface EntityDao<E> {
-
+    /**
+     * Find entity by id
+     *
+     * @return the optional object of a found entity
+     * @throws DaoException if there is any problem during access
+     */
     Optional<E> find(Long id) throws DaoException;
 
     /**
@@ -40,7 +45,7 @@ public interface EntityDao<E> {
 
     /**
      * @param id the entity's id
-     * @throws DaoException if there is any problem occurred during the data access
+     * @throws DaoException if there is any problem occurred during  access
      */
     void delete(Long id) throws DaoException;
 }

@@ -43,42 +43,6 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean isEmailExist(String email) throws DaoException {
-        boolean isExist = false;
-        try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_EMAIL_EXIST)) {
-            preparedStatement.setString(1, email);
-            try (var resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    isExist = true;
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error("failed to check if user with {} email exists", email, e);
-            throw new DaoException("failed to check if user with " + email + " exists", e);
-        }
-        return isExist;
-    }
-
-    @Override
-    public boolean isLoginExist(String login) throws DaoException {
-        boolean isExist = false;
-        try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_LOGIN_EXIST)) {
-            preparedStatement.setString(1, login);
-            try (var resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    isExist = true;
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.error("failed to check if user with {} email exists", login, e);
-            throw new DaoException("failed to check if user with " + login + " exists", e);
-        }
-        return isExist;
-    }
-
-    @Override
     public Optional<User> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find by id");
         try (var connection = ConnectionPool.getInstance().getConnection();
@@ -290,6 +254,42 @@ public class UserDaoImpl implements UserDao {
             LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
             throw new DaoException("Exception when update user password: {}", e);
         }
+    }
+
+    @Override
+    public boolean isEmailExist(String email) throws DaoException {
+        boolean isExist = false;
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_EMAIL_EXIST)) {
+            preparedStatement.setString(1, email);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    isExist = true;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("failed to check if user with {} email exists", email, e);
+            throw new DaoException("failed to check if user with " + email + " exists", e);
+        }
+        return isExist;
+    }
+
+    @Override
+    public boolean isLoginExist(String login) throws DaoException {
+        boolean isExist = false;
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_LOGIN_EXIST)) {
+            preparedStatement.setString(1, login);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    isExist = true;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("failed to check if user with {} email exists", login, e);
+            throw new DaoException("failed to check if user with " + login + " exists", e);
+        }
+        return isExist;
     }
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException, UtilException {

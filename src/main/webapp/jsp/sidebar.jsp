@@ -47,7 +47,8 @@
                 <hr/>
                 <li>
                     <i class='fas fa-globe'></i>
-                    <a href="${pageContext.request.contextPath}/controller?command=about_library_page"><fmt:message key="sidebar.link.about_library"/></a>
+                    <a href="${pageContext.request.contextPath}/controller?command=about_library_page"><fmt:message
+                            key="sidebar.link.about_library"/></a>
                 </li>
             </ul>
         </div>

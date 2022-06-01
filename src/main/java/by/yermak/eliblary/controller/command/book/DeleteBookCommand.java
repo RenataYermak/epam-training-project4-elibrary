@@ -38,14 +38,14 @@ public class DeleteBookCommand implements Command {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
                 bookService.delete(id);
                 request.setAttribute(
-                        RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale,SUCCESS_BOOK_DELETE));
+                        RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale, SUCCESS_BOOK_DELETE));
                 return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);
             }
         }
         request.setAttribute(
-                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,BOOK_NOT_DELETE));
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, BOOK_NOT_DELETE));
         return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
     }
 }

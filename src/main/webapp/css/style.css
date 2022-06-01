@@ -52,10 +52,12 @@ a {
     color: black;
 
 }
+
 nav {
     display: flex;
     justify-content: start;
 }
+
 .pagination {
     list-style: none;
     margin: 0;

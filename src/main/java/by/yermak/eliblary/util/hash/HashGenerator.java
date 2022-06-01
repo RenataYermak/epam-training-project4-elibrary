@@ -16,8 +16,6 @@ import java.util.Base64;
 /**
  * Class that is responsible for generating password hash
  * using PBKDF2-HMAC-SHA1 hash algorithm.
- *
- * @author RenataYermak
  */
 public class HashGenerator {
     private static final Logger LOGGER = LogManager.getLogger(HashGenerator.class);

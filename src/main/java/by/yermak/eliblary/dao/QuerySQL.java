@@ -214,7 +214,7 @@ public final class QuerySQL {
             WHERE b.title LIKE CONCAT('%',?,'%') OR b.author LIKE CONCAT('%',?,'%')""";
     public static final int ELEMENTS_ON_PAGE = 7;
     public static final String FIND_PAGE_QUERY_BOOKS = """
-             SELECT b.book_id,
+            SELECT b.book_id,
                    b.title,
                    b.author,
                    bc.category_name,
@@ -247,44 +247,39 @@ public final class QuerySQL {
     public static final String ORDER_BOOK = """
             INSERT INTO orders(book_id, user_id, status_id, type_id)
             VALUES(?, ?,(SELECT os.order_status_id FROM order_statuses os WHERE os.order_status_name='ORDERED'),
-                           (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
+                        (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
     public static final String RESERVE_BOOK = """
             UPDATE orders o
             SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RESERVED'),
-            o.reserved_date=?
+                o.reserved_date=?
             WHERE o.order_id =?""";
     public static final String RETURN_BOOK = """
             UPDATE orders o
             SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RETURNED'),
-            o.returned_date=?
+                o.returned_date=?
             WHERE o.order_id =?""";
     public static final String REJECT_ORDER = """
             UPDATE orders o
             SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'REJECTED'),
-            o.rejected_date=?
+                o.rejected_date=?
             WHERE o.order_id =?""";
     public static final String SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS = """
-           SELECT b.title,
-                  b.author,
-                  bc.category_name,
-                  ot.order_type_name,
-                  os.order_status_name
-           FROM books b
-           JOIN book_categories bc ON b.category_id = bc.category_id
-           JOIN orders o ON b.book_id = o.book_id
-           JOIN order_types ot ON o.type_id = ot.order_type_id
-           JOIN users u ON o.user_id = u.user_id
-           JOIN order_statuses os ON o.status_id = os.order_status_id
-           Where u.user_id = ? AND os.order_status_name = ?""";
+            SELECT b.title,
+                   b.author,
+                   bc.category_name,
+                   ot.order_type_name,
+                   os.order_status_name
+            FROM books b
+            JOIN book_categories bc ON b.category_id = bc.category_id
+            JOIN orders o ON b.book_id = o.book_id
+            JOIN order_types ot ON o.type_id = ot.order_type_id
+            JOIN users u ON o.user_id = u.user_id
+            JOIN order_statuses os ON o.status_id = os.order_status_id
+            Where u.user_id = ? AND os.order_status_name = ?""";
     public static final String SET_BOOKS_NUMBER_TO_ONE_LESS = """
-            UPDATE books
-            b
+            UPDATE books b
             SET number = number - 1
-            WHERE b.book_id =(
-            SELECT o.
-            book_id FROM
-            orders o
-            WHERE order_id =?)""";
+            WHERE b.book_id =(SELECT o. book_id FROM orders o WHERE order_id =?)""";
     public static final String SET_BOOKS_NUMBER_TO_ONE_MORE = """
             UPDATE books b
             SET number = number + 1

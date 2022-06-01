@@ -20,8 +20,8 @@ public class CommandHelper {
         commands.put(CommandName.FIND_BOOKS, new FindAllBooksCommand());
         commands.put(CommandName.DELETE_BOOK, new DeleteBookCommand());
         commands.put(CommandName.BOOK_SEARCH, new BookSearchCommand());
-//        commands.put(CommandName.FIND_ORDERS_BY_STATUS, new FindOrdersByStatusCommand());
-       commands.put(CommandName.FIND_ORDERS_BY_USER, new FindOrdersByUserCommand());
+        commands.put(CommandName.FIND_ORDERS_BY_STATUS, new FindOrdersByStatusCommand());
+        commands.put(CommandName.FIND_ORDERS_BY_USER, new FindOrdersByUserCommand());
         commands.put(CommandName.ORDER_BOOK, new OrderBookCommand());
         commands.put(CommandName.RESERVE_BOOK, new ReserveBookCommand());
         commands.put(CommandName.RETURN_BOOK, new ReturnBookCommand());

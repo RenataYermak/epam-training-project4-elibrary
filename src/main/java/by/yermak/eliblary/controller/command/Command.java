@@ -44,6 +44,7 @@ public interface Command {
     default boolean isAdmin(HttpSession session) {
         return getAuthUser(session).getRole().equals(Role.ADMIN);
     }
+
     /**
      * Get an authorized user from session
      *

@@ -17,7 +17,7 @@ public class OrderMapper implements EntityMapper<Order> {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
-    public Optional<Order> map(ResultSet resultSet)  {
+    public Optional<Order> map(ResultSet resultSet) {
         try {
             var order = new Order();
             order.setId(resultSet.getLong(ORDER_ID));

@@ -100,7 +100,7 @@ public interface UserService {
      * Update {@link User} with filled fields
      *
      * @param user {@link User} is filled user instance
-     * @return
+     * @return user {@link User}
      * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
      *                          {@link Validator}
      *                          or if user with <tt>email</tt> has already exist

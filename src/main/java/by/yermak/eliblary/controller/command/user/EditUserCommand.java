@@ -58,7 +58,7 @@ public class EditUserCommand implements Command {
                     }
                     request.setAttribute(RequestAttribute.USER, user);
                     request.setAttribute(
-                            RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale,SUCCESS_USER_UPDATE));
+                            RequestAttribute.SUCCESS_MESSAGE_USER_UPDATE, message.getText(currentLocale, SUCCESS_USER_UPDATE));
                     return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
                 }
             } catch (ServiceException e) {
@@ -66,7 +66,7 @@ public class EditUserCommand implements Command {
             }
         }
         request.setAttribute(
-                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale,USER_NOT_UPDATE));
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, USER_NOT_UPDATE));
         return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
     }
 }

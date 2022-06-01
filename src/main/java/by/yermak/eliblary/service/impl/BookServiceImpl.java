@@ -21,24 +21,15 @@ public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final BookDao bookDao;
-    private final OrderDao bookOrderDao;
+    private final OrderDao orderDao;
     private final UserDao userDao;
     private final Validator validator;
 
     public BookServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.bookOrderDao = new OrderDaoImpl();
+        this.orderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
-    }
-
-    @Override
-    public List<Book> findAllBooks(int page) throws ServiceException {
-        try {
-            return bookDao.findAllBooks(page);
-        } catch (DaoException e) {
-            throw new ServiceException("Exception in findAllUsers method", e);
-        }
     }
 
     @Override
@@ -127,4 +118,14 @@ public class BookServiceImpl implements BookService {
             throw new ServiceException("Exception when delete book: {}", e);
         }
     }
+    @Override
+    public List<Book> findAllBooks(int page) throws ServiceException {
+        try {
+            return bookDao.findAllBooks(page);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findAllBooks: ", e);
+            throw new ServiceException("Exception in findAllUsers method: {}", e);
+        }
+    }
+
 }

@@ -42,7 +42,7 @@ public class UserSearchCommand implements Command {
                 } else {
                     request.setAttribute(RequestAttribute.SEARCH_QUERY, searchQuery);
                     request.setAttribute(
-                            RequestAttribute.WARNING_MESSAGE_USER_SEARCH, message.getText(currentLocale,SEARCH_USER_FAIL));
+                            RequestAttribute.WARNING_MESSAGE_USER_SEARCH, message.getText(currentLocale, SEARCH_USER_FAIL));
                 }
                 return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
