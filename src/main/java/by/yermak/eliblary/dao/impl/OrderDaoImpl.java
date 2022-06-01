@@ -1,14 +1,11 @@
 package by.yermak.eliblary.dao.impl;
 
 import by.yermak.eliblary.dao.OrderDao;
-import by.yermak.eliblary.dao.mapper.ColumnName;
-import by.yermak.eliblary.dao.mapper.impl.BookOrderMapper;
+import by.yermak.eliblary.dao.mapper.impl.OrderMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
-import by.yermak.eliblary.entity.order.Issue;
-import by.yermak.eliblary.entity.order.BookOrder;
 import by.yermak.eliblary.entity.order.Order;
-import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.dao.exception.DaoException;
+import by.yermak.eliblary.entity.order.Status;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,32 +17,21 @@ import java.util.Optional;
 
 import static by.yermak.eliblary.dao.QuerySQL.*;
 
-public class BookOrderDaoImpl implements OrderDao {
+public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = LogManager.getLogger();
-    BookOrderMapper bookOrderMapper = new BookOrderMapper();
+    OrderMapper orderMapper = new OrderMapper();
 
-    @Override
+       @Override
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException {
         LOGGER.log(Level.INFO, "method findOrdersByOrderStatus");
         List<Order> orders = new ArrayList<>();
-
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BOOKS_BY_ORDER_STATUS)) {
             preparedStatement.setString(1, orderStatus.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Order order = new Order();
-                    order.setId(resultSet.getLong(ColumnName.ORDER_ID));
-                    order.setBookId(resultSet.getLong(ColumnName.BOOK_ID));
-                    order.setUserId(resultSet.getLong(ColumnName.USER_ID));
-                    order.setIssue(Issue.valueOf(resultSet.getString(ColumnName.ISSUE).toUpperCase()));
-                    order.setStatus(Status.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
-                    order.setOrderedDate(resultSet.getTimestamp(ColumnName.ORDERED_DATE));
-                    order.setReservedDate(resultSet.getTimestamp(ColumnName.RESERVED_DATE));
-                    order.setReturnedDate(resultSet.getTimestamp(ColumnName.RETURNED_DATE));
-                    order.setRejectedDate(resultSet.getTimestamp(ColumnName.REJECTED_DATE));
-                    order.setBookTitle(resultSet.getString(ColumnName.BOOK_TITLE));
-                    orders.add(order);
+                    var optionalBook = orderMapper.map(resultSet);
+                    optionalBook.ifPresent(orders::add);
                 }
             }
         } catch (SQLException e) {
@@ -54,6 +40,7 @@ public class BookOrderDaoImpl implements OrderDao {
         }
         return orders;
     }
+
 
     @Override
     public List<Order> findOrdersByUserIdAndOrderStatus(Long userId, Status orderStatus) throws DaoException {
@@ -65,20 +52,8 @@ public class BookOrderDaoImpl implements OrderDao {
             preparedStatement.setString(2, orderStatus.toString());
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Order order = new Order();
-                    order.setId(resultSet.getLong(ColumnName.ORDER_ID));
-                    order.setBookId(resultSet.getLong(ColumnName.BOOK_ID));
-                    order.setUserId(resultSet.getLong(ColumnName.USER_ID));
-                    order.setIssue(Issue.valueOf(resultSet.getString(ColumnName.ISSUE).toUpperCase()));
-                    order.setStatus(Status.valueOf(resultSet.getString(ColumnName.STATUS).toUpperCase()));
-                    order.setOrderedDate(resultSet.getTimestamp(ColumnName.ORDERED_DATE));
-                    order.setReservedDate(resultSet.getTimestamp(ColumnName.RESERVED_DATE));
-                    order.setReturnedDate(resultSet.getTimestamp(ColumnName.RETURNED_DATE));
-                    order.setRejectedDate(resultSet.getTimestamp(ColumnName.REJECTED_DATE));
-                    order.setBookTitle(resultSet.getString(ColumnName.BOOK_TITLE));
-                    order.setUserFirstName(resultSet.getString(ColumnName.USER_FIRSTNAME));
-                    order.setUserSecondName(resultSet.getString(ColumnName.USER_SECONDNAME));
-                    orders.add(order);
+                    var optionalBook = orderMapper.map(resultSet);
+                    optionalBook.ifPresent(orders::add);
                 }
             }
         } catch (SQLException e) {
@@ -88,6 +63,7 @@ public class BookOrderDaoImpl implements OrderDao {
         return orders;
     }
 
+
     @Override
     public Long orderBook(Order order) throws DaoException {
         LOGGER.log(Level.INFO, "method orderBook");
@@ -96,17 +72,17 @@ public class BookOrderDaoImpl implements OrderDao {
              PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_LESS)) {
             psOrderBook.setLong(1, order.getBookId());
             psOrderBook.setLong(2, order.getUserId());
-            psOrderBook.setString(3, order.getIssue().toString());
+            psOrderBook.setString(3, order.getType().toString());
             psOrderBook.executeUpdate();
             Long orderId = null;
             try (ResultSet resultSet = psOrderBook.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     orderId = resultSet.getLong(1);
                 }
-            }
-            if (orderId != null) {
-                psUpdateBookNumber.setLong(1, orderId);
-                psUpdateBookNumber.executeUpdate();
+                if (orderId != null) {
+                    psUpdateBookNumber.setLong(1, orderId);
+                    psUpdateBookNumber.executeUpdate();
+                }
             }
             return orderId;
         } catch (SQLException e) {
@@ -178,14 +154,14 @@ public class BookOrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Optional<BookOrder> find(Long id) throws DaoException {
+    public Optional<Order> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID);) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return bookOrderMapper.map(resultSet);
+                return orderMapper.map(resultSet);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method find: ", e);
@@ -195,18 +171,18 @@ public class BookOrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<BookOrder> findAll() throws DaoException {
+    public List<Order> findAll() throws DaoException {
         return null;
     }
 
 
     @Override
-    public Optional<BookOrder> create(BookOrder entity) throws DaoException {
+    public Optional<Order> create(Order entity) throws DaoException {
         return Optional.empty();
     }
 
     @Override
-    public Optional<BookOrder> update(BookOrder entity) throws DaoException {
+    public Optional<Order> update(Order entity) throws DaoException {
         return Optional.empty();
     }
 }

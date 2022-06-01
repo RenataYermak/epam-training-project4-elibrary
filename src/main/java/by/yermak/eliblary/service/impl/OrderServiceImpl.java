@@ -5,13 +5,13 @@ import by.yermak.eliblary.dao.OrderDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
-import by.yermak.eliblary.dao.impl.BookOrderDaoImpl;
+import by.yermak.eliblary.dao.impl.OrderDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
-import by.yermak.eliblary.entity.order.Issue;
+import by.yermak.eliblary.entity.order.Type;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.entity.user.User;
-import by.yermak.eliblary.service.BookOrderService;
+import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
 import org.apache.logging.log4j.Level;
@@ -21,7 +21,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Optional;
 
-public class BookOrderServiceImpl implements BookOrderService {
+public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final BookDao bookDao;
@@ -29,45 +29,19 @@ public class BookOrderServiceImpl implements BookOrderService {
     private final UserDao userDao;
     private final Validator validator;
 
-    public BookOrderServiceImpl() {
+    public OrderServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.orderDao = new BookOrderDaoImpl();
+        this.orderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
     }
 
-//    @Override
-//    public BookOrder findOrder(Long id) throws ServiceException {
-//        LOGGER.log(Level.INFO, "method find");
-//        try {
-//            Optional<BookOrder> optionalOrder = orderDao.find(id);
-//            if (optionalOrder.isPresent()) {
-//                return optionalOrder.get();
-//            } else {
-//                throw new ServiceException("There is no such order");
-//            }
-//        } catch (DaoException e) {
-//            LOGGER.log(Level.ERROR, "exception in method find: ", e);
-//            throw new ServiceException("Exception when find order: {}", e);
-//        }
-//    }
-//
-//    @Override
-//    public List<BookOrder> findAll() throws ServiceException {
-//        LOGGER.log(Level.INFO, "method findAll");
-//        try {
-//            return orderDao.findAll();
-//        } catch (DaoException e) {
-//            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
-//            throw new ServiceException("Exception when findAll orders: {}", e);
-//        }
-//    }
 
     @Override
-    public Long orderBook(Long bookId, Long userId, Issue issue) throws ServiceException {
+    public Long orderBook(Long bookId, Long userId, Type type) throws ServiceException {
         LOGGER.log(Level.INFO, "method orderBook");
         try {
-            Order order = new Order(bookId, userId, issue);
+            Order order = new Order(bookId, userId, type);
             return orderDao.orderBook(order);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method orderBook: ", e);
@@ -79,15 +53,14 @@ public class BookOrderServiceImpl implements BookOrderService {
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBooksByOrderStatus");
         try {
-            List<Order> orders = orderDao.findOrdersByOrderStatus(orderStatus);
-            for (Order order : orders) {
-                Optional<User> optionalUser = userDao.find(order.getUserId());
-                if (optionalUser.isPresent()) {
-                    order.setUserFirstName(optionalUser.get().firstName);
-                    order.setUserSecondName(optionalUser.get().secondName);
-                }
-            }
-            return orders;
+            //            for (Order order : orders) {
+//                Optional<User> optionalUser = userDao.find(order.getUserId());
+//               // if (optionalUser.isPresent()) {
+//                    order.setUserFirstName(optionalUser.get().firstName);
+//                    order.setUserSecondName(optionalUser.get().secondName);
+              //  }
+           // }
+            return orderDao.findOrdersByOrderStatus(orderStatus);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByOrderStatus: ", e);
             throw new ServiceException("Exception when findBooksByOrderStatus: {}", e);
@@ -137,4 +110,30 @@ public class BookOrderServiceImpl implements BookOrderService {
             throw new ServiceException("Exception when reject order: {}", e);
         }
     }
+    //    @Override
+//    public BookOrder findOrder(Long id) throws ServiceException {
+//        LOGGER.log(Level.INFO, "method find");
+//        try {
+//            Optional<BookOrder> optionalOrder = orderDao.find(id);
+//            if (optionalOrder.isPresent()) {
+//                return optionalOrder.get();
+//            } else {
+//                throw new ServiceException("There is no such order");
+//            }
+//        } catch (DaoException e) {
+//            LOGGER.log(Level.ERROR, "exception in method find: ", e);
+//            throw new ServiceException("Exception when find order: {}", e);
+//        }
+//    }
+//
+//    @Override
+//    public List<BookOrder> findAll() throws ServiceException {
+//        LOGGER.log(Level.INFO, "method findAll");
+//        try {
+//            return orderDao.findAll();
+//        } catch (DaoException e) {
+//            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
+//            throw new ServiceException("Exception when findAll orders: {}", e);
+//        }
+//    }
 }

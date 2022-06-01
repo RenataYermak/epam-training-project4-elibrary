@@ -29,16 +29,16 @@ public class ColumnName {
     /**
      * bookOrder
      */
-    public static final String ORDER_ID = "order_id";
-    public static final String STATUS = "status";
-    public static final String ISSUE = "issue";
-    public static final String ORDERED_DATE = "ordered_date";
-    public static final String RESERVED_DATE = "reserved_date";
-    public static final String RETURNED_DATE = "returned_date";
-    public static final String REJECTED_DATE = "rejected_date";
-    public static final String USER_FIRSTNAME = "firstname";
-    public static final String USER_SECONDNAME = "secondname";
-    public static final String BOOK_TITLE = "title";
+    public static final String ORDER_ID = "o.order_id";
+    public static final String STATUS = "os.order_status_name";
+    public static final String ISSUE = "ot.order_type_name";
+    public static final String ORDERED_DATE = "o.ordered_date";
+    public static final String RESERVED_DATE = "o.reserved_date";
+    public static final String RETURNED_DATE = "o.returned_date";
+    public static final String REJECTED_DATE = "o.rejected_date";
+    public static final String USER_FIRSTNAME = "u.firstname";
+    public static final String USER_SECONDNAME = "u.secondname";
+    public static final String BOOK_TITLE = "b.title";
 
     private ColumnName() {
     }

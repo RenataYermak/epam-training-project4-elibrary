@@ -6,7 +6,7 @@ import by.yermak.eliblary.dao.OrderDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
-import by.yermak.eliblary.dao.impl.BookOrderDaoImpl;
+import by.yermak.eliblary.dao.impl.OrderDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.service.exception.ServiceException;
@@ -27,7 +27,7 @@ public class BookServiceImpl implements BookService {
 
     public BookServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.bookOrderDao = new BookOrderDaoImpl();
+        this.bookOrderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
         this.validator = new Validator();
     }

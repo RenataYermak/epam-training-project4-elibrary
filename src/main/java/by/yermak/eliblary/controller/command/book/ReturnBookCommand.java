@@ -7,9 +7,9 @@ import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
-import by.yermak.eliblary.service.BookOrderService;
+import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.service.impl.BookOrderServiceImpl;
+import by.yermak.eliblary.service.impl.OrderServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,10 +21,10 @@ import java.util.List;
 public class ReturnBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final BookOrderService orderService;
+    private final OrderService orderService;
 
     public ReturnBookCommand() {
-        this.orderService = new BookOrderServiceImpl();
+        this.orderService = new OrderServiceImpl();
     }
 
     @Override

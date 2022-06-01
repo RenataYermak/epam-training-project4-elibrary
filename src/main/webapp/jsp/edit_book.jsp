@@ -68,6 +68,7 @@
                             <option value="sci_fi"><fmt:message key="book.category.sci_fi"/></option>
                             <option value="detective"><fmt:message key="book.category.detective"/></option>
                             <option value="novel"><fmt:message key="book.category.novel"/></option>
+                            <option value="science"><fmt:message key="book.category.science"/></option>
                         </select>
                     </td>
                 </tr>

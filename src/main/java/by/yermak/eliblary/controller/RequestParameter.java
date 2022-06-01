@@ -35,7 +35,7 @@ public final class RequestParameter {
      */
     public static final String ORDER_ID = "orderId";
     public static final String ORDER_STATUS = "orderStatus";
-    public static final String ISSUE = "issue";
+    public static final String TYPE = "type";
 
     /**
      * Other

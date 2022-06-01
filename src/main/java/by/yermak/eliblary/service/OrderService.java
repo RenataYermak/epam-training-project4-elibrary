@@ -1,8 +1,7 @@
 package by.yermak.eliblary.service;
 
 import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.order.Issue;
-import by.yermak.eliblary.entity.order.BookOrder;
+import by.yermak.eliblary.entity.order.Type;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.entity.user.User;
@@ -11,9 +10,9 @@ import by.yermak.eliblary.service.exception.ServiceException;
 import java.util.List;
 
 /**
- * Describes the behavior of {@link BookOrder} entity.
+ * Describes the behavior of {@link Order} entity.
  */
-public interface BookOrderService {
+public interface OrderService {
 
 //    /**
 //     * Find user {@link BookOrder} instance by <tt>id</tt>
@@ -36,16 +35,16 @@ public interface BookOrderService {
 //    List<BookOrder> findAll() throws ServiceException;
 
     /**
-     * Creat {@link BookOrder} with filled fields
+     * Creat {@link Order} with filled fields
      *
      * @param bookId  is filled user instance
      * @param userId  is filled user instance
-     * @param issue {@link Issue} is filled user instance
-     * @return user {@link BookOrder}
-     * @throws ServiceException if an error occurs while writing new {@link BookOrder} into
+     * @param type {@link Type} is filled user instance
+     * @return user {@link Order}
+     * @throws ServiceException if an error occurs while writing new {@link Order} into
      *                          data source
      */
-    Long orderBook(Long bookId, Long userId, Issue issue) throws ServiceException;
+    Long orderBook(Long bookId, Long userId, Type type) throws ServiceException;
 //
 //    /**
 //     * Update {@link User} with filled fields
@@ -71,19 +70,19 @@ public interface BookOrderService {
 //    void delete(Long id) throws ServiceException;
 
     /**
-     * Find  orders list {@link BookOrder} by status
+     * Find  orders list {@link Order} by status
      *
-     * @return all orders list by status {@link BookOrder}
-     * @throws ServiceException if {@link BookOrder} in empty occurs after searching {@link BookOrder} by
+     * @return all orders list by status {@link Order}
+     * @throws ServiceException if {@link Order} in empty occurs after searching {@link Order} by
      *                          status into the data source
      */
     List<Order> findOrdersByOrderStatus(Status orderStatus) throws ServiceException;
 
     /**
-     * Find  orders list {@link BookOrder} by {@link User} id and {@link BookOrder} status
+     * Find  orders list {@link Order} by {@link User} id and {@link Order} status
      *
-     * @return orders list {@link BookOrder}
-     * @throws ServiceException if {@link BookOrder} in empty occurs after searching {@link BookOrder} by
+     * @return orders list {@link Order}
+     * @throws ServiceException if {@link Order} in empty occurs after searching {@link Order} by
      *                          status into the data source or if  {@link User} with <tt>id</tt>
      *                          do not present into data source
      */
@@ -93,7 +92,7 @@ public interface BookOrderService {
     /**
      * Reserved {@link Book}
      *
-     * @param orderId {@link BookOrder}'s id
+     * @param orderId {@link Order}'s id
      * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
      *                          data source or if an error occurs while searching {@link Book}
      *                          into the data source
@@ -103,7 +102,7 @@ public interface BookOrderService {
     /**
      * Returned {@link Book}
      *
-     * @param orderId {@link BookOrder}'s id
+     * @param orderId {@link Order}'s id
      * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
      *                          data source or if an error occurs while searching {@link Book}
      *                          into the data source
@@ -113,7 +112,7 @@ public interface BookOrderService {
     /**
      * Rejected {@link Book}
      *
-     * @param orderId {@link BookOrder}'s id
+     * @param orderId {@link Order}'s id
      * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
      *                          data source or if an error occurs while searching {@link Book}
      *                          into the data source

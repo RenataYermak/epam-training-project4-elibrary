@@ -89,7 +89,7 @@
                                 <c:choose>
                                     <c:when test="${book.number != 0}">
                                         <input hidden name="bookTitle" value="${book.title}">
-                                        <select name="issue">
+                                        <select name="type">
                                             <option value="reading_room" selected="selected"><fmt:message
                                                     key="table.label.reading_room"/></option>
                                             <option value="season_ticket"><fmt:message
@@ -102,7 +102,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <input hidden name="bookTitle" value="${book.title}">
-                                        <select name="issue" disabled>
+                                        <select name="type" disabled>
                                             <option value="reading_room" selected="selected"><fmt:message
                                                     key="table.label.reading_room"/></option>
                                             <option value="season_ticket"><fmt:message
@@ -125,7 +125,7 @@
         <div class="rows" style="justify-content:start">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <c:if test="${requestScope.page != 1}">
+                    <c:if test="${requestScope.page > 1}">
                         <li><a class="page-link"
                                href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page-1}">
                             <span aria-hidden="true">&laquo;</span></a></li>
