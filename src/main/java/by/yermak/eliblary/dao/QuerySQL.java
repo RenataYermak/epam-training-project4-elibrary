@@ -229,9 +229,8 @@ public final class QuerySQL {
      * bookOrder
      */
     public static final String SELECT_BOOKS_BY_ORDER_STATUS = """
-            SELECT b.title,
-                   u.firstname,
-                   u.secondname,
+            SELECT o.user_id,
+                   o.book_id
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
@@ -240,7 +239,6 @@ public final class QuerySQL {
                    o.rejected_date
             FROM orders o
             JOIN books b ON o.book_id = b.book_id
-            JOIN users u ON o.user_id = u.user_id
             JOIN order_statuses os ON os.order_status_id = o.status_id
             JOIN order_types ot ON ot.order_type_id = o.type_id
             WHERE os.order_status_name = ?""";
@@ -285,9 +283,8 @@ public final class QuerySQL {
             SET number = number + 1
             WHERE b.book_id =(SELECT o.book_id FROM orders o WHERE order_id =?)""";
     public static final String SELECT_ORDER_BY_ID = """
-            SELECT b.title,
-                   u.firstname,
-                   u.secondname,
+            SELECT o.user_id,
+                   o.book_id
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
@@ -295,11 +292,9 @@ public final class QuerySQL {
                    o.returned_date,
                    o.rejected_date
             FROM orders o
-            JOIN books b ON o.book_id = b.book_id
-            JOIN users u ON o.user_id = u.user_id
             JOIN order_statuses os on os.order_status_id = o.status_id
             JOIN order_types ot on ot.order_type_id = o.type_id
-            WHERE order_id =?""";
+            WHERE o.order_id =?""";
     public static final String DELETE_ORDER = """
             DELETE
             FROM orders o

@@ -63,6 +63,7 @@ public class EditUserCommand implements Command {
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating user: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

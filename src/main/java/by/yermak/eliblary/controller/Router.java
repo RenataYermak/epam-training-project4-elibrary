@@ -3,7 +3,8 @@ package by.yermak.eliblary.controller;
 public class Router {
     public enum RouterType {
         FORWARD,
-        REDIRECT
+        REDIRECT,
+        ERROR
     }
 
     private String pagePath;

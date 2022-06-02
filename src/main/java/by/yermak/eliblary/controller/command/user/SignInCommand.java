@@ -59,6 +59,7 @@ public class SignInCommand implements Command {
             }
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);
+            return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
         }
         request.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.SIGN_IN);
         return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);

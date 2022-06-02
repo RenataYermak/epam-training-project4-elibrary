@@ -47,6 +47,7 @@ public class UserSearchCommand implements Command {
                 return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during search users: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.USERS, Router.RouterType.FORWARD);

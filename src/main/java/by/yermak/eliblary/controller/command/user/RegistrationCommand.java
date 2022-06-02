@@ -73,6 +73,7 @@ public class RegistrationCommand implements Command {
                 return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during user registration: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

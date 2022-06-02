@@ -47,6 +47,7 @@ public class BookSearchCommand implements Command {
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during search books: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);

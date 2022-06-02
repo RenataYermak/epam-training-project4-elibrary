@@ -50,6 +50,7 @@ public class OrderBookCommand implements Command {
                 return new Router(PagePath.BOOKS_TABLE_URL, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reserve book: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book didn't ordered ");

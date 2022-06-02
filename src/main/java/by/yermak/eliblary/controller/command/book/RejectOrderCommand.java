@@ -41,6 +41,7 @@ public class RejectOrderCommand implements Command {
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reject order: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

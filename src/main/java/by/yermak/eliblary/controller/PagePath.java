@@ -20,6 +20,8 @@ public final class PagePath {
     public static final String REGISTRATION = "/jsp/registration.jsp";
     public static final String ORDERS = "/jsp/orders.jsp";
     public static final String ABOUT_LIBRARY = "/jsp/about_library.jsp";
+    public static final String ERROR_PAGE_404 = "/jsp/error/error404.jsp";
+    public static final String ERROR_PAGE_500 = "/jsp/error/error500.jsp";
     /**
      * url path
      */

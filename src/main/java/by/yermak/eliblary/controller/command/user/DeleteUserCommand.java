@@ -32,6 +32,7 @@ public class DeleteUserCommand implements Command {
                 userService.delete(id);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deleting user: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.USERS, Router.RouterType.FORWARD);

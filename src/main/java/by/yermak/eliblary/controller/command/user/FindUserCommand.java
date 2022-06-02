@@ -35,6 +35,7 @@ public class FindUserCommand implements Command {
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find user: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);

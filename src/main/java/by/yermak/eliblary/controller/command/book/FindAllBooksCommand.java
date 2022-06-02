@@ -45,6 +45,7 @@ public class FindAllBooksCommand implements Command {
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all books: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
 

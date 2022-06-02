@@ -46,6 +46,7 @@ public class FindAllUsersCommand implements Command {
                 return new Router(PagePath.USERS, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all users: ", e);
+                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.USERS, Router.RouterType.FORWARD);
