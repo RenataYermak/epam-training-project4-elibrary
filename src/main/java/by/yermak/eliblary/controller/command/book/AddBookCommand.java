@@ -40,7 +40,6 @@ public class AddBookCommand implements Command {
                 var title = request.getParameter(RequestParameter.BOOK_TITLE);
                 var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
                 var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
-                //  String description = request.getParameter(RequestParam.BOOK_DESCRIPTION);
                 var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
                 var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
                 var book = new Book();
@@ -48,7 +47,6 @@ public class AddBookCommand implements Command {
                 book.setAuthor(author);
                 book.setCategory(Category.valueOf(category.toUpperCase()));
                 book.setPublishYear(publishYear);
-                //   book.setDescription(description);
                 book.setNumber(number);
                 book = bookService.create(book);
                 if (book.getId() != null) {

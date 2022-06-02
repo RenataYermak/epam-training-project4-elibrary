@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class HashGeneratorTest {
     private static final String PASSWORD = "passWord1234";
-    private static final HashGenerator hashGenerator = new HashGenerator();
+    private static final HashGenerator hashGenerator = HashGenerator.getInstance();
 
     @Test
     public void testGenerateHashPasswordNotNullPositive() throws UtilException {

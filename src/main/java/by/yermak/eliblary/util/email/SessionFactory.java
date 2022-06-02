@@ -5,9 +5,9 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
 
-public class SessionFactory {
-    static final String USER_NAME = "mail.smtp.user";
-    static final String USER_PASSWORD = "mail.smtp.password";
+public final class SessionFactory {
+    private static final String USER_NAME = "mail.smtp.user";
+    private static final String USER_PASSWORD = "mail.smtp.password";
     private static SessionFactory instance;
 
     private SessionFactory() {

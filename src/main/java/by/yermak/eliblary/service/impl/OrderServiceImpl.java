@@ -27,13 +27,12 @@ public class OrderServiceImpl implements OrderService {
     private final BookDao bookDao;
     private final BookOrderDao bookOrderDao;
     private final UserDao userDao;
-    private final Validator validator;
+    private final Validator validator = Validator.getInstance();
 
     public OrderServiceImpl() {
         this.bookDao = new BookDaoImpl();
         this.bookOrderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
-        this.validator = new Validator();
     }
 
 

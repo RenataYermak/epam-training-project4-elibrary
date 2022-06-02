@@ -1,5 +1,6 @@
 package by.yermak.eliblary.util.hash;
 
+import by.yermak.eliblary.util.email.MailSender;
 import by.yermak.eliblary.util.exception.UtilException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +18,7 @@ import java.util.Base64;
  * Class that is responsible for generating password hash
  * using PBKDF2-HMAC-SHA1 hash algorithm.
  */
-public class HashGenerator {
+public final class HashGenerator {
     private static final Logger LOGGER = LogManager.getLogger(HashGenerator.class);
 
     private static final int ENCRYPTION_ITERATIONS = 1024;
@@ -28,13 +29,21 @@ public class HashGenerator {
     private static final String DIVIDER = ":";
     private static final int SALT_INDEX = 0;
     private static final int HASH_INDEX = 1;
+    private static HashGenerator instance;
 
     private final SecureRandom secureRandom;
     private final Base64.Encoder encoder;
     private final Base64.Decoder decoder;
     private SecretKeyFactory secretKeyFactory;
 
-    public HashGenerator() {
+    public static HashGenerator getInstance() {
+        if (instance == null) {
+            instance = new HashGenerator();
+        }
+        return instance;
+    }
+
+    private HashGenerator() {
         secureRandom = new SecureRandom();
         encoder = Base64.getEncoder();
         decoder = Base64.getDecoder();

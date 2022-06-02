@@ -1,7 +1,7 @@
 package by.yermak.eliblary.util.locale;
 
-public class LanguageMessage {
-    public static final String DEFAULT_LANG = "en_EN";
+public final class LanguageMessage {
+    private static final String DEFAULT_LANG = "en_EN";
     private static LanguageMessage instance;
 
     private LanguageMessage() {

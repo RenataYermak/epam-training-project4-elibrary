@@ -1,6 +1,6 @@
 package by.yermak.eliblary.util.locale;
 
-public class MessagesKey {
+public final class MessagesKey {
     public static final String SUCCESSFUL_REG_EMAIL_HEADER = "Registered in eLibrary";
     public static final String SEARCH_USER_FAIL = "search.user.fail";
     public static final String ACCOUNT_BLOCKED = "account.blocked";

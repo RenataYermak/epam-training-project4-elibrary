@@ -19,17 +19,15 @@ import java.util.List;
 
 public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
-
+    private final Validator validator = Validator.getInstance();
     private final BookDao bookDao;
     private final BookOrderDao orderDao;
     private final UserDao userDao;
-    private final Validator validator;
 
     public BookServiceImpl() {
         this.bookDao = new BookDaoImpl();
         this.orderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
-        this.validator = new Validator();
     }
 
     @Override

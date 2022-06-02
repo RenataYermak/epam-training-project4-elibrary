@@ -22,14 +22,12 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger();
+    private final Validator validator = Validator.getInstance();
     private final UserDao userDao;
-    private final Validator validator;
-    private final HashGenerator hashGenerator;
+    private final HashGenerator hashGenerator = HashGenerator.getInstance();
 
     public UserServiceImpl() {
         this.userDao = new UserDaoImpl();
-        this.validator = new Validator();
-        this.hashGenerator = new HashGenerator();
     }
 
     @Override
