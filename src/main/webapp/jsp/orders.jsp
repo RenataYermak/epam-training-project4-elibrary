@@ -50,11 +50,11 @@
         <table class="table">
             <tr class="row header green">
                 <th class="cell"><fmt:message key="book.label.title"/></th>
-                <th class="cell"><fmt:message key="book.label.author"/></th>
-                <th class="cell"><fmt:message key="book.label.category"/></th>
+<%--               <th class="cell"><fmt:message key="book.label.author"/></th>--%>
+<%--                <th class="cell"><fmt:message key="book.label.category"/></th>--%>
                 <th class="cell"><fmt:message key="orders.label.type"/></th>
                 <th class="cell"><fmt:message key="orders.label.status"/></th>
-                <th class="cell"><fmt:message key="orders.label.count_book"/></th>
+                <th class="cell"><fmt:message key="orders.label.user_name"/></th>
                 <c:if test="${orderStatus == 'ordered'}">
                     <th class="cell"><fmt:message key="orders.label.ordered_date"/></th>
                 </c:if>
@@ -67,12 +67,12 @@
             </tr>
             <c:forEach items="${orders}$" var="order">
                 <tr class="row">
-                    <td class="cell">${book.bookTitle}</td>
-                    <td class="cell">${order.author}</td>
-                    <td class="cell">${order.category}</td>
+                    <td class="cell">${order.bookTitle}</td>
+<%--                    <td class="cell">${order.userID}</td>--%>
+<%--                    <td class="cell">${order.category}</td>--%>
                     <td class="cell">${order.type.value}</td>
                     <td class="cell">${order.status.value}</td>
-                    <td class="cell">${order.count}</td>
+                    <td class="cell">${order.userFirstName} ${order.userSecondName}</td>
                     <c:if test="${orderStatus == 'ordered'}">
                         <td class="cell">${order.orderedDate}</td>
                     </c:if>

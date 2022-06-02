@@ -20,6 +20,7 @@ public class MailSender {
 
     private Properties properties;
     private static final String PROPERTIES_FILE = "config\\email.properties";
+    private static final String CONTENT_TYPE ="text/plain; charset=UTF-8";
     private static MailSender instance;
 
     private MailSender() {
@@ -54,7 +55,7 @@ public class MailSender {
             session.setDebug(true);
             message = new MimeMessage(session);
             message.setSubject(mailSubject);
-            message.setContent(mailText, "text/plain; charset=UTF-8");
+            message.setContent(mailText, CONTENT_TYPE);
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendToMail));
         } catch (MessagingException e) {
             throw new UtilException(e.getMessage());

@@ -28,20 +28,20 @@
             <h1 class="title"><span class="header-title-sp">e</span>Library</h1>
         </div>
     </div>
+    <div class="header-right-buttons">
+        <form action="controller" method="post">
+            <input type="hidden" name="command" value="change_locale">
+            <input type="hidden" name="currentPageAbsoluteURL" value="${pageContext.request.requestURL}">
+            <input type="hidden" name="currentParameters" value="${pageContext.request.getQueryString()}">
+            <button class="hrb-style" type="submit" name="locale" value="ru_RU">
+                <fmt:message key="header.lang.ru"/>
+            </button>
+            <button class="hrb-style" type="submit" name="locale" value="en_EN">
+                <fmt:message key="header.lang.en"/>
+            </button>
+        </form>
+    </div>
 </header>
-<div class="header-right-buttons">
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="change_locale">
-        <input type="hidden" name="currentPageAbsoluteURL" value="${pageContext.request.requestURL}">
-        <input type="hidden" name="currentParameters" value="${pageContext.request.getQueryString()}">
-        <button class="hrb-style" type="submit" name="locale" value="ru_RU">
-            <fmt:message key="header.lang.ru"/>
-        </button>
-        <button class="hrb-style" type="submit" name="locale" value="en_EN">
-            <fmt:message key="header.lang.en"/>
-        </button>
-    </form>
-</div>
 <div id="sidebar">
     <div>
         <form name="loginForm" method="post" action="controller">

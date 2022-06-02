@@ -105,12 +105,12 @@ public class UserServiceImpl implements UserService {
         }
         try {
             var optionalUser = userDao.findByLogin(login);
-//            if (optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword())) {
-            return optionalUser.get();
-//            } else {
-//                throw new ServiceException("Password is invalid22 ");
-//            }
-        } catch (DaoException e) {
+            if (optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword())) {
+                return optionalUser.get();
+            } else {
+                throw new ServiceException("Password is invalid22 ");
+            }
+        } catch (DaoException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by login and pass: ", e);
             throw new ServiceException("Exception when find user by login and pass: {}", e);
         }

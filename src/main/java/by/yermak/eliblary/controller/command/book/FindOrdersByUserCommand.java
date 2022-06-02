@@ -46,9 +46,9 @@ public class FindOrdersByUserCommand implements Command {
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Reserved Books");
                 }
-                List<Book> books = bookService.findAllBooks();
-                request.setAttribute(RequestAttribute.BOOKS, books);
-                // request.setAttribute(RequestAttribute.BOOK_TITLE, bookTitle);
+//                List<Book> books = bookService.findAllBooks();
+//                request.setAttribute(RequestAttribute.BOOKS, books);
+//                request.setAttribute(RequestAttribute.BOOK_TITLE, bookTitle);
 
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getValue());
                 request.setAttribute(RequestAttribute.ORDERS, orders);

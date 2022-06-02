@@ -12,7 +12,7 @@ public class AddBookPageCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         Router currentRouter = new Router();
         currentRouter.setPagePath(PagePath.ADD_BOOK);
-        currentRouter.setRouteType(Router.RouterType.REDIRECT);
+        currentRouter.setRouteType(Router.RouterType.FORWARD);
         return currentRouter;
     }
 }

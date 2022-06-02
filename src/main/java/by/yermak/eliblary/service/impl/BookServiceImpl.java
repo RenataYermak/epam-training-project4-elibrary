@@ -2,7 +2,7 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
-import by.yermak.eliblary.dao.OrderDao;
+import by.yermak.eliblary.dao.BookOrderDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final BookDao bookDao;
-    private final OrderDao orderDao;
+    private final BookOrderDao orderDao;
     private final UserDao userDao;
     private final Validator validator;
 

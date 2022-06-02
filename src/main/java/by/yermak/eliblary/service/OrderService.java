@@ -45,29 +45,6 @@ public interface OrderService {
      *                          data source
      */
     Long orderBook(Long bookId, Long userId, Type type) throws ServiceException;
-//
-//    /**
-//     * Update {@link User} with filled fields
-//     *
-//     * @param user {@link User} is filled user instance
-//     * @return
-//     * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
-//     *                          {@link Validator}
-//     *                          or if user with <tt>email</tt> has already exist
-//     *                          or if an error occurs while writing new {@link User} into
-//     *                          data source
-//     */
-//    User update(User user) throws ServiceException;
-//
-//    /**
-//     * Delete {@link User} with filled fields
-//     *
-//     * @param id {@link User}'s id
-//     * @throws ServiceException if {@link User} with <tt>id</tt> do not present into
-//     *                          data source or if an error occurs while searching {@link User}
-//     *                          into the data source
-//     */
-//    void delete(Long id) throws ServiceException;
 
     /**
      * Find  orders list {@link Order} by status

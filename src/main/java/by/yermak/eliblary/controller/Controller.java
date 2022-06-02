@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/controller", "/jsp/controller"})
+@WebServlet(urlPatterns = {"/controller"})
 public class Controller extends HttpServlet {
 
     @Override

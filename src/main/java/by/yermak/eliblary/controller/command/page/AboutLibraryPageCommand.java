@@ -12,7 +12,7 @@ public class AboutLibraryPageCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         Router currentRouter = new Router();
         currentRouter.setPagePath(PagePath.ABOUT_LIBRARY);
-        currentRouter.setRouteType(Router.RouterType.REDIRECT);
+        currentRouter.setRouteType(Router.RouterType.FORWARD);
         return currentRouter;
     }
 }

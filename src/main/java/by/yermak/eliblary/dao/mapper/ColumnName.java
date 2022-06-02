@@ -31,14 +31,14 @@ public class ColumnName {
      */
     public static final String ORDER_ID = "o.order_id";
     public static final String STATUS = "os.order_status_name";
-    public static final String ISSUE = "ot.order_type_name";
+    public static final String TYPE = "ot.order_type_name";
     public static final String ORDERED_DATE = "o.ordered_date";
     public static final String RESERVED_DATE = "o.reserved_date";
     public static final String RETURNED_DATE = "o.returned_date";
     public static final String REJECTED_DATE = "o.rejected_date";
-    public static final String USER_FIRSTNAME = "u.firstname";
-    public static final String USER_SECONDNAME = "u.secondname";
-    public static final String BOOK_TITLE = "b.title";
+    public static final String USER_FIRSTNAME = "o.firstname";
+    public static final String USER_SECONDNAME = "o.secondname";
+    public static final String BOOK_TITLE = "o.title";
 
     private ColumnName() {
     }
