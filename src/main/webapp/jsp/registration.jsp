@@ -44,7 +44,7 @@
             <table class="content-table-main">
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.login"/></td>
-                    <td><input type="text" name="login" required pattern="[\w\d-]{2,25}$"
+                    <td><input type="text" name="login" required pattern="^[\w\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.login"/>')"
                                onchange="this.setAttribute('value', this.value);

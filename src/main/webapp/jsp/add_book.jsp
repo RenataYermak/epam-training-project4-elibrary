@@ -44,7 +44,7 @@
             <table class="content-table-main">
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.title"/></td>
-                    <td><input type="text" name="title" required pattern="^[\p{L}\d-.]{2,25}$"
+                    <td><input type="text" name="title" required pattern="^[\p{L}\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.title"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.author"/></td>
-                    <td><input type="text" name="author" required pattern="^[\p{L}\d-.]{2,25}$"
+                    <td><input type="text" name="author" required pattern="^[\p{L}\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.author"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -87,7 +87,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min="0" max="100" required pattern="^[0-9]{1,3}$"
+                    <td><input type="number" name="number" min="1" max="100" required pattern="^[0-9]{1,3}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.number"/>')"
                                onchange="this.setAttribute('value', this.value);

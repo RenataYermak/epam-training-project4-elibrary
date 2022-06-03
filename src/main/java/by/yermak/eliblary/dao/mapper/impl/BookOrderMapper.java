@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static by.yermak.eliblary.dao.mapper.ColumnName.*;
@@ -28,10 +29,10 @@ public class BookOrderMapper implements EntityMapper<BookOrder> {
                     resultSet.getString(STATUS).toUpperCase()));
             bookOrder.setType(Type.valueOf(
                     resultSet.getString(TYPE).toUpperCase()));
-            bookOrder.setOrderedDate(resultSet.getTimestamp(ORDERED_DATE));
-            bookOrder.setReservedDate(resultSet.getTimestamp(RESERVED_DATE));
-            bookOrder.setReturnedDate(resultSet.getTimestamp(RETURNED_DATE));
-            bookOrder.setRejectedDate(resultSet.getTimestamp(REJECTED_DATE));
+            bookOrder.setOrderedDate(resultSet.getObject(ORDERED_DATE, LocalDateTime.class));
+            bookOrder.setReservedDate(resultSet.getObject(RESERVED_DATE, LocalDateTime.class));
+            bookOrder.setReturnedDate(resultSet.getObject(RETURNED_DATE, LocalDateTime.class));
+            bookOrder.setRejectedDate(resultSet.getObject(REJECTED_DATE, LocalDateTime.class));
             return Optional.of(bookOrder);
         } catch (SQLException e) {
             LOGGER.error("failed to fetch data from the result set");

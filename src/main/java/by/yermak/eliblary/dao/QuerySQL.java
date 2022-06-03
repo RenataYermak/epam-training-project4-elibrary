@@ -108,7 +108,7 @@ public final class QuerySQL {
             WHERE u.user_id =?""";
     public static final String DEACTIVATE_USER = """
             UPDATE users u
-            SET u.status_id=(SELECT status_id FROM user_statuses us WHERE status_name='DEACTIVATED',
+            SET u.status_id=(SELECT status_id FROM user_statuses us WHERE status_name='DEACTIVATED'),
                 u.deactivation_date=?
             WHERE u.user_id =?""";
     public static final String DELETE_USER = """
@@ -230,7 +230,7 @@ public final class QuerySQL {
      */
     public static final String SELECT_BOOKS_BY_ORDER_STATUS = """
             SELECT o.user_id,
-                   o.book_id
+                   o.book_id,
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
@@ -248,22 +248,22 @@ public final class QuerySQL {
                         (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
     public static final String RESERVE_BOOK = """
             UPDATE orders o
-            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RESERVED'),
+            SET o.status_id=(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RESERVED'),
                 o.reserved_date=?
             WHERE o.order_id =?""";
     public static final String RETURN_BOOK = """
             UPDATE orders o
-            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RETURNED'),
+            SET o.status_id=(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RETURNED'),
                 o.returned_date=?
             WHERE o.order_id =?""";
     public static final String REJECT_ORDER = """
             UPDATE orders o
-            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'REJECTED'),
+            SET o.status_id=(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'REJECTED'),
                 o.rejected_date=?
             WHERE o.order_id =?""";
     public static final String SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS = """
             SELECT b.title,
-                   b.author,
+                 --  b.author,
                    bc.category_name,
                    ot.order_type_name,
                    os.order_status_name
@@ -271,20 +271,20 @@ public final class QuerySQL {
             JOIN book_categories bc ON b.category_id = bc.category_id
             JOIN orders o ON b.book_id = o.book_id
             JOIN order_types ot ON o.type_id = ot.order_type_id
-            JOIN users u ON o.user_id = u.user_id
+            -- JOIN users u ON o.user_id = u.user_id
             JOIN order_statuses os ON o.status_id = os.order_status_id
-            Where u.user_id = ? AND os.order_status_name = ?""";
+            Where o.user_id = ? AND os.order_status_name = ?""";
     public static final String SET_BOOKS_NUMBER_TO_ONE_LESS = """
             UPDATE books b
-            SET number = number - 1
+            SET b.number = b.number - 1
             WHERE b.book_id =(SELECT o. book_id FROM orders o WHERE order_id =?)""";
     public static final String SET_BOOKS_NUMBER_TO_ONE_MORE = """
             UPDATE books b
-            SET number = number + 1
+            SET b.number = b.number + 1
             WHERE b.book_id =(SELECT o.book_id FROM orders o WHERE order_id =?)""";
     public static final String SELECT_ORDER_BY_ID = """
             SELECT o.user_id,
-                   o.book_id
+                   o.book_id,
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
@@ -292,8 +292,8 @@ public final class QuerySQL {
                    o.returned_date,
                    o.rejected_date
             FROM orders o
-            JOIN order_statuses os on os.order_status_id = o.status_id
-            JOIN order_types ot on ot.order_type_id = o.type_id
+            JOIN order_statuses os ON os.order_status_id = o.status_id
+            JOIN order_types ot ON ot.order_type_id = o.type_id
             WHERE o.order_id =?""";
     public static final String DELETE_ORDER = """
             DELETE

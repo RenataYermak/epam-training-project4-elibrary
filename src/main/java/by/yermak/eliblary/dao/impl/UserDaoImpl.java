@@ -13,6 +13,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -218,9 +220,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void deactivate(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method deactivate");
+        LocalDateTime localDate = LocalDateTime.now();
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(DEACTIVATE_USER)) {
-            preparedStatement.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+           // preparedStatement.setObject(1, localDate);
+            preparedStatement.setTimestamp(1, Timestamp.valueOf(localDate));
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

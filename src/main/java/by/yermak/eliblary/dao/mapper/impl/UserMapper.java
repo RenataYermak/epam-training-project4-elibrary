@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static by.yermak.eliblary.dao.mapper.ColumnName.*;
@@ -26,8 +27,8 @@ public class UserMapper implements EntityMapper<User> {
             user.setFirstName(resultSet.getString(FIRSTNAME));
             user.setSecondName(resultSet.getString(SECONDNAME));
             user.setEmail(resultSet.getString(EMAIL));
-            user.setActivationDate(resultSet.getTimestamp(ACTIVATION_DATE));
-            user.setDeactivationDate(resultSet.getTimestamp(DEACTIVATION_DATE));
+            user.setActivationDate(resultSet.getObject(ACTIVATION_DATE, LocalDateTime.class));
+            user.setDeactivationDate(resultSet.getObject(DEACTIVATION_DATE, LocalDateTime.class));
             user.setRole(Role.valueOf(resultSet.getString(ROLE).toUpperCase()));
             user.setStatus(Status.valueOf(resultSet.getString(USER_STATUS).toUpperCase()));
             return Optional.of(user);

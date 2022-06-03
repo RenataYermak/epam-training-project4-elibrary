@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,10 +40,10 @@ public class OrderDaoImpl implements BookOrderDao {
                     order.setUserId(resultSet.getLong(USER_ID));
                     order.setType(Type.valueOf(resultSet.getString(TYPE).toUpperCase()));
                     order.setStatus(Status.valueOf(resultSet.getString(STATUS).toUpperCase()));
-                    order.setOrderedDate(resultSet.getTimestamp(ORDERED_DATE));
-                    order.setReservedDate(resultSet.getTimestamp(RESERVED_DATE));
-                    order.setReturnedDate(resultSet.getTimestamp(RETURNED_DATE));
-                    order.setRejectedDate(resultSet.getTimestamp(REJECTED_DATE));
+                    order.setOrderedDate(resultSet.getObject(ORDERED_DATE, LocalDateTime.class));
+                    order.setReservedDate(resultSet.getObject(RESERVED_DATE, LocalDateTime.class));
+                    order.setReturnedDate(resultSet.getObject(RETURNED_DATE,LocalDateTime.class));
+                    order.setRejectedDate(resultSet.getObject(REJECTED_DATE,LocalDateTime.class));
                     order.setBookTitle(resultSet.getString(BOOK_TITLE));
                     orders.add(order);
                 }
@@ -71,10 +72,10 @@ public class OrderDaoImpl implements BookOrderDao {
                     order.setUserId(resultSet.getLong(USER_ID));
                     order.setType(Type.valueOf(resultSet.getString(TYPE).toUpperCase()));
                     order.setStatus(Status.valueOf(resultSet.getString(STATUS).toUpperCase()));
-                    order.setOrderedDate(resultSet.getTimestamp(ORDERED_DATE));
-                    order.setReservedDate(resultSet.getTimestamp(RESERVED_DATE));
-                    order.setReturnedDate(resultSet.getTimestamp(RETURNED_DATE));
-                    order.setRejectedDate(resultSet.getTimestamp(REJECTED_DATE));
+                    order.setOrderedDate(resultSet.getObject(ORDERED_DATE, LocalDateTime.class));
+                    order.setReservedDate(resultSet.getObject(RESERVED_DATE, LocalDateTime.class));
+                    order.setReturnedDate(resultSet.getObject(RETURNED_DATE,LocalDateTime.class));
+                    order.setRejectedDate(resultSet.getObject(REJECTED_DATE,LocalDateTime.class));
                     order.setBookTitle(resultSet.getString(BOOK_TITLE));
                     order.setUserFirstName(resultSet.getString(USER_FIRSTNAME));
                     order.setUserSecondName(resultSet.getString(USER_SECONDNAME));
@@ -119,9 +120,10 @@ public class OrderDaoImpl implements BookOrderDao {
     @Override
     public void reserveBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method reserveBook");
+        LocalDateTime localDate = LocalDateTime.now();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement psReserveBook = connection.prepareStatement(RESERVE_BOOK);) {
-            psReserveBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+             PreparedStatement psReserveBook = connection.prepareStatement(RESERVE_BOOK)) {
+            psReserveBook.setTimestamp(1, Timestamp.valueOf(localDate));
             psReserveBook.setLong(2, orderId);
             psReserveBook.executeUpdate();
         } catch (SQLException e) {
@@ -133,10 +135,11 @@ public class OrderDaoImpl implements BookOrderDao {
     @Override
     public void returnBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method returnBook");
+        LocalDateTime localDate = LocalDateTime.now();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement psReturnBook = connection.prepareStatement(RETURN_BOOK);
-             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
-            psReturnBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE)) {
+            psReturnBook.setTimestamp(1, Timestamp.valueOf(localDate));
             psReturnBook.setLong(2, orderId);
             psUpdateBookNumber.setLong(1, orderId);
             psReturnBook.executeUpdate();
@@ -150,10 +153,11 @@ public class OrderDaoImpl implements BookOrderDao {
     @Override
     public void rejectOrder(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method rejectOrder");
+        LocalDateTime localDate = LocalDateTime.now();
         try (Connection connection = ConnectionPool.getInstance().getConnection();
              PreparedStatement psRejectBook = connection.prepareStatement(REJECT_ORDER);
-             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
-            psRejectBook.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE)) {
+            psRejectBook.setTimestamp(1, Timestamp.valueOf(localDate));
             psRejectBook.setLong(2, orderId);
             psUpdateBookNumber.setLong(1, orderId);
             psRejectBook.executeUpdate();
@@ -169,7 +173,7 @@ public class OrderDaoImpl implements BookOrderDao {
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -182,7 +186,7 @@ public class OrderDaoImpl implements BookOrderDao {
     public Optional<BookOrder> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
         try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID)) {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {

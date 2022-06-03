@@ -42,10 +42,5 @@ public class Controller extends HttpServlet {
                 resp.sendError(500);
             }
         }
-//        if (router.getRouterType().equals(Router.RouterType.REDIRECT)) {
-//            resp.sendRedirect(req.getContextPath() + router.getPagePath());
-//        } else {
-//            req.getRequestDispatcher(router.getPagePath()).forward(req, resp);
-//        }
     }
 }

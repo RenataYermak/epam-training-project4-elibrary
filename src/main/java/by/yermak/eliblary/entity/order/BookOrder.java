@@ -1,6 +1,7 @@
 package by.yermak.eliblary.entity.order;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class BookOrder {
@@ -9,10 +10,10 @@ public class BookOrder {
     private Long userId;
     private Status status;
     private Type type;
-    private Timestamp orderedDate;
-    private Timestamp reservedDate;
-    private Timestamp returnedDate;
-    private Timestamp rejectedDate;
+    private LocalDateTime orderedDate;
+    private LocalDateTime reservedDate;
+    private LocalDateTime returnedDate;
+    private LocalDateTime rejectedDate;
 
     public Long getId() {
         return id;
@@ -54,35 +55,35 @@ public class BookOrder {
         this.type = type;
     }
 
-    public Timestamp getOrderedDate() {
+    public LocalDateTime getOrderedDate() {
         return orderedDate;
     }
 
-    public void setOrderedDate(Timestamp orderedDate) {
+    public void setOrderedDate(LocalDateTime orderedDate) {
         this.orderedDate = orderedDate;
     }
 
-    public Timestamp getReservedDate() {
+    public LocalDateTime getReservedDate() {
         return reservedDate;
     }
 
-    public void setReservedDate(Timestamp reservedDate) {
+    public void setReservedDate(LocalDateTime reservedDate) {
         this.reservedDate = reservedDate;
     }
 
-    public Timestamp getReturnedDate() {
+    public LocalDateTime getReturnedDate() {
         return returnedDate;
     }
 
-    public void setReturnedDate(Timestamp returnedDate) {
+    public void setReturnedDate(LocalDateTime returnedDate) {
         this.returnedDate = returnedDate;
     }
 
-    public Timestamp getRejectedDate() {
+    public LocalDateTime getRejectedDate() {
         return rejectedDate;
     }
 
-    public void setRejectedDate(Timestamp rejectedDate) {
+    public void setRejectedDate(LocalDateTime rejectedDate) {
         this.rejectedDate = rejectedDate;
     }
 

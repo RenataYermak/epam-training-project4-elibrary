@@ -3,6 +3,7 @@ package by.yermak.eliblary.entity.user;
 import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class User implements Serializable {
@@ -16,8 +17,8 @@ public class User implements Serializable {
     public String email;
     private Role role;
     private Status status;
-    private Timestamp activationDate;
-    private Timestamp deactivationDate;
+    private LocalDateTime activationDate;
+    private LocalDateTime deactivationDate;
 
     public Long getId() {
         return id;
@@ -83,19 +84,19 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public Timestamp getActivationDate() {
+    public LocalDateTime getActivationDate() {
         return activationDate;
     }
 
-    public void setActivationDate(Timestamp activationDate) {
+    public void setActivationDate(LocalDateTime activationDate) {
         this.activationDate = activationDate;
     }
 
-    public Timestamp getDeactivationDate() {
+    public LocalDateTime getDeactivationDate() {
         return deactivationDate;
     }
 
-    public void setDeactivationDate(Timestamp deactivationDate) {
+    public void setDeactivationDate(LocalDateTime deactivationDate) {
         this.deactivationDate = deactivationDate;
     }
 

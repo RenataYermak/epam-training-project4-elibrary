@@ -77,6 +77,9 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book create(Book book) throws ServiceException {
         LOGGER.log(Level.INFO, "method create");
+        if (!validator.isAuthorValid(book.getAuthor()) || !validator.isNameValid(book.getTitle())) {
+            throw new ServiceException("Input data is invalid");
+        }
         try {
             var optionalBook = bookDao.create(book);
             if (optionalBook.isPresent()) {
