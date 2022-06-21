@@ -1,8 +1,9 @@
 package by.yermak.eliblary.entity.user;
 
+import by.yermak.eliblary.entity.builder.UserBuilder;
+
 import java.io.Serial;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,13 +13,30 @@ public class User implements Serializable {
     private Long id;
     private String login;
     private String password;
-    public String firstName;
-    public String secondName;
-    public String email;
+    private String firstName;
+    private String secondName;
+    private String email;
     private Role role;
     private Status status;
     private LocalDateTime activationDate;
     private LocalDateTime deactivationDate;
+
+    public User() {
+    }
+
+    public User(UserBuilder builder) {
+        id = builder.getId();
+        login = builder.getLogin();
+        password = builder.getPassword();
+        firstName = builder.getFirstName();
+        secondName = builder.getSecondName();
+        email = builder.getEmail();
+        role = builder.getRole();
+        status = builder.getStatus();
+        activationDate = builder.getActivationDate();
+        deactivationDate = builder.getDeactivationDate();
+
+    }
 
     public Long getId() {
         return id;
@@ -106,9 +124,9 @@ public class User implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id, user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password) &&
-                Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) &&
-                Objects.equals(email, user.email) && role == user.role && status == user.status &&
-                Objects.equals(activationDate, user.activationDate) && Objects.equals(deactivationDate, user.deactivationDate);
+               Objects.equals(firstName, user.firstName) && Objects.equals(secondName, user.secondName) &&
+               Objects.equals(email, user.email) && role == user.role && status == user.status &&
+               Objects.equals(activationDate, user.activationDate) && Objects.equals(deactivationDate, user.deactivationDate);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Optional;
 /**
  * The interface User dao
  */
-public interface UserDao extends EntityDao<User> {
+public interface UserDao extends EntityDao<User, Long> {
     /**
      * Checks if email already exists.
      *

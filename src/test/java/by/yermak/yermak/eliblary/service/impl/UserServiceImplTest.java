@@ -18,7 +18,7 @@ class UserServiceImplTest {
 
     @Test
     void shouldGetAllUsers() throws ServiceException {
-        int expectedNumberOfUsers = 2;
+        int expectedNumberOfUsers = 20;
         List<User> actualUsers = userService.findAll();
         assertNotNull(actualUsers);
         assertThat(actualUsers.size(), is(expectedNumberOfUsers));

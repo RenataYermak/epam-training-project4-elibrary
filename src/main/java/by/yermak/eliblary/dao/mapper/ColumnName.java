@@ -1,6 +1,6 @@
 package by.yermak.eliblary.dao.mapper;
 
-public class ColumnName {
+public final class ColumnName {
     /**
      * user
      */

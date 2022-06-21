@@ -187,12 +187,12 @@ public final class QuerySQL {
             WHERE b.book_id=?""";
     public static final String INSERT_BOOK = """
             INSERT INTO books (title, author, category_id, publish_year, description, number)
-            VALUES(?, ?, (SELECT bc.category_id FROM book_categories bc WHERE category_name = ?), ?, ?, ?)""";
+            VALUES(?, ?, (SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?), ?, ?, ?)""";
     public static final String UPDATE_BOOK = """
             UPDATE books b
             SET b.title=?,
                 b.author=?,
-                b.category_id=(SELECT bc.category_id FROM book_categories bc WHERE category_name = ?),
+                b.category_id=(SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?),
                 b.publish_year=?,
                 b.description=?,
                 b.number=?
@@ -226,26 +226,82 @@ public final class QuerySQL {
             LIMIT ?, ?""";
 
     /**
-     * bookOrder
+     * Order
      */
     public static final String SELECT_BOOKS_BY_ORDER_STATUS = """
-            SELECT o.user_id,
-                   o.book_id,
+            SELECT o.order_id,
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
                    o.reserved_date,
                    o.returned_date,
-                   o.rejected_date
+                   o.rejected_date,
+                   u.user_id,
+                   u.login,
+                   u.password,
+                   u.firstname,
+                   u.secondname,
+                   u.email,
+                   ur.role_name,
+                   us.status_name,
+                   u.activation_date,
+                   u.deactivation_date,
+                   b.book_id,
+                   b.title,
+                   b.author,
+                   bc.category_name,
+                   b.publish_year,
+                   b.description,
+                   b.number
             FROM orders o
-            JOIN books b ON o.book_id = b.book_id
-            JOIN order_statuses os ON os.order_status_id = o.status_id
+            JOIN books b ON b.book_id = o.book_id
+            JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN users u ON u.user_id = o.user_id
+            JOIN user_roles ur ON u.role_id = ur.role_id
+            JOIN user_statuses us ON us.user_status_id = u.status_id
             JOIN order_types ot ON ot.order_type_id = o.type_id
+            JOIN order_statuses os ON os.order_status_id = o.status_id
             WHERE os.order_status_name = ?""";
+    public static final String SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS = """
+            SELECT o.order_id,
+                   os.order_status_name,
+                   ot.order_type_name,
+                   o.ordered_date,
+                   o.reserved_date,
+                   o.returned_date,
+                   o.rejected_date,
+                   u.user_id,
+                   u.login,
+                   u.password,
+                   u.firstname,
+                   u.secondname,
+                   u.email,
+                   ur.role_name,
+                   us.status_name,
+                   u.activation_date,
+                   u.deactivation_date,
+                   b.book_id,
+                   b.title,
+                   b.author,
+                   bc.category_name,
+                   b.publish_year,
+                   b.description,
+                   b.number
+            FROM orders o
+            JOIN books b ON b.book_id = o.book_id
+            JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN users u ON u.user_id = o.user_id
+            JOIN user_roles ur ON u.role_id = ur.role_id
+            JOIN user_statuses us ON us.user_status_id = u.status_id
+            JOIN order_types ot ON ot.order_type_id = o.type_id
+            JOIN order_statuses os ON os.order_status_id = o.status_id
+            WHERE u.user_id = ? AND os.order_status_name = ?""";
     public static final String ORDER_BOOK = """
-            INSERT INTO orders(book_id, user_id, status_id, type_id)
-            VALUES(?, ?,(SELECT os.order_status_id FROM order_statuses os WHERE os.order_status_name='ORDERED'),
-                        (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
+            INSERT INTO orders (book_id, user_id, status_id, type_id)
+            VALUES((SELECT b.book_id FROM books b WHERE b.book_id= ?),
+                  (SELECT u.user_id FROM users u WHERE u.user_id = ?),
+                  (SELECT os.order_status_id FROM order_statuses os WHERE os.order_status_name='ORDERED'),
+                  (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
     public static final String RESERVE_BOOK = """
             UPDATE orders o
             SET o.status_id=(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RESERVED'),
@@ -261,19 +317,6 @@ public final class QuerySQL {
             SET o.status_id=(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'REJECTED'),
                 o.rejected_date=?
             WHERE o.order_id =?""";
-    public static final String SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS = """
-            SELECT b.title,
-                 --  b.author,
-                   bc.category_name,
-                   ot.order_type_name,
-                   os.order_status_name
-            FROM books b
-            JOIN book_categories bc ON b.category_id = bc.category_id
-            JOIN orders o ON b.book_id = o.book_id
-            JOIN order_types ot ON o.type_id = ot.order_type_id
-            -- JOIN users u ON o.user_id = u.user_id
-            JOIN order_statuses os ON o.status_id = os.order_status_id
-            Where o.user_id = ? AND os.order_status_name = ?""";
     public static final String SET_BOOKS_NUMBER_TO_ONE_LESS = """
             UPDATE books b
             SET b.number = b.number - 1
@@ -283,8 +326,10 @@ public final class QuerySQL {
             SET b.number = b.number + 1
             WHERE b.book_id =(SELECT o.book_id FROM orders o WHERE order_id =?)""";
     public static final String SELECT_ORDER_BY_ID = """
-            SELECT o.user_id,
-                   o.book_id,
+            SELECT b.title,
+                   b.author,
+                   u.firstname,
+                   u.secondname,
                    os.order_status_name,
                    ot.order_type_name,
                    o.ordered_date,
@@ -292,91 +337,31 @@ public final class QuerySQL {
                    o.returned_date,
                    o.rejected_date
             FROM orders o
-            JOIN order_statuses os ON os.order_status_id = o.status_id
-            JOIN order_types ot ON ot.order_type_id = o.type_id
+            JOIN books b ON o.book_id = b.book_id
+            JOIN users u ON o.user_id = u.user_id
+            JOIN order_statuses os on os.order_status_id = o.status_id
+            JOIN order_types ot on ot.order_type_id = o.type_id
             WHERE o.order_id =?""";
     public static final String DELETE_ORDER = """
             DELETE
             FROM orders o
             WHERE o.order_id =?""";
-
-
-//    public static final String SELECT_BOOKS_BY_ORDER_STATUS = """
-//            SELECT b.title,
-//                   u.firstname,
-//                   u.secondname,
-//                   os.order_status_name,
-//                   ot.order_type_name,
-//                   ordered_date,
-//                   reserved_date,
-//                   returned_date,
-//                   rejected_date
-//            FROM orders o
-//            JOIN books b ON o.book_id = b.book_id
-//            JOIN users u ON o.user_id = u.user_id
-//            JOIN order_statuses os ON os.order_status_id = o.status_id
-//            JOIN order_types ot ON ot.order_type_id = o.type_id
-//            WHERE os.order_status_name = ?""";
-//    public static final String ORDER_BOOK = """
-//            INSERT INTO orders(book_id, user_id, status_id, type_id)
-//            VALUES(?, ?,(SELECT os.order_status_id FROM order_statuses os WHERE os.order_status_name='ORDERED'),
-//                        (SELECT ot.order_type_id FROM order_types ot WHERE ot.order_type_name = ?))""";
-//    public static final String RESERVE_BOOK = """
-//            UPDATE orders o
-//            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RESERVED'),
-//                o.reserved_date=?
-//            WHERE o.order_id =?""";
-//    public static final String RETURN_BOOK = """
-//            UPDATE orders o
-//            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'RETURNED'),
-//                o.returned_date=?
-//            WHERE o.order_id =?""";
-//    public static final String REJECT_ORDER = """
-//            UPDATE orders o
-//            SET o.status_id(SELECT os.order_status_id FROM order_statuses os WHERE order_status_name = 'REJECTED'),
-//                o.rejected_date=?
-//            WHERE o.order_id =?""";
-//    public static final String SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS = """
-//            SELECT b.title,
-//                   b.author,
-//                   bc.category_name,
-//                   ot.order_type_name,
-//                   os.order_status_name
-//            FROM books b
-//            JOIN book_categories bc ON b.category_id = bc.category_id
-//            JOIN orders o ON b.book_id = o.book_id
-//            JOIN order_types ot ON o.type_id = ot.order_type_id
-//            JOIN users u ON o.user_id = u.user_id
-//            JOIN order_statuses os ON o.status_id = os.order_status_id
-//            Where u.user_id = ? AND os.order_status_name = ?""";
-//    public static final String SET_BOOKS_NUMBER_TO_ONE_LESS = """
-//            UPDATE books b
-//            SET number = number - 1
-//            WHERE b.book_id =(SELECT o. book_id FROM orders o WHERE order_id =?)""";
-//    public static final String SET_BOOKS_NUMBER_TO_ONE_MORE = """
-//            UPDATE books b
-//            SET number = number + 1
-//            WHERE b.book_id =(SELECT o.book_id FROM orders o WHERE order_id =?)""";
-//    public static final String SELECT_ORDER_BY_ID = """
-//            SELECT b.title,
-//                   u.firstname,
-//                   u.secondname,
-//                   os.order_status_name,
-//                   ot.order_type_name,
-//                   ordered_date,
-//                   reserved_date,
-//                   returned_date,
-//                   rejected_date
-//            FROM orders o
-//            JOIN books b ON o.book_id = b.book_id
-//            JOIN users u ON o.user_id = u.user_id
-//            JOIN order_statuses os on os.order_status_id = o.status_id
-//            JOIN order_types ot on ot.order_type_id = o.type_id
-//            WHERE order_id =?""";
-//    public static final String DELETE_ORDER = """
-//            DELETE
-//            FROM orders o
-//            WHERE o.order_id =?""";
+    public static final String SELECT_ALL_ORDERS = """
+            SELECT b.title,
+                   b.author,
+                   u.firstname,
+                   u.secondname,
+                   os.order_status_name,
+                   ot.order_type_name,
+                   o.ordered_date,
+                   o.reserved_date,
+                   o.returned_date,
+                   o.rejected_date
+            FROM orders o
+            JOIN books b ON o.book_id = b.book_id
+            JOIN users u ON o.user_id = u.user_id
+            JOIN order_statuses os on os.order_status_id = o.status_id
+            JOIN order_types ot on ot.order_type_id = o.type_id""";
 
     private QuerySQL() {
     }

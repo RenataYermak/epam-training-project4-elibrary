@@ -28,7 +28,7 @@ public class BookMapper implements EntityMapper<Book> {
             book.setCategory(Category.valueOf(resultSet.getString(CATEGORY).toUpperCase()));
             return Optional.of(book);
         } catch (SQLException e) {
-            LOGGER.error("failed to fetch data from the result set");
+            LOGGER.error("failed to fetch data from the result set ", e);
             return Optional.empty();
         }
     }

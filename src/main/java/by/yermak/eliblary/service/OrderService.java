@@ -14,37 +14,39 @@ import java.util.List;
  */
 public interface OrderService {
 
-//    /**
-//     * Find user {@link BookOrder} instance by <tt>id</tt>
-//     *
-//     * @param id {@link BookOrder}'s id
-//     * @return {@link BookOrder} instance
-//     * @throws ServiceException if {@link BookOrder} with <tt>login</tt> do not present into
-//     *                          data source or if an error occurs while searching {@link BookOrder}
-//     *                          into the data source
-//     */
-//    BookOrder findOrder(Long id) throws ServiceException;
-//
-//    /**
-//     * Find all orders list {@link BookOrder}
-//     *
-//     * @return all users list {@link BookOrder}
-//     * @throws ServiceException if {@link BookOrder} in empty
-//     *                          occurs after searching {@link BookOrder} into the data source
-//     */
-//    List<BookOrder> findAll() throws ServiceException;
+    /**
+     * Find user {@link Order} instance by <tt>id</tt>
+     *
+     * @param id {@link Order}'s id
+     * @return {@link Order} instance
+     * @throws ServiceException if {@link Order} with <tt>login</tt> do not present into
+     *                          data source or if an error occurs while searching {@link Order}
+     *                          into the data source
+     */
+    Order findOrder(Long id) throws ServiceException;
+
+    /**
+     * Find all orders list {@link Order}
+     *
+     * @return all users list {@link Order}
+     * @throws ServiceException if {@link Order} in empty
+     *                          occurs after searching {@link Order} into the data source
+     */
+    List<Order> findAllOrders() throws ServiceException;
+
 
     /**
      * Creat {@link Order} with filled fields
      *
-     * @param bookId  is filled user instance
-     * @param userId  is filled user instance
-     * @param type {@link Type} is filled user instance
+//     * @param bookId  is filled user instance
+//     * @param userId  is filled user instance
+//     * @param type {@link Type} is filled user instance
      * @return user {@link Order}
      * @throws ServiceException if an error occurs while writing new {@link Order} into
      *                          data source
      */
-    Long orderBook(Long bookId, Long userId, Type type) throws ServiceException;
+    Long orderBook(Order order) throws ServiceException;
+
 
     /**
      * Find  orders list {@link Order} by status

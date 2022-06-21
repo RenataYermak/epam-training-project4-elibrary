@@ -1,11 +1,16 @@
 package by.yermak.eliblary.controller.command.book;
 
+import by.yermak.eliblary.entity.builder.BookBuilder;
+import by.yermak.eliblary.entity.builder.OrderBuilder;
+import by.yermak.eliblary.entity.builder.UserBuilder;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.order.Order;
+
 import by.yermak.eliblary.entity.order.Type;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.OrderService;
@@ -36,11 +41,8 @@ public class OrderBookCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                Long userId = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
-                Long bookId = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
                 String bookTitle = request.getParameter(RequestParameter.BOOK_TITLE);
-                String type = request.getParameter(RequestParameter.TYPE);
-                Long orderId = orderService.orderBook(bookId, userId, Type.valueOf(type.toUpperCase()));
+                Long orderId = orderService.orderBook(constructBookOrder(request));
 
                 List<Book> books = bookService.findAllBooks();
                 request.setAttribute(RequestAttribute.ORDER_ID, orderId);
@@ -50,10 +52,27 @@ public class OrderBookCommand implements Command {
                 return new Router(PagePath.BOOKS_TABLE_URL, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reserve book: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, "Book didn't ordered ");
         return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
+    }
+
+
+    private Order constructBookOrder(HttpServletRequest request) {
+        return new OrderBuilder()
+                .setType(Type.valueOf(request.getParameter(RequestParameter.TYPE).toUpperCase()))
+                .setUser(
+                        new UserBuilder()
+                                .setId(parseLongParameter(request.getParameter(RequestParameter.USER_ID)))
+                                .build())
+                .setBook(
+                        new BookBuilder()
+                                .setId(parseLongParameter(request.getParameter(RequestParameter.BOOK_ID)))
+                                .setTitle(request.getParameter(RequestParameter.BOOK_TITLE))
+                                .build()
+                )
+                .build();
     }
 }

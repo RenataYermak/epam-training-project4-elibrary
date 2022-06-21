@@ -4,16 +4,12 @@ import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.SessionAttribute;
 
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 @WebListener
 public class HttpSessionListenerImpl implements HttpSessionListener {
     private static final String DEFAULT_LOCALE = "en_EN";
-
-    public HttpSessionListenerImpl() {
-    }
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {

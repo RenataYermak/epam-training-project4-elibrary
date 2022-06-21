@@ -6,13 +6,13 @@ public enum Status {
     RETURNED("returned"),
     REJECTED("rejected");
 
-    private final String value;
+    private final String name;
 
-    Status(String value) {
-        this.value = value;
+    Status(String status) {
+        this.name = status;
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 }

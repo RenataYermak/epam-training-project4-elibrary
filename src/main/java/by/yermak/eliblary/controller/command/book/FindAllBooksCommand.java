@@ -5,7 +5,6 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
@@ -40,15 +39,14 @@ public class FindAllBooksCommand implements Command {
                 int numberOfPages = (int) Math.ceil(bookList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
-                // request.setAttribute(RequestAttribute.ITEMS_PER_PAGE, countBook);
+
                 request.setAttribute(RequestAttribute.PAGE, currentPage);
                 return new Router(PagePath.BOOKS_TABLE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find all books: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
-
         return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);
     }
 }

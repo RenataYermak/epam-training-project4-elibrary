@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class ConnectionFactory {
+class ConnectionFactory {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Properties properties = new Properties();
     private static final String DB_PROPERTIES_PATH = "config\\db-mysql-elibrary.properties";

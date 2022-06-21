@@ -1,10 +1,7 @@
 package by.yermak.eliblary.controller.command.user;
 
 import by.yermak.eliblary.controller.PagePath;
-import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.Router;

@@ -5,13 +5,16 @@ import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.entity.user.Role;
 import by.yermak.eliblary.entity.user.User;
 
+import java.util.Optional;
+
 public final class EntityConstructor {
     public static User constructTestUser() {
         User user = new User();
         user.setLogin("test" + Math.random() * 10);
-        user.setPassword("test");
+        user.setPassword("Test1997");
         user.setFirstName("test");
         user.setSecondName("test");
+        user.setEmail("test@mail.ru");
         user.setRole(Role.ADMIN);
         return user;
     }
@@ -22,10 +25,11 @@ public final class EntityConstructor {
         book.setAuthor("Test Author TA");
         book.setCategory(Category.SCI_FI);
         book.setDescription("Test Description");
-        book.setPublishYear(Integer.valueOf(("1865-11-26")));
+        book.setPublishYear(1999);
         book.setNumber(1);
         return book;
     }
 
-    private EntityConstructor() {}
+    private EntityConstructor() {
+    }
 }

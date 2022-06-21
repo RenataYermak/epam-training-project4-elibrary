@@ -5,7 +5,6 @@ import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.mapper.impl.UserMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.entity.user.User;
-import by.yermak.eliblary.util.exception.UtilException;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import org.apache.logging.log4j.Level;
@@ -14,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +26,11 @@ public class UserDaoImpl implements UserDao {
     @Override
     public List<User> findAlL(int page) throws DaoException {
         List<User> usersOnPage = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_USERS)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_USERS)) {
             preparedStatement.setInt(1, ELEMENTS_ON_PAGE * (page - 1));
             preparedStatement.setInt(2, ELEMENTS_ON_PAGE);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     var optionalBook = userMapper.map(resultSet);
                     optionalBook.ifPresent(usersOnPage::add);
@@ -195,7 +193,7 @@ public class UserDaoImpl implements UserDao {
                     }
                 }
             }
-        } catch (SQLException | UtilException e) {
+        } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new DaoException("Exception when create user: {}", e);
         }
@@ -210,7 +208,7 @@ public class UserDaoImpl implements UserDao {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
-        } catch (SQLException | UtilException e) {
+        } catch (SQLException  e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new DaoException("Exception when update user: {}", e);
         }
@@ -223,7 +221,6 @@ public class UserDaoImpl implements UserDao {
         LocalDateTime localDate = LocalDateTime.now();
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(DEACTIVATE_USER)) {
-           // preparedStatement.setObject(1, localDate);
             preparedStatement.setTimestamp(1, Timestamp.valueOf(localDate));
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
@@ -296,7 +293,7 @@ public class UserDaoImpl implements UserDao {
         return isExist;
     }
 
-    private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException, UtilException {
+    private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {
         preparedStatement.setString(1, user.getLogin());
         preparedStatement.setString(2, user.getPassword());
         preparedStatement.setString(3, user.getFirstName());

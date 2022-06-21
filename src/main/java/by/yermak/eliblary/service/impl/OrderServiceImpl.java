@@ -1,13 +1,12 @@
 package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.dao.BookDao;
-import by.yermak.eliblary.dao.BookOrderDao;
+import by.yermak.eliblary.dao.OrderDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
 import by.yermak.eliblary.dao.impl.OrderDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
-import by.yermak.eliblary.entity.order.Type;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.entity.user.User;
@@ -25,40 +24,21 @@ public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final BookDao bookDao;
-    private final BookOrderDao bookOrderDao;
+    private final OrderDao orderDao;
     private final UserDao userDao;
     private final Validator validator = Validator.getInstance();
 
     public OrderServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.bookOrderDao = new OrderDaoImpl();
+        this.orderDao = new OrderDaoImpl();
         this.userDao = new UserDaoImpl();
-    }
-
-
-    @Override
-    public Long orderBook(Long bookId, Long userId, Type type) throws ServiceException {
-        LOGGER.log(Level.INFO, "method orderBook");
-        try {
-            Order order = new Order(bookId, userId, type);
-            return bookOrderDao.orderBook(order);
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method orderBook: ", e);
-            throw new ServiceException("Exception when orderBook: {}", e);
-        }
     }
 
     @Override
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBooksByOrderStatus");
         try {
-            List<Order> orders = bookOrderDao.findOrdersByOrderStatus(orderStatus);
-            for (Order order: orders) {
-                Optional<User> user = userDao.find(order.getUserId());
-                order.setUserFirstName(user.get().firstName);
-                order.setUserSecondName(user.get().secondName);
-            }
-            return orders;
+           return orderDao.findOrdersByOrderStatus(orderStatus);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByOrderStatus: ", e);
             throw new ServiceException("Exception when findBooksByOrderStatus: {}", e);
@@ -69,18 +49,46 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> findOrdersByUserIdAndStatus(Long userId, Status orderStatus) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBooksByUserIdAndOrderStatus");
         try {
-            return bookOrderDao.findOrdersByUserIdAndOrderStatus(userId, orderStatus);
+            return orderDao.findOrdersByUserIdAndOrderStatus(userId, orderStatus);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByUserIdAndOrderStatus: ", e);
             throw new ServiceException("Exception when findBooksByUserIdAndOrderStatus: {}", e);
         }
     }
+    @Override
+    public Order findOrder(Long id) throws ServiceException {
+        return null;
+    }
+
+    @Override
+    public List<Order> findAllOrders() throws ServiceException {
+        LOGGER.log(Level.INFO, "method findAll");
+        try {
+            return orderDao.findAll();
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
+            throw new ServiceException("Exception when findAll books: {}", e);
+        }
+    }
+
+    @Override
+    public Long orderBook(Order order) throws ServiceException {
+        LOGGER.log(Level.INFO, "method orderBook");
+
+        try {
+            return orderDao.orderBook(order);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method orderBook: ", e);
+            throw new ServiceException("Exception when orderBook: {}", e);
+        }
+    }
+
 
     @Override
     public void reserveBook(Long orderId) throws ServiceException {
         LOGGER.log(Level.INFO, "method reserveBook");
         try {
-            bookOrderDao.reserveBook(orderId);
+            orderDao.reserveBook(orderId);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method reserveBook: ", e);
             throw new ServiceException("Exception when reserveBook: {}", e);
@@ -91,7 +99,7 @@ public class OrderServiceImpl implements OrderService {
     public void returnBook(Long orderId) throws ServiceException {
         LOGGER.log(Level.INFO, "method returnBook");
         try {
-            bookOrderDao.returnBook(orderId);
+            orderDao.returnBook(orderId);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method returnBook: ", e);
             throw new ServiceException("Exception when returnBook: {}", e);
@@ -102,7 +110,7 @@ public class OrderServiceImpl implements OrderService {
     public void rejectedOrder(Long orderId) throws ServiceException {
         LOGGER.log(Level.INFO, "method rejectedOrder");
         try {
-            bookOrderDao.rejectOrder(orderId);
+            orderDao.rejectOrder(orderId);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method rejectedOrder: ", e);
             throw new ServiceException("Exception when reject order: {}", e);

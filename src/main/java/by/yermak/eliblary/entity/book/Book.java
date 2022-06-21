@@ -1,5 +1,9 @@
 package by.yermak.eliblary.entity.book;
 
+//import by.yermak.eliblary.builder.BookBuilder;
+
+import by.yermak.eliblary.entity.builder.BookBuilder;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,6 +18,19 @@ public class Book implements Serializable {
     private int publishYear;
     private String description;
     private int number;
+
+    public Book() {
+    }
+    public Book(BookBuilder builder) {
+        this.id = builder.getId();
+        this.title = builder.getTitle();
+        this.author = builder.getAuthor();
+        this.category=builder.getCategory();
+        this.publishYear = builder.getPublishYear();
+        this.publishYear=builder.getPublishYear();
+        this.description = builder.getDescription();
+        this.number=builder.getNumber();
+    }
 
     public Long getId() {
         return id;

@@ -31,8 +31,10 @@ public class ConnectionPool {
                 connection = ConnectionFactory.createConnection();
                 freeConnection.put(connection);
             } catch (SQLException | InterruptedException e) {
-                LOGGER.error("the connection pool is empty, no connections created");
+                LOGGER.error("the connection pool is empty, no connections created", e);
+                Thread.currentThread().interrupt();
                 throw new ExceptionInInitializerError("Error while initialising connection pool");
+
             }
         }
     }
@@ -53,10 +55,10 @@ public class ConnectionPool {
     }
 
     public void releaseConnection(Connection connection) {
-        if (connection instanceof ProxyConnection) {
+        if (connection instanceof ProxyConnection proxyConnection) {
             try {
                 usedConnection.take();
-                freeConnection.put((ProxyConnection) connection);
+                freeConnection.put(proxyConnection);
             } catch (InterruptedException e) {
                 LOGGER.error("failed to release a connection", e);
                 Thread.currentThread().interrupt();
@@ -92,8 +94,8 @@ public class ConnectionPool {
             while (drivers.hasMoreElements()) {
                 DriverManager.deregisterDriver(drivers.nextElement());
             }
-        } catch (SQLException exception) {
-            LOGGER.error("Drivers were not de-registered");
+        } catch (SQLException e) {
+            LOGGER.error("Drivers were not de-registered", e);
         }
     }
 }

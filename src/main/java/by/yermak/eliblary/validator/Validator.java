@@ -5,8 +5,8 @@ import by.yermak.eliblary.entity.user.User;
 public final class Validator {
     private static final String NAME_REGEX = "^[\\p{L}]{2,25}$";
     private static final String PASSWORD_REGEX = "(?=.*[\\d])(?=.*[\\p{Ll}])(?=.*[\\p{Lu}])(?=\\S+$).{8,49}";
-    private static final String EMAIL_REGEX = "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$";
-    private static final String LOGIN_REGEX = "^[\\w\\d-]{2,25}$";
+    private static final String EMAIL_REGEX = "^([\\w-]+[?:[\\w-]+.)*]@([?:[\\w-]+.]*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)";
+    private static final String LOGIN_REGEX = "^[\\w-]{2,25}$";
     private static final String SEARCH_REGEX = "^[\\p{L}\\d-]{1,25}$";
     private static final String BOOK_AUTHOR_REGEX = "^[\\p{L}\\d-]{2,25}$";
     private static Validator instance;

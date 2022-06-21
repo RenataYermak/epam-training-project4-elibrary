@@ -33,7 +33,7 @@ public class UserMapper implements EntityMapper<User> {
             user.setStatus(Status.valueOf(resultSet.getString(USER_STATUS).toUpperCase()));
             return Optional.of(user);
         } catch (SQLException e) {
-            LOGGER.error("failed to fetch data from the result set");
+            LOGGER.error("failed to fetch data from the result set ", e);
             return Optional.empty();
         }
     }

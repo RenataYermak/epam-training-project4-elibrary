@@ -157,7 +157,7 @@
     </c:if>
     <c:if test="${orderId != null}">
         <p class="info-style"><fmt:message key="books.info.booked_success"/>
-            <span class="info-style-srh">${bookTitle}</span> <fmt:message key="books.info.book"/></p>
+            <span class="info-style-srh">${title}</span> <fmt:message key="books.info.book"/></p>
     </c:if>
 </div>
 <%@ include file="footer.jsp" %>

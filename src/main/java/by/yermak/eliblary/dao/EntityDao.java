@@ -10,14 +10,14 @@ import java.util.Optional;
  *
  * @param <E> the type entity
  */
-public interface EntityDao<E> {
+public interface EntityDao<E, K> {
     /**
      * Find entity by id
      *
      * @return the optional object of a found entity
      * @throws DaoException if there is any problem during access
      */
-    Optional<E> find(Long id) throws DaoException;
+    Optional<E> find(K id) throws DaoException;
 
     /**
      * Find all data from database and save in the list.
@@ -47,5 +47,5 @@ public interface EntityDao<E> {
      * @param id the entity's id
      * @throws DaoException if there is any problem occurred during  access
      */
-    void delete(Long id) throws DaoException;
+    void delete(K id) throws DaoException;
 }

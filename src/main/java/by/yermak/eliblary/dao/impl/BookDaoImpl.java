@@ -15,7 +15,7 @@ import java.util.*;
 
 import static by.yermak.eliblary.dao.QuerySQL.*;
 
-public class BookDaoImpl implements BookDao {
+public class  BookDaoImpl implements BookDao {
     private static final Logger LOGGER = LogManager.getLogger();
     private final BookMapper bookMapper = new BookMapper();
 

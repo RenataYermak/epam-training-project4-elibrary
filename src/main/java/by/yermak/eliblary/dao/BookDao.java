@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * The interface Book dao
  */
-public interface BookDao extends EntityDao<Book> {
+public interface BookDao extends EntityDao<Book,Long> {
     /**
      * Finds books in search query and collect them in the list
      *

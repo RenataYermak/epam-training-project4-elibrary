@@ -2,6 +2,7 @@ package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.order.Order;
+import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.controller.PagePath;
@@ -10,9 +11,11 @@ import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.order.Status;
+import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.OrderServiceImpl;
+import by.yermak.eliblary.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,10 +29,12 @@ public class FindOrdersByUserCommand implements Command {
 
     private final OrderService orderService;
     private final BookService bookService;
+    public final UserService userService;
 
     public FindOrdersByUserCommand() {
         this.orderService = new OrderServiceImpl();
         this.bookService = new BookServiceImpl();
+        this.userService = new UserServiceImpl();
     }
 
     @Override
@@ -46,15 +51,11 @@ public class FindOrdersByUserCommand implements Command {
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Reserved Books");
                 }
-//                List<Book> books = bookService.findAllBooks();
-//                request.setAttribute(RequestAttribute.BOOKS, books);
-//                request.setAttribute(RequestAttribute.BOOK_TITLE, bookTitle);
-
-                request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getValue());
+                request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find books by userId and orderStatus: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                 //return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

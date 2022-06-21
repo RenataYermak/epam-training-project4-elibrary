@@ -2,7 +2,7 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
-import by.yermak.eliblary.dao.BookOrderDao;
+import by.yermak.eliblary.dao.OrderDao;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
     private final Validator validator = Validator.getInstance();
     private final BookDao bookDao;
-    private final BookOrderDao orderDao;
+    private final OrderDao orderDao;
     private final UserDao userDao;
 
     public BookServiceImpl() {
@@ -35,11 +35,10 @@ public class BookServiceImpl implements BookService {
         LOGGER.log(Level.INFO, "method find");
         try {
             var bookOptional = bookDao.find(id);
-            if (bookOptional.isPresent()) {
-                return bookOptional.get();
-            } else {
+            if (bookOptional.isEmpty()) {
                 throw new ServiceException("There is no such book");
             }
+            return bookOptional.get();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find: ", e);
             throw new ServiceException("Exception when find book: {}", e);
@@ -60,16 +59,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> findBooksByQuery(String searchQuery) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBooksByQuery");
-        if (validator.isSearchValid(searchQuery)) {
-            try {
-                return bookDao.findBooksByQuery(searchQuery);
-            } catch (DaoException e) {
-                LOGGER.log(Level.ERROR, "exception in method findBooksByQuery: ", e);
-                throw new ServiceException("Exception when findBooksByQuery: {}", e);
-            }
-
-        } else {
+        if (!validator.isSearchValid(searchQuery)) {
             throw new ServiceException("Input data is invalid");
+        }
+        try {
+            return bookDao.findBooksByQuery(searchQuery);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findBooksByQuery: ", e);
+            throw new ServiceException("Exception when findBooksByQuery: {}", e);
         }
     }
 
@@ -82,11 +79,10 @@ public class BookServiceImpl implements BookService {
         }
         try {
             var optionalBook = bookDao.create(book);
-            if (optionalBook.isPresent()) {
-                return optionalBook.get();
-            } else {
+            if (optionalBook.isEmpty()) {
                 throw new ServiceException("There is no such book");
             }
+            return optionalBook.get();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new ServiceException("Exception when create book: {}", e);
@@ -98,11 +94,10 @@ public class BookServiceImpl implements BookService {
         LOGGER.log(Level.INFO, "method update");
         try {
             var optionalBook = bookDao.update(book);
-            if (optionalBook.isPresent()) {
-                return optionalBook.get();
-            } else {
+            if (optionalBook.isEmpty()) {
                 throw new ServiceException("There is no such book");
             }
+            return optionalBook.get();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new ServiceException("Exception when update book: {}", e);
@@ -119,6 +114,7 @@ public class BookServiceImpl implements BookService {
             throw new ServiceException("Exception when delete book: {}", e);
         }
     }
+
     @Override
     public List<Book> findAllBooks(int page) throws ServiceException {
         try {

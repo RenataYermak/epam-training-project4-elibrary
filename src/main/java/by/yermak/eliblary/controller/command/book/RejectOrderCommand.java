@@ -37,7 +37,7 @@ public class RejectOrderCommand implements Command {
                 orderService.rejectedOrder(orderId);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
-                request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getValue());
+                request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reject order: ", e);

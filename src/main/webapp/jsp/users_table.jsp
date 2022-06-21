@@ -5,7 +5,7 @@
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
-<html lang="en">
+<!DOCTYPE html>
 <head>
     <title>Users</title>
     <!-- Styles -->
@@ -65,8 +65,13 @@
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
                         <%--                    <td class="cell">${user.status.name}</td>--%>
-                    <td class="cell">${user.activationDate}</td>
-                    <td class="cell">${user.deactivationDate}</td>
+<%--                    <td class="cell">${user.activationDate}</td>--%>
+                    <td class="cell">
+                        <fmt:parseDate value="${user.activationDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
+                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
+                    <td class="cell">
+                        <fmt:parseDate value="${user.deactivationDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
+                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
                     <td class="cell">
                         <c:if test="${sessionScope.authUser.role == 'ADMIN' ||
                                     sessionScope.authUser.login == user.login}">

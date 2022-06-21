@@ -1,3 +1,4 @@
+.
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -28,7 +29,7 @@
 <%@ include file="sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
-        <c:if test="${ordersPageTitle != null}">
+        <c:if test="${! empty ordersPageTitle}">
             <div class="content-title">
                 <h2>${ordersPageTitle}</h2>
             </div>
@@ -46,15 +47,14 @@
         </div>
     </div>
     <hr/>
-    <c:if test="${fn:length(orders) > 0}">
+    <c:if test="${orders.size() > 0}">
         <table class="table">
             <tr class="row header green">
                 <th class="cell"><fmt:message key="book.label.title"/></th>
-<%--               <th class="cell"><fmt:message key="book.label.author"/></th>--%>
-<%--                <th class="cell"><fmt:message key="book.label.category"/></th>--%>
+                <th class="cell"><fmt:message key="book.label.author"/></th>
+                <th class="cell"><fmt:message key="orders.label.user_name"/></th>
                 <th class="cell"><fmt:message key="orders.label.type"/></th>
                 <th class="cell"><fmt:message key="orders.label.status"/></th>
-                <th class="cell"><fmt:message key="orders.label.user_name"/></th>
                 <c:if test="${orderStatus == 'ordered'}">
                     <th class="cell"><fmt:message key="orders.label.ordered_date"/></th>
                 </c:if>
@@ -64,20 +64,23 @@
                 <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                     <th class="cell"><fmt:message key="orders.label.action"/></th>
                 </c:if>
+
             </tr>
-            <c:forEach items="${orders}$" var="order">
+            <c:forEach items="${orders}" var="order">
                 <tr class="row">
-                    <td class="cell">${order.bookTitle}</td>
-<%--                    <td class="cell">${order.userID}</td>--%>
-<%--                    <td class="cell">${order.category}</td>--%>
-                    <td class="cell">${order.type.value}</td>
-                    <td class="cell">${order.status.value}</td>
-                    <td class="cell">${order.userFirstName} ${order.userSecondName}</td>
+                    <td class="cell">${order.book.title}</td>
+                    <td class="cell">${order.book.author}</td>
+                    <td class="cell">${order.user.firstName} ${order.user.secondName}</td>
+                    <td class="cell">${order.type.name}</td>
+                    <td class="cell">${order.status.name}</td>
                     <c:if test="${orderStatus == 'ordered'}">
-                        <td class="cell">${order.orderedDate}</td>
+                        <fmt:parseDate value="${order.orderedDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
+                        <td class="cell"> <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
+<%--                        <td class="cell">${order.orderedDate}</td>--%>
                     </c:if>
                     <c:if test="${orderStatus == 'reserved'}">
-                        <td class="cell">${order.reservedDate}</td>
+                        <fmt:parseDate value="${order.reservedDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
+                        <td class="cell"><fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
                     </c:if>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <td class="cell">
@@ -97,7 +100,8 @@
                             <c:if test="${orderStatus == 'reserved'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton" type="submit" name="command" value="return_book">
+                                    <button class="actionButton" type="submit" name="command"
+                                            value="return_book">
                                         <fmt:message key="orders.button.return"/>
                                     </button>
                                 </form>
@@ -108,7 +112,7 @@
             </c:forEach>
         </table>
     </c:if>
-    <c:if test="${fn:length(orders) == 0}">
+    <c:if test="${orders.size() == 0}">
         <p class="info-style">There are no <span class="info-style-srh">${orderStatus}</span> books</p>
     </c:if>
 </div>

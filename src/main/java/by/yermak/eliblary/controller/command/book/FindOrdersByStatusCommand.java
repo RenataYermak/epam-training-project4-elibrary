@@ -5,11 +5,17 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
+import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
+import by.yermak.eliblary.entity.user.User;
+import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.OrderService;
+import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.OrderServiceImpl;
+import by.yermak.eliblary.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,9 +28,13 @@ public class FindOrdersByStatusCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final OrderService orderService;
+    private final BookService bookService;
+    public final UserService userService;
 
     public FindOrdersByStatusCommand() {
         this.orderService = new OrderServiceImpl();
+        this.bookService = new BookServiceImpl();
+        this.userService = new UserServiceImpl();
     }
 
     @Override
@@ -35,16 +45,18 @@ public class FindOrdersByStatusCommand implements Command {
                 Status orderStatus = Status.valueOf(
                         request.getParameter(RequestParameter.ORDER_STATUS).toUpperCase());
                 List<Order> orders = orderService.findOrdersByOrderStatus(orderStatus);
+
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 }
-                request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getValue());
+                request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
+
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find books by orderStatus: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+               // return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

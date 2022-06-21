@@ -3,6 +3,7 @@ package by.yermak.eliblary.service.impl;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.user.Status;
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.service.UserService;
@@ -22,9 +23,9 @@ import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger();
+    private final HashGenerator hashGenerator = HashGenerator.getInstance();
     private final Validator validator = Validator.getInstance();
     private final UserDao userDao;
-    private final HashGenerator hashGenerator = HashGenerator.getInstance();
 
     public UserServiceImpl() {
         this.userDao = new UserDaoImpl();
@@ -68,11 +69,10 @@ public class UserServiceImpl implements UserService {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
             var optionalUser = userDao.find(id);
-            if (optionalUser.isPresent()) {
-                return optionalUser.get();
-            } else {
+            if (optionalUser.isEmpty()) {
                 throw new ServiceException("Input data is invalid");
             }
+            return optionalUser.get();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
             throw new ServiceException("Exception when find user by id: {}", e);
@@ -84,11 +84,10 @@ public class UserServiceImpl implements UserService {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
             var optionalUser = userDao.findByLogin(login);
-            if (optionalUser.isPresent()) {
-                return optionalUser.get();
-            } else {
+            if (optionalUser.isEmpty()) {
                 throw new ServiceException("There is no such user with email: " + login);
             }
+            return optionalUser.get();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
             throw new ServiceException("Exception when find user by id: {}", e);
@@ -103,11 +102,10 @@ public class UserServiceImpl implements UserService {
         }
         try {
             var optionalUser = userDao.findByLogin(login);
-            if (optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword())) {
-                return optionalUser.get();
-            } else {
-                throw new ServiceException("Password is invalid22 ");
+            if (!(optionalUser.isPresent() && hashGenerator.validatePassword(pass, optionalUser.get().getPassword()))) {
+                throw new ServiceException("Password is invalid");
             }
+            return optionalUser.get();
         } catch (DaoException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method find user by login and pass: ", e);
             throw new ServiceException("Exception when find user by login and pass: {}", e);
@@ -128,15 +126,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findUsersByQuery(String searchQuery) throws ServiceException {
         LOGGER.log(Level.INFO, "method findUsersByQuery");
-        if (validator.isSearchValid(searchQuery)) {
-            try {
-                return userDao.findUsersByQuery(searchQuery);
-            } catch (DaoException e) {
-                LOGGER.log(Level.ERROR, "exception in method findUsersByQuery: ", e);
-                throw new ServiceException("Exception when findUsersByQuery: {}", e);
-            }
-        } else {
+        if (!validator.isSearchValid(searchQuery)) {
             throw new ServiceException("Input data is invalid");
+        }
+        try {
+            return userDao.findUsersByQuery(searchQuery);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findUsersByQuery: ", e);
+            throw new ServiceException("Exception when findUsersByQuery: {}", e);
         }
     }
 
@@ -149,11 +146,10 @@ public class UserServiceImpl implements UserService {
         try {
             user.setPassword(hashGenerator.generateHash(user.getPassword()));
             var optionalUser = userDao.create(user);
-            if (optionalUser.isPresent()) {
-                return optionalUser.get();
-            } else {
+            if (optionalUser.isEmpty()) {
                 throw new ServiceException("Input data is invalid");
             }
+            return optionalUser.get();
         } catch (DaoException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new ServiceException("Exception when create user: {}", e);
@@ -169,11 +165,10 @@ public class UserServiceImpl implements UserService {
         try {
             user.setPassword(hashGenerator.generateHash(user.getPassword()));
             var optionalUser = userDao.update(user);
-            if (optionalUser.isPresent()) {
-                return optionalUser.get();
-            } else {
+            if (optionalUser.isEmpty()) {
                 throw new ServiceException("Password is invalid ");
             }
+            return optionalUser.get();
         } catch (DaoException | UtilException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new ServiceException("Exception when update user: {}", e);
@@ -229,21 +224,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updatePassword(User user) throws ServiceException {
         LOGGER.log(Level.INFO, "method updatePassword");
-        if (validator.isUserValid(user)) {
-            try {
-                userDao.updatePassword(user.getId(), user.getPassword());
-            } catch (DaoException e) {
-                LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
-                throw new ServiceException("Exception when update user password: {}", e);
-            }
-        } else {
+        if (!validator.isUserValid(user)) {
             throw new ServiceException("Input data is invalid");
+        }
+        try {
+            userDao.updatePassword(user.getId(), user.getPassword());
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
+            throw new ServiceException("Exception when update user password: {}", e);
         }
     }
 
     @Override
     public void sendEmailRegisteredUser(String firstName, String secondName, String email, String currentLocale) {
-        var finalRegistrationMessage = firstName + " " + secondName + ", " + LanguageMessage.getInstance().getText(currentLocale, "successful.reg.email.body");
+        var finalRegistrationMessage =
+                firstName + " " + secondName + ", " + LanguageMessage.getInstance().getText(currentLocale, "successful.reg.email.body");
         MailSender.getInstance().send(email, MessagesKey.SUCCESSFUL_REG_EMAIL_HEADER, finalRegistrationMessage);
     }
 }
