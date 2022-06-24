@@ -6,14 +6,16 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface Entity dao.
+ * Interface describes the opportunity that data source provide to store and
+ * restore  entity
  *
- * @param <E> the type entity
+ * @param <E> the type of  entity
  */
 public interface EntityDao<E, K> {
     /**
      * Find entity by id
      *
+     * @param id is the entity's id
      * @return the optional object of a found entity
      * @throws DaoException if there is any problem during access
      */
@@ -30,6 +32,7 @@ public interface EntityDao<E, K> {
     /**
      * Creates a new entity.
      *
+     * @param entity is the entity
      * @return the optional object of a created entity
      * @throws DaoException if there is any problem during access
      */
@@ -38,13 +41,16 @@ public interface EntityDao<E, K> {
     /**
      * Updates entity
      *
+     * @param entity is the entity
      * @return the optional object of an updated entity
      * @throws DaoException if there is any problem during access
      */
     Optional<E> update(E entity) throws DaoException;
 
     /**
-     * @param id the entity's id
+     * Delete entity
+     *
+     * @param id is the entity's id
      * @throws DaoException if there is any problem occurred during  access
      */
     void delete(K id) throws DaoException;

@@ -34,7 +34,7 @@ public class RegistrationCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAdmin(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
                 var login = request.getParameter(RequestParameter.USER_LOGIN);
                 var password = request.getParameter(RequestParameter.USER_PASSWORD);

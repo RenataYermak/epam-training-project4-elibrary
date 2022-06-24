@@ -64,8 +64,6 @@
                     <td class="cell">${user.secondName}</td>
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
-                        <%--                    <td class="cell">${user.status.name}</td>--%>
-<%--                    <td class="cell">${user.activationDate}</td>--%>
                     <td class="cell">
                         <fmt:parseDate value="${user.activationDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
                         <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>

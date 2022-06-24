@@ -13,7 +13,7 @@ import java.sql.*;
 
 import java.util.*;
 
-import static by.yermak.eliblary.dao.QuerySQL.*;
+import static by.yermak.eliblary.dao.QuerySql.*;
 
 public class  BookDaoImpl implements BookDao {
     private static final Logger LOGGER = LogManager.getLogger();

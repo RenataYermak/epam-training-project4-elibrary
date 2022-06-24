@@ -6,6 +6,7 @@
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Books Orders</title>
@@ -70,17 +71,18 @@
                 <tr class="row">
                     <td class="cell">${order.book.title}</td>
                     <td class="cell">${order.book.author}</td>
-                    <td class="cell">${order.user.firstName} ${order.user.secondName}</td>
+                    <td class="cell">${order.user.login}</td>
                     <td class="cell">${order.type.name}</td>
                     <td class="cell">${order.status.name}</td>
                     <c:if test="${orderStatus == 'ordered'}">
-                        <fmt:parseDate value="${order.orderedDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
-                        <td class="cell"> <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
-<%--                        <td class="cell">${order.orderedDate}</td>--%>
+                        <fmt:parseDate value="${order.orderedDate}" pattern="y-M-dd'T'H:m"
+                                       var="myParseDate"></fmt:parseDate>
+                        <td class="cell"><fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
                     </c:if>
                     <c:if test="${orderStatus == 'reserved'}">
-                        <fmt:parseDate value="${order.reservedDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
-                        <td class="cell"><fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
+                        <fmt:parseDate value="${order.reservedDate}" pattern="y-M-dd'T'H:m"
+                                       var="myParseDate"></fmt:parseDate>
+                        <td class="cell"><fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
                     </c:if>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <td class="cell">
@@ -91,6 +93,7 @@
                                             value="reserve_book">
                                         <fmt:message key="orders.button.reserve"/>
                                     </button>
+                                    <hr/>
                                     <button class="actionButton rejectButton" type="submit" name="command"
                                             value="reject_order">
                                         <fmt:message key="orders.button.reject"/>
@@ -100,7 +103,7 @@
                             <c:if test="${orderStatus == 'reserved'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton" type="submit" name="command"
+                                    <button class="actionButton " type="submit" name="command"
                                             value="return_book">
                                         <fmt:message key="orders.button.return"/>
                                     </button>
@@ -111,6 +114,138 @@
                 </tr>
             </c:forEach>
         </table>
+    </c:if>
+    <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+        <c:if test="${orderStatus == 'ordered'}">
+            <div class="container">
+                <div class="rows" style="justify-content: start">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <c:if test="${requestScope.page != 1}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=ordered&page=${requestScope.page-1}">
+                                    <span aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+                            <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                                <c:choose>
+                                    <c:when test="${requestScope.page eq i}">
+                                        <li><a class="page-link">${i}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a class="page-link"
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=ordered&page=${i}">${i}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=ordered&page=${requestScope.page+1}">
+                                    <span aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${orderStatus == 'reserved'}">
+            <div class="container">
+                <div class="rows" style="justify-content: start">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <c:if test="${requestScope.page != 1}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=reserved&page=${requestScope.page-1}">
+                                    <span aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+                            <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                                <c:choose>
+                                    <c:when test="${requestScope.page eq i}">
+                                        <li><a class="page-link">${i}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a class="page-link"
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=reserved&page=${i}">${i}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_status&orderStatus=reserved&page=${requestScope.page+1}">
+                                    <span aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </c:if>
+    </c:if>
+    <c:if test="${sessionScope.authUser.role == 'USER'}">
+        <c:if test="${orderStatus == 'ordered'}">
+            <div class="container">
+                <div class="rows" style="justify-content: start">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <c:if test="${requestScope.page != 1}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${requestScope.page-1}">
+                                    <span aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+                            <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                                <c:choose>
+                                    <c:when test="${requestScope.page eq i}">
+                                        <li><a class="page-link">${i}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a class="page-link"
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${i}">${i}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${requestScope.page+1}">
+                                    <span aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${orderStatus == 'reserved'}">
+            <div class="container">
+                <div class="rows" style="justify-content: start">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <c:if test="${requestScope.page != 1}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${requestScope.page-1}">
+                                    <span aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+                            <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                                <c:choose>
+                                    <c:when test="${requestScope.page eq i}">
+                                        <li><a class="page-link">${i}</a></li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li><a class="page-link"
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${i}">${i}</a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                            <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${requestScope.page+1}">
+                                    <span aria-hidden="true">&raquo;</span></a></li>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </c:if>
     </c:if>
     <c:if test="${orders.size() == 0}">
         <p class="info-style">There are no <span class="info-style-srh">${orderStatus}</span> books</p>

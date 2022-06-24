@@ -1,6 +1,6 @@
 package by.yermak.eliblary.dao;
 
-public final class QuerySQL {
+public final class QuerySql {
     /**
      * user
      */
@@ -362,7 +362,42 @@ public final class QuerySQL {
             JOIN users u ON o.user_id = u.user_id
             JOIN order_statuses os on os.order_status_id = o.status_id
             JOIN order_types ot on ot.order_type_id = o.type_id""";
+    public static final String FIND_PAGE_QUERY_ORDERS = """
+            SELECT o.order_id,
+                   os.order_status_name,
+                   ot.order_type_name,
+                   o.ordered_date,
+                   o.reserved_date,
+                   o.returned_date,
+                   o.rejected_date,
+                   u.user_id,
+                   u.login,
+                   u.password,
+                   u.firstname,
+                   u.secondname,
+                   u.email,
+                   ur.role_name,
+                   us.status_name,
+                   u.activation_date,
+                   u.deactivation_date,
+                   b.book_id,
+                   b.title,
+                   b.author,
+                   bc.category_name,
+                   b.publish_year,
+                   b.description,
+                   b.number
+            FROM orders o
+            JOIN books b ON b.book_id = o.book_id
+            JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN users u ON u.user_id = o.user_id
+            JOIN user_roles ur ON u.role_id = ur.role_id
+            JOIN user_statuses us ON us.user_status_id = u.status_id
+            JOIN order_types ot ON ot.order_type_id = o.type_id
+            JOIN order_statuses os ON os.order_status_id = o.status_id
+            WHERE os.order_status_name = ?
+            LIMIT ?,?""";
 
-    private QuerySQL() {
+    private QuerySql() {
     }
 }

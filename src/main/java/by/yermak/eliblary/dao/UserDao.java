@@ -7,91 +7,94 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The interface User dao
+ * Interface describes the opportunity that data source provide to store and
+ * restore {@link User} entity
  */
 public interface UserDao extends EntityDao<User, Long> {
     /**
-     * Checks if email already exists.
+     * Checks if {@link User}'s email already exists.
      *
-     * @param email the user's email
+     * @param email is the {@link User}'s email
      * @return whether an email was found
      * @throws DaoException if there is any problem during access
      */
     boolean isEmailExist(String email) throws DaoException;
+
     /**
-     * Checks if email already exists.
+     * Checks if {@link User}'s login already exists.
      *
-     * @param login the user's login
-     * @return whether an email was found
+     * @param login is  the {@link User}'s login
+     * @return whether a login was found
      * @throws DaoException if there is any problem during access
      */
     boolean isLoginExist(String login) throws DaoException;
 
     /**
-     * Finds a user with the specified login.
+     * Finds a {@link User} with the specified {@link User}'s login.
      *
-     * @param login the user's login
-     * @return the optional object of a user
+     * @param login is the {@link User}'s login
+     * @return the optional object of a {@link User}
      * @throws DaoException if there is any problem during access
      */
     Optional<User> findByLogin(String login) throws DaoException;
 
     /**
-     * Finds a user with the specified login and password.
+     * Finds a {@link User} with the specified {@link User}'s login and {@link User}'s password.
      *
-     * @param login    the user's login
-     * @param password the user's email
-     * @return the optional object of a user
+     * @param login    is the {@link User}'s login
+     * @param password is the {@link User}'s email
+     * @return the optional object of a {@link User}
      * @throws DaoException if there is any problem during access
      */
     Optional<User> find(String login, String password) throws DaoException;
 
     /**
-     * Finds users in search query and collect them in the list
+     * Finds nd returns List of {@link User}'s in search query
      *
-     * @return a list of users
+     * @param searchQuery is the string of search {@link User}
+     * @return a list of {@link User}
      * @throws DaoException if there is any problem during access
      */
     List<User> findUsersByQuery(String searchQuery) throws DaoException;
 
     /**
-     * Find all activated users and collect them in the list
+     * Find all activated  {@link User} and collect them in the list
      *
-     * @return the list of an activated users
+     * @return the list of an activated {@link User}
      * @throws DaoException if there is any problem during access
      */
     List<User> findActivatedUsers() throws DaoException;
 
     /**
-     * Find all deactivated users and collect them in the list
+     * Find all deactivated {@link User} and collect them in the list
      *
-     * @return the list of a deactivated users
+     * @return the list of a deactivated of {@link User}
      * @throws DaoException if there is any problem during access
      */
     List<User> findDeactivatedUsers() throws DaoException;
 
     /**
-     * Deactivated users
+     * Deactivated {@link User}
      *
-     * @param id the id
+     * @param id is the{@link User}'s id
      * @throws DaoException if there is any problem during access
      */
     void deactivate(Long id) throws DaoException;
 
     /**
-     * Update password
+     * Update {@link User}'s password
      *
-     * @param id       the id
-     * @param password the new password
+     * @param id       is the {@link User}'s id
+     * @param password is the new {@link User}'s password
      * @throws DaoException if there is any problem during access
      */
     void updatePassword(Long id, String password) throws DaoException;
 
     /**
-     * Finds users in page
+     * Finds and returns the {@link User} list in page
      *
      * @param page count pages
-     * @return a list of books in page
+     * @return a list of {@link User} in page
      * @throws DaoException if there is any problem during access
      */
     List<User> findAlL(int page) throws DaoException;

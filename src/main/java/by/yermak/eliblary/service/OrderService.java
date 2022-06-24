@@ -13,35 +13,10 @@ import java.util.List;
  * Describes the behavior of {@link Order} entity.
  */
 public interface OrderService {
-
-    /**
-     * Find user {@link Order} instance by <tt>id</tt>
-     *
-     * @param id {@link Order}'s id
-     * @return {@link Order} instance
-     * @throws ServiceException if {@link Order} with <tt>login</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Order}
-     *                          into the data source
-     */
-    Order findOrder(Long id) throws ServiceException;
-
-    /**
-     * Find all orders list {@link Order}
-     *
-     * @return all users list {@link Order}
-     * @throws ServiceException if {@link Order} in empty
-     *                          occurs after searching {@link Order} into the data source
-     */
-    List<Order> findAllOrders() throws ServiceException;
-
-
     /**
      * Creat {@link Order} with filled fields
      *
-//     * @param bookId  is filled user instance
-//     * @param userId  is filled user instance
-//     * @param type {@link Type} is filled user instance
-     * @return user {@link Order}
+     * @return order {@link Order}
      * @throws ServiceException if an error occurs while writing new {@link Order} into
      *                          data source
      */
@@ -98,4 +73,14 @@ public interface OrderService {
      */
     void rejectedOrder(Long orderId) throws ServiceException;
 
+    /**
+     * Find orders in page  {@link Order}
+     *
+     * @param page count pages
+     * @return all  orders list {@link Order} instance
+     * @throws ServiceException if  {@link Order}'s list don"t into
+     *                          data source or if an error occurs while searching {@link Order}
+     *                          into the data source
+     */
+    List<Order> findAll(int page, Status orderStatus) throws ServiceException;
 }

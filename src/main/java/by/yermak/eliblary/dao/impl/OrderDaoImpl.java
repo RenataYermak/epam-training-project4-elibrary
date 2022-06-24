@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.QuerySQL.*;
+import static by.yermak.eliblary.dao.QuerySql.*;
 
 public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -47,11 +47,11 @@ public class OrderDaoImpl implements OrderDao {
     public List<Order> findOrdersByUserIdAndOrderStatus(Long userId, Status orderStatus) throws DaoException {
         LOGGER.log(Level.INFO, "method findBooksByUserIdAndOrderStatus");
         List<Order> orders = new ArrayList<>();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS)) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(SELECT_ORDERED_BOOKS_BY_USER_ID_AND_STATUS)) {
             preparedStatement.setLong(1, userId);
             preparedStatement.setString(2, orderStatus.toString());
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            try (var resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     var optionalBook = orderMapper.map(resultSet);
                     optionalBook.ifPresent(orders::add);
@@ -68,21 +68,21 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Long orderBook(Order order) throws DaoException {
         LOGGER.log(Level.INFO, "method orderBook");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement psOrderBook = connection.prepareStatement(ORDER_BOOK, Statement.RETURN_GENERATED_KEYS);
-             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_LESS)) {
-            psOrderBook.setLong(1, order.getBook().getId());
-            psOrderBook.setLong(2, order.getUser().getId());
-            psOrderBook.setString(3, order.getType().toString());
-            psOrderBook.executeUpdate();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatementOrderBook = connection.prepareStatement(ORDER_BOOK, Statement.RETURN_GENERATED_KEYS);
+             var preparedStatementBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_LESS)) {
+            preparedStatementOrderBook.setLong(1, order.getBook().getId());
+            preparedStatementOrderBook.setLong(2, order.getUser().getId());
+            preparedStatementOrderBook.setString(3, order.getType().toString());
+            preparedStatementOrderBook.executeUpdate();
             Long orderId = null;
-            try (ResultSet resultSet = psOrderBook.getGeneratedKeys()) {
+            try (var resultSet = preparedStatementOrderBook.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     orderId = resultSet.getLong(1);
                 }
                 if (orderId != null) {
-                    psUpdateBookNumber.setLong(1, orderId);
-                    psUpdateBookNumber.executeUpdate();
+                    preparedStatementBookNumber.setLong(1, orderId);
+                    preparedStatementBookNumber.executeUpdate();
                 }
             }
             return orderId;
@@ -96,8 +96,8 @@ public class OrderDaoImpl implements OrderDao {
     public void reserveBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method reserveBook");
         LocalDateTime localDate = LocalDateTime.now();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement psReserveBook = connection.prepareStatement(RESERVE_BOOK);) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var psReserveBook = connection.prepareStatement(RESERVE_BOOK);) {
             psReserveBook.setTimestamp(1, Timestamp.valueOf(localDate));
             psReserveBook.setLong(2, orderId);
             psReserveBook.executeUpdate();
@@ -111,14 +111,14 @@ public class OrderDaoImpl implements OrderDao {
     public void returnBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method returnBook");
         LocalDateTime localDate = LocalDateTime.now();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement psReturnBook = connection.prepareStatement(RETURN_BOOK);
-             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
-            psReturnBook.setTimestamp(1, Timestamp.valueOf(localDate));
-            psReturnBook.setLong(2, orderId);
-            psUpdateBookNumber.setLong(1, orderId);
-            psReturnBook.executeUpdate();
-            psUpdateBookNumber.executeUpdate();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatementReturnBook = connection.prepareStatement(RETURN_BOOK);
+             var preparedStatementBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
+            preparedStatementReturnBook.setTimestamp(1, Timestamp.valueOf(localDate));
+            preparedStatementReturnBook.setLong(2, orderId);
+            preparedStatementBookNumber.setLong(1, orderId);
+            preparedStatementReturnBook.executeUpdate();
+            preparedStatementBookNumber.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method returnBook: ", e);
             throw new DaoException("Exception when return book: {}", e);
@@ -129,26 +129,25 @@ public class OrderDaoImpl implements OrderDao {
     public void rejectOrder(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method rejectOrder");
         LocalDateTime localDate = LocalDateTime.now();
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement psRejectBook = connection.prepareStatement(REJECT_ORDER);
-             PreparedStatement psUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
-            psRejectBook.setTimestamp(1, Timestamp.valueOf(localDate));
-            psRejectBook.setLong(2, orderId);
-            psUpdateBookNumber.setLong(1, orderId);
-            psRejectBook.executeUpdate();
-            psUpdateBookNumber.executeUpdate();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatementRejectBook = connection.prepareStatement(REJECT_ORDER);
+             var preparedStatementUpdateBookNumber = connection.prepareStatement(SET_BOOKS_NUMBER_TO_ONE_MORE);) {
+            preparedStatementRejectBook.setTimestamp(1, Timestamp.valueOf(localDate));
+            preparedStatementRejectBook.setLong(2, orderId);
+            preparedStatementUpdateBookNumber.setLong(1, orderId);
+            preparedStatementRejectBook.executeUpdate();
+            preparedStatementUpdateBookNumber.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method rejectOrder: ", e);
             throw new DaoException("Exception when reject order: {}", e);
         }
     }
 
-
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_ORDER);) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(DELETE_ORDER);) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -160,10 +159,10 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Optional<Order> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
-        try (Connection connection = ConnectionPool.getInstance().getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID);) {
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(SELECT_ORDER_BY_ID);) {
             preparedStatement.setLong(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return orderMapper.map(resultSet);
             }
@@ -194,6 +193,45 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> findAlL(int page, Status orderStatus) throws DaoException {
+        List<Order> ordersOnPage = new ArrayList<>();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_ORDERS)) {
+            preparedStatement.setString(1, orderStatus.toString());
+            preparedStatement.setInt(2, ELEMENTS_ON_PAGE * (page - 1));
+            preparedStatement.setInt(3, ELEMENTS_ON_PAGE);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var optionalBook = orderMapper.map(resultSet);
+                    optionalBook.ifPresent(ordersOnPage::add);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find all users on defined page ", e);
+        }
+        return ordersOnPage;
+    }
+//    @Override
+//    public List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException {
+//        LOGGER.log(Level.INFO, "method findOrdersByOrderStatus");
+//        List<Order> orders = new ArrayList<>();
+//        try (var connection = ConnectionPool.getInstance().getConnection();
+//             var preparedStatement = connection.prepareStatement(SELECT_BOOKS_BY_ORDER_STATUS)) {
+//            preparedStatement.setString(1, orderStatus.toString());
+//            try (var resultSet = preparedStatement.executeQuery()) {
+//                while (resultSet.next()) {
+//                    var optionalBook = orderMapper.map(resultSet);
+//                    optionalBook.ifPresent(orders::add);
+//                }
+//            }
+//        } catch (SQLException e) {
+//            LOGGER.log(Level.ERROR, "exception in method findOrdersByOrderStatus: ", e);
+//            throw new DaoException("Exception when find books by order status: {}", e);
+//        }
+//        return orders;
+//    }
+
+    @Override
     public Optional<Order> create(Order entity) throws DaoException {
         return Optional.empty();
     }
@@ -202,8 +240,6 @@ public class OrderDaoImpl implements OrderDao {
     public Optional<Order> update(Order entity) throws DaoException {
         return Optional.empty();
     }
-
-
 }
 
 

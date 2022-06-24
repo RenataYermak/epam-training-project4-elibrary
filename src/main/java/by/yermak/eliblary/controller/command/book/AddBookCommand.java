@@ -35,7 +35,7 @@ public class AddBookCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAdmin(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
                 var title = request.getParameter(RequestParameter.BOOK_TITLE);
                 var author = request.getParameter(RequestParameter.BOOK_AUTHOR);

@@ -33,7 +33,7 @@ public class DeleteBookCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAdmin(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
                 bookService.delete(id);

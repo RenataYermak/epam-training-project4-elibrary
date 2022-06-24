@@ -1,6 +1,6 @@
 package by.yermak.eliblary.dao.impl;
 
-import by.yermak.eliblary.dao.QuerySQL;
+import by.yermak.eliblary.dao.QuerySql;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.mapper.impl.UserMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
@@ -17,30 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.QuerySQL.*;
+import static by.yermak.eliblary.dao.QuerySql.*;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger();
     private final UserMapper userMapper = new UserMapper();
-
-    @Override
-    public List<User> findAlL(int page) throws DaoException {
-        List<User> usersOnPage = new ArrayList<>();
-        try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_USERS)) {
-            preparedStatement.setInt(1, ELEMENTS_ON_PAGE * (page - 1));
-            preparedStatement.setInt(2, ELEMENTS_ON_PAGE);
-            try (var resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    var optionalBook = userMapper.map(resultSet);
-                    optionalBook.ifPresent(usersOnPage::add);
-                }
-            }
-        } catch (SQLException e) {
-            throw new DaoException("Failed to find all users on defined page ", e);
-        }
-        return usersOnPage;
-    }
 
     @Override
     public Optional<User> find(Long id) throws DaoException {
@@ -208,7 +189,7 @@ public class UserDaoImpl implements UserDao {
             constructPreparedStatement(preparedStatement, user);
             preparedStatement.setLong(7, user.getId());
             preparedStatement.executeUpdate();
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
             throw new DaoException("Exception when update user: {}", e);
         }
@@ -261,7 +242,7 @@ public class UserDaoImpl implements UserDao {
     public boolean isEmailExist(String email) throws DaoException {
         boolean isExist = false;
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_EMAIL_EXIST)) {
+             var preparedStatement = connection.prepareStatement(QuerySql.SQL_IS_EMAIL_EXIST)) {
             preparedStatement.setString(1, email);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -279,7 +260,7 @@ public class UserDaoImpl implements UserDao {
     public boolean isLoginExist(String login) throws DaoException {
         boolean isExist = false;
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySQL.SQL_IS_LOGIN_EXIST)) {
+             var preparedStatement = connection.prepareStatement(QuerySql.SQL_IS_LOGIN_EXIST)) {
             preparedStatement.setString(1, login);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -291,6 +272,25 @@ public class UserDaoImpl implements UserDao {
             throw new DaoException("failed to check if user with " + login + " exists", e);
         }
         return isExist;
+    }
+
+    @Override
+    public List<User> findAlL(int page) throws DaoException {
+        List<User> usersOnPage = new ArrayList<>();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_USERS)) {
+            preparedStatement.setInt(1, ELEMENTS_ON_PAGE * (page - 1));
+            preparedStatement.setInt(2, ELEMENTS_ON_PAGE);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var optionalBook = userMapper.map(resultSet);
+                    optionalBook.ifPresent(usersOnPage::add);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find all users on defined page ", e);
+        }
+        return usersOnPage;
     }
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, User user) throws SQLException {

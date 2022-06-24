@@ -55,21 +55,6 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException("Exception when findBooksByUserIdAndOrderStatus: {}", e);
         }
     }
-    @Override
-    public Order findOrder(Long id) throws ServiceException {
-        return null;
-    }
-
-    @Override
-    public List<Order> findAllOrders() throws ServiceException {
-        LOGGER.log(Level.INFO, "method findAll");
-        try {
-            return orderDao.findAll();
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
-            throw new ServiceException("Exception when findAll books: {}", e);
-        }
-    }
 
     @Override
     public Long orderBook(Order order) throws ServiceException {
@@ -116,30 +101,12 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException("Exception when reject order: {}", e);
         }
     }
-    //    @Override
-//    public BookOrder findOrder(Long id) throws ServiceException {
-//        LOGGER.log(Level.INFO, "method find");
-//        try {
-//            Optional<BookOrder> optionalOrder = orderDao.find(id);
-//            if (optionalOrder.isPresent()) {
-//                return optionalOrder.get();
-//            } else {
-//                throw new ServiceException("There is no such order");
-//            }
-//        } catch (DaoException e) {
-//            LOGGER.log(Level.ERROR, "exception in method find: ", e);
-//            throw new ServiceException("Exception when find order: {}", e);
-//        }
-//    }
-//
-//    @Override
-//    public List<BookOrder> findAll() throws ServiceException {
-//        LOGGER.log(Level.INFO, "method findAll");
-//        try {
-//            return orderDao.findAll();
-//        } catch (DaoException e) {
-//            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
-//            throw new ServiceException("Exception when findAll orders: {}", e);
-//        }
-//    }
+    @Override
+    public List<Order> findAll(int page,Status orderStatus) throws ServiceException {
+        try {
+            return orderDao.findAlL(page, orderStatus);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception in findAllUsers method", e);
+        }
+    }
 }

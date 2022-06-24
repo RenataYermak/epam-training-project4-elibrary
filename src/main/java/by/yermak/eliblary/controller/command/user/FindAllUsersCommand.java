@@ -31,7 +31,7 @@ public class FindAllUsersCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         String page = request.getParameter(RequestAttribute.PAGE);
         int currentPage = page != null ? parseIntParameter(page) : RequestAttribute.DEFAULT_PAGE_NUMBER;
-        if (isAdmin(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
                 List<User> userList = new ArrayList<>(userService.findAll());
                 List<User> users = new ArrayList<>(userService.findAll(currentPage));

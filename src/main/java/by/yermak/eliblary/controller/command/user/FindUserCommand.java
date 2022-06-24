@@ -27,7 +27,7 @@ public class FindUserCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
-        if (isAuthorized(session)) {
+        if (isAuthorized(session) && isAuthorized(session)) {
             try {
                 Long userId = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 var user = userService.findUser(userId);

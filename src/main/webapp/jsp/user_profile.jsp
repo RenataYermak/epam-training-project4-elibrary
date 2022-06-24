@@ -4,6 +4,7 @@
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>${user.firstName}</title>
@@ -131,12 +132,6 @@
                     </td>
                 </tr>
             </c:if>
-            <%--<td><br/></td>--%>
-
-            <%--            <tr>
-                            <td class="content-table">Repeat Password:</td>
-                            <td><input type="password" name="repeatPassword"></td>
-                        </tr>--%>
         </table>
         <c:if test="${successMessageUserUpdated != null || warningMessagePassMismatch != null}">
             <div class="content-submit-btn-main">

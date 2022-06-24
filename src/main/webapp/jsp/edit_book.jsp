@@ -3,6 +3,7 @@
 <%@ taglib prefix="crt" uri="/WEB-INF/tld/copyright.tld" %>
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="locale"/>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Book</title>

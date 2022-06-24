@@ -1,5 +1,6 @@
 package by.yermak.yermak.eliblary.service.impl;
 
+import by.yermak.eliblary.entity.user.Role;
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.UserService;
@@ -22,5 +23,43 @@ class UserServiceImplTest {
         List<User> actualUsers = userService.findAll();
         assertNotNull(actualUsers);
         assertThat(actualUsers.size(), is(expectedNumberOfUsers));
+    }
+
+    @Test
+    void shouldGetUserById() throws ServiceException {
+        User actualUser = userService.findUser(438L);
+        assertNotNull(actualUser);
+    }
+
+    @Test
+    void shouldRemoveUser() throws ServiceException {
+        int expectedNumberOfUsers = 19;
+        userService.delete(391L);
+        List<User> actualUsers = userService.findAll();
+        assertNotNull(actualUsers);
+        assertThat(actualUsers.size(), is(expectedNumberOfUsers));
+        userService.create(userCreator(391L));
+    }
+
+    @Test
+    void shouldCreateUser() throws ServiceException {
+        int expectedNumberOfUsers = 20;
+        userService.create(userCreator(400L));
+        List<User> actualUsers = userService.findAll();
+        assertNotNull(actualUsers);
+        assertThat(actualUsers.size(), is(expectedNumberOfUsers));
+        userService.delete(400L);
+    }
+
+    User userCreator(Long id) {
+        User user = new User();
+        user.setId(id);
+        user.setLogin("test");
+        user.setPassword("Test19979");
+        user.setFirstName("test");
+        user.setSecondName("test");
+        user.setEmail("test@mail.ru");
+        user.setRole(Role.ADMIN);
+        return user;
     }
 }

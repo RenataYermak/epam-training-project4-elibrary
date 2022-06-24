@@ -31,7 +31,7 @@ public class DeactivateUserCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAdmin(session)) {
+        if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 userService.deactivate(id);

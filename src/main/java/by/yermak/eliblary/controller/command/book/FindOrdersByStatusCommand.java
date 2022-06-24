@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FindOrdersByStatusCommand implements Command {
@@ -40,23 +41,28 @@ public class FindOrdersByStatusCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        String page = request.getParameter(RequestAttribute.PAGE);
+        int currentPage = page != null ? parseIntParameter(page) : RequestAttribute.DEFAULT_PAGE_NUMBER;
         if (isAdmin(session) && isAuthorized(session)) {
             try {
                 Status orderStatus = Status.valueOf(
                         request.getParameter(RequestParameter.ORDER_STATUS).toUpperCase());
-                List<Order> orders = orderService.findOrdersByOrderStatus(orderStatus);
-
+                List<Order> orderList = new ArrayList<>(orderService.findOrdersByOrderStatus(orderStatus));
+                List<Order> orders = new ArrayList<>(orderService.findAll(currentPage,orderStatus));
+                int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 }
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
+                request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
+                request.setAttribute(RequestAttribute.PAGE, currentPage);
                 request.setAttribute(RequestAttribute.ORDERS, orders);
 
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find books by orderStatus: ", e);
-               // return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);
