@@ -25,6 +25,7 @@ public final class ColumnName {
     public static final String PUBLISH_YEAR = "b.publish_year";
     public static final String DESCRIPTION = "b.description";
     public static final String NUMBER = "b.number";
+    public static final String PICTURE = "b.picture";
 
     /**
      * bookOrder

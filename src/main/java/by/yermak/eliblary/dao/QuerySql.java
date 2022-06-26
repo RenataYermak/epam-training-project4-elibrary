@@ -171,7 +171,8 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM books b
             JOIN book_categories bc ON bc.category_id = b.category_id""";
     public static final String SELECT_BOOK_BY_ID = """
@@ -181,13 +182,14 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM books b
             JOIN book_categories bc ON b.category_id = bc.category_id
             WHERE b.book_id=?""";
     public static final String INSERT_BOOK = """
-            INSERT INTO books (title, author, category_id, publish_year, description, number)
-            VALUES(?, ?, (SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?), ?, ?, ?)""";
+            INSERT INTO books (title, author, category_id, publish_year, description, number, picture)
+            VALUES(?, ?, (SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?), ?, ?, ?, ?)""";
     public static final String UPDATE_BOOK = """
             UPDATE books b
             SET b.title=?,
@@ -195,7 +197,8 @@ public final class QuerySql {
                 b.category_id=(SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?),
                 b.publish_year=?,
                 b.description=?,
-                b.number=?
+                b.number=?,
+                b.picture=?
             WHERE b.book_id=?""";
     public static final String DELETE_BOOK = """
             DELETE
@@ -208,11 +211,12 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM books b
             JOIN book_categories bc ON b.category_id = bc.category_id
             WHERE b.title LIKE CONCAT('%',?,'%') OR b.author LIKE CONCAT('%',?,'%')""";
-    public static final int ELEMENTS_ON_PAGE = 7;
+    public static final int ELEMENTS_ON_PAGE = 10;
     public static final String FIND_PAGE_QUERY_BOOKS = """
             SELECT b.book_id,
                    b.title,
@@ -220,7 +224,8 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM books b
             JOIN book_categories bc ON b.category_id = bc.category_id
             LIMIT ?, ?""";
@@ -252,7 +257,8 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id
@@ -286,7 +292,8 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id
@@ -386,7 +393,8 @@ public final class QuerySql {
                    bc.category_name,
                    b.publish_year,
                    b.description,
-                   b.number
+                   b.number,
+                   b.picture
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id

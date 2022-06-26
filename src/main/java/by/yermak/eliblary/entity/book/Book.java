@@ -18,18 +18,21 @@ public class Book implements Serializable {
     private int publishYear;
     private String description;
     private int number;
+    private String picture;
 
     public Book() {
     }
+
     public Book(BookBuilder builder) {
         this.id = builder.getId();
         this.title = builder.getTitle();
         this.author = builder.getAuthor();
-        this.category=builder.getCategory();
+        this.category = builder.getCategory();
         this.publishYear = builder.getPublishYear();
-        this.publishYear=builder.getPublishYear();
+        this.publishYear = builder.getPublishYear();
         this.description = builder.getDescription();
-        this.number=builder.getNumber();
+        this.number = builder.getNumber();
+        this.picture = builder.getPicture();
     }
 
     public Long getId() {
@@ -88,19 +91,25 @@ public class Book implements Serializable {
         this.number = number;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String pictures) {
+        this.picture = pictures;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return publishYear == book.publishYear && number == book.number && Objects.equals(id, book.id) &&
-                Objects.equals(title, book.title) && Objects.equals(author, book.author) && category == book.category &&
-                Objects.equals(description, book.description);
+        return publishYear == book.publishYear && number == book.number && Objects.equals(id, book.id) && Objects.equals(title, book.title) && Objects.equals(author, book.author) && category == book.category && Objects.equals(description, book.description) && Objects.equals(picture, book.picture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, category, publishYear, description, number);
+        return Objects.hash(id, title, author, category, publishYear, description, number, picture);
     }
 
     @Override
@@ -114,6 +123,7 @@ public class Book implements Serializable {
         builder.append(" publishYear = ").append(publishYear);
         builder.append(" description = ").append(description);
         builder.append(" number = ").append(number);
+        builder.append(" picture = ").append(picture);
         return builder.toString();
     }
 }

@@ -1,5 +1,6 @@
 package by.yermak.eliblary.service.impl;
 
+import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
 import by.yermak.eliblary.dao.OrderDao;
@@ -14,8 +15,13 @@ import by.yermak.eliblary.validator.Validator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import by.yermak.eliblary.controller.RequestParameter.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static by.yermak.eliblary.controller.RequestParameter.*;
 
 public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -70,23 +76,24 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-
     @Override
-    public Book create(Book book) throws ServiceException {
-        LOGGER.log(Level.INFO, "method create");
-        if (!validator.isAuthorValid(book.getAuthor()) || !validator.isNameValid(book.getTitle())) {
-            throw new ServiceException("Input data is invalid");
-        }
+    public boolean create(Map<String, String> bookData, byte[] picture) throws ServiceException {
         try {
-            var optionalBook = bookDao.create(book);
-            if (optionalBook.isEmpty()) {
-                throw new ServiceException("There is no such book");
-            }
-            return optionalBook.get();
+            Book book = new Book();
+            book.setTitle(bookData.get(BOOK_TITLE));
+            book.setAuthor(bookData.get(BOOK_AUTHOR));
+            book.setCategory(Category.valueOf(bookData.get(BOOK_CATEGORY).toUpperCase()));
+            book.setPublishYear(Integer.parseInt(bookData.get(BOOK_PUBLISH_YEAR)));
+            book.setDescription(bookData.get(BOOK_DESCRIPTION));
+            book.setNumber(Integer.parseInt(bookData.get(BOOK_NUMBER)));
+
+            bookDao.create(book, picture);
+            return true;
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method create: ", e);
-            throw new ServiceException("Exception when create book: {}", e);
+            LOGGER.log(Level.ERROR, "ProductService error while addNewProduct. {}", e.getMessage());
+            throw new ServiceException("ProductService error while addNewProduct.", e);
         }
+
     }
 
     @Override

@@ -19,7 +19,7 @@ public final class MessagesKey {
     public static final String SUCCESS_BOOK_UPDATE = "book.update.successfully";
     public static final String BOOK_NOT_UPDATE = "book.not.update";
     public static final String SEARCH_BOOK_FAIL = "search.book.fail";
-
+    public static final String MESSAGE_PICTURE_WRONG = "message.picture.wrong";
     private MessagesKey() {
     }
 }

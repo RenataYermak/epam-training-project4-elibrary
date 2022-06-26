@@ -11,6 +11,7 @@ public class BookBuilder {
     private int publishYear;
     private String description;
     private int number;
+    private String picture;
 
     public Book build() {
         return new Book(this);
@@ -38,7 +39,7 @@ public class BookBuilder {
         return author;
     }
 
-    public  BookBuilder setAuthor(String author) {
+    public BookBuilder setAuthor(String author) {
         this.author = author;
         return this;
     }
@@ -79,4 +80,12 @@ public class BookBuilder {
         return this;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public BookBuilder setPicture(String picture) {
+        this.picture = picture;
+        return this;
+    }
 }

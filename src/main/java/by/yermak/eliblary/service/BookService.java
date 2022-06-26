@@ -1,6 +1,7 @@
 package by.yermak.eliblary.service;
 
 import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.Validator;
@@ -8,12 +9,24 @@ import by.yermak.eliblary.validator.Validator;
 import java.io.Serializable;
 import java.sql.Statement;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
  * Describes the behavior of {@link Book} entity.
  */
 public interface BookService {
+    /**
+     * Creat {@link Book} with filled fields
+     *
+     * @param bookData is the {@link Book}  filled book instance
+     * @param picture  is the {@link Book}'s picture
+     * @return true if book created successfully
+     * @throws ServiceException if an error occurs while writing new {@link Book} into
+     *                          data source
+     */
+    boolean create(Map<String, String> bookData, byte[] picture) throws ServiceException;
+
     /**
      * Find book {@link Book} instance by <tt>id</tt>
      *
@@ -42,16 +55,6 @@ public interface BookService {
      *                          into the data source
      */
     List<Book> findBooksByQuery(String searchQuery) throws ServiceException;
-
-    /**
-     * Creat {@link Book} with filled fields
-     *
-     * @param book {@link Book} is filled book instance
-     * @return book {@link Book}
-     * @throws ServiceException if an error occurs while writing new {@link Book} into
-     *                          data source
-     */
-    Book create(Book book) throws ServiceException;
 
     /**
      * Update {@link Book} with filled fields
@@ -84,4 +87,5 @@ public interface BookService {
      *                          into the data source
      */
     List<Book> findAllBooks(int page) throws ServiceException;
+
 }

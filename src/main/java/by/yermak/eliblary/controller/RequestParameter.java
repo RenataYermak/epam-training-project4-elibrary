@@ -16,6 +16,8 @@ public final class RequestParameter {
     public static final String BOOK_PUBLISH_YEAR = "publishYear";
     public static final String BOOK_CATEGORY = "category";
     public static final String BOOK_NUMBER = "number";
+    public static final String BOOK_PICTURE= "picture";
+    public static final String BOOK_DESCRIPTION= "description";
 
     /**
      * User params

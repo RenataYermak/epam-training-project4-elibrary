@@ -41,8 +41,14 @@
             </div>
         </div>
         <hr/>
-        <form action="controller" method="post">
+        <div>
+        </div>
+        <form action="${pageContext.request.contextPath}/controller?command=add_book" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="command" value="add_book">
             <table class="content-table-main">
+                <tr>
+                    <input type="file" name="picture" accept=".png, .jpg, .jpeg"  />
+                </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.title"/></td>
                     <td><input type="text" name="title" required pattern="^[\p{L}\d-]{2,25}$"

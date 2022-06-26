@@ -9,13 +9,16 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 
 import java.util.*;
 
 import static by.yermak.eliblary.dao.QuerySql.*;
 
-public class  BookDaoImpl implements BookDao {
+public class BookDaoImpl implements BookDao {
     private static final Logger LOGGER = LogManager.getLogger();
     private final BookMapper bookMapper = new BookMapper();
 
@@ -37,7 +40,8 @@ public class  BookDaoImpl implements BookDao {
         }
         return booksOnPage;
     }
-        @Override
+
+    @Override
     public Optional<Book> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
         try (var connection = ConnectionPool.getInstance().getConnection();
@@ -95,26 +99,39 @@ public class  BookDaoImpl implements BookDao {
     }
 
     @Override
-    public Optional<Book> create(Book book) throws DaoException {
+    public boolean create(Book book, byte[] picture) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
+        InputStream pictureStream = null;
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
-            constructPreparedStatement(preparedStatement, book);
-            preparedStatement.executeUpdate();
+            pictureStream = new ByteArrayInputStream(picture);
+
+            preparedStatement.setString(1, book.getTitle());
+            preparedStatement.setString(2, book.getAuthor());
+            preparedStatement.setString(3, book.getCategory().toString());
+            preparedStatement.setInt(4, book.getPublishYear());
+            preparedStatement.setString(5, book.getDescription());
+            preparedStatement.setInt(6, book.getNumber());
+            preparedStatement.setBlob(7, pictureStream);
+            preparedStatement.execute();
             try (var resultSet = preparedStatement.getGeneratedKeys()) {
                 if (resultSet.next()) {
                     book.setId(resultSet.getLong(1));
-                    var optionalBook = find(book.getId());
-                    if (optionalBook.isPresent()) {
-                        return Optional.of(book);
-                    }
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "exception in method create: ", e);
-            throw new DaoException("Exception when create book: {}", e);
+            LOGGER.log(Level.ERROR, "ProductDao error while create new product. {}", e.getMessage());
+            throw new DaoException("ProductDao error while create new product", e);
+        } finally {
+            try {
+                if (pictureStream != null) {
+                    pictureStream.close();
+                }
+            } catch (IOException e) {
+                LOGGER.log(Level.ERROR, "ProductDao error while create new product closing resources. {}", e.getMessage());
+            }
         }
-        return Optional.empty();
+        return true;
     }
 
     @Override
@@ -123,7 +140,7 @@ public class  BookDaoImpl implements BookDao {
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(UPDATE_BOOK)) {
             constructPreparedStatement(preparedStatement, book);
-            preparedStatement.setLong(7, book.getId());
+            preparedStatement.setLong(8, book.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method update: ", e);
@@ -143,6 +160,11 @@ public class  BookDaoImpl implements BookDao {
             LOGGER.log(Level.ERROR, "exception in method delete: ", e);
             throw new DaoException("Exception when delete book: {}", e);
         }
+    }
+
+    @Override
+    public Optional<Book> create(Book entity) throws DaoException {
+        return Optional.empty();
     }
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
