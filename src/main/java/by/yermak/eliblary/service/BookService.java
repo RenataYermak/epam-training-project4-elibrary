@@ -87,5 +87,14 @@ public interface BookService {
      *                          into the data source
      */
     List<Book> findAllBooks(int page) throws ServiceException;
+
+    /**
+     * Update {@link Book} with filled fields
+     *
+     * @param book    is the {@link Book}  filled book instance
+     * @param picture is the {@link Book}'s picture
+     * @return true if book update successfully
+     * @throws ServiceException if an error occurs while writing new {@link Book} into data source
+     */
     boolean update(Book book, byte[] picture) throws ServiceException;
 }

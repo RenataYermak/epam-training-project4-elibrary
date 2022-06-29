@@ -1,7 +1,6 @@
 package by.yermak.eliblary.dao.mapper;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 
 /**
