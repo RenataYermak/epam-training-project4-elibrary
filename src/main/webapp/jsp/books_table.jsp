@@ -104,13 +104,13 @@
                                 </c:when>
                                 <c:otherwise>
                                     <input hidden name="bookTitle" value="${book.title}">
-                                    <select name="type" disabled>
+                                    <select name="type" style="width: 100%;" disabled>
                                         <option value="reading_room" selected="selected"><fmt:message
                                                 key="table.label.reading_room"/></option>
                                         <option value="season_ticket"><fmt:message
                                                 key="table.label.season_ticket"/></option>
                                     </select>
-                                    <button disabled class="add-to-cart" type="submit" name="command"
+                                    <button disabled class="btn" style="width: 100%" type="submit" name="command"
                                             value="order_book">
                                         <fmt:message key="table.button.order"/>
                                     </button>

@@ -180,7 +180,7 @@
             </div>
         </c:if>
     </c:if>
-    <c:if test="${sessionScope.authUser.role == 'USER'}">
+    <c:if test="${sessionScope.authUser.role != 'ADMIN'}">
         <c:if test="${orderStatus == 'ordered'}">
             <div class="container">
                 <div class="rows" style="justify-content: start">
@@ -188,7 +188,7 @@
                         <ul class="pagination">
                             <c:if test="${requestScope.page != 1}">
                                 <li><a class="page-link"
-                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${requestScope.page-1}">
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=ordered&page=${requestScope.page-1}">
                                     <span aria-hidden="true">&laquo;</span></a></li>
                             </c:if>
                             <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
@@ -198,14 +198,14 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li><a class="page-link"
-                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${i}">${i}</a>
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=ordered&page=${i}">${i}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                             <c:if test="${requestScope.page lt requestScope.number_of_pages}">
                                 <li><a class="page-link"
-                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=ordered&page=${requestScope.page+1}">
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=ordered&page=${requestScope.page+1}">
                                     <span aria-hidden="true">&raquo;</span></a></li>
                             </c:if>
                         </ul>
@@ -220,7 +220,7 @@
                         <ul class="pagination">
                             <c:if test="${requestScope.page != 1}">
                                 <li><a class="page-link"
-                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${requestScope.page-1}">
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=reserved&page=${requestScope.page-1}">
                                     <span aria-hidden="true">&laquo;</span></a></li>
                             </c:if>
                             <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
@@ -230,14 +230,14 @@
                                     </c:when>
                                     <c:otherwise>
                                         <li><a class="page-link"
-                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${i}">${i}</a>
+                                               href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=reserved&page=${i}">${i}</a>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>
                             <c:if test="${requestScope.page lt requestScope.number_of_pages}">
                                 <li><a class="page-link"
-                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.getId()}&orderStatus=reserved&page=${requestScope.page+1}">
+                                       href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=reserved&page=${requestScope.page+1}">
                                     <span aria-hidden="true">&raquo;</span></a></li>
                             </c:if>
                         </ul>
