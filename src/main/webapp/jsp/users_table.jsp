@@ -30,32 +30,30 @@
         <div class="content-title">
             <h2><fmt:message key="page.title.users"/></h2>
         </div>
-        <div class="content-search">
+        <div class ="content-search">
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
-                    <input type="search" name="searchQuery" id="site-search"
-                           placeholder=
-                           <fmt:message key="users.label.user_search"/>
-                                   pattern="^[\p{L}\d-.]{1,25}$">
+                    <input class="search-form " type="search" name="searchQuery" id="site-search"
+                           placeholder=<fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
-                <button type="submit" name="command" value="user_search"><fmt:message
-                        key="users.button.search"/></button>
+                <button class="btn" style=" margin: -3px 10px 10px 0px" type="submit" name="command"
+                        value="book_search"><i class="fas fa-search"></i>
+                </button>
             </form>
         </div>
     </div>
     <hr/>
     <c:if test="${fn:length(users) > 0}">
         <table class="table">
-            <tr class="row header green">
-                <th class="cell"><fmt:message key="users.table.label.login"/></th>
-                <th class="cell"><fmt:message key="users.table.label.first_name"/></th>
-                <th class="cell"><fmt:message key="users.table.label.second_name"/></th>
-                <th class="cell"><fmt:message key="users.table.label.email"/></th>
-                <th class="cell"><fmt:message key="users.table.label.role"/></th>
-                    <%--                <th class="cell"><fmt:message key="users.table.label.status"/></th>--%>
-                <th class="cell"><fmt:message key="users.table.label.activation_date"/></th>
-                <th class="cell"><fmt:message key="users.table.label.deactivation_date"/></th>
-                <th class="cell"><fmt:message key="users.table.label.action"/></th>
+            <tr class="row-header-green">
+                <th class="cell-main"><fmt:message key="users.table.label.login"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.first_name"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.second_name"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.email"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.role"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.activation_date"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.deactivation_date"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.action"/></th>
             </tr>
             <c:forEach items="${users}" var="user">
                 <tr class="row">
@@ -77,7 +75,7 @@
                                 <label>
                                     <input hidden name="userId" value="${user.id}">
                                 </label>
-                                <button class="actionButton" type="submit" name="command" value="find_user">
+                                <button class="actionButton "style="margin-left: 5%" type="submit" name="command" value="find_user">
                                     <fmt:message key="users.button.edit"/>
                                 </button>
                             </form>

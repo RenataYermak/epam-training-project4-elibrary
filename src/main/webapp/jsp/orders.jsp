@@ -1,4 +1,3 @@
-.
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -35,42 +34,42 @@
                 <h2>${ordersPageTitle}</h2>
             </div>
         </c:if>
-        <div class="content-search">
+        <div class ="content-search">
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
-                    <input type="search" name="searchQuery" id="site-search" placeholder=
-                    <fmt:message key="table.label.book_search"/>
-                            required pattern="^[\p{L}\d-.]{2,25}$">
+                    <input class="search-form " type="search" name="searchQuery" id="site-search"
+                           placeholder=<fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
-                <button type="submit" name="command" value="book_search"><fmt:message
-                        key="orders.button.search"/></button>
+                <button class="btn" style=" margin: -3px 10px 0px 0px" type="submit" name="command"
+                        value="book_search"><i class="fas fa-search"></i>
+                </button>
             </form>
         </div>
     </div>
     <hr/>
     <c:if test="${orders.size() > 0}">
         <table class="table">
-            <tr class="row header green">
-                <th class="cell"><fmt:message key="book.label.title"/></th>
-                <th class="cell"><fmt:message key="book.label.author"/></th>
-                <th class="cell"><fmt:message key="orders.label.user_name"/></th>
-                <th class="cell"><fmt:message key="orders.label.type"/></th>
-                <th class="cell"><fmt:message key="orders.label.status"/></th>
+            <tr class="row-header-green">
+                <th class="cell-main"><fmt:message key="book.label.title"/></th>
+<%--                <th class="cell"><fmt:message key="book.label.author"/></th>--%>
+                <th class="cell-main"><fmt:message key="orders.label.user_name"/></th>
+                <th class="cell-main"><fmt:message key="orders.label.type"/></th>
+                <th class="cell-main"><fmt:message key="orders.label.status"/></th>
                 <c:if test="${orderStatus == 'ordered'}">
-                    <th class="cell"><fmt:message key="orders.label.ordered_date"/></th>
+                    <th class="cell-main"><fmt:message key="orders.label.ordered_date"/></th>
                 </c:if>
                 <c:if test="${orderStatus == 'reserved'}">
-                    <th class="cell"><fmt:message key="orders.label.reserved_date"/></th>
+                    <th class="cell-main"><fmt:message key="orders.label.reserved_date"/></th>
                 </c:if>
                 <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                    <th class="cell"><fmt:message key="orders.label.action"/></th>
+                    <th class="cell-main"><fmt:message key="orders.label.action"/></th>
                 </c:if>
 
             </tr>
             <c:forEach items="${orders}" var="order">
                 <tr class="row">
                     <td class="cell">${order.book.title}</td>
-                    <td class="cell">${order.book.author}</td>
+<%--                    <td class="cell">${order.book.author}</td>--%>
                     <td class="cell">${order.user.login}</td>
                     <td class="cell">${order.type.name}</td>
                     <td class="cell">${order.status.name}</td>
@@ -86,15 +85,15 @@
                     </c:if>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <td class="cell">
+
                             <c:if test="${orderStatus == 'ordered'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton reserveButton" type="submit" name="command"
+                                    <button class="actionButton reserveButton" style="margin: 0 10px 0 10%" type="submit" name="command"
                                             value="reserve_book">
                                         <fmt:message key="orders.button.reserve"/>
                                     </button>
-                                    <hr/>
-                                    <button class="actionButton rejectButton" type="submit" name="command"
+                                    <button class="actionButton reserveButton" style="background-color: #f67f7f;width: 70px" type="submit" name="command"
                                             value="reject_order">
                                         <fmt:message key="orders.button.reject"/>
                                     </button>
@@ -103,7 +102,7 @@
                             <c:if test="${orderStatus == 'reserved'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton " type="submit" name="command"
+                                    <button class="actionButton "style="margin-left: 10%" type="submit" name="command"
                                             value="return_book">
                                         <fmt:message key="orders.button.return"/>
                                     </button>

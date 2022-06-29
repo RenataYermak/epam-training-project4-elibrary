@@ -105,13 +105,7 @@ public class BookDaoImpl implements BookDao {
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(INSERT_BOOK, Statement.RETURN_GENERATED_KEYS)) {
             pictureStream = new ByteArrayInputStream(picture);
-
-            preparedStatement.setString(1, book.getTitle());
-            preparedStatement.setString(2, book.getAuthor());
-            preparedStatement.setString(3, book.getCategory().toString());
-            preparedStatement.setInt(4, book.getPublishYear());
-            preparedStatement.setString(5, book.getDescription());
-            preparedStatement.setInt(6, book.getNumber());
+            constructPreparedStatement(preparedStatement, book);
             preparedStatement.setBlob(7, pictureStream);
             preparedStatement.execute();
             try (var resultSet = preparedStatement.getGeneratedKeys()) {
@@ -133,21 +127,32 @@ public class BookDaoImpl implements BookDao {
         }
         return true;
     }
-
     @Override
-    public Optional<Book> update(Book book) throws DaoException {
-        LOGGER.log(Level.INFO, "method update");
+    public boolean update (Book book, byte[] picture) throws DaoException {
+        LOGGER.log(Level.INFO, "method create");
+        InputStream pictureStream = null;
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(UPDATE_BOOK)) {
+            pictureStream = new ByteArrayInputStream(picture);
             constructPreparedStatement(preparedStatement, book);
+            preparedStatement.setBlob(7, pictureStream);
             preparedStatement.setLong(8, book.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "exception in method update: ", e);
-            throw new DaoException("Exception when update book: {}", e);
+            LOGGER.log(Level.ERROR, "ProductDao error while create new product. {}", e.getMessage());
+            throw new DaoException("ProductDao error while create new product", e);
+        } finally {
+            try {
+                if (pictureStream != null) {
+                    pictureStream.close();
+                }
+            } catch (IOException e) {
+                LOGGER.log(Level.ERROR, "ProductDao error while create new product closing resources. {}", e.getMessage());
+            }
         }
-        return Optional.of(book);
+        return true;
     }
+
 
     @Override
     public void delete(Long id) throws DaoException {
@@ -164,6 +169,11 @@ public class BookDaoImpl implements BookDao {
 
     @Override
     public Optional<Book> create(Book entity) throws DaoException {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Book> update(Book entity) throws DaoException {
         return Optional.empty();
     }
 

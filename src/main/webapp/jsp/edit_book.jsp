@@ -40,61 +40,76 @@
             </div>
         </div>
         <hr/>
-        <form action="controller" method="post">
-            <table class="content-table-main">
-                <tr>
-                    <td class="content-table"><fmt:message key="book.label.title"/></td>
-                    <td><input type="text" name="title" required pattern="^[\p{L}\d-.]{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message
-                                       key="validation.user.registration.login"/>')"
-                               onchange="this.setAttribute('value', this.value);
-                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                       key="validation.user.registration.login"/>' : '');"
-                               value="${book.title}"></td>
-                </tr>
-                <tr>
-                    <td class="content-table"><fmt:message key="book.label.author"/></td>
-                    <td><input type="text" name="author" required pattern="^[\p{L}\d-.]{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message
-                                       key="validation.user.registration.firstname"/>')"
-                               onchange="this.setAttribute('value', this.value);
-                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                       key="validation.user.registration.firstname"/>' : '');"
-                               value="${book.author}"></td>
-                </tr>
-                <tr>
-                    <td class="content-table"><fmt:message key="book.label.category"/></td>
-                    <td>
-                        <select name="category">
-                            <option value="sci_fi"><fmt:message key="book.category.sci_fi"/></option>
-                            <option value="detective"><fmt:message key="book.category.detective"/></option>
-                            <option value="novel"><fmt:message key="book.category.novel"/></option>
-                            <option value="science"><fmt:message key="book.category.science"/></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
-                    <td><input type="number" size="4" name="publishYear" min="1500" max="2022" required
-                               pattern="^[0-9]{4}$"
-                               oninvalid="this.setCustomValidity('<fmt:message
-                                       key="validation.user.registration.firstname"/>')"
-                               onchange="this.setAttribute('value', this.value);
-                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                       key="validation.user.registration.firstname"/>' : '');"
-                               value="${book.publishYear}"></td>
-                </tr>
-                <tr>
-                    <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min="0" max="999" required pattern="^[0-9]{1,3}$"
-                               oninvalid="this.setCustomValidity('<fmt:message
-                                       key="validation.user.registration.password"/>')"
-                               onchange="this.setAttribute('value', this.value);
-                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                       key="validation.user.registration.password"/>' : '');"
-                               value="${book.number}"></td>
-                </tr>
-            </table>
+        <form action="controller" method="post" enctype="multipart/form-data">
+            <tr>
+                <input type="file" name="picture" accept=".png, .jpg, .jpeg"/>
+            </tr>
+            <div>
+                <table class="content-table-main">
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.title"/></td>
+                        <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d-.]{2,25}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="validation.user.registration.login"/>')"
+                                   onchange="this.setAttribute('value', this.value);
+                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                           key="validation.user.registration.login"/>' : '');"
+                                   value="${book.title}"></td>
+                    </tr>
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.author"/></td>
+                        <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d-.]{2,25}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="validation.user.registration.firstname"/>')"
+                                   onchange="this.setAttribute('value', this.value);
+                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                           key="validation.user.registration.firstname"/>' : '');"
+                                   value="${book.author}"></td>
+                    </tr>
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.category"/></td>
+                        <td>
+                            <select name="category" style="width: 235px;margin:2px 0 2px 0">
+                                <option value="fiction"><fmt:message key="book.category.fiction"/></option>
+                                <option value="detective"><fmt:message key="book.category.detective"/></option>
+                                <option value="novel"><fmt:message key="book.category.novel"/></option>
+                                <option value="science"><fmt:message key="book.category.science"/></option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
+                        <td><input class="book-form" type="number" size="4" name="publishYear" min="1500" max="2022"
+                                   required
+                                   pattern="^[0-9]{4}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="validation.user.registration.firstname"/>')"
+                                   onchange="this.setAttribute('value', this.value);
+                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                           key="validation.user.registration.firstname"/>' : '');"
+                                   value="${book.publishYear}"></td>
+                    </tr>
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.number"/></td>
+                        <td><input class="book-form" type="number" name="number" min="0" max="999" required
+                                   pattern="^[0-9]{1,3}$"
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="validation.user.registration.password"/>')"
+                                   onchange="this.setAttribute('value', this.value);
+                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                           key="validation.user.registration.password"/>' : '');"
+                                   value="${book.number}"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="content-table"><fmt:message key="book.label.description"/></td>
+                        <td><textarea class="description-form" name="description" type="text"  minlength="10" maxlength="3000" required
+                                      pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>">
+                            ${book.description} </textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <c:if test="${successMessageBookUpdated != null || warningMessagePassMismatch != null}">
                 <div class="content-submit-btn-main">
                     <p class="content-msg cnt-msg-success">${successMessageBookUpdated}</p>
@@ -103,15 +118,18 @@
             </c:if>
             <div class="content-submit-btn-main">
                 <input hidden name="bookId" value="${book.id}">
-                <button class="content-submit-btn" type="submit" name="command" value="find_book"><fmt:message
-                        key="book.button.cancel"/></button>
-                <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
+                <button class="btn " style="width: 98px; margin-left: 114px; margin-top: 0px" type="submit"
+                        name="command"
                         value="edit_book"><fmt:message key="book.button.edit"/>
                 </button>
+                <button class=" btn" style="background-color: #6b6868;margin-top: 0px" type="submit" name="command"
+                        value="find_book"><fmt:message
+                        key="book.button.cancel"/></button>
             </div>
             <c:if test="${authUser.role == 'ADMIN'}">
                 <div class="content-submit-btn-deactivate">
-                    <button class="content-submit-btn content-sub-btn-d-style"
+                    <button class="btn"
+                            style="width: 175px; margin-left: 114px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
                             type="submit" name="command" value="delete_book"><fmt:message
                             key="book.button.delete_book"/>
                     </button>

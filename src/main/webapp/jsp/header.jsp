@@ -13,7 +13,7 @@
             <div class="hrb-group">
                 <div class="header-right-buttons">
                     <form action="controller">
-                        <button class="hrb-style" type="submit" name="command" value="sign_out">
+                        <button class="btn" type="submit" name="command" value="sign_out">
                             <i class='fas fa-sign-out-alt'></i> <fmt:message key="header.log_out"/>
                         </button>
                     </form>
@@ -23,7 +23,7 @@
                         <label>
                             <input hidden name="userId" value="${authUser.id}">
                         </label>
-                        <button class="hrb-style" type="submit" name="command" value="find_user">
+                        <button class="btn" type="submit" name="command" value="find_user">
                             <i class='fas fa-user-alt'></i> <fmt:message key="header.my_account"/>
                         </button>
                     </form>
@@ -33,19 +33,19 @@
                         <input type="hidden" name="command" value="change_locale">
                         <input type="hidden" name="currentPageAbsoluteURL" value="${pageContext.request.requestURL}">
                         <input type="hidden" name="currentParameters" value="${pageContext.request.getQueryString()}">
-                        <button class="hrb-style" type="submit" name="locale" value="ru_RU">
+                        <button class="btn" type="submit" name="locale" value="ru_RU">
                             <fmt:message key="header.lang.ru"/>
                         </button>
-                        <button class="hrb-style" type="submit" name="locale" value="en_EN">
+                        <button class="btn" type="submit" name="locale" value="en_EN">
                             <fmt:message key="header.lang.en"/>
                         </button>
                     </form>
                 </div>
-                <div class="header-right-buttons">
-                    <div>
-                        <p class="header-hello"><fmt:message key="header.hello"/> ${authUser.firstName}</p>
-                    </div>
-                </div>
+<%--                <div class="header-right-buttons">--%>
+<%--                    <div>--%>
+<%--                        <p class="header-hello"><fmt:message key="header.hello"/> ${authUser.firstName}</p>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
         </c:if>
     </div>

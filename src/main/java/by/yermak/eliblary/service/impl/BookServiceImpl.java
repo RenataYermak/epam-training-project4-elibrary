@@ -86,7 +86,11 @@ public class BookServiceImpl implements BookService {
             book.setPublishYear(Integer.parseInt(bookData.get(BOOK_PUBLISH_YEAR)));
             book.setDescription(bookData.get(BOOK_DESCRIPTION));
             book.setNumber(Integer.parseInt(bookData.get(BOOK_NUMBER)));
-
+            book.setPicture(bookData.get(BOOK_PICTURE));
+//            if (!validator.isNameValid(book.getTitle()) || !validator.isAuthorValid(book.getAuthor()) ||
+//                !validator.isDescription(book.getDescription())) {
+//                throw new ServiceException("Input data is invalid");
+//            }
             bookDao.create(book, picture);
             return true;
         } catch (DaoException e) {
@@ -97,17 +101,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book update(Book book) throws ServiceException {
-        LOGGER.log(Level.INFO, "method update");
+    public boolean update(Book book, byte[] picture) throws ServiceException {
         try {
-            var optionalBook = bookDao.update(book);
-            if (optionalBook.isEmpty()) {
-                throw new ServiceException("There is no such book");
-            }
-            return optionalBook.get();
+            bookDao.update(book, picture);
+            return true;
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method update: ", e);
-            throw new ServiceException("Exception when update book: {}", e);
+            LOGGER.log(Level.ERROR, "ProductService error while addNewProduct. {}", e.getMessage());
+            throw new ServiceException("ProductService error while addNewProduct.", e);
         }
     }
 
@@ -132,4 +132,8 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public Book update(Book book) throws ServiceException {
+        return null;
+    }
 }

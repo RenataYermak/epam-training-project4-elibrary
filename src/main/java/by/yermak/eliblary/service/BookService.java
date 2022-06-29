@@ -87,5 +87,5 @@ public interface BookService {
      *                          into the data source
      */
     List<Book> findAllBooks(int page) throws ServiceException;
-
+    boolean update(Book book, byte[] picture) throws ServiceException;
 }

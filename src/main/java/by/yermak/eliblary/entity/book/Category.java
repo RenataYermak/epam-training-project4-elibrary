@@ -1,7 +1,7 @@
 package by.yermak.eliblary.entity.book;
 
 public enum Category {
-    SCI_FI("sci_fi"),
+    FICTION("fiction"),
     DETECTIVE("detective"),
     NOVEL("novel"),
     SCIENCE("science");

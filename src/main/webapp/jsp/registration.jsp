@@ -45,7 +45,7 @@
             <table class="content-table-main">
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.login"/></td>
-                    <td><input type="text" name="login" required pattern="^[\w\d-]{2,25}$"
+                    <td><input class="user-form" type="text" name="login" required pattern="^[\w\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.login"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.first_name"/></td>
-                    <td><input type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
+                    <td><input class="user-form" type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.second_name"/></td>
-                    <td><input type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
+                    <td><input class="user-form" type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.secondname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -75,7 +75,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.password"/></td>
-                    <td><input type="password" name="password" id="pwd" required
+                    <td><input class="user-form" type="password" name="password" id="pwd" required
                                pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.password"/>')"
@@ -83,11 +83,11 @@
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.password"/>' : '');"
                                value="${user.password}">
-                        <input type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
+                        <input  type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.email"/></td>
-                    <td><input type="email" name="email" required
+                    <td><input class="user-form" type="email" name="email" required
                                pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.email"/>')"
@@ -99,7 +99,7 @@
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.role"/></td>
                     <td>
-                        <select name="userRole">
+                        <select name="userRole" style="width: 58.5%">
                             <option value="admin"><fmt:message key="register.label.admin"/></option>
                             <option value="user" selected="selected"><fmt:message key="register.label.user"/></option>
                         </select>
@@ -114,11 +114,9 @@
             </c:if>
             <div class="content-submit-btn-main">
                 <input hidden name="userId" value="${user.id}">
-                <button class="content-submit-btn" type="submit" name="command" value="find_user"><fmt:message
-                        key="register.button.cancel"/></button>
-                <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
-                        value="registration">
-                    <fmt:message key="register.button.register_user"/>
+                <button class="btn " style="width: 55%; margin-left: 129px; margin-top: 0px;" type="submit"
+                        name="command" value="registration">
+                    <fmt:message key="register.button.register_user"/>t
                 </button>
             </div>
         </form>

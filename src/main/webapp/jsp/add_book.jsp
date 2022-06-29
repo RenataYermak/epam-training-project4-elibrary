@@ -41,17 +41,15 @@
             </div>
         </div>
         <hr/>
-        <div>
-        </div>
-        <form action="${pageContext.request.contextPath}/controller?command=add_book" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="command" value="add_book">
+        <form action="${pageContext.request.contextPath}/controller?command=add_book" method="post"
+              enctype="multipart/form-data">
             <table class="content-table-main">
                 <tr>
-                    <input type="file" name="picture" accept=".png, .jpg, .jpeg"  />
+                    <input type="file" name="picture" accept=".png, .jpg, .jpeg"/>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.title"/></td>
-                    <td><input type="text" name="title" required pattern="^[\p{L}\d-]{2,25}$"
+                    <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.title"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -61,7 +59,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.author"/></td>
-                    <td><input type="text" name="author" required pattern="^[\p{L}\d-]{2,25}$"
+                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.author"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -72,8 +70,8 @@
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.category"/></td>
                     <td>
-                        <select name="category">
-                            <option value="sci_fi"><fmt:message key="book.category.sci_fi"/></option>
+                        <select name="category" style="width: 235px;margin:2px 0 2px 0">
+                            <option value="fiction"><fmt:message key="book.category.fiction"/></option>
                             <option value="detective"><fmt:message key="book.category.detective"/></option>
                             <option value="novel" selected="selected"><fmt:message key="book.category.novel"/></option>
                             <option value="science" selected="selected"><fmt:message
@@ -83,8 +81,8 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.publish_year"/></td>
-                    <td><input type="number" size="4" name="publishYear" min="1500" max="2022" required
-                               pattern="^[0-9]$"
+                    <td><input class="book-form" type="number" size="4" name="publishYear" min="1500" max="2022"
+                               required pattern="^[0-9]$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.publishYear"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -94,13 +92,19 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.number"/></td>
-                    <td><input type="number" name="number" min="1" max="100" required pattern="^[0-9]{1,3}$"
+                    <td><input class="book-form" type="number" name="number" min="1" max="100" required
+                               pattern="^[0-9]{1,3}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.number"/>')"
                                onchange="this.setAttribute('value', this.value);
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.book.add.number"/>' : '');"
                                value="${book.number}"></td>
+                </tr>
+                <tr>
+                    <td class="content-table"><fmt:message key="book.label.description"/></td>
+                    <td><textarea class="description-form" name="description" type="text" minlength="10" maxlength="3000" required
+                                  pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>"> ${book.description} </textarea></td>
                 </tr>
             </table>
             <c:if test="${successMessageBookCreate != null || warningMessagePassMismatch != null}">
@@ -111,9 +115,8 @@
             </c:if>
             <div class="content-submit-btn-main">
                 <input hidden name="bookId" value="${book.id}">
-                <button class="content-submit-btn" type="submit" name="command" value="find_book"><fmt:message
-                        key="book.button.cancel"/></button>
-                <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command"
+
+                <button class="btn" style="width: 57%;margin-left: 114px" type="submit" name="command"
                         value="add_book">
                     <fmt:message key="book.button.add"/>
                 </button>

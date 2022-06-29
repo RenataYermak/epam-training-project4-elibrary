@@ -6,6 +6,7 @@ import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.entity.user.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -40,4 +41,6 @@ public interface BookDao extends EntityDao<Book, Long> {
      * @throws DaoException if there is any problem during access
      */
     boolean create(Book book, byte[] picture) throws DaoException;
+    boolean update (Book book, byte[] picture) throws DaoException;
+
 }

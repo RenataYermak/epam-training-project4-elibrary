@@ -7,15 +7,6 @@ h2 {
     margin: 0 5px 0 0;
     float: left;
 }
-
-/*.orderButton {*/
-/*    width: 114px;*/
-/*    margin-top: 5px;*/
-/*    background-color: #4c8f4c;*/
-/*    color: white;*/
-/*    float: left;*/
-/*}*/
-
 .content-main {
     width: 100%;
     height: 50px;
@@ -46,7 +37,7 @@ h2 {
 }
 
 .rejectButton {
-    width: max-content;
+    width: 80px;
     color: white;
     background-color: #ea6153;
 }
@@ -70,7 +61,8 @@ h2 {
 
 .content-sub-btn-s-style {
     width: 107px;
-    background-color: #60a860;
+    margin-left: 112px;
+    background-color: #606aa8;
     color: white;
 }
 
@@ -124,52 +116,3 @@ span.info-style-srh {
 .about-img-right {
     margin-left: 10px;
 }
-/*.card {*/
-/*    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);*/
-/*    transition: 0.3s;*/
-/*    width: 40%;*/
-/*}*/
-
-/*.card:hover {*/
-/*    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);*/
-/*}*/
-/*.container {*/
-/*    padding: 2px 16px;*/
-/*}*/
-/*.row {*/
-/*    display: flex;*/
-/*    flex-wrap: wrap;*/
-/*}*/
-/*.wrap {*/
-/*    display: flex;*/
-/*    justify-content: space-around;*/
-/*}*/
-
-/*.cart {*/
-/*    position: relative;*/
-/*    width: 140px;*/
-/*    height: 200px;*/
-/*    perspective: 700px;*/
-/*    margin: 1%;*/
-/*}*/
-
-/*.front,*/
-/*.back {*/
-/*    position: absolute;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    transition: 1s;*/
-/*    backface-visibility: hidden;*/
-/*}*/
-
-/*.back {*/
-/*    transform: rotateY(180deg);*/
-/*}*/
-
-/*.cart:hover .front {*/
-/*    transform: rotateY(-180deg);*/
-/*}*/
-
-/*.cart:hover .back {*/
-/*    transform: rotateY(0);*/
-/*}*/

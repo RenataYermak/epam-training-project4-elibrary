@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/sidebar-style.css">
     <link rel="stylesheet" href="../css/table-style.css">
     <link rel="stylesheet" href="../css/content-style.css">
+
     <!-- Icons -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->
@@ -28,27 +29,27 @@
         <div class="header-title">
             <h1 class="title"><span class="header-title-sp">e</span>Library</h1>
         </div>
+        <div class="header-right-buttons">
+            <form action="controller" method="post">
+                <input type="hidden" name="command" value="change_locale">
+                <input type="hidden" name="currentPageAbsoluteURL" value="${pageContext.request.requestURL}">
+                <input type="hidden" name="currentParameters" value="${pageContext.request.getQueryString()}">
+                <button class="btn" type="submit" name="locale" value="ru_RU">
+                    <fmt:message key="header.lang.ru"/>
+                </button>
+                <button class="btn" type="submit" name="locale" value="en_EN">
+                    <fmt:message key="header.lang.en"/>
+                </button>
+            </form>
+        </div>
     </div>
 </header>
-<div class="header-right-buttons">
-    <form action="controller" method="post">
-        <input type="hidden" name="command" value="change_locale">
-        <input type="hidden" name="currentPageAbsoluteURL" value="${pageContext.request.requestURL}">
-        <input type="hidden" name="currentParameters" value="${pageContext.request.getQueryString()}">
-        <button class="hrb-style" type="submit" name="locale" value="ru_RU">
-            <fmt:message key="header.lang.ru"/>
-        </button>
-        <button class="hrb-style" type="submit" name="locale" value="en_EN">
-            <fmt:message key="header.lang.en"/>
-        </button>
-    </form>
-</div>
 <div id="sidebar">
     <div>
         <form name="loginForm" method="post" action="controller">
             <div class="signIn">
                 <label>
-                    <input style="margin-bottom: 5px" type="text" name="login" required placeholder="login"
+                    <input class="login-form" style="margin-bottom: 5px" type="text" name="login" required placeholder="login"
                            pattern="[\w\d-]{2,25}$"
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.login"/>')"
@@ -59,7 +60,7 @@
                 </label>
                 <br/>
                 <label>
-                    <input style="margin-bottom: 10px" type="password" id="pwd" name="password" required
+                    <input class = "login-form" style="margin-bottom: 10px" type="password" id="pwd" name="password" required
                            placeholder="password"
                            pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}"
                            oninvalid="this.setCustomValidity('<fmt:message
@@ -70,10 +71,10 @@
                            value="${user.password}">
                     <br/>
                     <input style="margin-bottom: 10px" type="checkbox" onclick="show()"><fmt:message
-                        key="sign_in.button.show_password"/>
+                        key="sign_in.button.show_password" />
                 </label>
                 <br/>
-                <button type="submit" name="command" value="sign_in"><fmt:message
+                <button class="btn" type="submit" name="command" value="sign_in"><fmt:message
                         key="sign_in.button.sign_in"/></button>
                 <p style="color: #ea6153">${errorMessageSignIn}</p>
             </div>

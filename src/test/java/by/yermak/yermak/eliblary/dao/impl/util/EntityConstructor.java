@@ -5,8 +5,6 @@ import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.entity.user.Role;
 import by.yermak.eliblary.entity.user.User;
 
-import java.util.Optional;
-
 public final class EntityConstructor {
     public static User constructTestUser() {
         User user = new User();
@@ -23,7 +21,7 @@ public final class EntityConstructor {
         Book book = new Book();
         book.setTitle("Test Title TT");
         book.setAuthor("Test Author TA");
-        book.setCategory(Category.SCI_FI);
+        book.setCategory(Category.FICTION);
         book.setDescription("Test Description");
         book.setPublishYear(1999);
         book.setNumber(1);

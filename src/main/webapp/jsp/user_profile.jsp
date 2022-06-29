@@ -41,7 +41,8 @@
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                 <form action="controller" method="get">
-                    <button type="submit" name="command" value="register_page"><i class='far fa-address-book'></i>
+                    <button class="btn" style="margin-top: -3px" type="submit" name="command" value="register_page"><i
+                            class='far fa-address-book'></i>
                         <fmt:message key="user.button.register_user"/>
                     </button>
                 </form>
@@ -56,10 +57,10 @@
                 <td>
                     <c:choose>
                         <c:when test="${user.login == 'admin'}">
-                            <input type="text" name="login" value="${user.login}" disabled="disabled">
+                            <input class="book-form" type="text" name="login" value="${user.login}" disabled="disabled">
                         </c:when>
                         <c:otherwise>
-                            <input type="text" name="login" required pattern="[\w\d-]{2,25}$"
+                            <input class="book-form" type="text" name="login" required pattern="[\w\d-]{2,25}$"
                                    oninvalid="this.setCustomValidity('<fmt:message
                                            key="validation.user.registration.login"/>')"
                                    onchange="this.setAttribute('value', this.value);
@@ -71,7 +72,7 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.first_name"/></td>
-                <td><input type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
+                <td><input class="book-form" type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.firstname"/>')"
                            onchange="this.setAttribute('value', this.value);
@@ -81,7 +82,7 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.second_name"/></td>
-                <td><input type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
+                <td><input class="book-form" type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.secondname"/>')"
                            onchange="this.setAttribute('value', this.value);
@@ -91,7 +92,7 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.password"/></td>
-                <td><input type="password" name="password" required
+                <td><input class="book-form" type="password" name="password" required
                            pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}" ;
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.password"/>')"
@@ -102,7 +103,7 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.email"/></td>
-                <td><input type="text" name="email" required
+                <td><input class="book-form" type="text" name="email" required
                            pattern="^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,50})\.([a-z]{2,6}(?:\.[a-z]{2})?)$"
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.email"/>')"
@@ -141,15 +142,19 @@
         </c:if>
         <div class="content-submit-btn-main">
             <input hidden name="userId" value="${user.id}">
-            <button class="content-submit-btn" type="submit" name="command" value="find_user"><fmt:message
-                    key="user.button.cancel"/></button>
-            <button class="content-submit-btn content-sub-btn-s-style" type="submit" name="command" value="edit_user">
+            <button class="btn " style="width: 90px; margin-left: 129px; margin-top: 0px;" type="submit" name="command"
+                    value="edit_user">
                 <fmt:message key="user.button.submit"/>
+            </button>
+            <button class=" btn" style="width: 71px;background-color: #6b6868;margin: 0 0 0 0" type="submit" name="command"
+                    value="find_user"><fmt:message
+                    key="user.button.cancel"/>
             </button>
         </div>
         <c:if test="${authUser.role == 'ADMIN'}">
             <div class="content-submit-btn-deactivate">
-                <button class="content-submit-btn content-sub-btn-d-style"
+                <button class="btn"
+                        style="width: 176px; margin-left: 129px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
                         type="submit" name="command" value="deactivate_user"><fmt:message
                         key="user.button.deactivate_account"/>
                 </button>

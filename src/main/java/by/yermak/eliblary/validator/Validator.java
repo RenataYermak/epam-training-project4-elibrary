@@ -9,6 +9,7 @@ public final class Validator {
     private static final String LOGIN_REGEX = "^[\\w-]{2,25}$";
     private static final String SEARCH_REGEX = "^[\\p{L}\\d-]{1,25}$";
     private static final String BOOK_AUTHOR_REGEX = "^[\\p{L}\\d-]{2,25}$";
+    private static final String BOOK_DESCRIPTION_REGEX = "^[\\p{L}\\d\\p{S}\\p{So}\\p{P}]{10,3000}$";
     private static Validator instance;
 
     private Validator() {
@@ -23,8 +24,8 @@ public final class Validator {
 
     public boolean isUserValid(User user) {
         return isLoginValid(user.getLogin()) && isPasswordValid(user.getPassword()) &&
-                isNameValid(user.getFirstName()) && isNameValid(user.getSecondName()) &&
-                isEmailValid(user.getEmail());
+               isNameValid(user.getFirstName()) && isNameValid(user.getSecondName()) &&
+               isEmailValid(user.getEmail());
 
     }
 
@@ -47,8 +48,13 @@ public final class Validator {
     public boolean isEmailValid(String email) {
         return email != null && email.matches(EMAIL_REGEX);
     }
+
     public boolean isAuthorValid(String author) {
         return author != null && author.matches(BOOK_AUTHOR_REGEX);
+    }
+
+    public boolean isDescription(String description) {
+        return description != null && description.matches(BOOK_DESCRIPTION_REGEX);
     }
 }
 

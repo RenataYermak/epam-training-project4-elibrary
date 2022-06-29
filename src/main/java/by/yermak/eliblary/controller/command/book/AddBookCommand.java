@@ -47,6 +47,8 @@ public class AddBookCommand implements Command {
             bookDataMap.put(RequestParameter.BOOK_CATEGORY, request.getParameter(RequestParameter.BOOK_CATEGORY));
             bookDataMap.put(RequestParameter.BOOK_PUBLISH_YEAR, request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
             bookDataMap.put(RequestParameter.BOOK_NUMBER, request.getParameter(RequestParameter.BOOK_NUMBER));
+            bookDataMap.put(RequestParameter.BOOK_DESCRIPTION, request.getParameter(RequestParameter.BOOK_DESCRIPTION));
+          bookDataMap.put(RequestParameter.BOOK_PICTURE, request.getParameter(RequestParameter.BOOK_PICTURE));
             byte[] bytesPicture = new byte[0];
 
             try (

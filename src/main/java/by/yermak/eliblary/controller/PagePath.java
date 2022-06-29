@@ -7,6 +7,7 @@ public final class PagePath {
     public static final String EDIT_BOOK = "/jsp/edit_book.jsp";
     public static final String BOOKS_TABLE = "/jsp/books_table.jsp";
     public static final String ADD_BOOK = "/jsp/add_book.jsp";
+    public static final String BOOK_VIEW = "/jsp/book_view.jsp";
     /**
      * User pages path
      */

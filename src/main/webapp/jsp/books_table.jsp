@@ -17,9 +17,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/card.css">
     <!-- Icons -->
-
-    <script src="https://kit.fontawesome.com/dcd737d2c8.js" crossorigin="anonymous"></script>
-    <%--    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>--%>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,19 +36,20 @@
         <div class="content-search">
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
-                    <input type="search" name="searchQuery" id="site-search"
+                    <input class="search-form" type="search" name="searchQuery" id="site-search"
                            placeholder=
-                           <fmt:message key="table.label.book_search"/>
-                                   pattern="^[\p{L}\d-.]{1,25}$">
+                           <fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
-                <button type="submit" name="command" value="book_search">
-                    <fmt:message key="table.button.search"/></button>
+                <button class="btn" style=" margin: -3px 10px 10px 0px" type="submit" name="command"
+                        value="book_search"><i class="fas fa-search"></i>
+                </button>
             </form>
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                 <form action="controller" method="get">
-                    <button type="submit" name="command" value="add_book_page"><i class='far fa-address-book'></i>
+                    <button class="btn" style=" margin: -3px 5px 10px 5px" type="submit" name="command"
+                            value="add_book_page"><i class='far fa-address-book'></i>
                         <fmt:message key="book.button.add_book"/>
                     </button>
                 </form>
@@ -65,19 +64,23 @@
                     <img src="data:image/jpeg;base64,${book.picture}" alt="img">
                 </div>
                 <div class="info">
-                    <span class="text-title">${book.title}</span>
-                    <br><span class="text">${book.author} <br>${book.category.name}, ${book.publishYear}</span>
-                    <div class="info-item">
-                        <span class="text"><fmt:message key="table.label.available"/> ${book.number}</span>
+                    <div class="main-title">
+                        <form action="controller">
+                            <label>
+                                <input hidden name="bookId" value="${book.id}">
+                            </label>
+                            <a href="${pageContext.request.contextPath}/controller?bookId=${book.id}&command=book_view_page">
+                                <span class="text-title">${book.title}</span></a>
+                        </form>
                     </div>
+                    <br><span class="info-item">${book.author} <br>${book.category.name}, ${book.publishYear}</span>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <form action="controller">
                             <label>
                                 <input hidden name="bookId" value="${book.id}">
                             </label>
-                            <button class="edit-book" type="submit" name="command" value="find_book"><i
-                                    class="fas fa-pencil-alt"></i>
-                                    <%--                                    <i class="fas fa-cart-arrow-down"></i>--%>
+                            <button class="btn" style="width: 100%" type="submit" name="command" value="find_book">
+                                <fmt:message key="table.button.edit"/>
                             </button>
                         </form>
                     </c:if>
@@ -88,13 +91,13 @@
                             <c:choose>
                                 <c:when test="${book.number != 0}">
                                     <input hidden name="bookTitle" value="${book.title}">
-                                    <select name="type">
+                                    <select name="type" style="width: 100%;">
                                         <option value="reading_room" selected="selected"><fmt:message
                                                 key="table.label.reading_room"/></option>
                                         <option value="season_ticket"><fmt:message
                                                 key="table.label.season_ticket"/></option>
                                     </select>
-                                    <button class="add-to-cart" type="submit" name="command"
+                                    <button class="btn" style="width: 100%" type="submit" name="command"
                                             value="order_book">
                                         <fmt:message key="table.button.order"/>
                                     </button>
@@ -119,108 +122,9 @@
             </div>
         </c:forEach>
     </c:if>
-    <%--<c:if test="${fn:length(books) > 0}">&ndash;%&gt;--%>
-    <%--    <c:forEach items="${books}" var="book">--%>
-    <%--        <img class="card-img-top" src="/images/6.jpg" alt="Card image cap" style=" width: 20%">--%>
-    <%--        <div class="in">--%>
-    <%--            <h5 class="<fmt:message key="table.label.title"/>">${book.title}</h5>--%>
-    <%--            <h5 class="<fmt:message key="table.label.author"/>">${book.author}</h5>--%>
-    <%--            <p class="<fmt:message key="table.label.category"/>">${book.category.name}</p>--%>
-    <%--            <p class="<fmt:message key="table.label.publish_year"/>">${book.publishYear}</p>--%>
-    <%--            <p class="<fmt:message key="table.label.number"/>">${book.number}</p>--%>
-    <%--        </div>--%>
-    <%--    </c:forEach>--%>
-    <%--</c:if>--%>
-
-    <%--        <c:if test="${fn:length(books) > 0}">--%>
-    <%--        <div class="card-group" >--%>
-    <%--                &lt;%&ndash;        <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; width: 20%; height: 10%; display: inline-block">&ndash;%&gt;--%>
-    <%--                &lt;%&ndash;            <div class="container" style=" padding: 2px 16px">&ndash;%&gt;--%>
-    <%--            <c:forEach items="${books}" var="book">--%>
-    <%--                <img class="card-img-top" src="/images/6.jpg" alt="Card image cap" style=" width: 20%">--%>
-    <%--                <div class="card-body">--%>
-    <%--                    <h5 class="<fmt:message key="table.label.title"/>">${book.title}</h5>--%>
-    <%--                    <h5 class="<fmt:message key="table.label.author"/>">${book.author}</h5>--%>
-    <%--                    <p class="<fmt:message key="table.label.category"/>">${book.category.name}</p>--%>
-    <%--                    <p class="<fmt:message key="table.label.publish_year"/>">${book.publishYear}</p>--%>
-    <%--                    <p class="<fmt:message key="table.label.number"/>">${book.number}</p>--%>
-    <%--                        &lt;%&ndash;                <th class="cell"><fmt:message key="table.label.action"/></th>&ndash;%&gt;--%>
-    <%--                </div>--%>
-    <%--            </c:forEach>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
-    <%--    </c:if>--%>
-
-    <%--    <c:if test="${fn:length(books) > 0}">--%>
-    <%--        <table class="table">--%>
-    <%--            <tr class="row header green">--%>
-    <%--                <th class="cell"><fmt:message key="table.label.title"/></th>--%>
-    <%--                <th class="cell"><fmt:message key="table.label.author"/></th>--%>
-    <%--                <th class="cell"><fmt:message key="table.label.category"/></th>--%>
-    <%--                <th class="cell"><fmt:message key="table.label.publish_year"/></th>--%>
-    <%--                <th class="cell"><fmt:message key="table.label.number"/></th>--%>
-    <%--                <th class="cell"><fmt:message key="table.label.action"/></th>--%>
-    <%--            </tr>--%>
-    <%--            <c:forEach items="${books}" var="book">--%>
-    <%--                <tr class="row">--%>
-    <%--                    <td class="cell"><a href="/controller?command=find_book&bookId=${book.id}">${book.title}</a></td>--%>
-    <%--                    <td class="cell">${book.author}</td>--%>
-    <%--                    <td class="cell">${book.category.name}</td>--%>
-    <%--                    <td class="cell">${book.publishYear}</td>--%>
-    <%--                    <td class="cell">${book.number}</td>--%>
-    <%--                    <td class="cell" style="width: 100px">--%>
-    <%--                        <c:if test="${sessionScope.authUser.role == 'ADMIN'}">--%>
-    <%--                            <form action="controller">--%>
-    <%--                                <label>--%>
-    <%--                                    <input hidden name="bookId" value="${book.id}">--%>
-    <%--                                </label>--%>
-    <%--                                <button class="actionButton" type="submit" name="command" value="find_book">--%>
-    <%--                                    <fmt:message key="table.button.edit"/>--%>
-    <%--                                </button>--%>
-    <%--                            </form>--%>
-    <%--                        </c:if>--%>
-    <%--                        <c:if test="${sessionScope.authUser.role != 'ADMIN'}">--%>
-    <%--                            <form action="controller" method="post">--%>
-    <%--                                <input hidden name="bookId" value="${book.id}">--%>
-    <%--                                <input hidden name="userId" value="${sessionScope.authUser.id}">--%>
-    <%--                                <c:choose>--%>
-    <%--                                    <c:when test="${book.number != 0}">--%>
-    <%--                                        <input hidden name="bookTitle" value="${book.title}">--%>
-    <%--                                        <select name="type">--%>
-    <%--                                            <option value="reading_room" selected="selected"><fmt:message--%>
-    <%--                                                    key="table.label.reading_room"/></option>--%>
-    <%--                                            <option value="season_ticket"><fmt:message--%>
-    <%--                                                    key="table.label.season_ticket"/></option>--%>
-    <%--                                        </select>--%>
-    <%--                                        <button class="actionButton orderButton" type="submit" name="command"--%>
-    <%--                                                value="order_book">--%>
-    <%--                                            <fmt:message key="table.button.order"/>--%>
-    <%--                                        </button>--%>
-    <%--                                    </c:when>--%>
-    <%--                                    <c:otherwise>--%>
-    <%--                                        <input hidden name="bookTitle" value="${book.title}">--%>
-    <%--                                        <select name="type" disabled>--%>
-    <%--                                            <option value="reading_room" selected="selected"><fmt:message--%>
-    <%--                                                    key="table.label.reading_room"/></option>--%>
-    <%--                                            <option value="season_ticket"><fmt:message--%>
-    <%--                                                    key="table.label.season_ticket"/></option>--%>
-    <%--                                        </select>--%>
-    <%--                                        <button disabled class="actionButton orderButton" type="submit" name="command"--%>
-    <%--                                                value="order_book">--%>
-    <%--                                            <fmt:message key="table.button.order"/>--%>
-    <%--                                        </button>--%>
-    <%--                                    </c:otherwise>--%>
-    <%--                                </c:choose>--%>
-    <%--                            </form>--%>
-    <%--                        </c:if>--%>
-    <%--                    </td>--%>
-    <%--                </tr>--%>
-    <%--            </c:forEach>--%>
-    <%--        </table>--%>
-    <%--    </c:if>--%>
     <br>
     <div class="container">
-        <div class="rows" style="justify-content:start">
+        <div class="rows" style="justify-content:start; margin-top: 10px">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
                     <c:if test="${requestScope.page > 1}">

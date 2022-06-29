@@ -19,6 +19,8 @@ public enum CommandName {
     ABOUT_LIBRARY_PAGE,
     ADD_BOOK_PAGE,
     REGISTER_PAGE,
+    BOOK_VIEW_PAGE,
+
     /**
      * User commands
      */

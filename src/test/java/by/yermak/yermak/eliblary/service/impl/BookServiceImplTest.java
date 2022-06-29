@@ -57,7 +57,7 @@ class BookServiceImplTest {
         book.setTitle("Title");
         book.setAuthor("Author");
         book.setPublishYear(1999);
-        book.setCategory(Category.SCI_FI);
+        book.setCategory(Category.FICTION);
         book.setDescription("Description");
         book.setNumber(3);
         return book;

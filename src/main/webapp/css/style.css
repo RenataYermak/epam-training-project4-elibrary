@@ -1,20 +1,14 @@
 body {
     font: 11pt Arial, Helvetica, sans-serif; /* Рубленый шрифт текста */
     margin: 0; /* Отступы на странице */
-    position: relative;
-    font-family: 'Noto Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.4;
-    color: #000;
-    min-width: 320px;
-    overflow-x: hidden;
-    height: auto;
+    height: 100%;
 }
 
 #header { /* Верхний блок */
-    background: #0080c0; /* Цвет фона */
-    padding: 10px; /* Поля вокруг текста */
-    height: 50px;
+    background-image: linear-gradient(20deg, #0b959a, #126493);
+    /*background: #0080c0; !* Цвет фона *!*/
+    padding: 5px; /* Поля вокруг текста */
+    height: 45px;
 }
 
 #sidebar { /* Левая колонка */
@@ -22,20 +16,20 @@ body {
     border: 1px solid rgba(51, 51, 51, 0.4); /* Параметры рамки вокруг */
     border-radius: 5px;
     background-color: rgba(211, 211, 211, 0.09);
-    width: 20%; /* Ширина колонки */
+    width: 17%; /* Ширина колонки */
     padding: 5px; /* Поля вокруг текста */
-    margin: 10px 10px 20px 100px; /* Значения отступов */
+    margin: 10px 10px 20px 70px; /* Значения отступов */
 }
 
 #content { /* Правая колонка */
-    margin: 10px 100px 20px 28%; /* Значения отступов */
+    margin: 10px 70px 40px 24%; /* Значения отступов */
     padding: 5px; /* Поля вокруг текста */
     border: 1px solid rgba(51, 51, 51, 0.4); /* Параметры рамки вокруг */
     border-radius: 5px;
     background-color: rgba(211, 211, 211, 0.09);
 }
 
-#footer { /* Нижний блок */
+.footer { /* Нижний блок */
     background: #575757; /* Цвет фона */
     padding: 6px; /* Поля вокруг текста */
     color: #f6f6f6; /* Цвет текста */
@@ -92,6 +86,117 @@ input:invalid {
     border-color: red;
 }
 
+textarea:valid {
+    border-color: green;
+}
 
+textarea:invalid {
+    border-color: red;
+}
 
+.btn {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin: 8px 10px 10px 0;
+    outline: black;
+    border: #151414;
+    border: 2px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #f3f0f0;
+    background-color: rgba(56, 151, 152, 0.98);
+    cursor: pointer;
+    user-select: none;
+    appearance: none;
+    touch-action: manipulation;
+    vertical-align: top;
+}
 
+.btn:hover {
+    background-color: #1d82bd;
+}
+
+.btn:active {
+    background-color: #329ec2 !important;
+}
+
+.btn:focus-visible {
+    box-shadow: 0 0 0 3px #b8c1cb;
+}
+
+.btn:disabled {
+    background-color: #959aa2;
+    pointer-events: none;
+}
+
+input:-moz-placeholder {
+    color: #B6C0A5;
+    font-style: italic;
+    background: #e3ecdd;
+}
+
+.search-form {
+    width: 70%;
+    height: 26px;
+    padding-left: 10px;
+    border: 3px solid #338e8f;
+    border-radius: 5px;
+    outline: none;
+    background: #f1f0ee;
+    color: #797878;
+    margin-top: -3px;
+    margin-left: 20px;
+}
+
+.login-form {
+    width: 90%;
+    height: 20px;
+    padding-left: 10px;
+    border: 2px solid #338e8f;
+    outline: none;
+    background: #f1f0ee;
+    color: #797878;
+    margin-top: 4px;
+    margin-bottom: 0px;
+    position: center;
+}
+
+.book-form {
+    width: 220px;
+    height: 15px;
+    padding-left: 10px;
+    border: 2px solid #338e8f;
+    outline: none;
+    background: #ffffff;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    position: center;
+}
+
+.description-form {
+    height: 70px;
+    width: 220px;
+    padding-left: 10px;
+    border: 2px solid #338e8f;
+    outline: none;
+    background: #ffffff;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    position: center;
+}
+
+.user-form {
+    width: 53%;
+    height: 15px;
+    padding-left: 10px;
+    border: 2px solid #338e8f;
+    outline: none;
+    background: #ffffff;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    position: center;
+}

@@ -3,6 +3,7 @@ package by.yermak.eliblary.controller.command;
 import by.yermak.eliblary.controller.command.book.*;
 import by.yermak.eliblary.controller.command.page.AboutLibraryPageCommand;
 import by.yermak.eliblary.controller.command.page.AddBookPageCommand;
+import by.yermak.eliblary.controller.command.page.BookViewPageCommand;
 import by.yermak.eliblary.controller.command.page.RegisterPageCommand;
 import by.yermak.eliblary.controller.command.user.*;
 
@@ -29,6 +30,7 @@ public class CommandHelper {
         commands.put(CommandName.ABOUT_LIBRARY_PAGE, new AboutLibraryPageCommand());
         commands.put(CommandName.ADD_BOOK_PAGE, new AddBookPageCommand());
         commands.put(CommandName.REGISTER_PAGE, new RegisterPageCommand());
+        commands.put(CommandName.BOOK_VIEW_PAGE, new BookViewPageCommand());
 
         commands.put(CommandName.SIGN_IN, new SignInCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());
@@ -40,6 +42,7 @@ public class CommandHelper {
         commands.put(CommandName.DEACTIVATE_USER, new DeactivateUserCommand());
         commands.put(CommandName.USER_SEARCH, new UserSearchCommand());
         commands.put(CommandName.CHANGE_LOCALE, new ChangeLocaleCommand());
+
     }
 
     public static CommandHelper getInstance() {
