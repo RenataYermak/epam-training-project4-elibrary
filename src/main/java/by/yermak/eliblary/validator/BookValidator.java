@@ -1,6 +1,7 @@
 package by.yermak.eliblary.validator;
 
 import by.yermak.eliblary.entity.book.Book;
+
 import java.time.LocalDate;
 
 
@@ -22,7 +23,12 @@ public final class BookValidator extends AbstractValidator {
     }
 
     public boolean isBookValid(Book book) {
-        return isAuthorValid(book.getAuthor()) ;
+        return isAuthorValid(book.getAuthor()) && isTitleValid(book.getTitle()) && isNumberValid(book.getNumber())
+               && isPublishYearValid(book.getPublishYear()) && isDescription(book.getDescription());
+    }
+
+    public boolean isTitleValid(String title) {
+        return title != null && isFieldValid(BOOK_AUTHOR_REGEX, title);
     }
 
     public boolean isAuthorValid(String author) {
@@ -37,10 +43,10 @@ public final class BookValidator extends AbstractValidator {
         return description != null && isFieldValid(BOOK_DESCRIPTION_REGEX, description);
     }
 
-//    public boolean isPublishYearValid(int publishYear) {
-//        int currentYear = LocalDate.now().getYear();
-//        return publishYear >= 1500 && publishYear <= currentYear;
-//    }
+    public boolean isPublishYearValid(int publishYear) {
+        int currentYear = LocalDate.now().getYear();
+        return publishYear >= 1500 && publishYear <= currentYear;
+    }
 
     public boolean isNumberValid(int number) {
         return number >= 0 && number <= 100;

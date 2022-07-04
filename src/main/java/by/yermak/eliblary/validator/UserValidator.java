@@ -25,11 +25,10 @@ public final class UserValidator extends AbstractValidator {
         return isLoginValid(user.getLogin()) && isPasswordValid(user.getPassword()) &&
                isNameValid(user.getFirstName()) && isNameValid(user.getSecondName()) &&
                isEmailValid(user.getEmail());
-
     }
 
     public boolean isLoginValid(String login) {
-        return login != null && isFieldValid(LOGIN_REGEX,login);
+        return login != null && isFieldValid(LOGIN_REGEX, login);
     }
 
     public boolean isNameValid(String name) {
@@ -37,15 +36,15 @@ public final class UserValidator extends AbstractValidator {
     }
 
     public boolean isPasswordValid(String password) {
-        return password != null && isFieldValid(PASSWORD_REGEX,password);
+        return password != null && isFieldValid(PASSWORD_REGEX, password);
     }
 
     public boolean isSearchValid(String searchQuery) {
-        return searchQuery != null && isFieldValid(SEARCH_REGEX,searchQuery);
+        return searchQuery != null && isFieldValid(SEARCH_REGEX, searchQuery);
     }
 
     public boolean isEmailValid(String email) {
-        return email != null && isFieldValid(EMAIL_REGEX,email);
+        return email != null && isFieldValid(EMAIL_REGEX, email);
     }
 
 }

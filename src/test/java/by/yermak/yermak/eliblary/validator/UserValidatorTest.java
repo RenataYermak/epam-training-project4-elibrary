@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ValidatorTest {
+public class UserValidatorTest {
     private UserValidator validator;
 
     @BeforeEach
@@ -92,7 +92,7 @@ public class ValidatorTest {
 
     @Test
     void testCorrectEmailShouldBeValid() {
-        String email = "test.valid@email.com";
+        String email = "testvalid@email.com";
         boolean isEmailValid = validator.isEmailValid(email);
         assertTrue(isEmailValid);
     }
