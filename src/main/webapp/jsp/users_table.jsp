@@ -30,14 +30,15 @@
         <div class="content-title">
             <h2><fmt:message key="page.title.users"/></h2>
         </div>
-        <div class ="content-search">
+        <div class="content-search">
             <form action="controller" method="get" name="searchForm">
                 <label for="site-search">
                     <input class="search-form " type="search" name="searchQuery" id="site-search"
-                           placeholder=<fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
+                           placeholder=
+                           <fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
                 </label>
                 <button class="btn" style=" margin: -3px 10px 10px 0px" type="submit" name="command"
-                        value="book_search"><i class="fas fa-search"></i>
+                        value="user_search"><i class="fas fa-search"></i>
                 </button>
             </form>
         </div>
@@ -63,11 +64,13 @@
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
                     <td class="cell">
-                        <fmt:parseDate value="${user.activationDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
-                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
+                        <fmt:parseDate value="${user.activationDate}" pattern="y-M-dd'T'H:m"
+                                       var="myParseDate"></fmt:parseDate>
+                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
                     <td class="cell">
-                        <fmt:parseDate value="${user.deactivationDate}" pattern="y-M-dd'T'H:m" var="myParseDate"></fmt:parseDate>
-                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy" /></td>
+                        <fmt:parseDate value="${user.deactivationDate}" pattern="y-M-dd'T'H:m"
+                                       var="myParseDate"></fmt:parseDate>
+                        <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
                     <td class="cell">
                         <c:if test="${sessionScope.authUser.role == 'ADMIN' ||
                                     sessionScope.authUser.login == user.login}">
@@ -75,7 +78,8 @@
                                 <label>
                                     <input hidden name="userId" value="${user.id}">
                                 </label>
-                                <button class="actionButton "style="margin-left: 5%" type="submit" name="command" value="find_user">
+                                <button class="actionButton " style="margin-left: 5%" type="submit" name="command"
+                                        value="find_user">
                                     <fmt:message key="users.button.edit"/>
                                 </button>
                             </form>
@@ -89,7 +93,7 @@
         <div class="rows" style="justify-content: start">
             <nav aria-label="pagination">
                 <ul class="pagination">
-                    <c:if test="${requestScope.page != 1}">
+                    <c:if test="${requestScope.page > 1}">
                         <li><a class="page-link"
                                href="${pageContext.request.contextPath}/controller?command=find_users&page=${requestScope.page-1}">
                             <span aria-hidden="true">&laquo;</span></a></li>

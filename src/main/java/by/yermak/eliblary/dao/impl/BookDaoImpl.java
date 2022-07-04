@@ -5,6 +5,7 @@ import by.yermak.eliblary.dao.mapper.impl.BookMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.dao.exception.DaoException;
+import by.yermak.eliblary.util.converter.ImageConverter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,11 +13,12 @@ import org.apache.logging.log4j.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 import java.util.*;
 
-import static by.yermak.eliblary.dao.QuerySql.*;
+import static by.yermak.eliblary.dao.sql.BookSql.*;
 
 public class BookDaoImpl implements BookDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -40,6 +42,7 @@ public class BookDaoImpl implements BookDao {
         }
         return booksOnPage;
     }
+
 
     @Override
     public Optional<Book> find(Long id) throws DaoException {
@@ -75,6 +78,11 @@ public class BookDaoImpl implements BookDao {
             throw new DaoException("Exception when findAll books: {}", e);
         }
         return books;
+    }
+
+    @Override
+    public Optional<Book> create(Book entity) throws DaoException {
+        return Optional.empty();
     }
 
     @Override
@@ -127,6 +135,7 @@ public class BookDaoImpl implements BookDao {
         }
         return true;
     }
+
     @Override
     public boolean update (Book book, byte[] picture) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
@@ -165,11 +174,6 @@ public class BookDaoImpl implements BookDao {
             LOGGER.log(Level.ERROR, "exception in method delete: ", e);
             throw new DaoException("Exception when delete book: {}", e);
         }
-    }
-
-    @Override
-    public Optional<Book> create(Book entity) throws DaoException {
-        return Optional.empty();
     }
 
     @Override

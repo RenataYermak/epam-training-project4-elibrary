@@ -55,46 +55,48 @@
                 <span class="description-name">${book.description}</span>
             </div>
             <hr/>
-            <div class="book-author">
-                <span class="author-name"><b><fmt:message key="table.label.available"/></b> ${book.number}</span>
-            </div>
-            <div>
-                <c:if test="${sessionScope.authUser.role != 'ADMIN'}">
-                    <form action="controller" method="post">
-                        <input hidden name="bookId" value="${book.id}">
-                        <input hidden name="userId" value="${sessionScope.authUser.id}">
-                        <c:choose>
-                            <c:when test="${book.number != 0}">
-                                <input hidden name="bookTitle" value="${book.title}">
-                                <select name="type" style="width: 110px; margin-top: 10px">
-                                    <option value="reading_room" selected="selected"><fmt:message
-                                            key="table.label.reading_room"/></option>
-                                    <option value="season_ticket"><fmt:message
-                                            key="table.label.season_ticket"/></option>
-                                </select>
-                                <br>
-                                <button class="btn" style="width: 110px" type="submit" name="command"
-                                        value="order_book">
-                                    <fmt:message key="table.button.order"/>
-                                </button>
-                            </c:when>
-                            <c:otherwise>
-                                <input hidden name="bookTitle" value="${book.title}">
-                                <select name="type"style="width: 110px; margin-top: 10px" disabled>
-                                    <option value="reading_room" selected="selected"><fmt:message
-                                            key="table.label.reading_room"/></option>
-                                    <option value="season_ticket"><fmt:message
-                                            key="table.label.season_ticket"/></option>
-                                </select>
-                                <br>
-                                <button disabled class="btn" style="width: 110px" type="submit" name="command"
-                                        value="order_book">
-                                    <fmt:message key="table.button.order"/>
-                                </button>
-                            </c:otherwise>
-                        </c:choose>
-                    </form>
-                </c:if>
+            <div class="block-book-order">
+                <div class="book-author">
+                    <span class="author-name"><b><fmt:message key="table.label.available"/></b> ${book.number}</span>
+                </div>
+                <div>
+                    <c:if test="${sessionScope.authUser.role != 'ADMIN'}">
+                        <form action="controller" method="post">
+                            <input hidden name="bookId" value="${book.id}">
+                            <input hidden name="userId" value="${sessionScope.authUser.id}">
+                            <c:choose>
+                                <c:when test="${book.number != 0}">
+                                    <input hidden name="bookTitle" value="${book.title}">
+                                    <select name="type" style="width: 115px; margin-top: 10px">
+                                        <option value="reading_room" selected="selected"><fmt:message
+                                                key="table.label.reading_room"/></option>
+                                        <option value="season_ticket"><fmt:message
+                                                key="table.label.season_ticket"/></option>
+                                    </select>
+                                    <br>
+                                    <button class="btn" style="width: 115px" type="submit" name="command"
+                                            value="order_book">
+                                        <fmt:message key="table.button.order"/>
+                                    </button>
+                                </c:when>
+                                <c:otherwise>
+                                    <input hidden name="bookTitle" value="${book.title}">
+                                    <select name="type" style="width: 112px; margin-top: 10px" disabled>
+                                        <option value="reading_room" selected="selected"><fmt:message
+                                                key="table.label.reading_room"/></option>
+                                        <option value="season_ticket"><fmt:message
+                                                key="table.label.season_ticket"/></option>
+                                    </select>
+                                    <br>
+                                    <button disabled class="btn" style="width: 110px" type="submit" name="command"
+                                            value="order_book">
+                                        <fmt:message key="table.button.order"/>
+                                    </button>
+                                </c:otherwise>
+                            </c:choose>
+                        </form>
+                    </c:if>
+                </div>
             </div>
         </div>
     </div>

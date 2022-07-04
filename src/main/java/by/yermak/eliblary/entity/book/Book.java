@@ -1,7 +1,5 @@
 package by.yermak.eliblary.entity.book;
 
-//import by.yermak.eliblary.builder.BookBuilder;
-
 import by.yermak.eliblary.entity.builder.BookBuilder;
 
 import java.io.Serial;

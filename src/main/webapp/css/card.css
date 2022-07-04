@@ -86,7 +86,6 @@
 
 .book-author {
     font-size: 17px;
-    margin: -4px 0 0 20px;
 }
 
 .book-description{
@@ -99,4 +98,7 @@
 .title-name {
     font-size: 26px;
     font-weight: bold;
+}
+.block-book-order {
+    margin: 3px 0 0 20px;
 }

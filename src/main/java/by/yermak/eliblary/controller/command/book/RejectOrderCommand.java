@@ -31,17 +31,24 @@ public class RejectOrderCommand implements Command {
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
+        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
+                Order order =  orderService.findOrder(orderId);
+                var title = order.getBook().getTitle();
+                var firstName = order.getUser().getFirstName();
+                var secondName = order.getUser().getSecondName();
+                var email = order.getUser().getEmail();
                 orderService.rejectedOrder(orderId);
+                orderService.sendEmailRejectedOrder(firstName,secondName,title, email, currentLocale);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reject order: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+              //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

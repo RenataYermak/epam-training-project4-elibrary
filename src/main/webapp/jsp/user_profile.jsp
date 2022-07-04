@@ -33,7 +33,7 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <a href="${pageContext.request.contextPath}/controller?command=find_books">
+                <a href="${pageContext.request.contextPath}/controller?command=find_users">
                     <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="user.back.user_list"/>
                 </a>
             </c:if>
@@ -92,7 +92,7 @@
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.password"/></td>
-                <td><input class="book-form" type="password" name="password" required
+                <td><input class="book-form" type="password" name="password" id="pwd" required
                            pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}" ;
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.password"/>')"
@@ -100,6 +100,7 @@
                                    this.setCustomValidity(this.validity.patternMismatch ?
                                    '<fmt:message key="validation.user.registration.password"/>' : '');"
                            value="${user.password}">
+                    <input type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
             </tr>
             <tr>
                 <td class="content-table"><fmt:message key="user.label.email"/></td>
@@ -146,12 +147,13 @@
                     value="edit_user">
                 <fmt:message key="user.button.submit"/>
             </button>
-            <button class=" btn" style="width: 71px;background-color: #6b6868;margin: 0 0 0 0" type="submit" name="command"
+            <button class=" btn" style="width: 71px;background-color: #6b6868;margin: 0 0 0 0" type="submit"
+                    name="command"
                     value="find_user"><fmt:message
                     key="user.button.cancel"/>
             </button>
         </div>
-        <c:if test="${authUser.role == 'ADMIN'}">
+        <c:if test="${authUser.role == 'ADMIN' }">
             <div class="content-submit-btn-deactivate">
                 <button class="btn"
                         style="width: 176px; margin-left: 129px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"

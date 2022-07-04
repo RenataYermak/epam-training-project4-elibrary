@@ -2,6 +2,7 @@ package by.yermak.eliblary.util.locale;
 
 public final class MessagesKey {
     public static final String SUCCESSFUL_REG_EMAIL_HEADER = "Registered in eLibrary";
+    public static final String REJECT_ORDER_HEADER = "Reject order";
     public static final String SEARCH_USER_FAIL = "search.user.fail";
     public static final String ACCOUNT_BLOCKED = "account.blocked";
     public static final String INCORRECT_LOGIN_OR_PASSWORD = "incorrect.login.or.password";
@@ -20,6 +21,7 @@ public final class MessagesKey {
     public static final String BOOK_NOT_UPDATE = "book.not.update";
     public static final String SEARCH_BOOK_FAIL = "search.book.fail";
     public static final String MESSAGE_PICTURE_WRONG = "message.picture.wrong";
+
     private MessagesKey() {
     }
 }

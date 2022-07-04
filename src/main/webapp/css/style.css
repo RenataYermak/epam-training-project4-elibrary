@@ -133,11 +133,11 @@ textarea:invalid {
     pointer-events: none;
 }
 
-input:-moz-placeholder {
-    color: #B6C0A5;
-    font-style: italic;
-    background: #e3ecdd;
-}
+/*input:-moz-placeholder {*/
+/*    color: #B6C0A5;*/
+/*    font-style: italic;*/
+/*    background: #e3ecdd;*/
+/*}*/
 
 .search-form {
     width: 70%;
@@ -158,8 +158,7 @@ input:-moz-placeholder {
     padding-left: 10px;
     border: 2px solid #338e8f;
     outline: none;
-    background: #f1f0ee;
-    color: #797878;
+    background: #fdfdfd;
     margin-top: 4px;
     margin-bottom: 0px;
     position: center;

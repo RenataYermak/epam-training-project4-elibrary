@@ -83,7 +83,7 @@
                                        this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
                                        key="validation.user.registration.password"/>' : '');"
                                value="${user.password}">
-                        <input  type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
+                        <input type="checkbox" onclick="show()"><fmt:message key="sign_in.button.show_password"/></td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.email"/></td>
@@ -116,7 +116,7 @@
                 <input hidden name="userId" value="${user.id}">
                 <button class="btn " style="width: 55%; margin-left: 129px; margin-top: 0px;" type="submit"
                         name="command" value="registration">
-                    <fmt:message key="register.button.register_user"/>t
+                    <fmt:message key="register.button.register_user"/>
                 </button>
             </div>
         </form>

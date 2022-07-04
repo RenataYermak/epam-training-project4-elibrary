@@ -1,6 +1,6 @@
 package by.yermak.yermak.eliblary.validator;
 
-import by.yermak.eliblary.validator.Validator;
+import by.yermak.eliblary.validator.UserValidator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +8,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ValidatorTest {
-    private Validator validator;
+    private UserValidator validator;
 
     @BeforeEach
     void init() {
-        validator = Validator.getInstance();
+        validator = UserValidator.getInstance();
     }
 
     @Test

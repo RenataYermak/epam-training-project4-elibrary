@@ -1,6 +1,5 @@
 package by.yermak.eliblary.dao.impl;
 
-import by.yermak.eliblary.dao.QuerySql;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.mapper.impl.UserMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
@@ -17,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.QuerySql.*;
+import static by.yermak.eliblary.dao.sql.BookSql.ELEMENTS_ON_PAGE;
+import static by.yermak.eliblary.dao.sql.UserSql.*;
 
 public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -225,24 +225,10 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updatePassword(Long id, String password) throws DaoException {
-        LOGGER.log(Level.INFO, "method updatePassword");
-        try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(UPDATE_PASSWORD)) {
-            preparedStatement.setString(1, password);
-            preparedStatement.setLong(2, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
-            throw new DaoException("Exception when update user password: {}", e);
-        }
-    }
-
-    @Override
     public boolean isEmailExist(String email) throws DaoException {
         boolean isExist = false;
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySql.SQL_IS_EMAIL_EXIST)) {
+             var preparedStatement = connection.prepareStatement(SQL_IS_EMAIL_EXIST)) {
             preparedStatement.setString(1, email);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -260,7 +246,7 @@ public class UserDaoImpl implements UserDao {
     public boolean isLoginExist(String login) throws DaoException {
         boolean isExist = false;
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(QuerySql.SQL_IS_LOGIN_EXIST)) {
+             var preparedStatement = connection.prepareStatement(SQL_IS_LOGIN_EXIST)) {
             preparedStatement.setString(1, login);
             try (var resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {

@@ -103,10 +103,21 @@
 
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.description"/></td>
-                        <td><textarea class="description-form" name="description" type="text"  minlength="10" maxlength="3000" required
-                                      pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>">
-                            ${book.description} </textarea>
-                        </td>
+                        <td>
+                            <div id='fake_textarea' contenteditable></div>
+                            <input type="hidden" id="fake_textarea_content" name="description" required
+                                   pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>"
+                                   oninvalid="this.setCustomValidity('<fmt:message
+                                           key="validation.user.registration.password"/>')"
+                                   onchange="this.setAttribute('value', this.value);
+                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                           key="validation.user.registration.password"/>' : '');"
+                                   value="${book.description}"></td>
+                            <%--                        <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
+                            <%--                        <td><textarea class="description-form" name="description" type="text"  minlength="10" maxlength="3000" required--%>
+                            <%--                                      pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>">--%>
+                            <%--                            ${book.description} </textarea>--%>
+                            <%--                        </td>--%>
                     </tr>
                 </table>
             </div>

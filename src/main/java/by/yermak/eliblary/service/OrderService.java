@@ -83,4 +83,26 @@ public interface OrderService {
      *                          into the data source
      */
     List<Order> findAll(int page, Status orderStatus) throws ServiceException;
+
+    /**
+     * Send message about reject {@link User}'s  {@link Order}  on  {@link User}'s email.
+     *
+     * @param firstName     the {@link User}'s firstname
+     * @param secondName    the {@link User}'s secondname
+     * @param bookName      the {@link Book}'s title
+     * @param email         the {@link User}'s email
+     * @param currentLocale the current locale, chosen by current user
+     */
+    void sendEmailRejectedOrder(String firstName, String secondName, String bookName, String email, String currentLocale);
+
+    /**
+     * Find order {@link Order} instance by <tt>id</tt>
+     *
+     * @param id {@link Order}'s id
+     * @return {@link Order} instance
+     * @throws ServiceException if {@link Order} with <tt>login</tt> do not present into
+     *                          data source or if an error occurs while searching {@link Order}
+     *                          into the data source
+     */
+    Order findOrder(Long id) throws ServiceException;
 }

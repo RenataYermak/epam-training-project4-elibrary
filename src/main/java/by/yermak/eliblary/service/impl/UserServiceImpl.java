@@ -2,8 +2,6 @@ package by.yermak.eliblary.service.impl;
 
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
-import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.user.Status;
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.service.UserService;
@@ -13,18 +11,17 @@ import by.yermak.eliblary.util.email.MailSender;
 import by.yermak.eliblary.util.locale.MessagesKey;
 import by.yermak.eliblary.util.exception.UtilException;
 import by.yermak.eliblary.util.hash.HashGenerator;
-import by.yermak.eliblary.validator.Validator;
+import by.yermak.eliblary.validator.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Optional;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LogManager.getLogger();
     private final HashGenerator hashGenerator = HashGenerator.getInstance();
-    private final Validator validator = Validator.getInstance();
+    private final UserValidator validator = UserValidator.getInstance();
     private final UserDao userDao;
 
     public UserServiceImpl() {
@@ -220,25 +217,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-
     @Override
-    public void updatePassword(User user) throws ServiceException {
-        LOGGER.log(Level.INFO, "method updatePassword");
-        if (!validator.isUserValid(user)) {
-            throw new ServiceException("Input data is invalid");
-        }
-        try {
-            userDao.updatePassword(user.getId(), user.getPassword());
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method updatePassword: ", e);
-            throw new ServiceException("Exception when update user password: {}", e);
-        }
-    }
-
-    @Override
-    public void sendEmailRegisteredUser(String firstName, String secondName, String email, String currentLocale) {
+    public void sendEmailRegisteredUser(String firstName, String secondName, String login, String password, String email, String currentLocale) {
         var finalRegistrationMessage =
-                firstName + " " + secondName + ", " + LanguageMessage.getInstance().getText(currentLocale, "successful.reg.email.body");
+                firstName + " " + secondName + ", " + LanguageMessage.getInstance().getText(currentLocale, "successful.reg.email.body") +
+                login + "," + password + ". ";
         MailSender.getInstance().send(email, MessagesKey.SUCCESSFUL_REG_EMAIL_HEADER, finalRegistrationMessage);
     }
 }

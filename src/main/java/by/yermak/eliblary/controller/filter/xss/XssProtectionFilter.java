@@ -6,10 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/*"})
-public class XSSProtectionFilter implements Filter {
+public class XssProtectionFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        filterChain.doFilter(new XSSRequestWrapper((HttpServletRequest) servletRequest), servletResponse);
+        filterChain.doFilter(new XssRequestWrapper((HttpServletRequest) servletRequest), servletResponse);
     }
 }

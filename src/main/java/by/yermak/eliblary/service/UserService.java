@@ -2,7 +2,7 @@ package by.yermak.eliblary.service;
 
 import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.validator.Validator;
+import by.yermak.eliblary.validator.UserValidator;
 
 import java.util.List;
 
@@ -43,7 +43,7 @@ public interface UserService {
      * @param login {@link User}'s login
      * @return {@link User} instance
      * @throws ServiceException if <tt>login</tt> is null or empty or if <tt>login</tt>
-     *                          or not accords to specify pattern {@link Validator}
+     *                          or not accords to specify pattern {@link UserValidator}
      *                          or if {@link User} with <tt>login</tt> do not present into
      *                          data source or if an error occurs while searching {@link User}
      *                          into the data source
@@ -58,7 +58,7 @@ public interface UserService {
      * @return {@link User} instance
      * @throws ServiceException if <tt>login</tt> or <tt>password</tt> is null or
      *                          empty or if <tt>login</tt> or <tt>password</tt> do
-     *                          not accords to specify pattern {@link Validator}
+     *                          not accords to specify pattern {@link UserValidator}
      *                          or if {@link User} with <tt>login</tt> and <tt>password</tt>
      *                          do not present into data source or if an error occurs
      *                          while searching {@link User} into the data source
@@ -89,7 +89,7 @@ public interface UserService {
      * @param user {@link User} is filled user instance
      * @return user {@link User}
      * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
-     *                          {@link Validator}
+     *                          {@link UserValidator}
      *                          or if user with <tt>email</tt> or <tt>login</tt> has already exist
      *                          or if an error occurs while writing new {@link User} into
      *                          data source
@@ -102,7 +102,7 @@ public interface UserService {
      * @param user {@link User} is filled user instance
      * @return user {@link User}
      * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
-     *                          {@link Validator}
+     *                          {@link UserValidator}
      *                          or if user with <tt>email</tt> has already exist
      *                          or if an error occurs while writing new {@link User} into
      *                          data source
@@ -149,27 +149,16 @@ public interface UserService {
     void deactivate(Long id) throws ServiceException;
 
     /**
-     * Update {@link User}'s with password
-     *
-     * @param user {@link User} instance
-     * @throws ServiceException if  <tt>password</tt> is null or
-     *                          empty or if  <tt>password</tt> do
-     *                          not accords to specify pattern {@link Validator}
-     *                          or if {@link User} with  <tt>password</tt>
-     *                          do not present into data source or if an error occurs
-     *                          while searching {@link User} into the data source
-     */
-    void updatePassword(User user) throws ServiceException;
-
-    /**
      * Send message about successful registration on user email.
      *
-     * @param firstName     the firstname
-     * @param secondName    the secondname
-     * @param email         the email
+     * @param firstName     the {@link User}'s firstname
+     * @param secondName    the {@link User}'s secondname
+     * @param login         the {@link User}'s login
+     * @param password      the {@link User}'s password
+     * @param email         the {@link User}'s email
      * @param currentLocale the current locale, chosen by current user
      */
-    void sendEmailRegisteredUser(String firstName, String secondName, String email, String currentLocale);
+    void sendEmailRegisteredUser(String firstName, String secondName,String login, String password, String email, String currentLocale);
 
     /**
      * Find users in page  {@link User}

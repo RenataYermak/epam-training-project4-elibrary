@@ -16,9 +16,8 @@ public final class RequestParameter {
     public static final String BOOK_PUBLISH_YEAR = "publishYear";
     public static final String BOOK_CATEGORY = "category";
     public static final String BOOK_NUMBER = "number";
-    public static final String BOOK_PICTURE= "picture";
-    public static final String BOOK_DESCRIPTION= "description";
-
+    public static final String BOOK_PICTURE = "picture";
+    public static final String BOOK_DESCRIPTION = "description";
     /**
      * User params
      */
@@ -46,5 +45,6 @@ public final class RequestParameter {
     public static final String PAGINATION_RECORDS_PER_PAGE = "recordsPerPage";
     public static final String PAGINATION_PAGES_QUANTITY = "pagesQuantity";
 
-    private RequestParameter() {}
+    private RequestParameter() {
+    }
 }

@@ -82,15 +82,6 @@ public interface UserDao extends EntityDao<User, Long> {
     void deactivate(Long id) throws DaoException;
 
     /**
-     * Update {@link User}'s password
-     *
-     * @param id       is the {@link User}'s id
-     * @param password is the new {@link User}'s password
-     * @throws DaoException if there is any problem during access
-     */
-    void updatePassword(Long id, String password) throws DaoException;
-
-    /**
      * Finds and returns the {@link User} list in page
      *
      * @param page count pages

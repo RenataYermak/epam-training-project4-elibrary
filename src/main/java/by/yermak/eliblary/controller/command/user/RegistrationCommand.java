@@ -62,7 +62,7 @@ public class RegistrationCommand implements Command {
                 }
                 user.setRole(Role.valueOf(role.toUpperCase()));
                 user = userService.create(user);
-                userService.sendEmailRegisteredUser(firstName, secondName, email, currentLocale);
+                userService.sendEmailRegisteredUser(firstName, secondName, login, password, email, currentLocale);
                 if (user.getId() != null) {
                     LOGGER.log(Level.INFO, "user was registered successfully");
                     var allUsers = userService.findAll();
@@ -73,7 +73,7 @@ public class RegistrationCommand implements Command {
                 return new Router(PagePath.REGISTRATION, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during user registration: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

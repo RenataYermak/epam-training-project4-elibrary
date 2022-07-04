@@ -1,6 +1,5 @@
 package by.yermak.eliblary.service.impl;
 
-import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
 import by.yermak.eliblary.dao.OrderDao;
@@ -11,21 +10,17 @@ import by.yermak.eliblary.dao.impl.OrderDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.validator.Validator;
+import by.yermak.eliblary.validator.BookValidator;
+import by.yermak.eliblary.validator.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.yermak.eliblary.controller.RequestParameter.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import static by.yermak.eliblary.controller.RequestParameter.*;
 
 public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
-    private final Validator validator = Validator.getInstance();
+    private final BookValidator validator = BookValidator.getInstance();
     private final BookDao bookDao;
     private final OrderDao orderDao;
     private final UserDao userDao;
@@ -77,20 +72,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean create(Map<String, String> bookData, byte[] picture) throws ServiceException {
+    public boolean create(Book book, byte[] picture) throws ServiceException {
+        if (!validator.isBookValid(book)) {
+            throw new ServiceException("Input data is invalid");
+        }
         try {
-            Book book = new Book();
-            book.setTitle(bookData.get(BOOK_TITLE));
-            book.setAuthor(bookData.get(BOOK_AUTHOR));
-            book.setCategory(Category.valueOf(bookData.get(BOOK_CATEGORY).toUpperCase()));
-            book.setPublishYear(Integer.parseInt(bookData.get(BOOK_PUBLISH_YEAR)));
-            book.setDescription(bookData.get(BOOK_DESCRIPTION));
-            book.setNumber(Integer.parseInt(bookData.get(BOOK_NUMBER)));
-            book.setPicture(bookData.get(BOOK_PICTURE));
-//            if (!validator.isNameValid(book.getTitle()) || !validator.isAuthorValid(book.getAuthor()) ||
-//                !validator.isDescription(book.getDescription())) {
-//                throw new ServiceException("Input data is invalid");
-//            }
             bookDao.create(book, picture);
             return true;
         } catch (DaoException e) {
@@ -102,6 +88,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean update(Book book, byte[] picture) throws ServiceException {
+        if (!validator.isBookValid(book)) {
+            throw new ServiceException("Input data is invalid");
+        }
         try {
             bookDao.update(book, picture);
             return true;

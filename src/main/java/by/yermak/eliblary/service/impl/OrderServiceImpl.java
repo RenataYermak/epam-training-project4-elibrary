@@ -7,18 +7,19 @@ import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
 import by.yermak.eliblary.dao.impl.OrderDaoImpl;
 import by.yermak.eliblary.dao.impl.UserDaoImpl;
+import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
-import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.validator.Validator;
+import by.yermak.eliblary.util.email.MailSender;
+import by.yermak.eliblary.util.locale.LanguageMessage;
+import by.yermak.eliblary.util.locale.MessagesKey;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
-import java.util.Optional;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -26,7 +27,6 @@ public class OrderServiceImpl implements OrderService {
     private final BookDao bookDao;
     private final OrderDao orderDao;
     private final UserDao userDao;
-    private final Validator validator = Validator.getInstance();
 
     public OrderServiceImpl() {
         this.bookDao = new BookDaoImpl();
@@ -35,10 +35,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order findOrder(Long id) throws ServiceException {
+        LOGGER.log(Level.INFO, "method find");
+        try {
+            var orderOptional = orderDao.find(id);
+            if (orderOptional.isEmpty()) {
+                throw new ServiceException("There is no such order");
+            }
+            return orderOptional.get();
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method find: ", e);
+            throw new ServiceException("Exception when find order: {}", e);
+        }
+    }
+
+    @Override
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBooksByOrderStatus");
         try {
-           return orderDao.findOrdersByOrderStatus(orderStatus);
+            return orderDao.findOrdersByOrderStatus(orderStatus);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByOrderStatus: ", e);
             throw new ServiceException("Exception when findBooksByOrderStatus: {}", e);
@@ -101,12 +116,20 @@ public class OrderServiceImpl implements OrderService {
             throw new ServiceException("Exception when reject order: {}", e);
         }
     }
+
     @Override
-    public List<Order> findAll(int page,Status orderStatus) throws ServiceException {
+    public List<Order> findAll(int page, Status orderStatus) throws ServiceException {
         try {
             return orderDao.findAlL(page, orderStatus);
         } catch (DaoException e) {
             throw new ServiceException("Exception in findAllUsers method", e);
         }
+    }
+
+    @Override
+    public void sendEmailRejectedOrder(String firstName, String secondName, String bookName, String email, String currentLocale) {
+        var finalRegistrationMessage =
+                firstName + " " + secondName + ", " + bookName + "." + LanguageMessage.getInstance().getText(currentLocale, "reject.order.mail");
+        MailSender.getInstance().send(email, MessagesKey.REJECT_ORDER_HEADER, finalRegistrationMessage);
     }
 }

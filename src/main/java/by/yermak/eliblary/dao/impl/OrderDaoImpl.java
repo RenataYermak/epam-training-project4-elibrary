@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.QuerySql.*;
+import static by.yermak.eliblary.dao.sql.BookSql.ELEMENTS_ON_PAGE;
+import static by.yermak.eliblary.dao.sql.OrderSql.*;
 
 public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -95,7 +96,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public void reserveBook(Long orderId) throws DaoException {
         LOGGER.log(Level.INFO, "method reserveBook");
-        LocalDateTime localDate = LocalDateTime.now();
+        LocalDateTime localDate = LocalDateTime.now().plusMonths(1);
         try (var connection = ConnectionPool.getInstance().getConnection();
              var psReserveBook = connection.prepareStatement(RESERVE_BOOK);) {
             psReserveBook.setTimestamp(1, Timestamp.valueOf(localDate));
@@ -173,7 +174,6 @@ public class OrderDaoImpl implements OrderDao {
         return Optional.empty();
     }
 
-
     @Override
     public List<Order> findAll() throws DaoException {
         LOGGER.log(Level.INFO, "method findAll");
@@ -211,25 +211,6 @@ public class OrderDaoImpl implements OrderDao {
         }
         return ordersOnPage;
     }
-//    @Override
-//    public List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException {
-//        LOGGER.log(Level.INFO, "method findOrdersByOrderStatus");
-//        List<Order> orders = new ArrayList<>();
-//        try (var connection = ConnectionPool.getInstance().getConnection();
-//             var preparedStatement = connection.prepareStatement(SELECT_BOOKS_BY_ORDER_STATUS)) {
-//            preparedStatement.setString(1, orderStatus.toString());
-//            try (var resultSet = preparedStatement.executeQuery()) {
-//                while (resultSet.next()) {
-//                    var optionalBook = orderMapper.map(resultSet);
-//                    optionalBook.ifPresent(orders::add);
-//                }
-//            }
-//        } catch (SQLException e) {
-//            LOGGER.log(Level.ERROR, "exception in method findOrdersByOrderStatus: ", e);
-//            throw new DaoException("Exception when find books by order status: {}", e);
-//        }
-//        return orders;
-//    }
 
     @Override
     public Optional<Order> create(Order entity) throws DaoException {

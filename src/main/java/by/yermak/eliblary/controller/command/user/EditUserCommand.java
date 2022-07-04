@@ -30,7 +30,7 @@ public class EditUserCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAuthorized(session) && isAuthorized(session)) {
+        if (isAuthorized(session) ) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 var login = request.getParameter(RequestParameter.USER_LOGIN);

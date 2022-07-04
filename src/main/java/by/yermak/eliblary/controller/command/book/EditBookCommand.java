@@ -44,12 +44,10 @@ public class EditBookCommand implements Command {
         if (isAuthorized(session) && isAdmin(session)) {
             try {
                 byte[] bytesPicture = new byte[0];
-
-                try (
-                        InputStream stream = request.getPart(RequestParameter.BOOK_PICTURE).getInputStream()) {
+                try (InputStream stream = request.getPart(RequestParameter.BOOK_PICTURE).getInputStream()) {
                     bytesPicture = stream.readAllBytes();
                 } catch (ServletException | IOException e) {
-                    LOGGER.log(Level.ERROR, "error while addNewProductCommand is trying to get photo. {}", e.getMessage());
+                    LOGGER.log(Level.ERROR, "error while editBookCommand is trying to get photo. {}", e.getMessage());
                 }
 
                 Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
@@ -59,8 +57,6 @@ public class EditBookCommand implements Command {
                 var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
                 var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
                 var description = request.getParameter(RequestParameter.BOOK_DESCRIPTION);
-                var picture = request.getParameter(RequestParameter.BOOK_PICTURE);
-                // byte[] bytesPicture = new byte[0];
 
                 var book = bookService.findBook(id);
                 if (book != null) {
@@ -72,7 +68,7 @@ public class EditBookCommand implements Command {
                     book.setPublishYear(publishYear);
                     book.setNumber(number);
                     book.setDescription(description);
-                    book.setPicture(Arrays.toString(bytesPicture));
+                    //book.setPicture(Arrays.toString(bytesPicture));
                     bookService.update(book, bytesPicture);
                     request.setAttribute(RequestAttribute.BOOK, book);
                     request.setAttribute(
@@ -90,54 +86,3 @@ public class EditBookCommand implements Command {
         return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
     }
 }
-
-
-//        LOGGER.log(Level.INFO, "method execute()");
-//        var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-//        if (isAuthorized(session) && isAdmin(session)) {
-//            Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
-//            Map<String, String> bookDataMap = new HashMap<>();
-//            bookDataMap.put(RequestParameter.BOOK_TITLE, request.getParameter(RequestParameter.BOOK_TITLE));
-//            bookDataMap.put(RequestParameter.BOOK_AUTHOR, request.getParameter(RequestParameter.BOOK_AUTHOR));
-//            bookDataMap.put(RequestParameter.BOOK_CATEGORY, request.getParameter(RequestParameter.BOOK_CATEGORY));
-//            bookDataMap.put(RequestParameter.BOOK_PUBLISH_YEAR, request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
-//            bookDataMap.put(RequestParameter.BOOK_NUMBER, request.getParameter(RequestParameter.BOOK_NUMBER));
-//            bookDataMap.put(RequestParameter.BOOK_PICTURE, request.getParameter(RequestParameter.BOOK_PICTURE));
-//
-//            byte[] bytesPicture = new byte[0];
-////                Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
-////                var title = request.getParameter(RequestParameter.BOOK_TITLE);
-////                var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
-////                var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
-////                var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
-////                var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
-////                var picture = request.getParameter(RequestParameter.BOOK_PICTURE);
-////
-////            try {
-////                bookService.findBook(id);
-////            } catch (ServiceException e) {
-////                e.printStackTrace();
-////            }
-//            try (
-//                    InputStream stream = request.getPart(RequestParameter.BOOK_PICTURE).getInputStream()) {
-//                bytesPicture = stream.readAllBytes();
-//            } catch (ServletException | IOException e) {
-//                LOGGER.log(Level.ERROR, "error while addNewProductCommand is trying to get photo. {}", e.getMessage());
-//            }
-//            try {
-//                bookService.update(bookDataMap, bytesPicture);
-//                request.setAttribute(RequestAttribute.BOOK, bookDataMap);
-//                request.setAttribute(
-//                        RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale, SUCCESS_BOOK_UPDATE));
-//                return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
-//            } catch (ServiceException e) {
-//                LOGGER.log(Level.ERROR, "error during updating book: ", e);
-//             //   return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
-//
-//            }
-//        }
-//        request.setAttribute(
-//                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, BOOK_NOT_UPDATE));
-//        return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
-//    }
-//}

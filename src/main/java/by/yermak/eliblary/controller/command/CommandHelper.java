@@ -42,7 +42,6 @@ public class CommandHelper {
         commands.put(CommandName.DEACTIVATE_USER, new DeactivateUserCommand());
         commands.put(CommandName.USER_SEARCH, new UserSearchCommand());
         commands.put(CommandName.CHANGE_LOCALE, new ChangeLocaleCommand());
-
     }
 
     public static CommandHelper getInstance() {

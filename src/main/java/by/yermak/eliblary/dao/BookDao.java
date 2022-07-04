@@ -4,6 +4,7 @@ import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface describes the opportunity that data source provide to store and

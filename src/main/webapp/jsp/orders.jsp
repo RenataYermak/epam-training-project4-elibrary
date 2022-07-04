@@ -34,24 +34,14 @@
                 <h2>${ordersPageTitle}</h2>
             </div>
         </c:if>
-        <div class ="content-search">
-            <form action="controller" method="get" name="searchForm">
-                <label for="site-search">
-                    <input class="search-form " type="search" name="searchQuery" id="site-search"
-                           placeholder=<fmt:message key="table.button.search"/> pattern="^[\p{L}\d-.]{1,25}$">
-                </label>
-                <button class="btn" style=" margin: -3px 10px 0px 0px" type="submit" name="command"
-                        value="book_search"><i class="fas fa-search"></i>
-                </button>
-            </form>
-        </div>
     </div>
     <hr/>
+
     <c:if test="${orders.size() > 0}">
         <table class="table">
             <tr class="row-header-green">
                 <th class="cell-main"><fmt:message key="book.label.title"/></th>
-<%--                <th class="cell"><fmt:message key="book.label.author"/></th>--%>
+                    <%--                <th class="cell"><fmt:message key="book.label.author"/></th>--%>
                 <th class="cell-main"><fmt:message key="orders.label.user_name"/></th>
                 <th class="cell-main"><fmt:message key="orders.label.type"/></th>
                 <th class="cell-main"><fmt:message key="orders.label.status"/></th>
@@ -69,7 +59,7 @@
             <c:forEach items="${orders}" var="order">
                 <tr class="row">
                     <td class="cell">${order.book.title}</td>
-<%--                    <td class="cell">${order.book.author}</td>--%>
+                        <%--                    <td class="cell">${order.book.author}</td>--%>
                     <td class="cell">${order.user.login}</td>
                     <td class="cell">${order.type.name}</td>
                     <td class="cell">${order.status.name}</td>
@@ -81,7 +71,8 @@
                     <c:if test="${orderStatus == 'reserved'}">
                         <fmt:parseDate value="${order.reservedDate}" pattern="y-M-dd'T'H:m"
                                        var="myParseDate"></fmt:parseDate>
-                        <td class="cell"><fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
+                        <td class="cell" style="color: #cb1313"><fmt:formatDate value="${myParseDate}"
+                                                                                pattern="dd.MM.yyyy"/></td>
                     </c:if>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <td class="cell">
@@ -89,11 +80,13 @@
                             <c:if test="${orderStatus == 'ordered'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton reserveButton" style="margin: 0 10px 0 10%" type="submit" name="command"
+                                    <button class="actionButton reserveButton" style="margin: 0 10px 0 10%"
+                                            type="submit" name="command"
                                             value="reserve_book">
                                         <fmt:message key="orders.button.reserve"/>
                                     </button>
-                                    <button class="actionButton reserveButton" style="background-color: #f67f7f;width: 70px" type="submit" name="command"
+                                    <button class="actionButton reserveButton"
+                                            style="background-color: #f67f7f;width: 70px" type="submit" name="command"
                                             value="reject_order">
                                         <fmt:message key="orders.button.reject"/>
                                     </button>
@@ -102,7 +95,7 @@
                             <c:if test="${orderStatus == 'reserved'}">
                                 <form action="controller">
                                     <input hidden name="orderId" value="${order.id}">
-                                    <button class="actionButton "style="margin-left: 10%" type="submit" name="command"
+                                    <button class="actionButton " style="margin-left: 10%" type="submit" name="command"
                                             value="return_book">
                                         <fmt:message key="orders.button.return"/>
                                     </button>
@@ -112,6 +105,15 @@
                     </c:if>
                 </tr>
             </c:forEach>
+            <label for="sort-dishes"></label>
+            <select name="${order.book.title}" id="sort-dishes">
+                <option value="true" <c:if test="${'true'.equals(param.asc)}">selected</c:if>>
+                    <fmt:message key="admin.select.order_asc"/>
+                </option>
+                <option value="false" <c:if test="${'false'.equals(param.asc)}">selected</c:if>>
+                    <fmt:message key="admin.select.order_desc"/>
+                </option>
+            </select>
         </table>
     </c:if>
     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
@@ -186,7 +188,7 @@
                 <div class="rows" style="justify-content: start">
                     <nav aria-label="pagination">
                         <ul class="pagination">
-                            <c:if test="${requestScope.page != 1}">
+                            <c:if test="${requestScope.page > 1}">
                                 <li><a class="page-link"
                                        href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=ordered&page=${requestScope.page-1}">
                                     <span aria-hidden="true">&laquo;</span></a></li>
@@ -218,7 +220,7 @@
                 <div class="rows" style="justify-content: start">
                     <nav aria-label="pagination">
                         <ul class="pagination">
-                            <c:if test="${requestScope.page != 1}">
+                            <c:if test="${requestScope.page > 1}">
                                 <li><a class="page-link"
                                        href="${pageContext.request.contextPath}/controller?command=find_orders_by_user&userId=${sessionScope.authUser.id}&orderStatus=reserved&page=${requestScope.page-1}">
                                     <span aria-hidden="true">&laquo;</span></a></li>

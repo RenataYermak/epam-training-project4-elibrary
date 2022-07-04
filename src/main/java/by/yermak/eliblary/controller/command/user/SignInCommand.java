@@ -52,14 +52,11 @@ public class SignInCommand implements Command {
                 LOGGER.log(Level.INFO, "failed to login, not permission");
                 request.setAttribute(
                         RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, ACCOUNT_BLOCKED));
-            } else {
-                LOGGER.log(Level.INFO, "failed to login, bad credentials");
-                request.setAttribute(
-                        RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, INCORRECT_LOGIN_OR_PASSWORD));
             }
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);
-            return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+            request.setAttribute(
+                    RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, INCORRECT_LOGIN_OR_PASSWORD));
         }
         request.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.SIGN_IN);
         return new Router(PagePath.SIGN_IN, Router.RouterType.FORWARD);

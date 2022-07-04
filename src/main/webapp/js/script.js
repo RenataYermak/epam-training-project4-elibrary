@@ -1,8 +1,9 @@
 function preventBack() {
     window.history.forward();
 }
+
 setTimeout("preventBack()", 0);
-     window.onunload = function () {
+window.onunload = function () {
     null
 };
 
@@ -14,3 +15,7 @@ function show() {
         a.type = "password";
     }
 }
+
+$('#sort-dishes, #sort-dishes-attr').change(function () {
+    this.form.submit();
+})
