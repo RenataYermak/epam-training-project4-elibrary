@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.title"/></td>
-                    <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d-]{2,25}$"
+                    <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d\s-.']{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.title"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.author"/></td>
-                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d-]{2,25}$"
+                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.book.add.author"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -104,7 +104,7 @@
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.description"/></td>
                     <td><textarea class="description-form" name="description" type="text" minlength="10" maxlength="3000" required
-                                  pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>"> ${book.description} </textarea></td>
+                                  pattern="^[\p{L}\d\p{S}\p{So}\p{P}\s]$>"> ${book.description} </textarea></td>
                 </tr>
             </table>
             <c:if test="${successMessageBookCreate != null || warningMessagePassMismatch != null}">

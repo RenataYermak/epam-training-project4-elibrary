@@ -5,7 +5,6 @@ import by.yermak.eliblary.dao.mapper.impl.BookMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.dao.exception.DaoException;
-import by.yermak.eliblary.util.converter.ImageConverter;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 import java.util.*;
@@ -137,31 +135,43 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public boolean update (Book book, byte[] picture) throws DaoException {
+    public Optional<Book> update(Book book) throws DaoException {
         LOGGER.log(Level.INFO, "method create");
-        InputStream pictureStream = null;
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(UPDATE_BOOK)) {
-            pictureStream = new ByteArrayInputStream(picture);
+             var preparedStatement = connection.prepareStatement(UPDATE_BOOK_DATA)) {
             constructPreparedStatement(preparedStatement, book);
-            preparedStatement.setBlob(7, pictureStream);
-            preparedStatement.setLong(8, book.getId());
+            preparedStatement.setLong(7, book.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "ProductDao error while create new product. {}", e.getMessage());
             throw new DaoException("ProductDao error while create new product", e);
+        }
+        return Optional.of(book);
+    }
+    @Override
+    public boolean updatePicture(Long id, byte[] picture) throws DaoException {
+        InputStream photoStream = null;
+        int result = 0;
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(UPDATE_PICTURE)) {
+            photoStream = new ByteArrayInputStream(picture);
+            preparedStatement.setBlob(1, photoStream);
+            preparedStatement.setLong(2, id);
+            result = preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.log(Level.ERROR, "ProductDao error while updatePhoto. {}", e.getMessage());
+            throw new DaoException("ProductDao error while updatePhoto", e);
         } finally {
             try {
-                if (pictureStream != null) {
-                    pictureStream.close();
+                if (photoStream != null) {
+                    photoStream.close();
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "ProductDao error while create new product closing resources. {}", e.getMessage());
+                LOGGER.log(Level.ERROR, "ProductDao error while updatePhoto closing resources. {}", e.getMessage());
             }
         }
-        return true;
+        return result > 0;
     }
-
 
     @Override
     public void delete(Long id) throws DaoException {
@@ -174,11 +184,6 @@ public class BookDaoImpl implements BookDao {
             LOGGER.log(Level.ERROR, "exception in method delete: ", e);
             throw new DaoException("Exception when delete book: {}", e);
         }
-    }
-
-    @Override
-    public Optional<Book> update(Book entity) throws DaoException {
-        return Optional.empty();
     }
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, Book book) throws SQLException {

@@ -41,8 +41,8 @@ public class ConnectionPool {
 
     public static ConnectionPool getInstance() {
         if (!isPoolCreated.get()) {
+            locker.lock();
             try {
-                locker.lock();
                 if (instance == null) {
                     instance = new ConnectionPool();
                     isPoolCreated.set(true);

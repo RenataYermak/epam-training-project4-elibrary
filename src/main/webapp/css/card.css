@@ -65,7 +65,10 @@
     margin-right: 10px;
     margin-top: 20px;
 }
-
+/*.image-book {*/
+/*    width: 289px;*/
+/*    height: 500px;*/
+/*}*/
 .image-book img {
     height: 400px;
     width: 289px;
@@ -81,7 +84,7 @@
 }
 
 .book-title {
-    margin: 20px 0 0 20px;
+    margin: 15px 0 0 20px;
 }
 
 .book-author {

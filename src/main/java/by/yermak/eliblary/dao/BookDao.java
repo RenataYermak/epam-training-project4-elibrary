@@ -42,10 +42,10 @@ public interface BookDao extends EntityDao<Book, Long> {
     /**
      * Update a book.
      *
-     * @param book    is the {@link Book} entity
+     * @param id      is the {@link Book}'s id
      * @param picture is the {@link Book}' picture
-     * @return true if {@link Book} updated successfully
+     * @return true if {@link Book}'s picture updated successfully
      * @throws DaoException if there is any problem during access
      */
-    boolean update(Book book, byte[] picture) throws DaoException;
+    boolean updatePicture(Long id, byte[] picture) throws DaoException;
 }

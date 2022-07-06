@@ -40,15 +40,16 @@
             </div>
         </div>
         <hr/>
-        <form action="controller" method="post" enctype="multipart/form-data">
-            <tr>
-                <input type="file" name="picture" accept=".png, .jpg, .jpeg"/>
-            </tr>
+        <form action="controller" method="post" >
+<%--            enctype="multipart/form-data">--%>
+<%--            <tr>--%>
+<%--                <input type="file" name="picture" accept=".png, .jpg, .jpeg"/>--%>
+<%--            </tr>--%>
             <div>
                 <table class="content-table-main">
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.title"/></td>
-                        <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d-.]{2,25}$"
+                        <td><input class="book-form" type="text" name="title" required pattern="^[\p{L}\d\s-.']{2,25}$"
                                    oninvalid="this.setCustomValidity('<fmt:message
                                            key="validation.user.registration.login"/>')"
                                    onchange="this.setAttribute('value', this.value);
@@ -58,7 +59,7 @@
                     </tr>
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.author"/></td>
-                        <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d-.]{2,25}$"
+                        <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"
                                    oninvalid="this.setCustomValidity('<fmt:message
                                            key="validation.user.registration.firstname"/>')"
                                    onchange="this.setAttribute('value', this.value);
@@ -100,24 +101,13 @@
                                            key="validation.user.registration.password"/>' : '');"
                                    value="${book.number}"></td>
                     </tr>
-
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.description"/></td>
-                        <td>
-                            <div id='fake_textarea' contenteditable></div>
-                            <input type="hidden" id="fake_textarea_content" name="description" required
-                                   pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>"
-                                   oninvalid="this.setCustomValidity('<fmt:message
-                                           key="validation.user.registration.password"/>')"
-                                   onchange="this.setAttribute('value', this.value);
-                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                           key="validation.user.registration.password"/>' : '');"
-                                   value="${book.description}"></td>
-                            <%--                        <td class="content-table"><fmt:message key="book.label.description"/></td>--%>
-                            <%--                        <td><textarea class="description-form" name="description" type="text"  minlength="10" maxlength="3000" required--%>
-                            <%--                                      pattern="^[\p{L}\d\p{S}\p{So}\p{P}]$>">--%>
-                            <%--                            ${book.description} </textarea>--%>
-                            <%--                        </td>--%>
+                        <td><textarea class="description-form" name="description" type="text" minlength="10"
+                                      maxlength="3000" required
+                                      pattern="^[\p{L}\d\p{S}\p{So}\p{P}\s]$>">
+                                ${book.description} </textarea>
+                        </td>
                     </tr>
                 </table>
             </div>

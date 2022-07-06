@@ -27,15 +27,18 @@ public class BookSql {
     public static final String INSERT_BOOK = """
             INSERT INTO books (title, author, category_id, publish_year, description, number, picture)
             VALUES(?, ?, (SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?), ?, ?, ?, ?)""";
-    public static final String UPDATE_BOOK = """
+    public static final String UPDATE_PICTURE = """
+            UPDATE books b
+            SET  b.picture=?
+            WHERE b.book_id=?""";
+    public static final String UPDATE_BOOK_DATA = """
             UPDATE books b
             SET b.title=?,
                 b.author=?,
                 b.category_id=(SELECT bc.category_id FROM book_categories bc WHERE bc.category_name = ?),
                 b.publish_year=?,
                 b.description=?,
-                b.number=?,
-                b.picture=?
+                b.number=?
             WHERE b.book_id=?""";
     public static final String DELETE_BOOK = """
             DELETE

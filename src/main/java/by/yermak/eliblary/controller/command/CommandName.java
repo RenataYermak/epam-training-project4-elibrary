@@ -6,6 +6,7 @@ public enum CommandName {
      */
     ADD_BOOK,
     EDIT_BOOK,
+    EDIT_BOOK_PICTURE,
     FIND_BOOKS,
     FIND_BOOK,
     DELETE_BOOK,

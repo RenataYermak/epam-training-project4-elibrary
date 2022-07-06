@@ -87,20 +87,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public boolean update(Book book, byte[] picture) throws ServiceException {
-        if (!validator.isBookValid(book)) {
-            throw new ServiceException("Input data is invalid");
-        }
-        try {
-            bookDao.update(book, picture);
-            return true;
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "ProductService error while addNewProduct. {}", e.getMessage());
-            throw new ServiceException("ProductService error while addNewProduct.", e);
-        }
-    }
-
-    @Override
     public void delete(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method delete");
         try {
@@ -123,6 +109,31 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book update(Book book) throws ServiceException {
-        return null;
+        LOGGER.log(Level.INFO, "method update");
+        if (!validator.isBookValid(book)) {
+            throw new ServiceException("Input data is invalid");
+        }
+        try {
+            var optionalBook = bookDao.update(book);
+            if (optionalBook.isEmpty()) {
+                throw new ServiceException("There is no such book");
+            }
+            return optionalBook.get();
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method update: ", e);
+            throw new ServiceException("Exception when update book: {}", e);
+        }
+    }
+
+    @Override
+    public boolean updatePicture(Long id, byte[] picture) throws ServiceException {
+        boolean isUpdated = false;
+        try {
+            isUpdated = bookDao.updatePicture(id, picture);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "ProductService error while updatePhoto. {}", e.getMessage());
+            throw new ServiceException("ProductService error while updatePhoto.", e);
+        }
+        return isUpdated;
     }
 }

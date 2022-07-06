@@ -40,6 +40,27 @@
     <hr/>
     <div class="block-book">
         <div class="image-book">
+            <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                <form action="controller" method="post" enctype="multipart/form-data">
+                    <div class="content-edit">
+                        <input style="width: 230px; margin: 0px 0 0 10px" type="file" name="picture"
+                               accept=".png, .jpg, .jpeg"/>
+                    </div>
+                    <div class="content-edit">
+                        <input hidden name="bookId" value="${book.id}">
+                        <button class="btn" style="width: 98px; margin: 0px 0 0 5px"  type="submit"
+                                name="command"
+                                value="edit_book_picture"><fmt:message key="book.button.edit"/>
+                        </button>
+                    </div>
+                    <c:if test="${successMessageBookUpdated != null || warningMessagePassMismatch != null}">
+                        <div class="content-submit-btn-main">
+                            <p class="content-msg cnt-msg-success">${successMessageBookUpdated}</p>
+                            <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
+                        </div>
+                    </c:if>
+                </form>
+            </c:if>
             <img src="data:image/jpeg;base64,${book.picture}" alt="img"/>
         </div>
         <div class="block-book-info">

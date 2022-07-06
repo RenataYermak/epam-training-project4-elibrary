@@ -88,10 +88,10 @@ public interface BookService {
     /**
      * Update {@link Book} with filled fields
      *
-     * @param book    is the {@link Book}  filled book instance
+     * @param id      is the {@link Book}'s id
      * @param picture is the {@link Book}'s picture
-     * @return true if book update successfully
+     * @return true if {@link Book} picture update successfully
      * @throws ServiceException if an error occurs while writing new {@link Book} into data source
      */
-    boolean update(Book book, byte[] picture) throws ServiceException;
+    boolean updatePicture(Long id, byte[] picture) throws ServiceException;
 }

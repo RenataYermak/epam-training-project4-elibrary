@@ -17,6 +17,7 @@ public class CommandHelper {
     private CommandHelper() {
         commands.put(CommandName.ADD_BOOK, new AddBookCommand());
         commands.put(CommandName.EDIT_BOOK, new EditBookCommand());
+        commands.put(CommandName.EDIT_BOOK_PICTURE, new EditBookPictureCommand());
         commands.put(CommandName.FIND_BOOK, new FindBookCommand());
         commands.put(CommandName.FIND_BOOKS, new FindAllBooksCommand());
         commands.put(CommandName.DELETE_BOOK, new DeleteBookCommand());

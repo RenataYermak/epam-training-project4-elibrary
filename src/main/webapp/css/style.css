@@ -133,12 +133,6 @@ textarea:invalid {
     pointer-events: none;
 }
 
-/*input:-moz-placeholder {*/
-/*    color: #B6C0A5;*/
-/*    font-style: italic;*/
-/*    background: #e3ecdd;*/
-/*}*/
-
 .search-form {
     width: 70%;
     height: 26px;
@@ -186,6 +180,7 @@ textarea:invalid {
     margin-top: 2px;
     margin-bottom: 0px;
     position: center;
+    white-space: pre-wrap;
 }
 
 .user-form {
@@ -198,4 +193,18 @@ textarea:invalid {
     margin-top: 2px;
     margin-bottom: 0px;
     position: center;
+}
+/*.....................*/
+textarea {
+    width: 200px;
+    height: 176px;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    white-space: -o-pre-wrap;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    float: left;
+    margin-left: 10px;
+    margin-top: 0;
+    overflow-y: auto;
 }

@@ -16,6 +16,8 @@ function show() {
     }
 }
 
-$('#sort-dishes, #sort-dishes-attr').change(function () {
-    this.form.submit();
-})
+function test(){
+    var thetarget = document.getElementById("b");
+    thetarget.innerHTML = document.getElementById("a").value;
+    thetarget.scrollTop = thetarget.scrollHeight;
+}

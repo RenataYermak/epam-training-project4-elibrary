@@ -94,6 +94,14 @@ h2 {
     margin-top: 15px;
     margin-right: 10px;
 }
+.content-edit {
+    height: max-content;
+    width: max-content;
+    display: contents;
+    float: left;
+    margin-top: 5px;
+    margin-left: 10px;
+}
 
 p.info-style {
     margin-left: 15px;
