@@ -173,7 +173,7 @@ textarea:invalid {
 .description-form {
     height: 70px;
     width: 220px;
-    padding-left: 10px;
+    padding-left: 0px;
     border: 2px solid #338e8f;
     outline: none;
     background: #ffffff;
@@ -194,6 +194,7 @@ textarea:invalid {
     margin-bottom: 0px;
     position: center;
 }
+
 /*.....................*/
 textarea {
     width: 200px;

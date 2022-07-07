@@ -32,6 +32,7 @@ public class CommandHelper {
         commands.put(CommandName.ADD_BOOK_PAGE, new AddBookPageCommand());
         commands.put(CommandName.REGISTER_PAGE, new RegisterPageCommand());
         commands.put(CommandName.BOOK_VIEW_PAGE, new BookViewPageCommand());
+        commands.put(CommandName.FIND_AUTHORS, new FindAllAuthorsCommand());
 
         commands.put(CommandName.SIGN_IN, new SignInCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());

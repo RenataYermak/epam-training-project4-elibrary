@@ -40,11 +40,7 @@
             </div>
         </div>
         <hr/>
-        <form action="controller" method="post" >
-<%--            enctype="multipart/form-data">--%>
-<%--            <tr>--%>
-<%--                <input type="file" name="picture" accept=".png, .jpg, .jpeg"/>--%>
-<%--            </tr>--%>
+        <form action="controller" method="post">
             <div>
                 <table class="content-table-main">
                     <tr>
@@ -59,13 +55,20 @@
                     </tr>
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.author"/></td>
-                        <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"
-                                   oninvalid="this.setCustomValidity('<fmt:message
-                                           key="validation.user.registration.firstname"/>')"
-                                   onchange="this.setAttribute('value', this.value);
-                                           this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                           key="validation.user.registration.firstname"/>' : '');"
-                                   value="${book.author}"></td>
+                        <td>
+                            <select name="author" style="width: 235px; margin:2px 0 2px 0">
+                                <c:forEach items="${authors}" var="author">
+                                    <c:choose>
+                                        <c:when test="${not empty book && book.author.id.equals(author.id)}">
+                                            <option selected value="${author.id}">${author.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${author.id}">${author.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.category"/></td>

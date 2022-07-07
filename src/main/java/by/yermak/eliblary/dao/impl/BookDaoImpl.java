@@ -41,7 +41,6 @@ public class BookDaoImpl implements BookDao {
         return booksOnPage;
     }
 
-
     @Override
     public Optional<Book> find(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method find");
@@ -120,15 +119,15 @@ public class BookDaoImpl implements BookDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "ProductDao error while create new product. {}", e.getMessage());
-            throw new DaoException("ProductDao error while create new product", e);
+            LOGGER.log(Level.ERROR, "BookDao error while create new book. {}", e.getMessage());
+            throw new DaoException("BookDao error while create new book", e);
         } finally {
             try {
                 if (pictureStream != null) {
                     pictureStream.close();
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "ProductDao error while create new product closing resources. {}", e.getMessage());
+                LOGGER.log(Level.ERROR, "BookDao error while create new product closing resources. {}", e.getMessage());
             }
         }
         return true;
@@ -148,6 +147,7 @@ public class BookDaoImpl implements BookDao {
         }
         return Optional.of(book);
     }
+
     @Override
     public boolean updatePicture(Long id, byte[] picture) throws DaoException {
         InputStream photoStream = null;
@@ -188,7 +188,7 @@ public class BookDaoImpl implements BookDao {
 
     private void constructPreparedStatement(PreparedStatement preparedStatement, Book book) throws SQLException {
         preparedStatement.setString(1, book.getTitle());
-        preparedStatement.setString(2, book.getAuthor());
+        preparedStatement.setLong(2, book.getAuthor().getId());
         preparedStatement.setString(3, book.getCategory().toString());
         preparedStatement.setInt(4, book.getPublishYear());
         preparedStatement.setString(5, book.getDescription());

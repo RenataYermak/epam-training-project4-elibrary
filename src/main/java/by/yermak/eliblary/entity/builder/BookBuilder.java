@@ -1,12 +1,13 @@
 package by.yermak.eliblary.entity.builder;
 
+import by.yermak.eliblary.entity.book.Author;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.book.Category;
 
 public class BookBuilder {
     private Long id;
     private String title;
-    private String author;
+    private Author author;
     private Category category;
     private int publishYear;
     private String description;
@@ -35,11 +36,11 @@ public class BookBuilder {
         return this;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public BookBuilder setAuthor(String author) {
+    public BookBuilder setAuthor(Author author) {
         this.author = author;
         return this;
     }

@@ -80,8 +80,8 @@ public class BookServiceImpl implements BookService {
             bookDao.create(book, picture);
             return true;
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "ProductService error while addNewProduct. {}", e.getMessage());
-            throw new ServiceException("ProductService error while addNewProduct.", e);
+            LOGGER.log(Level.ERROR, "ProductService error while add book. {}", e.getMessage());
+            throw new ServiceException("ProductService error while add book.", e);
         }
 
     }

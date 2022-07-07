@@ -57,15 +57,25 @@
                                        key="validation.book.add.title"/>' : '');"
                                value="${book.title}"></td>
                 </tr>
+                    <%--                <tr>--%>
+                    <%--&lt;%&ndash;                    <td class="content-table"><fmt:message key="book.label.author"/></td>&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                               oninvalid="this.setCustomValidity('<fmt:message&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                       key="validation.book.add.author"/>')"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                               onchange="this.setAttribute('value', this.value);&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                                       key="validation.book.add.author"/>' : '');"&ndash;%&gt;--%>
+                    <%--&lt;%&ndash;                               value="${book.author}"></td>&ndash;%&gt;--%>
+                    <%--                </tr>--%>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.author"/></td>
-                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"
-                               oninvalid="this.setCustomValidity('<fmt:message
-                                       key="validation.book.add.author"/>')"
-                               onchange="this.setAttribute('value', this.value);
-                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                       key="validation.book.add.author"/>' : '');"
-                               value="${book.author}"></td>
+                    <td>
+                        <select name="author" style="width: 235px; margin:2px 0 2px 0">
+                            <c:forEach items="${authors}" var="author">
+                                <option selected value="${author.id}">${author.name}</option>
+                            </c:forEach>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.category"/></td>
@@ -73,9 +83,8 @@
                         <select name="category" style="width: 235px;margin:2px 0 2px 0">
                             <option value="fiction"><fmt:message key="book.category.fiction"/></option>
                             <option value="detective"><fmt:message key="book.category.detective"/></option>
-                            <option value="novel" selected="selected"><fmt:message key="book.category.novel"/></option>
-                            <option value="science" selected="selected"><fmt:message
-                                    key="book.category.science"/></option>
+                            <option value="novel"><fmt:message key="book.category.novel"/></option>
+                            <option value="science"><fmt:message key="book.category.science"/></option>
                         </select>
                     </td>
                 </tr>
@@ -103,8 +112,10 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.description"/></td>
-                    <td><textarea class="description-form" name="description" type="text" minlength="10" maxlength="3000" required
-                                  pattern="^[\p{L}\d\p{S}\p{So}\p{P}\s]$>"> ${book.description} </textarea></td>
+                    <td><textarea class="description-form" name="description" type="text" minlength="10"
+                                  maxlength="3000" required
+                                  pattern="^[\p{L}\d\p{S}\p{So}\p{P}\s\f\n\r\t\v]$>"> ${book.description} </textarea>
+                    </td>
                 </tr>
             </table>
             <c:if test="${successMessageBookCreate != null || warningMessagePassMismatch != null}">

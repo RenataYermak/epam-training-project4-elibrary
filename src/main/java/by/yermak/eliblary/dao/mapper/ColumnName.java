@@ -20,7 +20,7 @@ public final class ColumnName {
      */
     public static final String BOOK_ID = "b.book_id";
     public static final String TITLE = "b.title";
-    public static final String AUTHOR = "b.author";
+    public static final String AUTHOR = "ba.author_name";
     public static final String CATEGORY = "bc.category_name";
     public static final String PUBLISH_YEAR = "b.publish_year";
     public static final String DESCRIPTION = "b.description";
@@ -37,9 +37,12 @@ public final class ColumnName {
     public static final String RESERVED_DATE = "o.reserved_date";
     public static final String RETURNED_DATE = "o.returned_date";
     public static final String REJECTED_DATE = "o.rejected_date";
-    public static final String USER_FIRSTNAME = "o.firstname";
-    public static final String USER_SECONDNAME = "o.secondname";
-    public static final String BOOK_TITLE = "o.title";
+
+    /**
+     * author
+     */
+    public static final String AUTHOR_ID = "ba.author_id";
+    public static final String AUTHOR_NAME = "ba.author_name";
 
     private ColumnName() {
     }

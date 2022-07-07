@@ -1,9 +1,12 @@
 package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
+import by.yermak.eliblary.entity.book.Author;
 import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.service.AuthorService;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.service.impl.AuthorServiceImpl;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
@@ -15,15 +18,9 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 import static by.yermak.eliblary.util.locale.MessagesKey.*;
 
@@ -32,10 +29,13 @@ public class EditBookCommand implements Command {
     LanguageMessage message = LanguageMessage.getInstance();
 
     private final BookService bookService;
+    private final AuthorService authorService;
 
     public EditBookCommand() {
         this.bookService = new BookServiceImpl();
+        this.authorService = new AuthorServiceImpl();
     }
+
     @Override
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
@@ -44,7 +44,7 @@ public class EditBookCommand implements Command {
             try {
                 var id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
                 var title = request.getParameter(RequestParameter.BOOK_TITLE);
-                var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
+                var author = parseLongParameter(request.getParameter(RequestParameter.BOOK_AUTHOR));
                 var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
                 var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
                 var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
@@ -54,18 +54,20 @@ public class EditBookCommand implements Command {
                         book.setCategory(Category.valueOf(category.toUpperCase()));
                     }
                     book.setTitle(title);
-                    book.setAuthor(author);
+                    book.setAuthor(new Author(author));
                     book.setPublishYear(publishYear);
                     book.setNumber(number);
                     bookService.update(book);
+                    authorService.findAuthor(author);
                     request.setAttribute(RequestAttribute.BOOK, book);
+                    request.setAttribute(RequestAttribute.AUTHOR, author);
                     request.setAttribute(
                             RequestAttribute.SUCCESS_MESSAGE_BOOK_UPDATE, message.getText(currentLocale, SUCCESS_BOOK_UPDATE));
                     return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating book: ", e);
-              //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

@@ -7,6 +7,8 @@ public final class RequestAttribute {
     public static final String BOOKS = "books";
     public static final String BOOK = "book";
     public static final String BOOK_TITLE = "bookTitle";
+    public static final String AUTHORS = "authors";
+    public static final String AUTHOR = "author";
 
     /**
      * User attributes

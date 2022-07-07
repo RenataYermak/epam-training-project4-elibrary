@@ -73,7 +73,7 @@
                                 <span class="text-title">${book.title}</span></a>
                         </form>
                     </div>
-                    <br><span class="info-item">${book.author} <br>${book.category.name}, ${book.publishYear}</span>
+                    <br><span class="info-item">${book.author.name} <br>${book.category.name}, ${book.publishYear}</span>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <form action="controller">
                             <label>

@@ -21,6 +21,7 @@ public enum CommandName {
     ADD_BOOK_PAGE,
     REGISTER_PAGE,
     BOOK_VIEW_PAGE,
+    FIND_AUTHORS,
 
     /**
      * User commands

@@ -5,10 +5,13 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
+import by.yermak.eliblary.entity.book.Author;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.book.Category;
+import by.yermak.eliblary.service.AuthorService;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
+import by.yermak.eliblary.service.impl.AuthorServiceImpl;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
 
 import by.yermak.eliblary.util.locale.LanguageMessage;
@@ -30,9 +33,11 @@ public class AddBookCommand implements Command {
     LanguageMessage message = LanguageMessage.getInstance();
 
     private final BookService bookService;
+    private final AuthorService authorService;
 
     public AddBookCommand() {
         this.bookService = new BookServiceImpl();
+        this.authorService = new AuthorServiceImpl();
     }
 
     @Override
@@ -48,7 +53,7 @@ public class AddBookCommand implements Command {
                 LOGGER.log(Level.ERROR, "error while addNewProductCommand is trying to get photo. {}", e.getMessage());
             }
             var title = request.getParameter(RequestParameter.BOOK_TITLE);
-            var author = request.getParameter(RequestParameter.BOOK_AUTHOR);
+            var author = parseLongParameter(request.getParameter(RequestParameter.BOOK_AUTHOR));
             var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
             var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
             var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
@@ -56,7 +61,7 @@ public class AddBookCommand implements Command {
 
             var book = new Book();
             book.setTitle(title);
-            book.setAuthor(author);
+            book.setAuthor(new Author(author));
             book.setCategory(Category.valueOf(category.toUpperCase()));
             book.setPublishYear(publishYear);
             book.setNumber(number);
@@ -71,7 +76,6 @@ public class AddBookCommand implements Command {
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
                 //   return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
-
             }
         }
         request.setAttribute(

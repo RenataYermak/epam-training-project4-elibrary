@@ -69,7 +69,7 @@
             </div>
             <br>
             <div class="book-author">
-                <span class="author-name">${book.author}, ${book.publishYear}</span>
+                <span class="author-name">${book.author.name}, ${book.publishYear}</span>
             </div>
             <hr/>
             <div class="book-description" style="margin-left: 20px">

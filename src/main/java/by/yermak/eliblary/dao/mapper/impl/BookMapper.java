@@ -1,6 +1,7 @@
 package by.yermak.eliblary.dao.mapper.impl;
 
 import by.yermak.eliblary.dao.mapper.EntityMapper;
+import by.yermak.eliblary.entity.book.Author;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.util.converter.ImageConverter;
@@ -23,7 +24,9 @@ public class BookMapper implements EntityMapper<Book> {
             var book = new Book();
             book.setId(resultSet.getLong(BOOK_ID));
             book.setTitle(resultSet.getString(TITLE));
-            book.setAuthor(resultSet.getString(AUTHOR));
+            var authorMapper =new AuthorMapper();
+            Optional<Author> author = authorMapper.map(resultSet);
+            author.ifPresent(book::setAuthor);
             book.setPublishYear(resultSet.getInt(PUBLISH_YEAR));
             book.setDescription(resultSet.getString(DESCRIPTION));
             book.setNumber(resultSet.getInt(NUMBER));
