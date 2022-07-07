@@ -29,39 +29,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll(int page) throws ServiceException {
-        try {
-            return userDao.findAlL(page);
-        } catch (DaoException e) {
-            throw new ServiceException("Exception in findAllUsers method", e);
-        }
-    }
-
-    @Override
-    public boolean isEmailExist(String email) throws ServiceException {
-        boolean result;
-        try {
-            result = userDao.isEmailExist(email);
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "failed to check if user with {} exists ", e);
-            throw new ServiceException("Exception when find email : {}", e);
-        }
-        return result;
-    }
-
-    @Override
-    public boolean isLoginExist(String login) throws ServiceException {
-        boolean result;
-        try {
-            result = userDao.isLoginExist(login);
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "failed to check if user with {} exists", e);
-            throw new ServiceException("Exception when find login : {}", e);
-        }
-        return result;
-    }
-
-    @Override
     public User findUser(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
@@ -215,6 +182,41 @@ public class UserServiceImpl implements UserService {
             LOGGER.log(Level.ERROR, "exception in method deactivate: ", e);
             throw new ServiceException("Exception when deactivate user: {}", e);
         }
+    }
+
+    @Override
+    public List<User> findAll(int page) throws ServiceException {
+        LOGGER.log(Level.INFO, "method findAll");
+        try {
+            return userDao.findAlL(page);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findAll user in page : ", e);
+            throw new ServiceException("Exception in findAll method: {}", e);
+        }
+    }
+
+    @Override
+    public boolean isEmailExist(String email) throws ServiceException {
+        boolean result;
+        try {
+            result = userDao.isEmailExist(email);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "failed to check if user with {} exists ", e);
+            throw new ServiceException("Exception when find email : {}", e);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean isLoginExist(String login) throws ServiceException {
+        boolean result;
+        try {
+            result = userDao.isLoginExist(login);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "failed to check if user with {} exists", e);
+            throw new ServiceException("Exception when find login : {}", e);
+        }
+        return result;
     }
 
     @Override

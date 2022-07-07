@@ -11,7 +11,6 @@ import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.BookValidator;
-import by.yermak.eliblary.validator.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,18 +21,14 @@ public class BookServiceImpl implements BookService {
     private static final Logger LOGGER = LogManager.getLogger();
     private final BookValidator validator = BookValidator.getInstance();
     private final BookDao bookDao;
-    private final OrderDao orderDao;
-    private final UserDao userDao;
 
     public BookServiceImpl() {
         this.bookDao = new BookDaoImpl();
-        this.orderDao = new OrderDaoImpl();
-        this.userDao = new UserDaoImpl();
     }
 
     @Override
     public Book findBook(Long id) throws ServiceException {
-        LOGGER.log(Level.INFO, "method find");
+        LOGGER.log(Level.INFO, "method findBook");
         try {
             var bookOptional = bookDao.find(id);
             if (bookOptional.isEmpty()) {
@@ -41,18 +36,18 @@ public class BookServiceImpl implements BookService {
             }
             return bookOptional.get();
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method find: ", e);
+            LOGGER.log(Level.ERROR, "exception in method findBook: ", e);
             throw new ServiceException("Exception when find book: {}", e);
         }
     }
 
     @Override
     public List<Book> findAllBooks() throws ServiceException {
-        LOGGER.log(Level.INFO, "method findAll");
+        LOGGER.log(Level.INFO, "method findAllBooks");
         try {
             return bookDao.findAll();
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method findAll: ", e);
+            LOGGER.log(Level.ERROR, "exception in method findAllBooks: ", e);
             throw new ServiceException("Exception when findAll books: {}", e);
         }
     }
@@ -80,8 +75,8 @@ public class BookServiceImpl implements BookService {
             bookDao.create(book, picture);
             return true;
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "ProductService error while add book. {}", e.getMessage());
-            throw new ServiceException("ProductService error while add book.", e);
+            LOGGER.log(Level.ERROR, "exception in method create book. {}", e.getMessage());
+            throw new ServiceException("Exception when try create book.", e);
         }
 
     }
@@ -99,6 +94,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findAllBooks(int page) throws ServiceException {
+        LOGGER.log(Level.INFO, "method findAllBooks ");
         try {
             return bookDao.findAllBooks(page);
         } catch (DaoException e) {
@@ -127,12 +123,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public boolean updatePicture(Long id, byte[] picture) throws ServiceException {
-        boolean isUpdated = false;
+        boolean isUpdated;
         try {
             isUpdated = bookDao.updatePicture(id, picture);
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "ProductService error while updatePhoto. {}", e.getMessage());
-            throw new ServiceException("ProductService error while updatePhoto.", e);
+            LOGGER.log(Level.ERROR, "exception in method updatePicture: ", e);
+            throw new ServiceException("Exception when updatePicture book: {}", e);
         }
         return isUpdated;
     }

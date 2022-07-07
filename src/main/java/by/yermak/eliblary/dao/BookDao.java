@@ -4,7 +4,6 @@ import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Interface describes the opportunity that data source provide to store and
@@ -34,7 +33,7 @@ public interface BookDao extends EntityDao<Book, Long> {
      *
      * @param book    is the {@link Book} entity
      * @param picture is the {@link Book}' picture
-     * @return true if {@link Book} created successfully
+     * @return true   if {@link Book} created successfully
      * @throws DaoException if there is any problem during access
      */
     boolean create(Book book, byte[] picture) throws DaoException;

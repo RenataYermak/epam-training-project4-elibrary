@@ -1,10 +1,7 @@
 package by.yermak.eliblary.controller.command;
 
 import by.yermak.eliblary.controller.command.book.*;
-import by.yermak.eliblary.controller.command.page.AboutLibraryPageCommand;
-import by.yermak.eliblary.controller.command.page.AddBookPageCommand;
-import by.yermak.eliblary.controller.command.page.BookViewPageCommand;
-import by.yermak.eliblary.controller.command.page.RegisterPageCommand;
+import by.yermak.eliblary.controller.command.page.*;
 import by.yermak.eliblary.controller.command.user.*;
 
 
@@ -16,6 +13,7 @@ public class CommandHelper {
 
     private CommandHelper() {
         commands.put(CommandName.ADD_BOOK, new AddBookCommand());
+        commands.put(CommandName.ADD_AUTHOR, new AddAuthorCommand());
         commands.put(CommandName.EDIT_BOOK, new EditBookCommand());
         commands.put(CommandName.EDIT_BOOK_PICTURE, new EditBookPictureCommand());
         commands.put(CommandName.FIND_BOOK, new FindBookCommand());
@@ -33,6 +31,7 @@ public class CommandHelper {
         commands.put(CommandName.REGISTER_PAGE, new RegisterPageCommand());
         commands.put(CommandName.BOOK_VIEW_PAGE, new BookViewPageCommand());
         commands.put(CommandName.FIND_AUTHORS, new FindAllAuthorsCommand());
+        commands.put(CommandName.ADD_AUTHOR_PAGE, new AddAuthorPageCommand());
 
         commands.put(CommandName.SIGN_IN, new SignInCommand());
         commands.put(CommandName.SIGN_OUT, new SignOutCommand());

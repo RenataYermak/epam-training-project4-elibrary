@@ -1,6 +1,5 @@
 package by.yermak.eliblary.util.hash;
 
-import by.yermak.eliblary.util.email.MailSender;
 import by.yermak.eliblary.util.exception.UtilException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

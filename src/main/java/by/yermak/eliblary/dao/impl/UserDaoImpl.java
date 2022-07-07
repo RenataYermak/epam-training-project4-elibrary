@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
+            LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
             throw new DaoException("Exception when find user by id: {}", e);
         }
         return Optional.empty();
@@ -43,7 +43,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByLogin(String login) throws DaoException {
-        LOGGER.log(Level.INFO, "method find by id");
+        LOGGER.log(Level.INFO, "method find by login");
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(SELECT_USER_BY_LOGIN)) {
             preparedStatement.setString(1, login);
@@ -53,8 +53,8 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "exception in method find by id: ", e);
-            throw new DaoException("Exception when find user by id: {}", e);
+            LOGGER.log(Level.ERROR, "exception in method find user by login: ", e);
+            throw new DaoException("Exception when find user by login: {}", e);
         }
         return Optional.empty();
     }
@@ -254,7 +254,7 @@ public class UserDaoImpl implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("failed to check if user with {} email exists", login, e);
+            LOGGER.error("failed to check if user with {} login exists", login, e);
             throw new DaoException("failed to check if user with " + login + " exists", e);
         }
         return isExist;

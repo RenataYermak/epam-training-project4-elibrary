@@ -10,6 +10,10 @@ public class AuthorSql {
                    ba.author_name
             FROM book_authors ba
             WHERE ba.author_id=?""";
+    public static final String INSERT_AUTHOR = """
+            INSERT INTO book_authors
+            (author_name)
+            VALUES (?)""";
 
     private AuthorSql() {
     }

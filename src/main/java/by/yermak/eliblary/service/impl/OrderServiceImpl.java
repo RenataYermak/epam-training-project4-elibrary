@@ -1,13 +1,8 @@
 package by.yermak.eliblary.service.impl;
 
-import by.yermak.eliblary.dao.BookDao;
 import by.yermak.eliblary.dao.OrderDao;
-import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
-import by.yermak.eliblary.dao.impl.BookDaoImpl;
 import by.yermak.eliblary.dao.impl.OrderDaoImpl;
-import by.yermak.eliblary.dao.impl.UserDaoImpl;
-import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.service.OrderService;
@@ -24,19 +19,15 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger();
 
-    private final BookDao bookDao;
     private final OrderDao orderDao;
-    private final UserDao userDao;
 
     public OrderServiceImpl() {
-        this.bookDao = new BookDaoImpl();
         this.orderDao = new OrderDaoImpl();
-        this.userDao = new UserDaoImpl();
     }
 
     @Override
     public Order findOrder(Long id) throws ServiceException {
-        LOGGER.log(Level.INFO, "method find");
+        LOGGER.log(Level.INFO, "method findOrder");
         try {
             var orderOptional = orderDao.find(id);
             if (orderOptional.isEmpty()) {
@@ -44,7 +35,7 @@ public class OrderServiceImpl implements OrderService {
             }
             return orderOptional.get();
         } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method find: ", e);
+            LOGGER.log(Level.ERROR, "exception in method findOrder: ", e);
             throw new ServiceException("Exception when find order: {}", e);
         }
     }
@@ -74,7 +65,6 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Long orderBook(Order order) throws ServiceException {
         LOGGER.log(Level.INFO, "method orderBook");
-
         try {
             return orderDao.orderBook(order);
         } catch (DaoException e) {

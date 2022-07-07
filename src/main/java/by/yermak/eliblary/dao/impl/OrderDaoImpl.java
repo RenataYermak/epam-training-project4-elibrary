@@ -60,7 +60,7 @@ public class OrderDaoImpl implements OrderDao {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.ERROR, "exception in method findBooksByUserIdAndOrderStatus: ", e);
-            throw new DaoException("Exception when find reserved books by userId: {}", e);
+            throw new DaoException("Exception when find books by order status and  userId: {}", e);
         }
         return orders;
     }

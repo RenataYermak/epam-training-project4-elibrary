@@ -38,6 +38,12 @@ public final class RequestParameter {
     public static final String TYPE = "type";
 
     /**
+     * Author
+     */
+    public static final String AUTHOR_ID = "authorId";
+    public static final String AUTHOR_NAME = "authorName";
+
+    /**
      * Other
      */
     public static final String SEARCH_QUERY = "searchQuery";

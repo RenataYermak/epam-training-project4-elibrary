@@ -36,7 +36,7 @@ public class BookDaoImpl implements BookDao {
                 }
             }
         } catch (SQLException e) {
-            throw new DaoException("Failed to find all users on defined page: {} ", e);
+            throw new DaoException("Failed to find all books on defined page: {} ", e);
         }
         return booksOnPage;
     }
@@ -119,15 +119,15 @@ public class BookDaoImpl implements BookDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "BookDao error while create new book. {}", e.getMessage());
-            throw new DaoException("BookDao error while create new book", e);
+            LOGGER.log(Level.ERROR, "exception in method create book: ", e);
+            throw new DaoException("Exception when create new book: {}", e);
         } finally {
             try {
                 if (pictureStream != null) {
                     pictureStream.close();
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "BookDao error while create new product closing resources. {}", e.getMessage());
+                LOGGER.log(Level.ERROR, "Exception when try  closing resources in creat book method. {}", e.getMessage());
             }
         }
         return true;
@@ -142,8 +142,8 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setLong(7, book.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "ProductDao error while create new product. {}", e.getMessage());
-            throw new DaoException("ProductDao error while create new product", e);
+            LOGGER.log(Level.ERROR, "exception in method update book:", e);
+            throw new DaoException("Exception when update book: {}", e);
         }
         return Optional.of(book);
     }
@@ -159,15 +159,15 @@ public class BookDaoImpl implements BookDao {
             preparedStatement.setLong(2, id);
             result = preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.log(Level.ERROR, "ProductDao error while updatePhoto. {}", e.getMessage());
-            throw new DaoException("ProductDao error while updatePhoto", e);
+            LOGGER.log(Level.ERROR, "exception in method updatePicture book:", e);
+            throw new DaoException("Exception when updatePicture book: {}", e);
         } finally {
             try {
                 if (photoStream != null) {
                     photoStream.close();
                 }
             } catch (IOException e) {
-                LOGGER.log(Level.ERROR, "ProductDao error while updatePhoto closing resources. {}", e.getMessage());
+                LOGGER.log(Level.ERROR, "Exception when try  closing resources in creat book method. {}", e.getMessage());
             }
         }
         return result > 0;

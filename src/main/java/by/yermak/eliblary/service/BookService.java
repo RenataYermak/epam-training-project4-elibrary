@@ -1,9 +1,8 @@
 package by.yermak.eliblary.service;
 
 import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.validator.UserValidator;
+import by.yermak.eliblary.validator.BookValidator;
 
 import java.util.List;
 
@@ -18,7 +17,8 @@ public interface BookService {
      * @param book    is the {@link Book}  filled book instance
      * @param picture is the {@link Book}'s picture
      * @return true if book created successfully
-     * @throws ServiceException if an error occurs while writing new {@link Book} into
+     * @throws ServiceException if <tt>book</tt>'s fields not accords to specify pattern
+     *                          {@link BookValidator}if an error occurs while writing new {@link Book} into
      *                          data source
      */
     boolean create(Book book, byte[] picture) throws ServiceException;
@@ -59,8 +59,8 @@ public interface BookService {
      * @param book {@link Book} is filled user instance
      * @return book {@link Book}
      * @throws ServiceException if <tt>book</tt>'s fields not accords to specify pattern
-     *                          {@link UserValidator} or if an error occurs while writing new
-     *                          {@link User} into data source
+     *                          {@link BookValidator} or if an error occurs while writing new
+     *                          {@link Book} into data source
      */
     Book update(Book book) throws ServiceException;
 

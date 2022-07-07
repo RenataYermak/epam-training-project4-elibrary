@@ -35,6 +35,7 @@ public final class RequestAttribute {
     public static final String SUCCESS_MESSAGE_USER_CREATE = "successMessageUserCreate";
     public static final String SUCCESS_MESSAGE_USER_UPDATE = "successMessageUserUpdated";
     public static final String SUCCESS_MESSAGE_BOOK_CREATE = "successMessageBookCreate";
+    public static final String SUCCESS_MESSAGE_AUTHOR_CREATE = "successMessageAuthorCreate";
     public static final String SUCCESS_MESSAGE_BOOK_UPDATE = "successMessageBookUpdated";
     public static final String WARNING_MESSAGE_PASS_MISMATCH = "warningMessagePassMismatch";
     public static final String SEARCH_QUERY = "searchQuery";

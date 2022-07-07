@@ -1,7 +1,6 @@
 package by.yermak.eliblary.service;
 
 import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.order.Type;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
 import by.yermak.eliblary.entity.user.User;
@@ -41,7 +40,6 @@ public interface OrderService {
      *                          do not present into data source
      */
     List<Order> findOrdersByUserIdAndStatus(Long userId, Status orderStatus) throws ServiceException;
-
 
     /**
      * Reserved {@link Book}

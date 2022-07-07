@@ -3,7 +3,6 @@ package by.yermak.eliblary.dao.impl;
 import by.yermak.eliblary.dao.AuthorDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.mapper.impl.AuthorMapper;
-import by.yermak.eliblary.dao.mapper.impl.BookMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.entity.book.Author;
 import org.apache.logging.log4j.Level;
@@ -11,12 +10,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static by.yermak.eliblary.dao.sql.AuthorSql.SELECT_ALL_AUTHORS;
-import static by.yermak.eliblary.dao.sql.AuthorSql.SELECT_AUTHOR_BY_ID;
+import static by.yermak.eliblary.dao.sql.AuthorSql.*;
 
 public class AuthorDaoImpl implements AuthorDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -60,7 +59,22 @@ public class AuthorDaoImpl implements AuthorDao {
 
 
     @Override
-    public Optional<Author> create(Author entity) throws DaoException {
+    public Optional<Author> create(Author author) throws DaoException {
+        LOGGER.log(Level.INFO, "method create");
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(INSERT_AUTHOR, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, author.getName());
+            preparedStatement.executeUpdate();
+            try (var resultSet = preparedStatement.getGeneratedKeys()) {
+                if (resultSet.next()) {
+                    author.setId(resultSet.getLong(1));
+                    return Optional.of(author);
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.ERROR, "exception in method create: ", e);
+            throw new DaoException("Exception when create author: {}", e);
+        }
         return Optional.empty();
     }
 

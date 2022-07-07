@@ -11,6 +11,7 @@ import java.util.Optional;
  * restore {@link User} entity
  */
 public interface UserDao extends EntityDao<User, Long> {
+
     /**
      * Checks if {@link User}'s email already exists.
      *
@@ -30,7 +31,7 @@ public interface UserDao extends EntityDao<User, Long> {
     boolean isLoginExist(String login) throws DaoException;
 
     /**
-     * Finds a {@link User} with the specified {@link User}'s login.
+     * Finds a {@link User} with the specified {@link User}'s login
      *
      * @param login is the {@link User}'s login
      * @return the optional object of a {@link User}
@@ -42,7 +43,7 @@ public interface UserDao extends EntityDao<User, Long> {
      * Finds a {@link User} with the specified {@link User}'s login and {@link User}'s password.
      *
      * @param login    is the {@link User}'s login
-     * @param password is the {@link User}'s email
+     * @param password is the {@link User}'s password
      * @return the optional object of a {@link User}
      * @throws DaoException if there is any problem during access
      */

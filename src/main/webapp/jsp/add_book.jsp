@@ -39,9 +39,19 @@
                     </a>
                 </c:if>
             </div>
+            <div class="content-search">
+                <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                    <form action="controller" method="get">
+                        <button class="btn" style=" margin: -3px 5px 10px 5px" type="submit" name="command"
+                                value="add_author_page"><i class='far fa-address-book'></i>
+                            <fmt:message key="book.button.add_author"/>
+                        </button>
+                    </form>
+                </c:if>
+            </div>
         </div>
         <hr/>
-        <form action="${pageContext.request.contextPath}/controller?command=add_book" method="post"
+        <form style="margin-left: 10px" action="${pageContext.request.contextPath}/controller?command=add_book" method="post"
               enctype="multipart/form-data">
             <table class="content-table-main">
                 <tr>
@@ -57,16 +67,6 @@
                                        key="validation.book.add.title"/>' : '');"
                                value="${book.title}"></td>
                 </tr>
-                    <%--                <tr>--%>
-                    <%--&lt;%&ndash;                    <td class="content-table"><fmt:message key="book.label.author"/></td>&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                    <td><input class="book-form" type="text" name="author" required pattern="^[\p{L}\d\s-.']{2,25}$"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                               oninvalid="this.setCustomValidity('<fmt:message&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                       key="validation.book.add.author"/>')"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                               onchange="this.setAttribute('value', this.value);&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                                       key="validation.book.add.author"/>' : '');"&ndash;%&gt;--%>
-                    <%--&lt;%&ndash;                               value="${book.author}"></td>&ndash;%&gt;--%>
-                    <%--                </tr>--%>
                 <tr>
                     <td class="content-table"><fmt:message key="book.label.author"/></td>
                     <td>
@@ -126,7 +126,6 @@
             </c:if>
             <div class="content-submit-btn-main">
                 <input hidden name="bookId" value="${book.id}">
-
                 <button class="btn" style="width: 57%;margin-left: 114px" type="submit" name="command"
                         value="add_book">
                     <fmt:message key="book.button.add"/>

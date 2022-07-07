@@ -46,7 +46,6 @@ public final class UserValidator extends AbstractValidator {
     public boolean isEmailValid(String email) {
         return email != null && isFieldValid(EMAIL_REGEX, email);
     }
-
 }
 
 

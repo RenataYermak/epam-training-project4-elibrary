@@ -14,6 +14,8 @@ public final class MessagesKey {
     public static final String EMAIL_ALREADY_EXISTS = "email.already.exists";
     public static final String LOGIN_ALREADY_EXISTS = "login.already.exists";
     public static final String SUCCESS_BOOK_ADD = "book.added.successfully";
+    public static final String SUCCESS_AUTHOR_ADD = "author.added.successfully";
+    public static final String AUTHOR_NOT_ADD = "author.not.added";
     public static final String BOOK_NOT_ADD = "book.not.added";
     public static final String SUCCESS_BOOK_DELETE = "book.delete.successfully";
     public static final String BOOK_NOT_DELETE = "book.not.delete";

@@ -5,6 +5,7 @@ public enum CommandName {
      * Book commands
      */
     ADD_BOOK,
+    ADD_AUTHOR,
     EDIT_BOOK,
     EDIT_BOOK_PICTURE,
     FIND_BOOKS,
@@ -19,6 +20,7 @@ public enum CommandName {
     REJECT_ORDER,
     ABOUT_LIBRARY_PAGE,
     ADD_BOOK_PAGE,
+    ADD_AUTHOR_PAGE,
     REGISTER_PAGE,
     BOOK_VIEW_PAGE,
     FIND_AUTHORS,
