@@ -56,7 +56,7 @@
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.author"/></td>
                         <td>
-                            <select name="author" style="width: 235px; margin:2px 0 2px 0">
+                            <select name="author" style="width: 236px; margin:2px 0 2px 0">
                                 <c:forEach items="${authors}" var="author">
                                     <c:choose>
                                         <c:when test="${not empty book && book.author.id.equals(author.id)}">
@@ -73,7 +73,7 @@
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.category"/></td>
                         <td>
-                            <select name="category" style="width: 235px;margin:2px 0 2px 0">
+                            <select name="category" style="width: 236px;margin:2px 0 2px 0">
                                 <option value="fiction"><fmt:message key="book.category.fiction"/></option>
                                 <option value="detective"><fmt:message key="book.category.detective"/></option>
                                 <option value="novel"><fmt:message key="book.category.novel"/></option>
@@ -120,20 +120,20 @@
                     <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
                 </div>
             </c:if>
-            <div class="content-submit-btn-main">
+            <div >
                 <input hidden name="bookId" value="${book.id}">
-                <button class="btn " style="width: 98px; margin-left: 114px; margin-top: 0px" type="submit"
+                <button class="btn " style="width: 110px; margin-left: 140px; margin-top: 10px" type="submit"
                         name="command"
                         value="edit_book"><fmt:message key="book.button.edit"/>
                 </button>
-                <button class=" btn" style="background-color: #6b6868;margin-top: 0px" type="submit" name="command"
+                <button class=" btn" style="background-color: #6b6868;margin-top: 10px" type="submit" name="command"
                         value="find_book"><fmt:message
                         key="book.button.cancel"/></button>
             </div>
             <c:if test="${authUser.role == 'ADMIN'}">
-                <div class="content-submit-btn-deactivate">
+                <div >
                     <button class="btn"
-                            style="width: 175px; margin-left: 114px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
+                            style="width: 188px; margin-left: 140px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
                             type="submit" name="command" value="delete_book"><fmt:message
                             key="book.button.delete_book"/>
                     </button>

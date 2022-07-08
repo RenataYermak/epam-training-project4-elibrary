@@ -38,4 +38,5 @@ public interface AuthorService {
      *                          data source
      */
     Author create(Author author) throws ServiceException;
+    boolean isAuthorExist(String authorName) throws ServiceException;
 }

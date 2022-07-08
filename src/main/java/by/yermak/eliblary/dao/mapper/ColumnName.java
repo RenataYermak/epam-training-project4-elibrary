@@ -20,7 +20,6 @@ public final class ColumnName {
      */
     public static final String BOOK_ID = "b.book_id";
     public static final String TITLE = "b.title";
-    public static final String AUTHOR = "ba.author_name";
     public static final String CATEGORY = "bc.category_name";
     public static final String PUBLISH_YEAR = "b.publish_year";
     public static final String DESCRIPTION = "b.description";

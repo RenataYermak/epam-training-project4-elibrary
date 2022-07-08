@@ -14,7 +14,11 @@ public class AuthorSql {
             INSERT INTO book_authors
             (author_name)
             VALUES (?)""";
-
+    public static final String SQL_IS_AUTHOR_EXIST = """
+            SELECT author_id
+            FROM book_authors ba
+            WHERE ba.author_name= ?
+            LIMIT 1""";
     private AuthorSql() {
     }
 }

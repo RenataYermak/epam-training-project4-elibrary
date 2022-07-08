@@ -37,6 +37,13 @@ public class AddAuthorCommand implements Command {
             var author = new Author();
             author.setName(authorName);
             try {
+                if (!authorService.isAuthorExist(authorName)) {
+                    author.setName(authorName);
+                }else {
+                    request.setAttribute(
+                            RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, LOGIN_ALREADY_EXISTS));
+                    return new Router(PagePath.ADD_AUTHOR, Router.RouterType.FORWARD);
+                }
                 authorService.create(author);
                 request.setAttribute(
                         RequestAttribute.SUCCESS_MESSAGE_AUTHOR_CREATE, message.getText(currentLocale, SUCCESS_AUTHOR_ADD));

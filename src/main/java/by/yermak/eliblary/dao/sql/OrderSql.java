@@ -21,7 +21,8 @@ public class OrderSql {
                    u.deactivation_date,
                    b.book_id,
                    b.title,
-                   b.author,
+                   ba.author_id,
+                   ba.author_name,
                    bc.category_name,
                    b.publish_year,
                    b.description,
@@ -30,6 +31,7 @@ public class OrderSql {
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
             JOIN users u ON u.user_id = o.user_id
             JOIN user_roles ur ON u.role_id = ur.role_id
             JOIN user_statuses us ON us.user_status_id = u.status_id
@@ -56,7 +58,8 @@ public class OrderSql {
                    u.deactivation_date,
                    b.book_id,
                    b.title,
-                   b.author,
+                   ba.author_id,
+                   ba.author_name,
                    bc.category_name,
                    b.publish_year,
                    b.description,
@@ -65,6 +68,7 @@ public class OrderSql {
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
             JOIN users u ON u.user_id = o.user_id
             JOIN user_roles ur ON u.role_id = ur.role_id
             JOIN user_statuses us ON us.user_status_id = u.status_id
@@ -120,7 +124,8 @@ public class OrderSql {
                    u.deactivation_date,
                    b.book_id,
                    b.title,
-                   b.author,
+                   ba.author_id,
+                   ba.author_name,
                    bc.category_name,
                    b.publish_year,
                    b.description,
@@ -129,6 +134,7 @@ public class OrderSql {
             FROM orders o
             JOIN books b ON b.book_id = o.book_id
             JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
             JOIN users u ON u.user_id = o.user_id
             JOIN user_roles ur ON u.role_id = ur.role_id
             JOIN user_statuses us ON us.user_status_id = u.status_id
@@ -141,7 +147,7 @@ public class OrderSql {
             WHERE o.order_id =?""";
     public static final String SELECT_ALL_ORDERS = """
             SELECT b.title,
-                   b.author,
+                   ba.author_name,
                    u.firstname,
                    u.secondname,
                    os.order_status_name,
@@ -153,6 +159,7 @@ public class OrderSql {
             FROM orders o
             JOIN books b ON o.book_id = b.book_id
             JOIN users u ON o.user_id = u.user_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
             JOIN order_statuses os on os.order_status_id = o.status_id
             JOIN order_types ot on ot.order_type_id = o.type_id""";
     public static final String FIND_PAGE_QUERY_ORDERS = """
@@ -175,7 +182,8 @@ public class OrderSql {
                    u.deactivation_date,
                    b.book_id,
                    b.title,
-                   b.author,
+                   ba.author_id,
+                   ba.author_name,
                    bc.category_name,
                    b.publish_year,
                    b.description,
@@ -189,6 +197,7 @@ public class OrderSql {
             JOIN user_statuses us ON us.user_status_id = u.status_id
             JOIN order_types ot ON ot.order_type_id = o.type_id
             JOIN order_statuses os ON os.order_status_id = o.status_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
             WHERE os.order_status_name = ?
             LIMIT ?,?""";
 

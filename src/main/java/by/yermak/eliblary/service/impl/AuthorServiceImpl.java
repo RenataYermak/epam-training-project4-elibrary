@@ -61,4 +61,16 @@ public class AuthorServiceImpl implements AuthorService {
             throw new ServiceException("Exception when create author: {}", e);
         }
     }
+
+    @Override
+    public boolean isAuthorExist(String authorName) throws ServiceException {
+        boolean result;
+        try {
+            result = authorDao.isAuthorExist(authorName);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "failed to check if author with {} exists", e);
+            throw new ServiceException("Exception when find author  : {}", e);
+        }
+        return result;
+    }
 }

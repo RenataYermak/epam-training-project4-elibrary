@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static by.yermak.eliblary.dao.sql.AuthorSql.*;
+import static by.yermak.eliblary.dao.sql.UserSql.SQL_IS_LOGIN_EXIST;
 
 public class AuthorDaoImpl implements AuthorDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -76,6 +77,24 @@ public class AuthorDaoImpl implements AuthorDao {
             throw new DaoException("Exception when create author: {}", e);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public boolean isAuthorExist(String authorName) throws DaoException {
+        boolean isExist = false;
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(SQL_IS_AUTHOR_EXIST)) {
+            preparedStatement.setString(1, authorName);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    isExist = true;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("failed to check if author with {}  exists", authorName, e);
+            throw new DaoException("failed to check if author with " + authorName + " exists", e);
+        }
+        return isExist;
     }
 
     @Override

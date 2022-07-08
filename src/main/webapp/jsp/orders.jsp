@@ -86,7 +86,7 @@
                                         <fmt:message key="orders.button.reserve"/>
                                     </button>
                                     <button class="actionButton reserveButton"
-                                            style="background-color: #f67f7f;width: 70px" type="submit" name="command"
+                                            style="background-color: #f67f7f;width: 80px" type="submit" name="command"
                                             value="reject_order">
                                         <fmt:message key="orders.button.reject"/>
                                     </button>

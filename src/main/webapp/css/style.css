@@ -98,7 +98,7 @@ textarea:invalid {
     display: inline-block;
     box-sizing: border-box;
     padding: 0 10px;
-    margin: 8px 10px 10px 0;
+    margin: 8px 0px 10px 0;
     outline: black;
     border: #151414;
     border: 2px;
@@ -170,17 +170,17 @@ textarea:invalid {
     position: center;
 }
 
-.description-form {
-    height: 70px;
-    width: 220px;
-    padding-left: 10px;
-    border: 2px solid #338e8f;
-    outline: none;
-    background: #ffffff;
-    margin-top: 2px;
-    margin-bottom: 0px;
-    position: center;
-}
+/*.description-form {*/
+/*    height: 70px;*/
+/*    width: 220px;*/
+/*    padding-left: 10px;*/
+/*    border: 2px solid #338e8f;*/
+/*    outline: none;*/
+/*    background: #ffffff;*/
+/*    margin-top: 2px;*/
+/*    margin-bottom: 0px;*/
+/*    position: center;*/
+/*}*/
 
 .user-form {
     width: 53%;
