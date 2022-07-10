@@ -89,5 +89,6 @@ public interface UserDao extends EntityDao<User, Long> {
      * @return a list of {@link User} in page
      * @throws DaoException if there is any problem during access
      */
-    List<User> findAlL(int page) throws DaoException;
+    List<User> findActivatedUsers(int page) throws DaoException;
+    List<User> findDeactivatedUsers (int page) throws DaoException;
 }

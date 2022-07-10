@@ -33,8 +33,8 @@ public class FindAllBooksCommand implements Command {
         int currentPage = page != null ? parseIntParameter(page) : RequestAttribute.DEFAULT_PAGE_NUMBER;
         if (isAuthorized(session)) {
             try {
-                List<Book> bookList = new ArrayList<>(bookService.findAllBooks());
-                List<Book> books = new ArrayList<>(bookService.findAllBooks(currentPage));
+                List<Book> bookList = new ArrayList<>(bookService.findAll());
+                List<Book> books = new ArrayList<>(bookService.findAll(currentPage));
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 int numberOfPages = (int) Math.ceil(bookList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 request.setAttribute(RequestAttribute.BOOKS, books);

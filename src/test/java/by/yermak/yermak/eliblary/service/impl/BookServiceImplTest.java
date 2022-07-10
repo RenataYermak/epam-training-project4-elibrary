@@ -19,14 +19,14 @@ class BookServiceImplTest {
 
     @Test
     void shouldGetBookById() throws ServiceException {
-        Book actualBook = bookService.findBook(1L);
+        Book actualBook = bookService.find(1L);
         assertNotNull(actualBook);
     }
 
     @Test
     void shouldGetAllBooks() throws ServiceException {
         int expectedNumberOfBooks = 21;
-        List<Book> actualBooks = bookService.findAllBooks();
+        List<Book> actualBooks = bookService.findAll();
         assertNotNull(actualBooks);
         assertThat(actualBooks.size(), is(expectedNumberOfBooks));
     }

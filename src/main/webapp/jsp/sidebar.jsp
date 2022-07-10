@@ -9,7 +9,7 @@
                 <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                     <li>
                         <i class='fas fa-user-friends'></i>
-                        <a href="${pageContext.request.contextPath}/controller?command=find_users"><fmt:message
+                        <a href="${pageContext.request.contextPath}/controller?command=find_activated_users"><fmt:message
                                 key="sidebar.link.users"/></a>
                     </li>
                 </c:if>

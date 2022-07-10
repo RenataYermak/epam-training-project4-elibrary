@@ -1,16 +1,14 @@
 package by.yermak.eliblary.controller.command.book;
 
-import by.yermak.eliblary.entity.book.Book;
-import by.yermak.eliblary.entity.order.Order;
-import by.yermak.eliblary.entity.user.User;
-import by.yermak.eliblary.service.BookService;
-import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
+import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
+import by.yermak.eliblary.service.BookService;
+import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
@@ -49,7 +47,7 @@ public class FindOrdersByUserCommand implements Command {
                 Status orderStatus = Status.valueOf(
                         request.getParameter(RequestParameter.ORDER_STATUS).toUpperCase());
                 List<Order> orderList = new ArrayList<>(orderService.findOrdersByUserIdAndStatus(userId, orderStatus));
-                List<Order> orders = new ArrayList<>(orderService.findAll(currentPage,orderStatus));
+                List<Order> orders = new ArrayList<>(orderService.findAll(currentPage, userId, orderStatus));
                 int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Ordered Books");
@@ -62,7 +60,7 @@ public class FindOrdersByUserCommand implements Command {
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find books by userId and orderStatus: ", e);
-                 return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

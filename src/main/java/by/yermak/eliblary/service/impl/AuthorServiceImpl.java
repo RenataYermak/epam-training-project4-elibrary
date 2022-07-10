@@ -22,7 +22,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public Author findAuthor(Long id) throws ServiceException {
+    public Author find(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method findAuthor");
         try {
             var authorOptional = authorDao.find(id);
@@ -37,7 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<Author> findAllAuthors() throws ServiceException {
+    public List<Author> findAll() throws ServiceException {
         LOGGER.log(Level.INFO, "method findAll");
         try {
             return authorDao.findAll();
@@ -72,5 +72,14 @@ public class AuthorServiceImpl implements AuthorService {
             throw new ServiceException("Exception when find author  : {}", e);
         }
         return result;
+    }
+
+    @Override
+    public Author update(Author entity) throws ServiceException {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) throws ServiceException {
     }
 }

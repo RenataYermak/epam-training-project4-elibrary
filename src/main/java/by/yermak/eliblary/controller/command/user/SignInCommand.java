@@ -39,11 +39,11 @@ public class SignInCommand implements Command {
         try {
             var login = request.getParameter(RequestParameter.USER_LOGIN);
             var pass = request.getParameter(RequestParameter.USER_PASSWORD);
-            var user = userService.findUser(login, pass);
+            var user = userService.find(login, pass);
             if (user != null && user.getStatus().equals(Status.ACTIVATED)) {
                 LOGGER.log(Level.INFO, "user logged in successfully");
                 session.setAttribute(SessionAttribute.AUTHORIZED_USER, user);
-                List<Book> books = bookService.findAllBooks();
+                List<Book> books = bookService.findAll();
                 request.setAttribute(RequestAttribute.BOOKS, books);
                 session.setAttribute(RequestAttribute.CURRENT_PAGE, PagePath.BOOKS_TABLE);
                 return new Router(PagePath.BOOKS_TABLE_URL, Router.RouterType.REDIRECT);
@@ -52,6 +52,10 @@ public class SignInCommand implements Command {
                 LOGGER.log(Level.INFO, "failed to login, not permission");
                 request.setAttribute(
                         RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, ACCOUNT_BLOCKED));
+            } else {
+                LOGGER.log(Level.INFO, "failed to login, bad credentials");
+                request.setAttribute(
+                        RequestAttribute.ERROR_MESSAGE_SIGN_IN, message.getText(currentLocale, INCORRECT_LOGIN_OR_PASSWORD));
             }
         } catch (ServiceException e) {
             LOGGER.log(Level.ERROR, "error during user log in: ", e);

@@ -31,7 +31,7 @@ public class BookViewPageCommand implements Command {
         if (isAuthorized(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
-                var book = bookService.findBook(id);
+                var book = bookService.find(id);
                 request.setAttribute(RequestAttribute.BOOK, book);
                 currentRouter.setPagePath(PagePath.BOOK_VIEW);
                 currentRouter.setRouteType(Router.RouterType.FORWARD);

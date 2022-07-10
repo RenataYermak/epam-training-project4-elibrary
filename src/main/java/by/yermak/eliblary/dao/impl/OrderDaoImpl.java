@@ -1,16 +1,18 @@
 package by.yermak.eliblary.dao.impl;
 
 import by.yermak.eliblary.dao.OrderDao;
+import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.mapper.impl.OrderMapper;
 import by.yermak.eliblary.dao.pool.ConnectionPool;
 import by.yermak.eliblary.entity.order.Order;
-import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.entity.order.Status;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -193,6 +195,27 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
+    public List<Order> findAlL(int page,Long userId, Status orderStatus) throws DaoException {
+        List<Order> ordersOnPage = new ArrayList<>();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_ORDERS_BY_USER)) {
+            preparedStatement.setLong(1,userId);
+            preparedStatement.setString(2, orderStatus.toString());
+            preparedStatement.setInt(3, ELEMENTS_ON_PAGE * (page - 1));
+            preparedStatement.setInt(4, ELEMENTS_ON_PAGE);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var optionalBook = orderMapper.map(resultSet);
+                    optionalBook.ifPresent(ordersOnPage::add);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find all users on defined page ", e);
+        }
+        return ordersOnPage;
+    }
+
+    @Override
     public List<Order> findAlL(int page, Status orderStatus) throws DaoException {
         List<Order> ordersOnPage = new ArrayList<>();
         try (var connection = ConnectionPool.getInstance().getConnection();
@@ -210,6 +233,25 @@ public class OrderDaoImpl implements OrderDao {
             throw new DaoException("Failed to find all users on defined page ", e);
         }
         return ordersOnPage;
+    }
+
+    @Override
+    public boolean isOrderExist(Long bookId,Long userId) throws DaoException {
+        boolean isExist = false;
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(SQL_IS_BOOK_ORDER_EXIST)) {
+            preparedStatement.setLong(1, bookId);
+            preparedStatement.setLong(2, userId);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    isExist = true;
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.error("failed to check if user with {} email exists", bookId, e);
+            throw new DaoException("failed to check if user with " + bookId + " exists", e);
+        }
+        return isExist;
     }
 
     @Override

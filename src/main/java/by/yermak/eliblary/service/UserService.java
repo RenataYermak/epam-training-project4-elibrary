@@ -9,33 +9,7 @@ import java.util.List;
 /**
  * Describes the behavior of {@link User} entity.
  */
-public interface UserService {
-    /**
-     * Checks whether an email is already exist
-     *
-     * @param email a user's email
-     * @return whether an email is already exist
-     */
-    boolean isEmailExist(String email) throws ServiceException;
-
-    /**
-     * Checks whether a login is already exist
-     *
-     * @param login a user's login
-     * @return whether a login is already exist
-     */
-    boolean isLoginExist(String login) throws ServiceException;
-
-    /**
-     * Find user {@link User} instance by <tt>id</tt>
-     *
-     * @param id {@link User}'s id
-     * @return {@link User} instance
-     * @throws ServiceException if {@link User} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link User}
-     *                          into the data source
-     */
-    User findUser(Long id) throws ServiceException;
+public interface UserService extends EntityService<User, Long> {
 
     /**
      * Find user {@link User} instance by <tt>login</tt>
@@ -63,16 +37,7 @@ public interface UserService {
      *                          do not present into data source or if an error occurs
      *                          while searching {@link User} into the data source
      */
-    User findUser(String login, String pass) throws ServiceException;
-
-    /**
-     * Find all users list {@link User}
-     *
-     * @return all users list {@link User}
-     * @throws ServiceException if {@link User} in empty
-     *                          occurs after searching {@link User} into the data source
-     */
-    List<User> findAll() throws ServiceException;
+    User find(String login, String pass) throws ServiceException;
 
     /**
      * Find  user in list {@link User}
@@ -95,29 +60,6 @@ public interface UserService {
      *                          data source
      */
     User create(User user) throws ServiceException;
-
-    /**
-     * Update {@link User} with filled fields
-     *
-     * @param user {@link User} is filled user instance
-     * @return user {@link User}
-     * @throws ServiceException if <tt>user</tt>'s fields not accords to specify pattern
-     *                          {@link UserValidator}
-     *                          or if user with <tt>email</tt> has already exist
-     *                          or if an error occurs while writing new {@link User} into
-     *                          data source
-     */
-    User update(User user) throws ServiceException;
-
-    /**
-     * Delete {@link User} with filled fields
-     *
-     * @param id {@link User}'s id
-     * @throws ServiceException if {@link User} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link User}
-     *                          into the data source
-     */
-    void delete(Long id) throws ServiceException;
 
     /**
      * Find all activation users list {@link User}
@@ -158,16 +100,43 @@ public interface UserService {
      * @param email         the {@link User}'s email
      * @param currentLocale the current locale, chosen by current user
      */
-    void sendEmailRegisteredUser(String firstName, String secondName,String login, String password, String email, String currentLocale);
+    void sendEmailRegisteredUser(String firstName, String secondName, String login, String password, String email, String currentLocale);
 
     /**
      * Find users in page  {@link User}
      *
      * @param page count pages
-     * @return all  users list {@link User} instance
+     * @return all  activated users list {@link User} instance
      * @throws ServiceException if  {@link User}'s list don"t into
      *                          data source or if an error occurs while searching {@link User}
      *                          into the data source
      */
-    List<User> findAll(int page) throws ServiceException;
+    List<User> findActivatedUsers(int page) throws ServiceException;
+
+    /**
+     * Find users in page  {@link User}
+     *
+     * @param page count pages
+     * @return all deactivated users list {@link User} instance
+     * @throws ServiceException if  {@link User}'s list don"t into
+     *                          data source or if an error occurs while searching {@link User}
+     *                          into the data source
+     */
+    List<User> findDeactivatedUsers(int page) throws ServiceException;
+
+    /**
+     * Checks whether an {@link User}'s email is already exist
+     *
+     * @param email a {@link User}'s email
+     * @return whether an {@link User}'s email is already exist
+     */
+    boolean isEmailExist(String email) throws ServiceException;
+
+    /**
+     * Checks whether a {@link User}'s login is already exist
+     *
+     * @param login a {@link User}'s login
+     * @return whether a {@link User}'s login is already exist
+     */
+    boolean isLoginExist(String login) throws ServiceException;
 }

@@ -5,7 +5,6 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.RequestParameter;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
-import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.BookServiceImpl;
@@ -48,7 +47,7 @@ public class EditBookPictureCommand implements Command {
             }
             try {
                 var id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
-                var book = bookService.findBook(id);
+                var book = bookService.find(id);
                 bookService.updatePicture(id, picture);
                 request.setAttribute(RequestAttribute.BOOK, book);
                 request.setAttribute(

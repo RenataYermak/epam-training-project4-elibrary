@@ -106,7 +106,7 @@
                     </tr>
                     <tr>
                         <td class="content-table"><fmt:message key="book.label.description"/></td>
-                        <td><textarea class="description-form" name="description" type="text" minlength="10"
+                        <td><textarea class="book-form" style="height: 70px" name="description" type="text" minlength="10"
                                       maxlength="3000" required
                                       pattern="^[\p{L}\d\p{S}\p{So}\p{P}\s]$>">
                                 ${book.description} </textarea>

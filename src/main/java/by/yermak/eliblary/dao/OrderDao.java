@@ -11,7 +11,7 @@ import java.util.List;
  * restore {@link Order} entity
  */
 public interface OrderDao extends EntityDao<Order, Long> {
-
+    boolean isOrderExist(Long bookId,Long userId) throws DaoException;
     /**
      * Creates a new {@link Order}
      *
@@ -73,4 +73,5 @@ public interface OrderDao extends EntityDao<Order, Long> {
      * @throws DaoException if there is any problem during access
      */
     List<Order> findAlL(int page, Status orderStatus) throws DaoException;
+    List<Order> findAlL(int page,Long userId, Status orderStatus) throws DaoException;
 }

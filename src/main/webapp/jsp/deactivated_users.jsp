@@ -44,30 +44,24 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <form action="controller" method="get">
-                    <button class="btn" style=" margin: -3px 5px 10px 5px" type="submit" name="command"
-                            value="find_deactivated_users"><i class='far fa-address-book'></i>
-                        <fmt:message key="user.button.deactivated_users"/>
-                    </button>
-                </form>
+                <a href="${pageContext.request.contextPath}/controller?command=find_activated_users">
+                    <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="user.back.user_list"/>
+                </a>
             </c:if>
         </div>
     </div>
     <hr/>
     <c:if test="${fn:length(users) > 0}">
-        <table id="sorted-table" class="table">
-            <thead>
+        <table class="table">
             <tr class="row-header-green">
                 <th class="cell-main"><fmt:message key="users.table.label.login"/></th>
                 <th class="cell-main"><fmt:message key="users.table.label.first_name"/></th>
                 <th class="cell-main"><fmt:message key="users.table.label.second_name"/></th>
                 <th class="cell-main"><fmt:message key="users.table.label.email"/></th>
                 <th class="cell-main"><fmt:message key="users.table.label.role"/></th>
-                <th data-type="date" class="cell-main"><fmt:message key="users.table.label.activation_date"/></th>
+                <th class="cell-main"><fmt:message key="users.table.label.deactivation_date"/></th>
                 <th class="cell-main"><fmt:message key="users.table.label.action"/></th>
             </tr>
-            </thead>
-            <tbody>
             <c:forEach items="${users}" var="user">
                 <tr class="row">
                     <td class="cell">${user.login}</td>
@@ -76,26 +70,32 @@
                     <td class="cell">${user.email}</td>
                     <td class="cell">${user.role.name}</td>
                     <td class="cell">
-                        <fmt:parseDate value="${user.activationDate}" pattern="y-M-dd'T'H:m"
+                        <fmt:parseDate value="${user.deactivationDate}" pattern="y-M-dd'T'H:m"
                                        var="myParseDate"></fmt:parseDate>
                         <fmt:formatDate value="${myParseDate}" pattern="HH:mm:ss dd.MM.yyyy"/></td>
                     <td class="cell">
                         <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                             <form action="controller">
-                                <label>
-                                    <input hidden name="userId" value="${user.id}">
-                                </label>
-                                <button class="actionButton " style="margin-left: 5%" type="submit" name="command"
-                                        value="find_user">
-                                    <fmt:message key="users.button.edit"/>
+                                <input hidden name="userId" value="${user.id}">
+                                <button class="btn"
+                                        style=" margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
+                                        type="submit" name="command"
+                                        value="delete_user">
+                                    <fmt:message key="users.button.delete"/>
                                 </button>
+
                             </form>
                         </c:if>
                     </td>
                 </tr>
             </c:forEach>
-            </tbody>
         </table>
+        <c:if test="${successMessageUserDeleted != null || warningMessagePassMismatch != null}">
+            <div class="content-submit-btn-main">
+                <p class="content-msg cnt-msg-success">${successMessageUserDeleted}</p>
+                <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
+            </div>
+        </c:if>
     </c:if>
     <div class="container">
         <div class="rows" style="justify-content: start">
@@ -103,7 +103,7 @@
                 <ul class="pagination">
                     <c:if test="${requestScope.page > 1}">
                         <li><a class="page-link"
-                               href="${pageContext.request.contextPath}/controller?command=find_activated_users&page=${requestScope.page-1}">
+                               href="${pageContext.request.contextPath}/controller?command=find_deactivated_users&page=${requestScope.page-1}">
                             <span aria-hidden="true">&laquo;</span></a></li>
                     </c:if>
                     <c:if test="${requestScope.number_of_pages  > 1}">
@@ -114,14 +114,14 @@
                                 </c:when>
                                 <c:otherwise>
                                     <li><a class="page-link"
-                                           href="${pageContext.request.contextPath}/controller?command=find_activated_users&page=${i}">${i}</a>
+                                           href="${pageContext.request.contextPath}/controller?command=find_deactivated_users&page=${i}">${i}</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
                         <c:if test="${requestScope.page lt requestScope.number_of_pages}">
                             <li><a class="page-link"
-                                   href="${pageContext.request.contextPath}/controller?command=find_activated_users&page=${requestScope.page+1}">
+                                   href="${pageContext.request.contextPath}/controller?command=find_deactivated_users&page=${requestScope.page+1}">
                                 <span aria-hidden="true">&raquo;</span></a></li>
                         </c:if>
                     </c:if>

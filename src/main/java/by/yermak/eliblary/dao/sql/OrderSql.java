@@ -200,7 +200,49 @@ public class OrderSql {
             JOIN book_authors ba ON ba.author_id = b.author_id
             WHERE os.order_status_name = ?
             LIMIT ?,?""";
-
+    public static final String FIND_PAGE_QUERY_ORDERS_BY_USER = """
+            SELECT o.order_id,
+                   os.order_status_name,
+                   ot.order_type_name,
+                   o.ordered_date,
+                   o.reserved_date,
+                   o.returned_date,
+                   o.rejected_date,
+                   u.user_id,
+                   u.login,
+                   u.password,
+                   u.firstname,
+                   u.secondname,
+                   u.email,
+                   ur.role_name,
+                   us.status_name,
+                   u.activation_date,
+                   u.deactivation_date,
+                   b.book_id,
+                   b.title,
+                   ba.author_id,
+                   ba.author_name,
+                   bc.category_name,
+                   b.publish_year,
+                   b.description,
+                   b.number,
+                   b.picture
+            FROM orders o
+            JOIN books b ON b.book_id = o.book_id
+            JOIN book_categories bc ON bc.category_id = b.category_id
+            JOIN users u ON u.user_id = o.user_id
+            JOIN user_roles ur ON u.role_id = ur.role_id
+            JOIN user_statuses us ON us.user_status_id = u.status_id
+            JOIN order_types ot ON ot.order_type_id = o.type_id
+            JOIN order_statuses os ON os.order_status_id = o.status_id
+            JOIN book_authors ba ON ba.author_id = b.author_id
+            WHERE u.user_id = ? AND os.order_status_name = ?
+            LIMIT ?,?""";
+    public static final String SQL_IS_BOOK_ORDER_EXIST = """
+            SELECT order_id
+            FROM orders o
+            WHERE o.book_id = ? AND o.user_id = ?
+            LIMIT 1""";
     private OrderSql() {
     }
 }

@@ -7,7 +7,10 @@ public final class MessagesKey {
     public static final String ACCOUNT_BLOCKED = "account.blocked";
     public static final String INCORRECT_LOGIN_OR_PASSWORD = "incorrect.login.or.password";
     public static final String SUCCESS_USER_DEACTIVATE = "user.deactivate.successfully";
+    public static final String SUCCESS_USER_DELETED = "user.deleted.successfully";
     public static final String USER_NOT_UPDATE = "user.not.update";
+    public static final String USER_NOT_DELETED = "user.not.deleted";
+    public static final String USER_NOT_DEACTIVATED = "user.not.deactivated";
     public static final String SUCCESS_USER_UPDATE = "user.update.successfully";
     public static final String USER_NOT_CREATED = "user.not.registered";
     public static final String SUCCESS_USER_CREATE = "user.created.successfully";
@@ -20,6 +23,9 @@ public final class MessagesKey {
     public static final String SUCCESS_BOOK_DELETE = "book.delete.successfully";
     public static final String BOOK_NOT_DELETE = "book.not.delete";
     public static final String SUCCESS_BOOK_UPDATE = "book.update.successfully";
+    public static final String SUCCESS_BOOK_ORDER = "book.order.successfully";
+    public static final String BOOK_NOT_ORDER = "book.not.order";
+    public static final String BOOK_ALREADY_BOOKED = "book.already.booked";
     public static final String BOOK_NOT_UPDATE = "book.not.update";
     public static final String SEARCH_BOOK_FAIL = "search.book.fail";
     public static final String MESSAGE_PICTURE_WRONG = "message.picture.wrong";

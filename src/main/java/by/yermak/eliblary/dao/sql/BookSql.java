@@ -61,7 +61,7 @@ public class BookSql {
             FROM books b
             JOIN book_categories bc ON b.category_id = bc.category_id
             JOIN book_authors ba ON ba.author_id = b.author_id
-            WHERE b.title LIKE CONCAT('%',?,'%') OR b.author LIKE CONCAT('%',?,'%')""";
+            WHERE b.title LIKE CONCAT('%',?,'%') OR ba.author_name LIKE CONCAT('%',?,'%')""";
     public static final int ELEMENTS_ON_PAGE = 12;
     public static final String FIND_PAGE_QUERY_BOOKS = """
             SELECT b.book_id,

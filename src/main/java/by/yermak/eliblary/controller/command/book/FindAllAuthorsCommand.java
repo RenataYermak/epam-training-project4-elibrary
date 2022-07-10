@@ -5,12 +5,9 @@ import by.yermak.eliblary.controller.RequestAttribute;
 import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.book.Author;
-import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.service.AuthorService;
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.service.impl.AuthorServiceImpl;
-import by.yermak.eliblary.service.impl.BookServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +31,7 @@ public class FindAllAuthorsCommand implements Command {
         LOGGER.log(Level.INFO, "method execute()");
         if (isAuthorized(session)) {
             try {
-                List<Author> authors = new ArrayList<>(authorService.findAllAuthors());
+                List<Author> authors = new ArrayList<>(authorService.findAll());
                 request.setAttribute(RequestAttribute.AUTHORS, authors);
                 return new Router(PagePath.ADD_BOOK, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

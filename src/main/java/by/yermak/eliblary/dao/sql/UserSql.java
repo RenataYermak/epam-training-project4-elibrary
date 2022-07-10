@@ -138,7 +138,7 @@ public class UserSql {
             FROM users u
             WHERE u.login = ?
             LIMIT 1""";
-    public static final String FIND_PAGE_QUERY_USERS = """
+    public static final String FIND_PAGE_QUERY_ACTIVATED_USERS = """
             SELECT u.user_id,
                    u.login,
                    u.password,
@@ -152,6 +152,23 @@ public class UserSql {
             FROM users u
             JOIN user_roles ur ON u.role_id = ur.role_id
             JOIN user_statuses us ON us.user_status_id = u.status_id
+            WHERE us.status_name='ACTIVATED'
+            LIMIT ?,?""";
+    public static final String FIND_PAGE_QUERY_DEACTIVATED_USERS = """
+            SELECT u.user_id,
+                   u.login,
+                   u.password,
+                   u.firstname,
+                   u.secondname,
+                   u.email,
+                   ur.role_name,
+                   us.status_name,
+                   u.activation_date,
+                   u.deactivation_date
+            FROM users u
+            JOIN user_roles ur ON u.role_id = ur.role_id
+            JOIN user_statuses us ON us.user_status_id = u.status_id
+            WHERE us.status_name='DEACTIVATED'
             LIMIT ?,?""";
 
     private UserSql() {

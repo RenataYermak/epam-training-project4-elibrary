@@ -35,12 +35,12 @@ public class RejectOrderCommand implements Command {
         if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
-                Order order =  orderService.findOrder(orderId);
+                Order order =  orderService.find(orderId);
                 var title = order.getBook().getTitle();
                 var firstName = order.getUser().getFirstName();
                 var secondName = order.getUser().getSecondName();
                 var email = order.getUser().getEmail();
-                orderService.rejectedOrder(orderId);
+                orderService.delete(orderId);
                 orderService.sendEmailRejectedOrder(firstName,secondName,title, email, currentLocale);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");

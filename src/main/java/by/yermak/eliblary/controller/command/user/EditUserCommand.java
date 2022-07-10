@@ -39,7 +39,7 @@ public class EditUserCommand implements Command {
                 var secondName = request.getParameter(RequestParameter.USER_SECONDNAME);
                 var email = request.getParameter(RequestParameter.USER_EMAIL);
                 var role = request.getParameter(RequestParameter.USER_ROLE);
-                var user = userService.findUser(id);
+                var user = userService.find(id);
                 if (user != null) {
                     if (login != null) {
                         user.setLogin(login);

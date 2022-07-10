@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findOrder(Long id) throws ServiceException {
+    public Order find(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method findOrder");
         try {
             var orderOptional = orderDao.find(id);
@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void rejectedOrder(Long orderId) throws ServiceException {
+    public void delete(Long orderId) throws ServiceException {
         LOGGER.log(Level.INFO, "method rejectedOrder");
         try {
             orderDao.rejectOrder(orderId);
@@ -117,9 +117,40 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<Order> findAll(int page, Long userId, Status orderStatus) throws ServiceException {
+        try {
+            return orderDao.findAlL(page, userId, orderStatus);
+        } catch (DaoException e) {
+            throw new ServiceException("Exception in findAll method", e);
+        }
+    }
+
+    @Override
+    public boolean isOrderExist(Long bookId, Long userId) throws ServiceException {
+        boolean result;
+        try {
+            result = orderDao.isOrderExist(bookId, userId);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "failed to check if order with {} exists", e);
+            throw new ServiceException("Exception when find bookId : {}", e);
+        }
+        return result;
+    }
+
+    @Override
     public void sendEmailRejectedOrder(String firstName, String secondName, String bookName, String email, String currentLocale) {
         var finalRegistrationMessage =
                 firstName + " " + secondName + ", " + bookName + "." + LanguageMessage.getInstance().getText(currentLocale, "reject.order.mail");
         MailSender.getInstance().send(email, MessagesKey.REJECT_ORDER_HEADER, finalRegistrationMessage);
+    }
+
+    @Override
+    public List<Order> findAll() throws ServiceException {
+        return null;
+    }
+
+    @Override
+    public Order update(Order entity) throws ServiceException {
+        return null;
     }
 }

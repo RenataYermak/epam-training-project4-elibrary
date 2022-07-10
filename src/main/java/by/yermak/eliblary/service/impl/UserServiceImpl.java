@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUser(Long id) throws ServiceException {
+    public User find(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by id");
         try {
             var optionalUser = userDao.find(id);
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUser(String login, String pass) throws ServiceException {
+    public User find(String login, String pass) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by login and pass");
         if (!validator.isLoginValid(login) || !validator.isPasswordValid(pass)) {
             throw new ServiceException("Input data is invalid");
@@ -166,7 +166,7 @@ public class UserServiceImpl implements UserService {
     public List<User> findDeactivatedUsers() throws ServiceException {
         LOGGER.log(Level.INFO, "method findDeactivatedUsers");
         try {
-            return userDao.findActivatedUsers();
+            return userDao.findDeactivatedUsers();
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findDeactivatedUsers: ", e);
             throw new ServiceException("Exception when find deactivated users: {}", e);
@@ -185,10 +185,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findAll(int page) throws ServiceException {
+    public List<User> findActivatedUsers(int page) throws ServiceException {
         LOGGER.log(Level.INFO, "method findAll");
         try {
-            return userDao.findAlL(page);
+            return userDao.findActivatedUsers(page);
+        } catch (DaoException e) {
+            LOGGER.log(Level.ERROR, "exception in method findAll user in page : ", e);
+            throw new ServiceException("Exception in findAll method: {}", e);
+        }
+    }
+    @Override
+    public List<User> findDeactivatedUsers(int page) throws ServiceException {
+        LOGGER.log(Level.INFO, "method findAll");
+        try {
+            return userDao.findDeactivatedUsers(page);
         } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method findAll user in page : ", e);
             throw new ServiceException("Exception in findAll method: {}", e);

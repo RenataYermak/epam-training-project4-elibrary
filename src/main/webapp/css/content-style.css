@@ -110,6 +110,9 @@ p.info-style {
 span.info-style-srh {
     color: #60a860;
 }
+p.info-style-wrn {
+    color: #e71224;
+}
 
 .about-text-right p {
     float: left;

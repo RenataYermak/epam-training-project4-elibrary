@@ -211,11 +211,12 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
+
     @Override
     public void delete(Long id) throws DaoException {
         LOGGER.log(Level.INFO, "method delete");
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(DELETE_USER);) {
+             var preparedStatement = connection.prepareStatement(DELETE_USER)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -261,10 +262,28 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAlL(int page) throws DaoException {
+    public List<User> findActivatedUsers (int page) throws DaoException {
         List<User> usersOnPage = new ArrayList<>();
         try (var connection = ConnectionPool.getInstance().getConnection();
-             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_USERS)) {
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_ACTIVATED_USERS)) {
+            preparedStatement.setInt(1, ELEMENTS_ON_PAGE * (page - 1));
+            preparedStatement.setInt(2, ELEMENTS_ON_PAGE);
+            try (var resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    var optionalBook = userMapper.map(resultSet);
+                    optionalBook.ifPresent(usersOnPage::add);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException("Failed to find all users on defined page ", e);
+        }
+        return usersOnPage;
+    }
+    @Override
+    public List<User> findDeactivatedUsers (int page) throws DaoException {
+        List<User> usersOnPage = new ArrayList<>();
+        try (var connection = ConnectionPool.getInstance().getConnection();
+             var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_DEACTIVATED_USERS)) {
             preparedStatement.setInt(1, ELEMENTS_ON_PAGE * (page - 1));
             preparedStatement.setInt(2, ELEMENTS_ON_PAGE);
             try (var resultSet = preparedStatement.executeQuery()) {

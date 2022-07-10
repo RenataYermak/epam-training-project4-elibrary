@@ -37,8 +37,8 @@ public class FindBookCommand implements Command {
         if (isAuthorized(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
-                var book = bookService.findBook(id);
-                List<Author> authors = new ArrayList<>(authorService.findAllAuthors());
+                var book = bookService.find(id);
+                List<Author> authors = new ArrayList<>(authorService.findAll());
                 request.setAttribute(RequestAttribute.AUTHORS, authors);
                 request.setAttribute(RequestAttribute.BOOK, book);
                 return new Router(PagePath.EDIT_BOOK, Router.RouterType.FORWARD);

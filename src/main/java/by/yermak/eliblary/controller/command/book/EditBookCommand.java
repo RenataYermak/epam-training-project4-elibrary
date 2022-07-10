@@ -2,7 +2,6 @@ package by.yermak.eliblary.controller.command.book;
 
 import by.yermak.eliblary.controller.PagePath;
 import by.yermak.eliblary.entity.book.Author;
-import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.service.AuthorService;
 import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
@@ -48,7 +47,7 @@ public class EditBookCommand implements Command {
                 var category = request.getParameter(RequestParameter.BOOK_CATEGORY);
                 var publishYear = parseIntParameter(request.getParameter(RequestParameter.BOOK_PUBLISH_YEAR));
                 var number = parseIntParameter(request.getParameter(RequestParameter.BOOK_NUMBER));
-                var book = bookService.findBook(id);
+                var book = bookService.find(id);
                 if (book != null) {
                     if (category != null) {
                         book.setCategory(Category.valueOf(category.toUpperCase()));
@@ -58,7 +57,7 @@ public class EditBookCommand implements Command {
                     book.setPublishYear(publishYear);
                     book.setNumber(number);
                     bookService.update(book);
-                    authorService.findAuthor(author);
+                    authorService.find(author);
                     request.setAttribute(RequestAttribute.BOOK, book);
                     request.setAttribute(RequestAttribute.AUTHOR, author);
                     request.setAttribute(

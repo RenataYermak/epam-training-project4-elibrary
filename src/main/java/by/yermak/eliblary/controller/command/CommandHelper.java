@@ -38,7 +38,8 @@ public class CommandHelper {
         commands.put(CommandName.REGISTRATION, new RegistrationCommand());
         commands.put(CommandName.EDIT_USER, new EditUserCommand());
         commands.put(CommandName.FIND_USER, new FindUserCommand());
-        commands.put(CommandName.FIND_USERS, new FindAllUsersCommand());
+        commands.put(CommandName.FIND_ACTIVATED_USERS, new FindActivatedUsersCommand());
+        commands.put(CommandName.FIND_DEACTIVATED_USERS, new FindDeactivatedUsersCommand());
         commands.put(CommandName.DELETE_USER, new DeleteUserCommand());
         commands.put(CommandName.DEACTIVATE_USER, new DeactivateUserCommand());
         commands.put(CommandName.USER_SEARCH, new UserSearchCommand());

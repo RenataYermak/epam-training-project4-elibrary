@@ -27,7 +27,7 @@ class UserServiceImplTest {
 
     @Test
     void shouldGetUserById() throws ServiceException {
-        User actualUser = userService.findUser(438L);
+        User actualUser = userService.find(438L);
         assertNotNull(actualUser);
     }
 

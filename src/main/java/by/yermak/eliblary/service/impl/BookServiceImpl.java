@@ -1,14 +1,10 @@
 package by.yermak.eliblary.service.impl;
 
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.dao.BookDao;
-import by.yermak.eliblary.dao.OrderDao;
-import by.yermak.eliblary.dao.UserDao;
 import by.yermak.eliblary.dao.exception.DaoException;
 import by.yermak.eliblary.dao.impl.BookDaoImpl;
-import by.yermak.eliblary.dao.impl.OrderDaoImpl;
-import by.yermak.eliblary.dao.impl.UserDaoImpl;
 import by.yermak.eliblary.entity.book.Book;
+import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.exception.ServiceException;
 import by.yermak.eliblary.validator.BookValidator;
 import org.apache.logging.log4j.Level;
@@ -27,7 +23,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book findBook(Long id) throws ServiceException {
+    public Book find(Long id) throws ServiceException {
         LOGGER.log(Level.INFO, "method findBook");
         try {
             var bookOptional = bookDao.find(id);
@@ -42,7 +38,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAllBooks() throws ServiceException {
+    public List<Book> findAll() throws ServiceException {
         LOGGER.log(Level.INFO, "method findAllBooks");
         try {
             return bookDao.findAll();
@@ -93,7 +89,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findAllBooks(int page) throws ServiceException {
+    public List<Book> findAll(int page) throws ServiceException {
         LOGGER.log(Level.INFO, "method findAllBooks ");
         try {
             return bookDao.findAllBooks(page);

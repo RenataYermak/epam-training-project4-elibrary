@@ -33,7 +33,7 @@
         </div>
         <div class="content-search">
             <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
-                <a href="${pageContext.request.contextPath}/controller?command=find_users">
+                <a href="${pageContext.request.contextPath}/controller?command=find_activated_users">
                     <i class='far fa-arrow-alt-circle-left'></i> <fmt:message key="user.back.user_list"/>
                 </a>
             </c:if>
@@ -141,22 +141,22 @@
                 <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
             </div>
         </c:if>
-        <div class="content-submit-btn-main">
+        <div >
             <input hidden name="userId" value="${user.id}">
-            <button class="btn " style="width: 90px; margin-left: 129px; margin-top: 0px;" type="submit" name="command"
+            <button class="btn" style="width: 110px; margin-left: 150px; margin-top: 10px" type="submit" name="command"
                     value="edit_user">
                 <fmt:message key="user.button.submit"/>
             </button>
-            <button class=" btn" style="width: 71px;background-color: #6b6868;margin: 0 0 0 0" type="submit"
+            <button class=" btn" style="background-color: #6b6868;margin: 10px 0 0 10px"  type="submit"
                     name="command"
                     value="find_user"><fmt:message
                     key="user.button.cancel"/>
             </button>
         </div>
         <c:if test="${authUser.role == 'ADMIN' }">
-            <div class="content-submit-btn-deactivate">
+            <div>
                 <button class="btn"
-                        style="width: 176px; margin-left: 129px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
+                        style="width: 188px; margin-left: 150px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
                         type="submit" name="command" value="deactivate_user"><fmt:message
                         key="user.button.deactivate_account"/>
                 </button>

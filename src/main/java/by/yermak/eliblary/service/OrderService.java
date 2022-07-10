@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * Describes the behavior of {@link Order} entity.
  */
-public interface OrderService {
+public interface OrderService extends EntityService<Order, Long> {
+    boolean isOrderExist(Long bookId,Long userId) throws ServiceException;
     /**
      * Creat {@link Order} with filled fields
      *
@@ -62,16 +63,6 @@ public interface OrderService {
     void returnBook(Long orderId) throws ServiceException;
 
     /**
-     * Rejected {@link Book}
-     *
-     * @param orderId {@link Order}'s id
-     * @throws ServiceException if {@link Book} with <tt>id</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Book}
-     *                          into the data source
-     */
-    void rejectedOrder(Long orderId) throws ServiceException;
-
-    /**
      * Find orders in page  {@link Order}
      *
      * @param page count pages
@@ -92,15 +83,5 @@ public interface OrderService {
      * @param currentLocale the current locale, chosen by current user
      */
     void sendEmailRejectedOrder(String firstName, String secondName, String bookName, String email, String currentLocale);
-
-    /**
-     * Find order {@link Order} instance by <tt>id</tt>
-     *
-     * @param id {@link Order}'s id
-     * @return {@link Order} instance
-     * @throws ServiceException if {@link Order} with <tt>login</tt> do not present into
-     *                          data source or if an error occurs while searching {@link Order}
-     *                          into the data source
-     */
-    Order findOrder(Long id) throws ServiceException;
+    List<Order> findAll(int page, Long userId, Status orderStatus) throws ServiceException;
 }

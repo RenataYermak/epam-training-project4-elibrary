@@ -14,6 +14,7 @@ public final class PagePath {
      */
     public static final String USER_PROFILE = "/jsp/user_profile.jsp";
     public static final String USERS = "/jsp/users_table.jsp";
+    public static final String DEACTIVATED_USERS = "/jsp/deactivated_users.jsp";
     /**
      * Other pages path
      */
@@ -28,6 +29,7 @@ public final class PagePath {
      * url path
      */
     public static final String BOOKS_TABLE_URL = "/controller?command=find_books";
+    public static final String DEACTIVATED_USERS_URL ="/controller?command=find_deactivated_users";
 
     private PagePath() {
     }

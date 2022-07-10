@@ -55,6 +55,12 @@
                 </form>
             </c:if>
         </div>
+        <c:if test="${ warningMessagePassMismatch != null || successMessageBookOrdered!= null  }">
+            <div class="content-search" style="margin-top: 0px;margin-bottom: 0px; margin-right: 110px">
+                <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
+                <p class="content-msg cnt-msg-success">${successMessageBookOrdered}</p>
+            </div>
+        </c:if>
     </div>
     <hr/>
     <c:if test="${fn:length(books) > 0}">
@@ -73,7 +79,12 @@
                                 <span class="text-title">${book.title}</span></a>
                         </form>
                     </div>
-                    <br><span class="info-item">${book.author.name} <br>${book.category.name}, ${book.publishYear}</span>
+                    <br>
+                    <span class="info-item">${book.author.name} </span>
+                    <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
+                        <br>
+                        <span class="info-item">${book.category.name}, ${book.publishYear} </span>
+                    </c:if>
                     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
                         <form action="controller">
                             <label>
@@ -85,11 +96,16 @@
                         </form>
                     </c:if>
                     <c:if test="${sessionScope.authUser.role != 'ADMIN'}">
+                        <div class="book-author">
+                            <span class="author-name"><fmt:message key="table.label.available"/> ${book.number}</span>
+                        </div>
+                    </c:if>
+                    <c:if test="${sessionScope.authUser.role != 'ADMIN'}">
                         <form action="controller" method="post">
                             <input hidden name="bookId" value="${book.id}">
                             <input hidden name="userId" value="${sessionScope.authUser.id}">
                             <c:choose>
-                                <c:when test="${book.number != 0}">
+                                <c:when test="${book.number > 0}">
                                     <input hidden name="bookTitle" value="${book.title}">
                                     <select name="type" style="width: 100%;">
                                         <option value="reading_room" selected="selected"><fmt:message
@@ -132,34 +148,31 @@
                                href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page-1}">
                             <span aria-hidden="true">&laquo;</span></a></li>
                     </c:if>
-                    <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
-                        <c:choose>
-                            <c:when test="${requestScope.page eq i}">
-                                <li><a class="page-link">${i}</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a class="page-link"
-                                       href="${pageContext.request.contextPath}/controller?command=find_books&page=${i}">${i}</a>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:forEach>
-                    <c:if test="${requestScope.page lt requestScope.number_of_pages}">
-                        <li><a class="page-link"
-                               href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page+1}">
-                            <span aria-hidden="true">&raquo;</span></a></li>
+                    <c:if test="${requestScope.number_of_pages  > 1}">
+                        <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                            <c:choose>
+                                <c:when test="${requestScope.page eq i}">
+                                    <li><a class="page-link">${i}</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a class="page-link"
+                                           href="${pageContext.request.contextPath}/controller?command=find_books&page=${i}">${i}</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                            <li><a class="page-link"
+                                   href="${pageContext.request.contextPath}/controller?command=find_books&page=${requestScope.page+1}">
+                                <span aria-hidden="true">&raquo;</span></a></li>
+                        </c:if>
                     </c:if>
                 </ul>
             </nav>
         </div>
     </div>
     <c:if test="${fn:length(books) == 0}">
-        <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span>
-        </p>
-    </c:if>
-    <c:if test="${orderId != null}">
-        <p class="info-style"><fmt:message key="books.info.booked_success"/>
-            <span class="info-style-srh">${title}</span> <fmt:message key="books.info.book"/></p>
+        <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
     </c:if>
 </div>
 <%@ include file="footer.jsp" %>

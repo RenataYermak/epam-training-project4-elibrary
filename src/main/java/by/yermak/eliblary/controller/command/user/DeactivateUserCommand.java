@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_USER_DEACTIVATE;
+import static by.yermak.eliblary.util.locale.MessagesKey.*;
 
 public class DeactivateUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -43,6 +43,8 @@ public class DeactivateUserCommand implements Command {
                 return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
             }
         }
+        request.setAttribute(
+                RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, USER_NOT_DEACTIVATED));
         return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
     }
 }

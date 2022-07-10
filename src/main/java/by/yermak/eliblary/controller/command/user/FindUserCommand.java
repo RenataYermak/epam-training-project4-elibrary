@@ -30,7 +30,7 @@ public class FindUserCommand implements Command {
         if (isAuthorized(session) && isAuthorized(session)) {
             try {
                 Long userId = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
-                var user = userService.findUser(userId);
+                var user = userService.find(userId);
                 request.setAttribute(RequestAttribute.USER, user);
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {

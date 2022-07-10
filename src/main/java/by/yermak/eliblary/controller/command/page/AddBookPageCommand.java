@@ -31,7 +31,7 @@ public class AddBookPageCommand implements Command {
             currentRouter.setPagePath(PagePath.ADD_BOOK);
             currentRouter.setRouteType(Router.RouterType.FORWARD);
             try {
-                List<Author> authors = new ArrayList<>(authorService.findAllAuthors());
+                List<Author> authors = new ArrayList<>(authorService.findAll());
                 request.setAttribute(RequestAttribute.AUTHORS, authors);
                 return currentRouter;
             } catch (ServiceException e) {
