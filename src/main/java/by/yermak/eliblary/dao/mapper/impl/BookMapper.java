@@ -24,7 +24,7 @@ public class BookMapper implements EntityMapper<Book> {
             var book = new Book();
             book.setId(resultSet.getLong(BOOK_ID));
             book.setTitle(resultSet.getString(TITLE));
-            var authorMapper =new AuthorMapper();
+            var authorMapper = new AuthorMapper();
             Optional<Author> author = authorMapper.map(resultSet);
             author.ifPresent(book::setAuthor);
             book.setPublishYear(resultSet.getInt(PUBLISH_YEAR));

@@ -35,12 +35,13 @@ public class ReserveBookCommand implements Command {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
                 orderService.reserveBook(orderId);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
+                ////
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reserve book: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

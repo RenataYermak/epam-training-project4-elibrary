@@ -30,7 +30,7 @@ public class EditUserCommand implements Command {
     public Router execute(HttpServletRequest request, HttpSession session) {
         LOGGER.log(Level.INFO, "method execute()");
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
-        if (isAuthorized(session) ) {
+        if (isAuthorized(session)) {
             try {
                 Long id = parseLongParameter(request.getParameter(RequestParameter.USER_ID));
                 var login = request.getParameter(RequestParameter.USER_LOGIN);
@@ -63,7 +63,7 @@ public class EditUserCommand implements Command {
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating user: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

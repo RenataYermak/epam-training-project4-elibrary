@@ -6,12 +6,14 @@ import by.yermak.eliblary.entity.user.User;
 import by.yermak.eliblary.dao.exception.DaoException;
 
 import java.util.List;
+
 /**
  * Interface describes the opportunity that data source provide to store and
  * restore {@link Order} entity
  */
 public interface OrderDao extends EntityDao<Order, Long> {
-    boolean isOrderExist(Long bookId,Long userId) throws DaoException;
+    boolean isOrderExist(Long bookId, Long userId) throws DaoException;
+
     /**
      * Creates a new {@link Order}
      *
@@ -67,11 +69,21 @@ public interface OrderDao extends EntityDao<Order, Long> {
     /**
      * Finds users in page
      *
-     * @param page is the count pages
-     * @param  orderStatus  is the {@link Order}'s status
+     * @param page        is the count pages
+     * @param orderStatus is the {@link Order}'s status
      * @return {@link Order}  list of books in page
      * @throws DaoException if there is any problem during access
      */
     List<Order> findAlL(int page, Status orderStatus) throws DaoException;
-    List<Order> findAlL(int page,Long userId, Status orderStatus) throws DaoException;
+
+    /**
+     * Finds users in page
+     *
+     * @param page        is the count pages
+     * @param userId is the {@link User}'s id
+     * @param orderStatus is the {@link Order}'s status
+     * @return {@link Order}  list of books in page
+     * @throws DaoException if there is any problem during access
+     */
+    List<Order> findAlL(int page, Long userId, Status orderStatus) throws DaoException;
 }

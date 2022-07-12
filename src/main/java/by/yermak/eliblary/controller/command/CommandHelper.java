@@ -4,7 +4,6 @@ import by.yermak.eliblary.controller.command.book.*;
 import by.yermak.eliblary.controller.command.page.*;
 import by.yermak.eliblary.controller.command.user.*;
 
-
 import java.util.EnumMap;
 
 public class CommandHelper {

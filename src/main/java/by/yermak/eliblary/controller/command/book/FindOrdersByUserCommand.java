@@ -7,11 +7,9 @@ import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.OrderServiceImpl;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -27,12 +25,10 @@ public class FindOrdersByUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final OrderService orderService;
-    private final BookService bookService;
     public final UserService userService;
 
     public FindOrdersByUserCommand() {
         this.orderService = new OrderServiceImpl();
-        this.bookService = new BookServiceImpl();
         this.userService = new UserServiceImpl();
     }
 
@@ -49,11 +45,13 @@ public class FindOrdersByUserCommand implements Command {
                 List<Order> orderList = new ArrayList<>(orderService.findOrdersByUserIdAndStatus(userId, orderStatus));
                 List<Order> orders = new ArrayList<>(orderService.findAll(currentPage, userId, orderStatus));
                 int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
+                /////////////////////
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Reserved Books");
                 }
+                ///////////////////
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);

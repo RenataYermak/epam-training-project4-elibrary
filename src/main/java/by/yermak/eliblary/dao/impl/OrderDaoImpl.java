@@ -195,11 +195,11 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public List<Order> findAlL(int page,Long userId, Status orderStatus) throws DaoException {
+    public List<Order> findAlL(int page, Long userId, Status orderStatus) throws DaoException {
         List<Order> ordersOnPage = new ArrayList<>();
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_ORDERS_BY_USER)) {
-            preparedStatement.setLong(1,userId);
+            preparedStatement.setLong(1, userId);
             preparedStatement.setString(2, orderStatus.toString());
             preparedStatement.setInt(3, ELEMENTS_ON_PAGE * (page - 1));
             preparedStatement.setInt(4, ELEMENTS_ON_PAGE);
@@ -236,7 +236,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public boolean isOrderExist(Long bookId,Long userId) throws DaoException {
+    public boolean isOrderExist(Long bookId, Long userId) throws DaoException {
         boolean isExist = false;
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(SQL_IS_BOOK_ORDER_EXIST)) {

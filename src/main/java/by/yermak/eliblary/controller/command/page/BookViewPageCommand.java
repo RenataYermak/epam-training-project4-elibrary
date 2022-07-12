@@ -38,7 +38,7 @@ public class BookViewPageCommand implements Command {
                 return currentRouter;
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during find book by id: ", e);
-              //  return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.BOOK_VIEW, Router.RouterType.FORWARD);

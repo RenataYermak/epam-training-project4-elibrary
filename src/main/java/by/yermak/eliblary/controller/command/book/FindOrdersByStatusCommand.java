@@ -7,11 +7,9 @@ import by.yermak.eliblary.controller.Router;
 import by.yermak.eliblary.controller.command.Command;
 import by.yermak.eliblary.entity.order.Order;
 import by.yermak.eliblary.entity.order.Status;
-import by.yermak.eliblary.service.BookService;
 import by.yermak.eliblary.service.OrderService;
 import by.yermak.eliblary.service.UserService;
 import by.yermak.eliblary.service.exception.ServiceException;
-import by.yermak.eliblary.service.impl.BookServiceImpl;
 import by.yermak.eliblary.service.impl.OrderServiceImpl;
 import by.yermak.eliblary.service.impl.UserServiceImpl;
 import org.apache.logging.log4j.Level;
@@ -27,12 +25,10 @@ public class FindOrdersByStatusCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private final OrderService orderService;
-    private final BookService bookService;
     public final UserService userService;
 
     public FindOrdersByStatusCommand() {
         this.orderService = new OrderServiceImpl();
-        this.bookService = new BookServiceImpl();
         this.userService = new UserServiceImpl();
     }
 
@@ -46,13 +42,15 @@ public class FindOrdersByStatusCommand implements Command {
                 Status orderStatus = Status.valueOf(
                         request.getParameter(RequestParameter.ORDER_STATUS).toUpperCase());
                 List<Order> orderList = new ArrayList<>(orderService.findOrdersByOrderStatus(orderStatus));
-                List<Order> orders = new ArrayList<>(orderService.findAll(currentPage,orderStatus));
+                List<Order> orders = new ArrayList<>(orderService.findAll(currentPage, orderStatus));
                 int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
+                ////////////////////////////
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 }
+                ///////////////////////////
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);

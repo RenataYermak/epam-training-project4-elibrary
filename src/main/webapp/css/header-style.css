@@ -7,7 +7,6 @@
     width: 30%;
     display: inline-block;
     float: left;
-    /*background: yellow;*/
     margin-left: 100px;
 }
 
@@ -28,7 +27,6 @@ h1.title {
     display: inline-block;
     float: right;
     margin-right: 6px;
-    /*background: red;*/
 }
 
 p.header-hello {

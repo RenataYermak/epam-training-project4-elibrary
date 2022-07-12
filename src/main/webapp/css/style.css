@@ -6,7 +6,6 @@ body {
 
 #header { /* Верхний блок */
     background-image: linear-gradient(20deg, #0b959a, #126493);
-    /*background: #0080c0; !* Цвет фона *!*/
     padding: 5px; /* Поля вокруг текста */
     height: 45px;
 }
@@ -170,18 +169,6 @@ textarea:invalid {
     position: center;
 }
 
-/*.description-form {*/
-/*    height: 70px;*/
-/*    width: 220px;*/
-/*    padding-left: 10px;*/
-/*    border: 2px solid #338e8f;*/
-/*    outline: none;*/
-/*    background: #ffffff;*/
-/*    margin-top: 2px;*/
-/*    margin-bottom: 0px;*/
-/*    position: center;*/
-/*}*/
-
 .user-form {
     width: 53%;
     height: 15px;
@@ -194,7 +181,6 @@ textarea:invalid {
     position: center;
 }
 
-/*.....................*/
 textarea {
     width: 200px;
     height: 176px;
@@ -207,4 +193,3 @@ textarea {
     margin-top: 0;
     overflow-y: auto;
 }
- /*,,,,,,,,,,,,,,,,,,,,,*/

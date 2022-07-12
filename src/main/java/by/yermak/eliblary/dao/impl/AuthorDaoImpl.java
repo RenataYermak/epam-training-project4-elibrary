@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static by.yermak.eliblary.dao.sql.AuthorSql.*;
-import static by.yermak.eliblary.dao.sql.UserSql.SQL_IS_LOGIN_EXIST;
 
 public class AuthorDaoImpl implements AuthorDao {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -104,6 +103,5 @@ public class AuthorDaoImpl implements AuthorDao {
 
     @Override
     public void delete(Long id) throws DaoException {
-
     }
 }

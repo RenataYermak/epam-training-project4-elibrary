@@ -43,7 +43,7 @@ public class EditBookPictureCommand implements Command {
                     InputStream stream = request.getPart(RequestParameter.BOOK_PICTURE).getInputStream()) {
                 picture = stream.readAllBytes();
             } catch (ServletException | IOException e) {
-                LOGGER.log(Level.ERROR, "error while addNewProductCommand is trying to get photo. {}", e.getMessage());
+                LOGGER.log(Level.ERROR, "error while is trying to get photo. {}", e.getMessage());
             }
             try {
                 var id = parseLongParameter(request.getParameter(RequestParameter.BOOK_ID));
@@ -56,7 +56,7 @@ public class EditBookPictureCommand implements Command {
 
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating book: ", e);
-                //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

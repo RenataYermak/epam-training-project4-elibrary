@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -35,20 +34,21 @@ public class RejectOrderCommand implements Command {
         if (isAuthorized(session) && isAdmin(session)) {
             try {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
-                Order order =  orderService.find(orderId);
+                Order order = orderService.find(orderId);
                 var title = order.getBook().getTitle();
                 var firstName = order.getUser().getFirstName();
                 var secondName = order.getUser().getSecondName();
                 var email = order.getUser().getEmail();
                 orderService.delete(orderId);
-                orderService.sendEmailRejectedOrder(firstName,secondName,title, email, currentLocale);
+                orderService.sendEmailRejectedOrder(firstName, secondName, title, email, currentLocale);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
+                ///
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during reject order: ", e);
-              //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

@@ -39,7 +39,7 @@ public class AddAuthorCommand implements Command {
             try {
                 if (!authorService.isAuthorExist(authorName)) {
                     author.setName(authorName);
-                }else {
+                } else {
                     request.setAttribute(
                             RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, LOGIN_ALREADY_EXISTS));
                     return new Router(PagePath.ADD_AUTHOR, Router.RouterType.FORWARD);
@@ -50,7 +50,7 @@ public class AddAuthorCommand implements Command {
                 return new Router(PagePath.ADD_AUTHOR, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
-                //   return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

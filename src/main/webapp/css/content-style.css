@@ -7,6 +7,7 @@ h2 {
     margin: 0 5px 0 0;
     float: left;
 }
+
 .content-main {
     width: 100%;
     height: 50px;
@@ -94,6 +95,7 @@ h2 {
     margin-top: 15px;
     margin-right: 10px;
 }
+
 .content-edit {
     height: max-content;
     width: max-content;
@@ -110,6 +112,7 @@ p.info-style {
 span.info-style-srh {
     color: #60a860;
 }
+
 p.info-style-wrn {
     color: #e71224;
 }

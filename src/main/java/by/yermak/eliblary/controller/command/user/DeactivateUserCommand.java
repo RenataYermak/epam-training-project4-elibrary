@@ -40,7 +40,7 @@ public class DeactivateUserCommand implements Command {
                 return new Router(PagePath.USER_PROFILE, Router.RouterType.FORWARD);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during deactivating user: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

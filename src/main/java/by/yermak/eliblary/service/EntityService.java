@@ -37,7 +37,7 @@ public interface EntityService<E, K> {
      *
      * @param entity is the entity
      * @return Entity instance
-     * @throws ServiceException  if an error occurs while writing new Entity into data source
+     * @throws ServiceException if an error occurs while writing new Entity into data source
      */
     E update(E entity) throws ServiceException;
 

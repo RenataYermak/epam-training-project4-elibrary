@@ -66,7 +66,7 @@ public class EditBookCommand implements Command {
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during updating book: ", e);
-                //  return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

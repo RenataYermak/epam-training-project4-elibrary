@@ -44,21 +44,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserByLogin(String login) throws ServiceException {
-        LOGGER.log(Level.INFO, "method find user by id");
-        try {
-            var optionalUser = userDao.findByLogin(login);
-            if (optionalUser.isEmpty()) {
-                throw new ServiceException("There is no such user with email: " + login);
-            }
-            return optionalUser.get();
-        } catch (DaoException e) {
-            LOGGER.log(Level.ERROR, "exception in method find user by id: ", e);
-            throw new ServiceException("Exception when find user by id: {}", e);
-        }
-    }
-
-    @Override
     public User find(String login, String pass) throws ServiceException {
         LOGGER.log(Level.INFO, "method find user by login and pass");
         if (!validator.isLoginValid(login) || !validator.isPasswordValid(pass)) {
@@ -194,6 +179,7 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Exception in findAll method: {}", e);
         }
     }
+
     @Override
     public List<User> findDeactivatedUsers(int page) throws ServiceException {
         LOGGER.log(Level.INFO, "method findAll");

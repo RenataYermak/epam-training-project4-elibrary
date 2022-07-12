@@ -11,7 +11,7 @@ import java.io.IOException;
 public class CopyrightTag extends TagSupport {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String COPYRIGHT_TAG = "<div class = \"footer\" id=\"footer\">@Copyright 2022 eLibrary " +
-            "by Renata Yermak. All rights reserved.</div>";
+                                                "by Renata Yermak. All rights reserved.</div>";
 
     @Override
     public int doStartTag() throws JspTagException {

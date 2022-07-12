@@ -243,6 +243,7 @@ public class OrderSql {
             FROM orders o
             WHERE o.book_id = ? AND o.user_id = ?
             LIMIT 1""";
+
     private OrderSql() {
     }
 }

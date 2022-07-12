@@ -19,6 +19,7 @@ public class AuthorSql {
             FROM book_authors ba
             WHERE ba.author_name= ?
             LIMIT 1""";
+
     private AuthorSql() {
     }
 }

@@ -75,7 +75,7 @@ public class AddBookCommand implements Command {
                 }
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during book creation: ", e);
-                //   return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         request.setAttribute(

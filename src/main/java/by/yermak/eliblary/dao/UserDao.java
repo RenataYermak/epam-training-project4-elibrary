@@ -83,12 +83,20 @@ public interface UserDao extends EntityDao<User, Long> {
     void deactivate(Long id) throws DaoException;
 
     /**
-     * Finds and returns the {@link User} list in page
+     * Finds and returns the activated {@link User} list in page
      *
      * @param page count pages
      * @return a list of {@link User} in page
      * @throws DaoException if there is any problem during access
      */
     List<User> findActivatedUsers(int page) throws DaoException;
-    List<User> findDeactivatedUsers (int page) throws DaoException;
+
+    /**
+     * Finds and returns the deactivated {@link User} list in page
+     *
+     * @param page count pages
+     * @return a list of {@link User} in page
+     * @throws DaoException if there is any problem during access
+     */
+    List<User> findDeactivatedUsers(int page) throws DaoException;
 }

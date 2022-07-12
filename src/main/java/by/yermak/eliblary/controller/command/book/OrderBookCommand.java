@@ -45,7 +45,7 @@ public class OrderBookCommand implements Command {
         var currentLocale = request.getSession().getAttribute(RequestAttribute.LOCALE_NAME).toString();
         if (isAuthorized(session)) {
             try {
-                if (!orderService.isOrderExist(parseLongParameter(request.getParameter(RequestParameter.BOOK_ID)),parseLongParameter(request.getParameter(RequestParameter.USER_ID)))) {
+                if (!orderService.isOrderExist(parseLongParameter(request.getParameter(RequestParameter.BOOK_ID)), parseLongParameter(request.getParameter(RequestParameter.USER_ID)))) {
                     Long orderId = orderService.orderBook(constructBookOrder(request));
                     List<Book> books = bookService.findAll();
                     Order order = orderService.find(orderId);

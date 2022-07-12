@@ -32,7 +32,7 @@ public class OrderMapper implements EntityMapper<Order> {
             order.setReservedDate(resultSet.getObject(RESERVED_DATE, LocalDateTime.class));
             order.setReturnedDate(resultSet.getObject(RETURNED_DATE, LocalDateTime.class));
             order.setRejectedDate(resultSet.getObject(REJECTED_DATE, LocalDateTime.class));
-            var userMapper =new UserMapper();
+            var userMapper = new UserMapper();
             Optional<User> user = userMapper.map(resultSet);
             user.ifPresent(order::setUser);
             var bookMapper = new BookMapper();

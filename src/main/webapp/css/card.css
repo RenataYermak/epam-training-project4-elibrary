@@ -58,17 +58,12 @@
     font-weight: bold;
 }
 
-
-/*////////////////////////////////////////////*/
 .block-book {
-   display: contents;
+    display: contents;
     margin-right: 10px;
     margin-top: 20px;
 }
-/*.image-book {*/
-/*    width: 289px;*/
-/*    height: 500px;*/
-/*}*/
+
 .image-book img {
     height: 400px;
     width: 289px;
@@ -91,7 +86,7 @@
     font-size: 17px;
 }
 
-.book-description{
+.book-description {
     font-size: 16px;
     margin: -4px 0 0 20px;
     font-style: normal;
@@ -102,6 +97,7 @@
     font-size: 26px;
     font-weight: bold;
 }
+
 .block-book-order {
     margin: 3px 0 0 20px;
 }

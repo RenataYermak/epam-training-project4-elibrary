@@ -17,6 +17,6 @@ public class AddAuthorPageCommand implements Command {
             currentRouter.setRouteType(Router.RouterType.FORWARD);
             return currentRouter;
         }
-        return  new Router(PagePath.ADD_AUTHOR, Router.RouterType.FORWARD);
+        return new Router(PagePath.ADD_AUTHOR, Router.RouterType.FORWARD);
     }
 }

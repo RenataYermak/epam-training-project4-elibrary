@@ -12,7 +12,7 @@ import java.util.List;
  * Describes the behavior of {@link Order} entity.
  */
 public interface OrderService extends EntityService<Order, Long> {
-    boolean isOrderExist(Long bookId,Long userId) throws ServiceException;
+
     /**
      * Creat {@link Order} with filled fields
      *
@@ -65,7 +65,8 @@ public interface OrderService extends EntityService<Order, Long> {
     /**
      * Find orders in page  {@link Order}
      *
-     * @param page count pages
+     * @param page        count pages
+     * @param orderStatus {@link Order}'s status
      * @return all  orders list {@link Order} instance
      * @throws ServiceException if  {@link Order}'s list don"t into
      *                          data source or if an error occurs while searching {@link Order}
@@ -83,5 +84,26 @@ public interface OrderService extends EntityService<Order, Long> {
      * @param currentLocale the current locale, chosen by current user
      */
     void sendEmailRejectedOrder(String firstName, String secondName, String bookName, String email, String currentLocale);
+
+    /**
+     * Checks whether an {@link User}'s email is already exist
+     *
+     * @param userId a {@link User}'s id
+     * @param bookId a {@link Book}'s id
+     * @return whether an {@link Order}'s is already exist
+     */
+    boolean isOrderExist(Long bookId, Long userId) throws ServiceException;
+
+    /**
+     * Find orders in page  {@link Order}
+     *
+     * @param page        count pages
+     * @param orderStatus {@link Order}'s status
+     * @param userId      {@link Order}'s user id
+     * @return all  orders list {@link Order} instance
+     * @throws ServiceException if  {@link Order}'s list don"t into
+     *                          data source or if an error occurs while searching {@link Order}
+     *                          into the data source
+     */
     List<Order> findAll(int page, Long userId, Status orderStatus) throws ServiceException;
 }

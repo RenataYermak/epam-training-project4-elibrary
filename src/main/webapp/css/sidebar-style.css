@@ -2,8 +2,7 @@ li {
     list-style-type: none;
     font-size: medium;
     margin-bottom: 10px;
-    padding-left: 24px; /* Смещаем текст вправо */
-
+    padding-left: 24px;
 }
 
 ul {

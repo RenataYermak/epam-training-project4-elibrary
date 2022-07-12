@@ -29,7 +29,7 @@ public class OrderBuilder {
 
     public OrderBuilder setId(Long id) {
         this.id = id;
-        return  this;
+        return this;
     }
 
     public Book getBook() {

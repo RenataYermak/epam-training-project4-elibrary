@@ -12,19 +12,6 @@ import java.util.List;
 public interface UserService extends EntityService<User, Long> {
 
     /**
-     * Find user {@link User} instance by <tt>login</tt>
-     *
-     * @param login {@link User}'s login
-     * @return {@link User} instance
-     * @throws ServiceException if <tt>login</tt> is null or empty or if <tt>login</tt>
-     *                          or not accords to specify pattern {@link UserValidator}
-     *                          or if {@link User} with <tt>login</tt> do not present into
-     *                          data source or if an error occurs while searching {@link User}
-     *                          into the data source
-     */
-    User findUserByLogin(String login) throws ServiceException;
-
-    /**
      * Log in and return {@link User} instance
      *
      * @param login {@link User}'s login

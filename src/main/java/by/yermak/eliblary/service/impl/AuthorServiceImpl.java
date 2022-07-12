@@ -56,7 +56,7 @@ public class AuthorServiceImpl implements AuthorService {
                 throw new ServiceException("Input data is invalid");
             }
             return optionalAuthor.get();
-        } catch (DaoException  e) {
+        } catch (DaoException e) {
             LOGGER.log(Level.ERROR, "exception in method create: ", e);
             throw new ServiceException("Exception when create author: {}", e);
         }

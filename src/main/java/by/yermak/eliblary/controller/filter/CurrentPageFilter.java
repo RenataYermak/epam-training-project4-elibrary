@@ -25,8 +25,8 @@ public class CurrentPageFilter implements Filter {
             currentPage = currentPage.substring(index);
             httpRequest.getSession().setAttribute(RequestAttribute.CURRENT_PAGE, currentPage);
         } else if (currentPage.contains(CONTAINS_CONTROLLER) && !httpRequest.getParameterMap().isEmpty()
-                && httpRequest.getQueryString() != null &&
-                !httpRequest.getQueryString().contains(CONTAINS_CHANGE_LOCALE)) {
+                   && httpRequest.getQueryString() != null &&
+                   !httpRequest.getQueryString().contains(CONTAINS_CHANGE_LOCALE)) {
             int index = currentPage.indexOf(CONTAINS_CONTROLLER);
             currentPage = currentPage.substring(index) + "?" + httpRequest.getQueryString();
 

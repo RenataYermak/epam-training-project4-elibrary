@@ -18,7 +18,7 @@ public final class MailSender {
     private static final Logger LOGGER = LogManager.getLogger();
 
     private static final String PROPERTIES_FILE = "config\\email.properties";
-    private static final String CONTENT_TYPE ="text/plain; charset=UTF-8";
+    private static final String CONTENT_TYPE = "text/plain; charset=UTF-8";
     private static MailSender instance;
     private Properties properties;
 

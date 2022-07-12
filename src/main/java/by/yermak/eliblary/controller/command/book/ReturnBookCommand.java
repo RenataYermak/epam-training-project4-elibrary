@@ -35,12 +35,13 @@ public class ReturnBookCommand implements Command {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
                 orderService.returnBook(orderId);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.RESERVED);
+                //
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.RESERVED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
             } catch (ServiceException e) {
                 LOGGER.log(Level.ERROR, "error during return book: ", e);
-                return new Router(PagePath.ERROR_PAGE_500,Router.RouterType.FORWARD);
+                return new Router(PagePath.ERROR_PAGE_500, Router.RouterType.FORWARD);
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);

@@ -262,7 +262,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findActivatedUsers (int page) throws DaoException {
+    public List<User> findActivatedUsers(int page) throws DaoException {
         List<User> usersOnPage = new ArrayList<>();
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_ACTIVATED_USERS)) {
@@ -279,8 +279,9 @@ public class UserDaoImpl implements UserDao {
         }
         return usersOnPage;
     }
+
     @Override
-    public List<User> findDeactivatedUsers (int page) throws DaoException {
+    public List<User> findDeactivatedUsers(int page) throws DaoException {
         List<User> usersOnPage = new ArrayList<>();
         try (var connection = ConnectionPool.getInstance().getConnection();
              var preparedStatement = connection.prepareStatement(FIND_PAGE_QUERY_DEACTIVATED_USERS)) {

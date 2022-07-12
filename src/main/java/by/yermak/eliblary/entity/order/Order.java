@@ -24,6 +24,7 @@ public class Order implements Serializable {
 
     public Order() {
     }
+
     public Order(OrderBuilder orderBuilder) {
         this.id = orderBuilder.getId();
         this.book = orderBuilder.getBook();
