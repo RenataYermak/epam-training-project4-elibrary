@@ -26,8 +26,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="include/header.jsp" %>
+<%@ include file="include/sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <div class="content-title">
@@ -56,7 +56,7 @@
             </c:if>
         </div>
         <c:if test="${ warningMessagePassMismatch != null || successMessageBookOrdered!= null  }">
-            <div class="content-search" style="margin-top: 0px;margin-bottom: 0px; margin-right: 110px">
+            <div class="content-search" style="margin-top: 0px;margin-bottom: 0px; margin-right: 60px">
                 <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
                 <p class="content-msg cnt-msg-success">${successMessageBookOrdered}</p>
             </div>
@@ -175,7 +175,7 @@
         <p class="info-style">${warningMessageBookSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
     </c:if>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>
 

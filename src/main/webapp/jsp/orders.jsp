@@ -25,8 +25,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="include/header.jsp" %>
+<%@ include file="include/sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <c:if test="${! empty ordersPageTitle}">
@@ -60,7 +60,6 @@
             <c:forEach items="${orders}" var="order">
                 <tr class="row">
                     <td class="cell">${order.book.title}</td>
-                        <%--                    <td class="cell">${order.book.author}</td>--%>
                     <td class="cell">${order.user.login}</td>
                     <td class="cell">${order.type.name}</td>
                     <td class="cell">${order.status.name}</td>
@@ -248,11 +247,45 @@
                 </div>
             </div>
         </c:if>
+        <c:if test="${orderStatus == 'ordered'}">
+            <div class="container">
+                <div class="rows" style="justify-content: start">
+                    <nav aria-label="pagination">
+                        <ul class="pagination">
+                            <c:if test="${requestScope.page > 1}">
+                                <li><a class="page-link"
+                                       href="${pageContext.request.contextPath}/controller?orderId==${order.id}&command=reject_order&page=${requestScope.page-1}">
+                                    <span aria-hidden="true">&laquo;</span></a></li>
+                            </c:if>
+                            <c:if test="${requestScope.number_of_pages  > 1}">
+                                <c:forEach begin="1" end="${requestScope.number_of_pages}" var="i">
+                                    <c:choose>
+                                        <c:when test="${requestScope.page eq i}">
+                                            <li><a class="page-link">${i}</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li><a class="page-link"
+                                                   href="${pageContext.request.contextPath}/controller?orderId==${order.id}&command=reject_order&page=${i}">${i}</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                <c:if test="${requestScope.page lt requestScope.number_of_pages}">
+                                    <li><a class="page-link"
+                                           href="${pageContext.request.contextPath}/controller?orderId==${order.id}&command=reject_order&page=${requestScope.page+1}">
+                                        <span aria-hidden="true">&raquo;</span></a></li>
+                                </c:if>
+                            </c:if>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </c:if>
     </c:if>
     <c:if test="${orders.size() == 0}">
         <p class="info-style">There are no <span class="info-style-srh">${orderStatus}</span> books</p>
     </c:if>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>

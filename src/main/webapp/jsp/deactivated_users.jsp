@@ -23,8 +23,8 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
-<%@ include file="header.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="include/header.jsp" %>
+<%@ include file="include/sidebar.jsp" %>
 <div id="content">
     <div class="content-main">
         <div class="content-title">
@@ -133,6 +133,6 @@
         <p class="info-style">${warningMessageUserSearch} <span class="info-style-srh">"${searchQuery}"</span></p>
     </c:if>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>

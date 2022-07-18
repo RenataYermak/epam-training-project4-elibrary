@@ -34,8 +34,12 @@ multiple copies. Administrator manages Readers and Books.
 - Tests: JUnit 4
 ***
 ### Screenshot
-![Снимок](https://user-images.githubusercontent.com/72652915/169157310-920aace0-6182-4a2b-a818-79cda55128e8.PNG)
-![Снимоsssк](https://user-images.githubusercontent.com/72652915/169157368-0f089f6b-e4fc-449b-b6ca-ff267f376459.PNG)
+![1Снимок](https://user-images.githubusercontent.com/72652915/179511168-21aa6715-260b-4c34-bf63-d5c7d0b814ec.PNG)
+![11Снимок](https://user-images.githubusercontent.com/72652915/179511176-125b8817-20a4-494c-9f43-8af79db674f5.PNG)
+![2Снимок](https://user-images.githubusercontent.com/72652915/179511190-3041170a-341d-49a3-b587-ff27ea6209e6.PNG)
+![4Снимок](https://user-images.githubusercontent.com/72652915/179511195-4ac822de-cce8-4630-9f78-e17197b75191.PNG)
+![w21Снимок](https://user-images.githubusercontent.com/72652915/179511221-2f968924-6ca5-4a6e-98d2-8222cb9b9ed6.PNG)
+![dddСнимок](https://user-images.githubusercontent.com/72652915/179512638-73311f1f-0132-4b74-8be1-50c3f391552b.PNG)
 
 ***
 ### CREATED BY RENATA YERMAK 2022

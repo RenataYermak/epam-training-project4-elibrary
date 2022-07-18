@@ -97,6 +97,6 @@
         </p>
     </div>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>

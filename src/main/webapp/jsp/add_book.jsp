@@ -24,8 +24,8 @@
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="include/header.jsp" %>
+<%@ include file="include/sidebar.jsp" %>
 <div id="content">
     <c:if test="${sessionScope.authUser.role == 'ADMIN'}">
         <div class="content-main">
@@ -137,6 +137,6 @@
         <p class="info-style"><fmt:message key="register.info.permission"/></p>
     </c:if>
 </div>
-<%@ include file="footer.jsp" %>
+<%@ include file="include/footer.jsp" %>
 </body>
 </html>

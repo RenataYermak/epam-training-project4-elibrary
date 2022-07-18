@@ -33,7 +33,7 @@ body {
     padding: 6px; /* Поля вокруг текста */
     color: #f6f6f6; /* Цвет текста */
     clear: left; /* Отменяем действие float */
-    position: fixed;
+    /*position: fixed;*/
     left: 0;
     bottom: 0;
     width: 100%;
