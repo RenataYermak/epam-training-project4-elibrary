@@ -38,7 +38,6 @@ multiple copies. Administrator manages Readers and Books.
 ![11Снимок](https://user-images.githubusercontent.com/72652915/179511176-125b8817-20a4-494c-9f43-8af79db674f5.PNG)
 ![2Снимок](https://user-images.githubusercontent.com/72652915/179511190-3041170a-341d-49a3-b587-ff27ea6209e6.PNG)
 ![4Снимок](https://user-images.githubusercontent.com/72652915/179511195-4ac822de-cce8-4630-9f78-e17197b75191.PNG)
-![w21Снимок](https://user-images.githubusercontent.com/72652915/179511221-2f968924-6ca5-4a6e-98d2-8222cb9b9ed6.PNG)
 ![dddСнимок](https://user-images.githubusercontent.com/72652915/179512638-73311f1f-0132-4b74-8be1-50c3f391552b.PNG)
 
 ***
