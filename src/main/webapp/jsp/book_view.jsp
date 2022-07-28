@@ -48,7 +48,7 @@
                     </div>
                     <div class="content-edit">
                         <input hidden name="bookId" value="${book.id}">
-                        <button class="btn" style="width: 98px; margin: 0px 0 0 5px"  type="submit"
+                        <button class="btn" style="width: 115px; margin: 0px 0 0 5px"  type="submit"
                                 name="command"
                                 value="edit_book_picture"><fmt:message key="book.button.edit"/>
                         </button>

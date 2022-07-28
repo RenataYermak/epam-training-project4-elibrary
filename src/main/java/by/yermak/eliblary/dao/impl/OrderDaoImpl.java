@@ -248,8 +248,8 @@ public class OrderDaoImpl implements OrderDao {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("failed to check if user with {} email exists", bookId, e);
-            throw new DaoException("failed to check if user with " + bookId + " exists", e);
+            LOGGER.error("failed to check if orders with {} bookId exists", bookId, e);
+            throw new DaoException("failed to check if orders with " + bookId + " exists", e);
         }
         return isExist;
     }

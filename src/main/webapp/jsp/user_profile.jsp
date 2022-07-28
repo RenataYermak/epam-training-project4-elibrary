@@ -143,7 +143,7 @@
         </c:if>
         <div >
             <input hidden name="userId" value="${user.id}">
-            <button class="btn" style="width: 110px; margin-left: 150px; margin-top: 10px" type="submit" name="command"
+            <button class="btn" style="width: 110px; margin-left: 122px;  margin-top: 10px" type="submit" name="command"
                     value="edit_user">
                 <fmt:message key="user.button.submit"/>
             </button>
@@ -156,21 +156,21 @@
         <c:if test="${authUser.role == 'ADMIN' && authUser.login == 'admin'}">
             <div>
                 <button class="btn"
-                        style="width: 188px; margin-left: 150px; margin-top: 0px; margin-bottom: 10px;background-color: #b9b4b4"
-                        type="submit" name="command" value="deactivate_user" disabled="disabled"><fmt:message
-                        key="user.button.deactivate_account"/>
-                </button>
-            </div>
-        </c:if>
-        <c:if test="${authUser.role == 'ADMIN' && authUser.login != 'admin'}">
-            <div>
-                <button class="btn"
-                        style="width: 188px; margin-left: 150px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
+                        style="width: 188px; margin-left: 122px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
                         type="submit" name="command" value="deactivate_user" ><fmt:message
                         key="user.button.deactivate_account"/>
                 </button>
             </div>
         </c:if>
+<%--        <c:if test="${authUser.role == 'ADMIN' && authUser.login != 'admin'}">--%>
+<%--            <div>--%>
+<%--                <button class="btn"--%>
+<%--                        style="width: 188px; margin-left: 150px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"--%>
+<%--                        type="submit" name="command" value="deactivate_user" ><fmt:message--%>
+<%--                        key="user.button.deactivate_account"/>--%>
+<%--                </button>--%>
+<%--            </div>--%>
+<%--        </c:if>--%>
     </form>
 </div>
 <%@ include file="include/footer.jsp" %>

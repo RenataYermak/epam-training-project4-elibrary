@@ -126,7 +126,7 @@
                         name="command"
                         value="edit_book"><fmt:message key="book.button.edit"/>
                 </button>
-                <button class=" btn" style="background-color: #6b6868;margin-top: 10px" type="submit" name="command"
+                <button class=" btn" style="background-color: #6b6868;margin-top: 10px;width: 75px" type="submit" name="command"
                         value="find_book"><fmt:message
                         key="book.button.cancel"/></button>
             </div>

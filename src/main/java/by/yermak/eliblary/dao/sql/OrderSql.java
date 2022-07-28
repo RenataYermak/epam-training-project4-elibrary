@@ -241,7 +241,8 @@ public class OrderSql {
     public static final String SQL_IS_BOOK_ORDER_EXIST = """
             SELECT order_id
             FROM orders o
-            WHERE o.book_id = ? AND o.user_id = ?
+            JOIN order_statuses os ON os.order_status_id = o.status_id
+            WHERE o.book_id = ? AND o.user_id = ? AND os.order_status_name = 'ORDERED'
             LIMIT 1""";
 
     private OrderSql() {
