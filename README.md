@@ -24,6 +24,8 @@ multiple copies. Administrator manages Readers and Books.
 - view all users list
 - reject orders
 - reserve orders
+- send email after registration users
+- send email after rejected order
 ***
 ### Components used for the project:
 - Java 17
