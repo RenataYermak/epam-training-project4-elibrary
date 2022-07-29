@@ -15,11 +15,15 @@ multiple copies. Administrator manages Readers and Books.
 ### *Admin:*
 - __all user's allowed services__
 - registration user
-- add the book
+- add a new book
+- add a new author
 - edit the book
 - edit users
 - deactivated users
+- delete users
 - view all users list
+- reject orders
+- reserve orders
 ***
 ### Components used for the project:
 - Java 17
@@ -39,6 +43,5 @@ multiple copies. Administrator manages Readers and Books.
 ![2Снимок](https://user-images.githubusercontent.com/72652915/179511190-3041170a-341d-49a3-b587-ff27ea6209e6.PNG)
 ![4Снимок](https://user-images.githubusercontent.com/72652915/179511195-4ac822de-cce8-4630-9f78-e17197b75191.PNG)
 ![dddСнимок](https://user-images.githubusercontent.com/72652915/179512638-73311f1f-0132-4b74-8be1-50c3f391552b.PNG)
-
 ***
 ### CREATED BY RENATA YERMAK 2022
