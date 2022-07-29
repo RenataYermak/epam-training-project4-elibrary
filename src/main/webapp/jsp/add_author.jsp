@@ -42,16 +42,18 @@
         </div>
         <hr/>
         <div>
-            <form action="controller" method="get">
-                <td class="content-table"><fmt:message key="book.label.author"/></td>
-                <td><input class="book-form" type="text" name="authorName" required pattern="^[\p{L}\d\s-.']{2,25}$"
-                           oninvalid="this.setCustomValidity('<fmt:message
-                                   key="validation.book.add.author"/>')"
-                           onchange="this.setAttribute('value', this.value);
-                                   this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
-                                   key="validation.book.add.author"/>' : '');"
-                           value="${author.name}"></td>
-                </tr>
+            <form action="${pageContext.request.contextPath}/controller?command=add_author" method="post">
+                <table class="content-table-main">
+                    <td class="content-table"><fmt:message key="book.label.author"/></td>
+                    <td><input class="book-form" type="text" name="authorName" required pattern="^[\p{L}]{2,25}$"
+                               oninvalid="this.setCustomValidity('<fmt:message
+                                       key="validation.book.add.author"/>')"
+                               onchange="this.setAttribute('value', this.value);
+                                       this.setCustomValidity(this.validity.patternMismatch ? '<fmt:message
+                                       key="validation.book.add.author"/>' : '');"
+                               value="${author.name}"></td>
+                    </tr>
+                </table>
                 <div class="content-submit-btn-main">
                     <input hidden name="authorId" value="${author.id}">
                     <button class="btn" style="width: 57%;margin-left: 80px" type="submit" name="command"
