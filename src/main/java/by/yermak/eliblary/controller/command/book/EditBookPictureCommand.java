@@ -25,9 +25,8 @@ import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_BOOK_UPDATE;
 
 public class EditBookPictureCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
-
     private final BookService bookService;
+    LanguageMessage message = LanguageMessage.getInstance();
 
     public EditBookPictureCommand() {
         this.bookService = new BookServiceImpl();

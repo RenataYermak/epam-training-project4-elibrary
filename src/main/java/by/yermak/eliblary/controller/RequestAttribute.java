@@ -13,17 +13,14 @@ public final class RequestAttribute {
     /**
      * User attributes
      */
-    public static final String USER_NAME = "userName";
     public static final String USERS = "users";
     public static final String USER = "user";
-    public static final String USER_SEARCH = "userSearch";
 
     /**
      * Order attributes
      */
     public static final String ORDER_ID = "orderId";
     public static final String ORDERS = "orders";
-    public static final String ORDER = "order";
     public static final String ORDER_STATUS = "orderStatus";
     public static final String ORDERS_PAGE_TITLE = "ordersPageTitle";
 

@@ -20,8 +20,9 @@ import static by.yermak.eliblary.util.locale.MessagesKey.*;
 
 public class DeactivateUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
+    LanguageMessage message = LanguageMessage.getInstance();
+
 
     public DeactivateUserCommand() {
         this.userService = new UserServiceImpl();

@@ -20,9 +20,9 @@ import static by.yermak.eliblary.util.locale.MessagesKey.*;
 
 public class DeleteUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
+    private final UserService userService;
     LanguageMessage message = LanguageMessage.getInstance();
 
-    private final UserService userService;
 
     public DeleteUserCommand() {
         this.userService = new UserServiceImpl();

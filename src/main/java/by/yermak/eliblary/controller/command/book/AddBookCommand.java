@@ -30,10 +30,9 @@ import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_BOOK_ADD;
 
 public class AddBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
-
     private final BookService bookService;
     private final AuthorService authorService;
+    LanguageMessage message = LanguageMessage.getInstance();
 
     public AddBookCommand() {
         this.bookService = new BookServiceImpl();

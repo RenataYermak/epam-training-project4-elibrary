@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 public final class BookValidator extends AbstractValidator {
     private static final String BOOK_AUTHOR_REGEX = "^[\\p{L}\\d-\\s']{2,25}$";
-    private static final String BOOK_DESCRIPTION_REGEX = "^[\\p{L}\\d\\p{S}\\p{So}\\p{P}\\s\\f\\n\\r\\t\\v]{10,3000}$";
     private static final String SEARCH_REGEX = "^[\\p{L}\\d-\\s]{1,25}$";
 
     private static BookValidator instance;
@@ -36,10 +35,6 @@ public final class BookValidator extends AbstractValidator {
 
     public boolean isSearchValid(String searchQuery) {
         return searchQuery != null && isFieldValid(SEARCH_REGEX, searchQuery);
-    }
-
-    public boolean isDescriptionValid(String description) {
-        return description != null && isFieldValid(BOOK_DESCRIPTION_REGEX, description);
     }
 
     public boolean isPublishYearValid(int publishYear) {

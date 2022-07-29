@@ -45,7 +45,8 @@
             <table class="content-table-main">
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.login"/></td>
-                    <td><input class="user-form"  style="width: 165px" type="text" name="login" required pattern="^[\w\d-]{2,25}$"
+                    <td><input class="user-form" style="width: 165px" type="text" name="login" required
+                               pattern="^[\w\d-]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.login"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -55,7 +56,8 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.first_name"/></td>
-                    <td><input class="user-form" style="width: 165px"  type="text" name="firstName" required pattern="^[\p{L}]{2,25}$"
+                    <td><input class="user-form" style="width: 165px" type="text" name="firstName" required
+                               pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.firstname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -65,7 +67,8 @@
                 </tr>
                 <tr>
                     <td class="content-table"><fmt:message key="register.label.second_name"/></td>
-                    <td><input class="user-form" style="width: 165px" type="text" name="secondName" required pattern="^[\p{L}]{2,25}$"
+                    <td><input class="user-form" style="width: 165px" type="text" name="secondName" required
+                               pattern="^[\p{L}]{2,25}$"
                                oninvalid="this.setCustomValidity('<fmt:message
                                        key="validation.user.registration.secondname"/>')"
                                onchange="this.setAttribute('value', this.value);
@@ -97,7 +100,7 @@
                                value="${user.email}"></td>
                 </tr>
                 <tr>
-                    <td class="content-table" ><fmt:message key="register.label.role"/></td>
+                    <td class="content-table"><fmt:message key="register.label.role"/></td>
                     <td>
                         <select name="userRole" style="width: 180px">
                             <option value="admin"><fmt:message key="register.label.admin"/></option>

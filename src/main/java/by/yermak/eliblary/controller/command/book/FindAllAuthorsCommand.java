@@ -19,7 +19,6 @@ import java.util.List;
 
 public class FindAllAuthorsCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final AuthorService authorService;
 
     public FindAllAuthorsCommand() {

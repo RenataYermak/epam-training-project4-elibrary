@@ -1,11 +1,6 @@
 package by.yermak.eliblary.controller;
 
 public final class RequestParameter {
-    /**
-     * Command params
-     */
-    public static final String COMMAND = "command";
-    public static final String PAGE_PATH = "path";
 
     /**
      * Book params
@@ -28,7 +23,6 @@ public final class RequestParameter {
     public static final String USER_SECONDNAME = "secondName";
     public static final String USER_EMAIL = "email";
     public static final String USER_ROLE = "userRole";
-    public static final String USER_REPEAT_PASSWORD = "repeatPassword";
 
     /**
      * Order book
@@ -40,16 +34,13 @@ public final class RequestParameter {
     /**
      * Author
      */
-    public static final String AUTHOR_ID = "authorId";
     public static final String AUTHOR_NAME = "authorName";
 
     /**
      * Other
      */
+    public static final String COMMAND = "command";
     public static final String SEARCH_QUERY = "searchQuery";
-    public static final String PAGINATION_CURRENT_PAGE = "currentPage";
-    public static final String PAGINATION_RECORDS_PER_PAGE = "recordsPerPage";
-    public static final String PAGINATION_PAGES_QUANTITY = "pagesQuantity";
 
     private RequestParameter() {
     }

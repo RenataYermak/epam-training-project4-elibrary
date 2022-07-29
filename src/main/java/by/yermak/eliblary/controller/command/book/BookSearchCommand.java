@@ -22,8 +22,8 @@ import static by.yermak.eliblary.util.locale.MessagesKey.SEARCH_BOOK_FAIL;
 
 public class BookSearchCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
     private final BookService bookService;
+    LanguageMessage message = LanguageMessage.getInstance();
 
     public BookSearchCommand() {
         this.bookService = new BookServiceImpl();

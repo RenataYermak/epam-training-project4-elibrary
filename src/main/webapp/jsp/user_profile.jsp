@@ -141,13 +141,13 @@
                 <p class="content-msg cnt-msg-error">${warningMessagePassMismatch}</p>
             </div>
         </c:if>
-        <div >
+        <div>
             <input hidden name="userId" value="${user.id}">
             <button class="btn" style="width: 110px; margin-left: 122px;  margin-top: 10px" type="submit" name="command"
                     value="edit_user">
                 <fmt:message key="user.button.submit"/>
             </button>
-            <button class=" btn" style="background-color: #6b6868;margin: 10px 0 0 10px"  type="submit"
+            <button class=" btn" style="background-color: #6b6868;margin: 10px 0 0 10px" type="submit"
                     name="command"
                     value="find_user"><fmt:message
                     key="user.button.cancel"/>
@@ -157,20 +157,11 @@
             <div>
                 <button class="btn"
                         style="width: 188px; margin-left: 122px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"
-                        type="submit" name="command" value="deactivate_user" ><fmt:message
+                        type="submit" name="command" value="deactivate_user"><fmt:message
                         key="user.button.deactivate_account"/>
                 </button>
             </div>
         </c:if>
-<%--        <c:if test="${authUser.role == 'ADMIN' && authUser.login != 'admin'}">--%>
-<%--            <div>--%>
-<%--                <button class="btn"--%>
-<%--                        style="width: 188px; margin-left: 150px; margin-top: 0px; margin-bottom: 10px;background-color: #e50d0d"--%>
-<%--                        type="submit" name="command" value="deactivate_user" ><fmt:message--%>
-<%--                        key="user.button.deactivate_account"/>--%>
-<%--                </button>--%>
-<%--            </div>--%>
-<%--        </c:if>--%>
     </form>
 </div>
 <%@ include file="include/footer.jsp" %>

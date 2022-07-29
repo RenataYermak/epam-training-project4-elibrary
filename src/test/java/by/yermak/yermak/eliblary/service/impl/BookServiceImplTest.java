@@ -1,5 +1,6 @@
 package by.yermak.yermak.eliblary.service.impl;
 
+import by.yermak.eliblary.entity.book.Author;
 import by.yermak.eliblary.entity.book.Book;
 import by.yermak.eliblary.entity.book.Category;
 import by.yermak.eliblary.service.BookService;
@@ -31,31 +32,30 @@ class BookServiceImplTest {
         assertThat(actualBooks.size(), is(expectedNumberOfBooks));
     }
 
-//    @Test
-//    void shouldRemoveBook() throws ServiceException {
-//        int expectedNumberOfBooks = 20;
-//        bookService.delete(3L);
-//        List<Book> actualBooks = bookService.findAllBooks();
-//        assertNotNull(actualBooks);
-//        assertThat(actualBooks.size(), is(expectedNumberOfBooks));
-//        bookService.create(bookCreator(3L));
-//    }
-//
-//    @Test
-//    void shouldCreateBook() throws ServiceException {
-//        int expectedNumberOfBooks = 30;
-//        bookService.create(bookCreator(400L));
-//        List<Book> actualBooks = bookService.findAllBooks();
-//        assertNotNull(actualBooks);
-//        assertThat(actualBooks.size(), is(expectedNumberOfBooks));
-//        bookService.delete(400L);
-//    }
+    @Test
+    void shouldRemoveBook() throws ServiceException {
+        int expectedNumberOfBooks = 20;
+        bookService.delete(3L);
+        List<Book> actualBooks = bookService.findAll();
+        assertNotNull(actualBooks);
+        assertThat(actualBooks.size(), is(expectedNumberOfBooks));
+    }
+
+    @Test
+    void shouldCreateBook() throws ServiceException {
+        int expectedNumberOfBooks = 30;
+        List<Book> actualBooks = bookService.findAll();
+        assertNotNull(actualBooks);
+        assertThat(actualBooks.size(), is(expectedNumberOfBooks));
+        bookService.delete(400L);
+    }
 
     Book bookCreator(Long id) {
         Book book = new Book();
         book.setId(id);
         book.setTitle("Title");
-        book.setAuthor("Author");
+        Author author = new Author("Alan");
+        book.setAuthor(author);
         book.setPublishYear(1999);
         book.setCategory(Category.FICTION);
         book.setDescription("Description");

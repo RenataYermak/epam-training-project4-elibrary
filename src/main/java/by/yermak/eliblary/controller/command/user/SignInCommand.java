@@ -23,9 +23,9 @@ import static by.yermak.eliblary.util.locale.MessagesKey.INCORRECT_LOGIN_OR_PASS
 
 public class SignInCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
     private final BookService bookService;
+    LanguageMessage message = LanguageMessage.getInstance();
 
     public SignInCommand() {
         this.userService = new UserServiceImpl();

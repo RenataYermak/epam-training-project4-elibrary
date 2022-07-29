@@ -19,7 +19,6 @@ import java.util.List;
 
 public class FindAllBooksCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final BookService bookService;
 
     public FindAllBooksCommand() {

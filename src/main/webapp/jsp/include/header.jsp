@@ -41,11 +41,6 @@
                         </button>
                     </form>
                 </div>
-<%--                <div class="header-right-buttons">--%>
-<%--                    <div>--%>
-<%--                        <p class="header-hello"><fmt:message key="header.hello"/> ${authUser.firstName}</p>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
             </div>
         </c:if>
     </div>

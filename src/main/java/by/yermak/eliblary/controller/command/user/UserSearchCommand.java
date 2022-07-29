@@ -22,8 +22,9 @@ import static by.yermak.eliblary.util.locale.MessagesKey.SEARCH_USER_FAIL;
 
 public class UserSearchCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
+    LanguageMessage message = LanguageMessage.getInstance();
+
 
     public UserSearchCommand() {
         this.userService = new UserServiceImpl();

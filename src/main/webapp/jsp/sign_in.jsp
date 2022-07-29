@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="../css/sidebar-style.css">
     <link rel="stylesheet" href="../css/table-style.css">
     <link rel="stylesheet" href="../css/content-style.css">
-
     <!-- Icons -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <!-- Fonts Style -->
@@ -49,7 +48,8 @@
         <form name="loginForm" method="post" action="controller">
             <div class="signIn">
                 <label>
-                    <input class="login-form" style="margin-bottom: 5px" type="text" name="login" required placeholder="login"
+                    <input class="login-form" style="margin-bottom: 5px" type="text" name="login" required
+                           placeholder="login"
                            pattern="[\w\d-]{2,25}$"
                            oninvalid="this.setCustomValidity('<fmt:message
                                    key="validation.user.registration.login"/>')"
@@ -60,7 +60,8 @@
                 </label>
                 <br/>
                 <label>
-                    <input class = "login-form" style="margin-bottom: 10px" type="password" id="pwd" name="password" required
+                    <input class="login-form" style="margin-bottom: 10px" type="password" id="pwd" name="password"
+                           required
                            placeholder="password"
                            pattern="(?=.*[\d])(?=.*[\p{Ll}])(?=.*[\p{Lu}])(?=\S+$).{8,49}"
                            oninvalid="this.setCustomValidity('<fmt:message
@@ -71,7 +72,7 @@
                            value="${user.password}">
                     <br/>
                     <input style="margin-bottom: 10px" type="checkbox" onclick="show()"><fmt:message
-                        key="sign_in.button.show_password" />
+                        key="sign_in.button.show_password"/>
                 </label>
                 <br/>
                 <button class="btn" type="submit" name="command" value="sign_in"><fmt:message

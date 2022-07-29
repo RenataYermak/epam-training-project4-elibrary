@@ -19,8 +19,8 @@ import static by.yermak.eliblary.util.locale.MessagesKey.USER_NOT_UPDATE;
 
 public class EditUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-    LanguageMessage message = LanguageMessage.getInstance();
     private final UserService userService;
+    LanguageMessage message = LanguageMessage.getInstance();
 
     public EditUserCommand() {
         this.userService = new UserServiceImpl();

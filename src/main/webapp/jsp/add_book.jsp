@@ -51,7 +51,8 @@
             </div>
         </div>
         <hr/>
-        <form style="margin-left: 10px" action="${pageContext.request.contextPath}/controller?command=add_book" method="post"
+        <form style="margin-left: 10px" action="${pageContext.request.contextPath}/controller?command=add_book"
+              method="post"
               enctype="multipart/form-data">
             <table class="content-table-main">
                 <tr>

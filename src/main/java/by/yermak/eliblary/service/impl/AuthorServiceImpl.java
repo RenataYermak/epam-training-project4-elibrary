@@ -13,8 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-;
-
 public class AuthorServiceImpl implements AuthorService {
     private static final Logger LOGGER = LogManager.getLogger();
     private final AuthorDao authorDao;
