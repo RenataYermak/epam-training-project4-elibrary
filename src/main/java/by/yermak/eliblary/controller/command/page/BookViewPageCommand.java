@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 public class BookViewPageCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final BookService bookService;
 
     public BookViewPageCommand() {

@@ -10,7 +10,6 @@ import java.util.List;
  * Describes the behavior of {@link Book} entity.
  */
 public interface BookService extends EntityService<Book, Long> {
-
     /**
      * Creat {@link Book} with filled fields
      *

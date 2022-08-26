@@ -31,7 +31,7 @@ public class OrderBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
     private final OrderService orderService;
     private final BookService bookService;
-    LanguageMessage message = LanguageMessage.getInstance();
+    private final LanguageMessage message = LanguageMessage.getInstance();
 
     public OrderBookCommand() {
         this.orderService = new OrderServiceImpl();
@@ -66,7 +66,6 @@ public class OrderBookCommand implements Command {
         request.setAttribute(RequestAttribute.WARNING_MESSAGE_PASS_MISMATCH, message.getText(currentLocale, BOOK_NOT_ORDER));
         return new Router(PagePath.BOOKS_TABLE_URL, Router.RouterType.FORWARD);
     }
-
 
     private Order constructBookOrder(HttpServletRequest request) {
         return new OrderBuilder()

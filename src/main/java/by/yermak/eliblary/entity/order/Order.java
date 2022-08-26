@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Order implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private Long id;
     private Book book;
     private User user;

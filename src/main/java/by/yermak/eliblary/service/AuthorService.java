@@ -7,7 +7,6 @@ import by.yermak.eliblary.service.exception.ServiceException;
  * Describes the behavior of {@link Author} entity.
  */
 public interface AuthorService extends EntityService<Author, Long> {
-
     /**
      * Creat {@link Author} with filled fields
      *

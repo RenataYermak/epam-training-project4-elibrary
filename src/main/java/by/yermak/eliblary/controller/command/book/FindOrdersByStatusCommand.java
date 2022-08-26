@@ -23,7 +23,6 @@ import java.util.List;
 
 public class FindOrdersByStatusCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final OrderService orderService;
     public final UserService userService;
 
@@ -44,13 +43,11 @@ public class FindOrdersByStatusCommand implements Command {
                 List<Order> orderList = new ArrayList<>(orderService.findOrdersByOrderStatus(orderStatus));
                 List<Order> orders = new ArrayList<>(orderService.findAll(currentPage, orderStatus));
                 int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
-                ////////////////////////////
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 }
-                ///////////////////////////
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);

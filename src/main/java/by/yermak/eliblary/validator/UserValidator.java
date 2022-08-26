@@ -8,7 +8,6 @@ public final class UserValidator extends AbstractValidator {
     private static final String EMAIL_REGEX = "^([\\w-]+[?:[\\w-]+.)*]@([?:[\\w-]+.]*\\w[\\w-]{0,50})\\.([a-z]{2,6}(?:\\.[a-z]{2})?)$)";
     private static final String LOGIN_REGEX = "^[\\w-]{2,25}$";
     private static final String SEARCH_REGEX = "^[\\p{L}\\d-]{1,25}$";
-
     private static UserValidator instance;
 
     private UserValidator() {

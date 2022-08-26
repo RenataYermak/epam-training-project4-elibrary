@@ -16,7 +16,6 @@ import static org.apache.logging.log4j.core.util.Loader.getClassLoader;
 
 public final class MailSender {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private static final String PROPERTIES_FILE = "config\\email.properties";
     private static final String CONTENT_TYPE = "text/plain; charset=UTF-8";
     private static MailSender instance;

@@ -27,7 +27,7 @@ public class EditBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
     private final BookService bookService;
     private final AuthorService authorService;
-    LanguageMessage message = LanguageMessage.getInstance();
+    private final LanguageMessage message = LanguageMessage.getInstance();
 
     public EditBookCommand() {
         this.bookService = new BookServiceImpl();

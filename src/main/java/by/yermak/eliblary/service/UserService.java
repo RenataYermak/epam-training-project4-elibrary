@@ -10,7 +10,6 @@ import java.util.List;
  * Describes the behavior of {@link User} entity.
  */
 public interface UserService extends EntityService<User, Long> {
-
     /**
      * Log in and return {@link User} instance
      *

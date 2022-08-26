@@ -18,7 +18,6 @@ import java.util.List;
 
 public class OrderServiceImpl implements OrderService {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final OrderDao orderDao;
 
     public OrderServiceImpl() {

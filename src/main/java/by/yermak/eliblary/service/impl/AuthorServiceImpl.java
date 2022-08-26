@@ -18,7 +18,6 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorDao authorDao;
     private final BookValidator validator = BookValidator.getInstance();
 
-
     public AuthorServiceImpl() {
         this.authorDao = new AuthorDaoImpl();
     }

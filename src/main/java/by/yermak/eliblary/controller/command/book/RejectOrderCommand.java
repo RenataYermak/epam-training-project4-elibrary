@@ -20,7 +20,6 @@ import java.util.List;
 
 public class RejectOrderCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final OrderService orderService;
 
     public RejectOrderCommand() {
@@ -42,7 +41,6 @@ public class RejectOrderCommand implements Command {
                 orderService.delete(orderId);
                 orderService.sendEmailRejectedOrder(firstName, secondName, title, email, currentLocale);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.ORDERED);
-                ///
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Ordered Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.ORDERED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);

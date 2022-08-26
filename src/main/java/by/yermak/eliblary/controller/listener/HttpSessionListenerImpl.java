@@ -13,7 +13,6 @@ public class HttpSessionListenerImpl implements HttpSessionListener {
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {
-        HttpSessionListener.super.sessionCreated(se);
         var session = se.getSession();
         session.setAttribute(SessionAttribute.LOCALE, DEFAULT_LOCALE);
         session.setAttribute(SessionAttribute.CURRENT_PAGE, PagePath.SIGN_IN);
@@ -21,6 +20,5 @@ public class HttpSessionListenerImpl implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        HttpSessionListener.super.sessionDestroyed(se);
     }
 }

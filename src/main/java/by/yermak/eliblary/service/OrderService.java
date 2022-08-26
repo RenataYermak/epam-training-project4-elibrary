@@ -12,7 +12,6 @@ import java.util.List;
  * Describes the behavior of {@link Order} entity.
  */
 public interface OrderService extends EntityService<Order, Long> {
-
     /**
      * Creat {@link Order} with filled fields
      *

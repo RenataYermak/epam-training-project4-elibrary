@@ -20,7 +20,6 @@ import java.util.List;
 
 public class ReturnBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final OrderService orderService;
 
     public ReturnBookCommand() {
@@ -35,7 +34,6 @@ public class ReturnBookCommand implements Command {
                 Long orderId = parseLongParameter(request.getParameter(RequestParameter.ORDER_ID));
                 orderService.returnBook(orderId);
                 List<Order> orders = orderService.findOrdersByOrderStatus(Status.RESERVED);
-                //
                 request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "All Reserved Books");
                 request.setAttribute(RequestAttribute.ORDER_STATUS, Status.RESERVED.getName());
                 request.setAttribute(RequestAttribute.ORDERS, orders);
@@ -45,6 +43,5 @@ public class ReturnBookCommand implements Command {
             }
         }
         return new Router(PagePath.ORDERS, Router.RouterType.FORWARD);
-
     }
 }

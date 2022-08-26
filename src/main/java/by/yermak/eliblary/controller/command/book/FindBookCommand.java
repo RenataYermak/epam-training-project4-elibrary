@@ -22,7 +22,6 @@ import java.util.List;
 
 public class FindBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final BookService bookService;
     private final AuthorService authorService;
 

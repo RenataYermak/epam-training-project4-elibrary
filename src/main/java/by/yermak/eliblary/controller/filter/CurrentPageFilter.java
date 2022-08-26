@@ -15,6 +15,10 @@ public class CurrentPageFilter implements Filter {
     private static final String CONTAINS_CHANGE_LOCALE = "command=change_locale";
 
     @Override
+    public void init(FilterConfig filterConfig) {
+    }
+
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
         var httpRequest = (HttpServletRequest) servletRequest;
@@ -33,5 +37,9 @@ public class CurrentPageFilter implements Filter {
             httpRequest.getSession().setAttribute(RequestAttribute.CURRENT_PAGE, currentPage);
         }
         filterChain.doFilter(httpRequest, servletResponse);
+    }
+
+    @Override
+    public void destroy() {
     }
 }

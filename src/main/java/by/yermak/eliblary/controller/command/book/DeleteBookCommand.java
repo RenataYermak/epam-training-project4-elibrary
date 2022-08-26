@@ -22,7 +22,7 @@ import static by.yermak.eliblary.util.locale.MessagesKey.SUCCESS_BOOK_DELETE;
 public class DeleteBookCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
     private final BookService bookService;
-    LanguageMessage message = LanguageMessage.getInstance();
+    private final  LanguageMessage message = LanguageMessage.getInstance();
 
     public DeleteBookCommand() {
         this.bookService = new BookServiceImpl();

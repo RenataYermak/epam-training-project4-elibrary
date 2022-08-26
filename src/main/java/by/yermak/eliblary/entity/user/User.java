@@ -10,6 +10,7 @@ import java.util.Objects;
 public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
     private Long id;
     private String login;
     private String password;

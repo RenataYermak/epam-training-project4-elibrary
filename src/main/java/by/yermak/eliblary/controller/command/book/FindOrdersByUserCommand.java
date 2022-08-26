@@ -23,7 +23,6 @@ import java.util.List;
 
 public class FindOrdersByUserCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
-
     private final OrderService orderService;
     public final UserService userService;
 
@@ -45,13 +44,11 @@ public class FindOrdersByUserCommand implements Command {
                 List<Order> orderList = new ArrayList<>(orderService.findOrdersByUserIdAndStatus(userId, orderStatus));
                 List<Order> orders = new ArrayList<>(orderService.findAll(currentPage, userId, orderStatus));
                 int numberOfPages = (int) Math.ceil(orderList.size() * 1.0 / RequestAttribute.RECORDS_PER_PAGE);
-                /////////////////////
                 if (orderStatus.equals(Status.ORDERED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Ordered Books");
                 } else if (orderStatus.equals(Status.RESERVED)) {
                     request.setAttribute(RequestAttribute.ORDERS_PAGE_TITLE, "My Reserved Books");
                 }
-                ///////////////////
                 request.setAttribute(RequestAttribute.ORDER_STATUS, orderStatus.getName());
                 request.setAttribute(RequestAttribute.NUMBER_OF_PAGES, numberOfPages);
                 request.setAttribute(RequestAttribute.PAGE, currentPage);

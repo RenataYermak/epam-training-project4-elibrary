@@ -23,7 +23,7 @@ import static by.yermak.eliblary.dao.sql.OrderSql.*;
 
 public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = LogManager.getLogger();
-    OrderMapper orderMapper = new OrderMapper();
+    private final OrderMapper orderMapper = new OrderMapper();
 
     @Override
     public List<Order> findOrdersByOrderStatus(Status orderStatus) throws DaoException {

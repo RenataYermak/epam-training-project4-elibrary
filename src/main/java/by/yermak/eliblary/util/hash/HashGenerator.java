@@ -19,7 +19,6 @@ import java.util.Base64;
  */
 public final class HashGenerator {
     private static final Logger LOGGER = LogManager.getLogger(HashGenerator.class);
-
     private static final int ENCRYPTION_ITERATIONS = 1024;
     private static final int KEY_LENGTH = 128;
     private static final int SALT_SIZE = 16;

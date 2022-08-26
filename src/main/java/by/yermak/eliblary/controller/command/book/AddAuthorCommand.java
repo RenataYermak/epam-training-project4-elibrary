@@ -22,7 +22,7 @@ import static by.yermak.eliblary.util.locale.MessagesKey.*;
 public class AddAuthorCommand implements Command {
     private static final Logger LOGGER = LogManager.getLogger();
     private final AuthorService authorService;
-    LanguageMessage message = LanguageMessage.getInstance();
+    private final LanguageMessage message = LanguageMessage.getInstance();
 
     public AddAuthorCommand() {
         this.authorService = new AuthorServiceImpl();

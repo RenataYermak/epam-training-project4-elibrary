@@ -21,6 +21,12 @@ public interface Command {
      */
     Router execute(HttpServletRequest request, HttpSession session);
 
+    /**
+     *  Find command  by name.
+     *
+     * @param name the {Command}'s name
+     * @return command
+     */
     static Command of(String name) {
         return CommandHelper.getInstance().getCommand(name);
     }
